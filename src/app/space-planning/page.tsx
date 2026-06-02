@@ -33,7 +33,7 @@ export default function SpacePlanningPage() {
 
       <section className="section">
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px', '@media (max-width: 900px)': { gridTemplateColumns: '1fr' } } as any}>
+          <div className="grid-2-col">
             
             <div>
               <ScrollReveal>

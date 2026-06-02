@@ -146,10 +146,7 @@ export default function Home() {
       {/* ===== ABOUT ===== */}
       <section id="about" className="section" style={{ position: 'relative' }}>
         <div className="container">
-          <div style={{ 
-            display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '60px', alignItems: 'center',
-            '@media (max-width: 900px)': { gridTemplateColumns: '1fr' }
-          } as any}>
+          <div className="grid-split" style={{ alignItems: 'center' }}>
             
             <div>
               <ScrollReveal>
