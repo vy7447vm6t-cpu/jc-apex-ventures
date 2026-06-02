@@ -1,10 +1,9 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PageHero from '@/components/PageHero';
-import EnquiryForm, { FormField } from '@/components/EnquiryForm';
 import ScrollReveal from '@/components/ScrollReveal';
 import { 
   Building2, 
@@ -16,32 +15,13 @@ import {
   Briefcase, 
   Printer,
   FileText,
-  Sparkles
+  Sparkles,
+  Send,
+  Calculator,
+  Truck,
+  Wrench,
+  CheckCircle2
 } from 'lucide-react';
-
-const formFields: FormField[] = [
-  { name: 'requestType', label: 'Request Type', type: 'radio', options: ['Job (One-off)', 'Contract (Ongoing)', 'General Enquiry'], required: true },
-  { name: 'category', label: 'Category', type: 'radio', options: ['Corporate', 'Personal / Individual'], required: true },
-  { name: 'jobType', label: 'Job Type', type: 'select', options: [
-    'Corporate Printing', 
-    'Brochures', 
-    'Catalogues', 
-    'Wedding Cards', 
-    'Signage', 
-    'Vinyl', 
-    'Flex / Banners', 
-    'Stickers / Labels', 
-    'Branding Materials', 
-    'Custom Requirement'
-  ], required: true },
-  { name: 'quantity', label: 'Quantity', type: 'number', placeholder: 'e.g., 500', required: true },
-  { name: 'area', label: 'Delivery Area', type: 'select', options: ['Vasai', 'Virar', 'Nalasopara', 'Mumbai City', 'Other'], required: true },
-  { name: 'quality', label: 'Quality Requirement', type: 'radio', options: ['Standard', 'Premium'], required: true },
-  { name: 'budget', label: 'Estimated Budget Range (₹)', type: 'text', placeholder: 'e.g., 5000 - 10000', required: false },
-  { name: 'contact', label: 'Contact Number', type: 'tel', placeholder: '+91', required: true },
-  { name: 'email', label: 'Email for Estimate', type: 'email', placeholder: 'your@email.com', required: true },
-  { name: 'files', label: 'Design Files', type: 'file-info', placeholder: 'Accepted formats: PDF, JPG, JPEG. Please attach these files directly in the email that opens when you submit.' },
-];
 
 const flexRates = [
   { item: 'Normal Flex', rate: '₹15 / sq. ft.', spec: 'Standard outdoor flex banner' },
@@ -100,8 +80,140 @@ const logisticsRates = [
   { item: 'Acrylic Letter Fitting', rate: '₹2,500 - ₹3,000 / job', spec: 'Ground floor shopfront installation work' },
 ];
 
+// Calculator engine that computes rates in real-time
+const calculateEstimate = (
+  jobType: string,
+  quantity: number,
+  quality: string,
+  area: string,
+  installation: boolean,
+  sizeSqFt: number
+) => {
+  let printCost = 0;
+  let transportCost = 0;
+  let installationCost = 0;
+
+  const qty = Number(quantity) || 0;
+  const sqft = Number(sizeSqFt) || 0;
+
+  // 1. Printing Cost Calculations
+  switch (jobType) {
+    case 'Corporate Printing':
+      if (quality === 'Premium') {
+        printCost = (qty / 1000) * 2500; // Executive Bond
+      } else {
+        printCost = (qty / 1000) * 2000; // Alabaster Paper
+      }
+      break;
+    case 'Brochures':
+      printCost = (qty / 1000) * 16000; // 12x18 300GSM Art Card
+      break;
+    case 'Catalogues':
+      printCost = (qty / 1000) * 28000; // Hospital File multi-page style
+      break;
+    case 'Wedding Cards':
+      printCost = qty * 7.5; // Avg cost per card cover + inserts
+      break;
+    case 'Signage':
+      const signageRate = quality === 'Premium' ? 450 : 350; // Glow Sign Board rate
+      printCost = sqft * signageRate;
+      break;
+    case 'Vinyl':
+      const vinylRate = quality === 'Premium' ? 40 : 35; // Eco Solvent (40) vs Normal (35)
+      printCost = sqft * vinylRate * qty;
+      break;
+    case 'Flex / Banners':
+      const flexRate = quality === 'Premium' ? 25 : 15; // Star Flex (25) vs Normal (15)
+      printCost = sqft * flexRate * qty;
+      break;
+    case 'Stickers / Labels':
+      printCost = qty * 1.5; // Custom labels base
+      break;
+    case 'Branding Materials':
+      printCost = (qty / 1000) * 2800; // Envelope A4 Alabaster
+      break;
+    case 'Custom Requirement':
+    default:
+      printCost = qty * 5;
+      break;
+  }
+
+  // 2. Transport Logistics Calculations
+  switch (area) {
+    case 'Virar':
+      transportCost = 300;
+      break;
+    case 'Nalasopara':
+      transportCost = 500;
+      break;
+    case 'Vasai':
+      transportCost = 800;
+      break;
+    case 'Mumbai City':
+      transportCost = 1500;
+      break;
+    default:
+      transportCost = 0;
+      break;
+  }
+
+  // 3. Installation & Labour Calculations
+  if (installation) {
+    if (jobType === 'Signage') {
+      installationCost = 2500;
+    } else if (jobType === 'Flex / Banners') {
+      installationCost = sqft * 40; // Wooden Frame work
+    } else if (jobType === 'Vinyl') {
+      installationCost = sqft * 10; // Pasting work
+    } else {
+      installationCost = 300; // Basic banner fit
+    }
+  }
+
+  const subtotal = printCost + transportCost + installationCost;
+  return {
+    printCost: Math.round(printCost),
+    transportCost: Math.round(transportCost),
+    installationCost: Math.round(installationCost),
+    total: Math.round(subtotal)
+  };
+};
+
 export default function PrintManagementPage() {
-  const [activeTab, setActiveTab] = React.useState<'flex' | 'offset' | 'acrylic' | 'logistics'>('flex');
+  const [activeTab, setActiveTab] = useState<'flex' | 'offset' | 'acrylic' | 'logistics'>('flex');
+
+  // Form + Calculator State
+  const [formData, setFormData] = useState({
+    requestType: 'Job (One-off)',
+    category: 'Corporate',
+    jobType: 'Corporate Printing',
+    quantity: 1000,
+    sizeSqFt: 10,
+    quality: 'Standard',
+    area: 'Virar',
+    installation: false,
+    contact: '',
+    email: '',
+    notes: ''
+  });
+
+  const [quote, setQuote] = useState({ printCost: 0, transportCost: 0, installationCost: 0, total: 0 });
+
+  useEffect(() => {
+    const updatedQuote = calculateEstimate(
+      formData.jobType,
+      formData.quantity,
+      formData.quality,
+      formData.area,
+      formData.installation,
+      formData.sizeSqFt
+    );
+    setQuote(updatedQuote);
+  }, [formData]);
+
+  const handleChange = (name: string, value: any) => {
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
   const getRatesForTab = () => {
     switch (activeTab) {
@@ -110,6 +222,40 @@ export default function PrintManagementPage() {
       case 'acrylic': return acrylicRates;
       case 'logistics': return logisticsRates;
     }
+  };
+
+  const showSizeField = ['Signage', 'Vinyl', 'Flex / Banners'].includes(formData.jobType);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    let body = `eMudran Print Enquiry & Estimated Quote:\n\n`;
+    body += `Request Type: ${formData.requestType}\n`;
+    body += `Category: ${formData.category}\n`;
+    body += `Job / Product Type: ${formData.jobType}\n`;
+    body += `Quantity: ${formData.quantity}\n`;
+    if (showSizeField) {
+      body += `Dimensions / Size: ${formData.sizeSqFt} sq. ft.\n`;
+    }
+    body += `Material Quality: ${formData.quality}\n`;
+    body += `Delivery Area: ${formData.area}\n`;
+    body += `Installation Service: ${formData.installation ? 'Required (Yes)' : 'Not Required (No)'}\n`;
+    if (formData.notes) {
+      body += `Additional Notes: ${formData.notes}\n`;
+    }
+    body += `\n`;
+    body += `--- CALCULATED ESTIMATE ---\n`;
+    body += `Printing Cost: ₹${quote.printCost}\n`;
+    body += `Transport & Logistics: ₹${quote.transportCost}\n`;
+    body += `Installation & Labour: ₹${quote.installationCost}\n`;
+    body += `Total Estimated Cost: ₹${quote.total}\n\n`;
+    body += `Customer Contact: ${formData.contact}\n`;
+    body += `Customer Email: ${formData.email}\n\n`;
+    body += `Note: Final rates are subject to artwork verification and site conditions.\n`;
+    body += `---\nSent from JC Apex Ventures Website (eMudran Division)`;
+
+    const mailtoUrl = `mailto:printmgmt@jcapexv.com?subject=${encodeURIComponent(`New eMudran Enquiry: ${formData.jobType}`)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoUrl;
   };
 
   return (
@@ -324,7 +470,7 @@ export default function PrintManagementPage() {
                   </thead>
                   <tbody>
                     {getRatesForTab().map((row, idx) => (
-                      <tr key={idx} style={{ borderBottom: '1px solid rgba(255,255,255,0.03)', background: idx % 2 === 0 ? 'rgba(255,255,255,0.005)' : 'transparent', transition: 'background 0.2s ease' }} className="table-row-hover">
+                      <tr key={idx} style={{ borderBottom: '1px solid rgba(255,255,255,0.03)', background: idx % 2 === 0 ? 'rgba(255,255,255,0.005)' : 'transparent', transition: 'background 0.2s ease' }}>
                         <td style={{ padding: '16px 24px', color: 'var(--color-text-primary)', fontWeight: 600, fontSize: '0.92rem' }}>{row.item}</td>
                         <td style={{ padding: '16px 24px', color: 'var(--color-accent)', fontWeight: 700, fontSize: '0.92rem' }}>{row.rate}</td>
                         <td style={{ padding: '16px 24px', color: 'var(--color-text-secondary)', fontSize: '0.88rem', lineHeight: 1.4 }}>{row.spec}</td>
@@ -356,32 +502,318 @@ export default function PrintManagementPage() {
         </div>
       </section>
 
-      {/* Enquiry Form Section */}
+      {/* Enquiry + Estimate Calculator Section */}
       <section id="enquiry-section" className="section" style={{ paddingTop: '40px', background: 'radial-gradient(circle at center, rgba(212,175,55,0.03) 0%, transparent 70%)' }}>
         <div className="container">
-          <div style={{ maxWidth: '700px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '50px' }}>
             <ScrollReveal>
-              <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-                <div className="label" style={{ marginBottom: '16px' }}>
-                  <Sparkles size={14} style={{ marginRight: '6px' }} />
-                  Estimate Request
-                </div>
-                <h2 style={{ fontSize: 'clamp(2rem, 3vw, 2.5rem)', marginBottom: '16px' }}>
-                  Get a Free Print Estimate
-                </h2>
-                <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.95rem' }}>
-                  Provide your job specifications, quantity requirements, and finishing preferences. eMudran's desk will calculate pricing and reply directly via email.
-                </p>
+              <div className="label" style={{ marginBottom: '16px' }}>
+                <Calculator size={14} style={{ marginRight: '6px' }} />
+                Instant Estimate Calculator
               </div>
+              <h2 style={{ fontSize: 'clamp(2rem, 3vw, 2.5rem)', marginBottom: '16px' }}>
+                Configure Your Print Project
+              </h2>
+              <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.95rem', maxWidth: '600px', margin: '0 auto' }}>
+                Adjust specifications below to view a real-time price estimate. Submit to send your detailed requirements directly to our planning desk.
+              </p>
+            </ScrollReveal>
+          </div>
+
+          <div className="grid-split">
+            {/* Input Form Side */}
+            <ScrollReveal delay={1}>
+              <form onSubmit={handleSubmit} className="glass-panel" style={{ padding: '36px' }}>
+                <h3 style={{ fontSize: '1.25rem', marginBottom: '24px', color: 'var(--color-accent)' }}>Project Specifications</h3>
+                
+                {/* Request Type */}
+                <div className="form-group">
+                  <label className="form-label">Request Type *</label>
+                  <div className="form-radio-group">
+                    {['Job (One-off)', 'Contract (Ongoing)', 'General Enquiry'].map((opt) => (
+                      <label key={opt} className="form-radio-label">
+                        <input 
+                          type="radio" 
+                          name="requestType" 
+                          value={opt} 
+                          checked={formData.requestType === opt}
+                          onChange={(e) => handleChange('requestType', e.target.value)}
+                          className="form-radio"
+                        />
+                        {opt}
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Category */}
+                <div className="form-group">
+                  <label className="form-label">Category *</label>
+                  <div className="form-radio-group">
+                    {['Corporate', 'Personal / Individual'].map((opt) => (
+                      <label key={opt} className="form-radio-label">
+                        <input 
+                          type="radio" 
+                          name="category" 
+                          value={opt} 
+                          checked={formData.category === opt}
+                          onChange={(e) => handleChange('category', e.target.value)}
+                          className="form-radio"
+                        />
+                        {opt}
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Job / Product Type */}
+                <div className="form-group">
+                  <label className="form-label">Job / Product Type *</label>
+                  <select 
+                    value={formData.jobType}
+                    onChange={(e) => handleChange('jobType', e.target.value)}
+                    className="form-select"
+                    required
+                  >
+                    {[
+                      'Corporate Printing', 
+                      'Brochures', 
+                      'Catalogues', 
+                      'Wedding Cards', 
+                      'Signage', 
+                      'Vinyl', 
+                      'Flex / Banners', 
+                      'Stickers / Labels', 
+                      'Branding Materials', 
+                      'Custom Requirement'
+                    ].map((opt) => (
+                      <option key={opt} value={opt}>{opt}</option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Quantity */}
+                <div className="form-group">
+                  <label className="form-label">Quantity *</label>
+                  <input 
+                    type="number" 
+                    value={formData.quantity}
+                    onChange={(e) => handleChange('quantity', Number(e.target.value))}
+                    className="form-input"
+                    min="1"
+                    required
+                  />
+                </div>
+
+                {/* Conditional Sizing field for Banner/Sign/Vinyl */}
+                {showSizeField && (
+                  <div className="form-group">
+                    <label className="form-label">Estimated Size (Total Sq. Ft.) *</label>
+                    <input 
+                      type="number" 
+                      value={formData.sizeSqFt}
+                      onChange={(e) => handleChange('sizeSqFt', Number(e.target.value))}
+                      className="form-input"
+                      min="1"
+                      placeholder="Width x Height e.g. 10"
+                      required={showSizeField}
+                    />
+                  </div>
+                )}
+
+                {/* Quality Tier */}
+                <div className="form-group">
+                  <label className="form-label">Material / Paper Quality *</label>
+                  <div className="form-radio-group">
+                    {['Standard', 'Premium'].map((opt) => (
+                      <label key={opt} className="form-radio-label">
+                        <input 
+                          type="radio" 
+                          name="quality" 
+                          value={opt} 
+                          checked={formData.quality === opt}
+                          onChange={(e) => handleChange('quality', e.target.value)}
+                          className="form-radio"
+                        />
+                        {opt}
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Delivery Area */}
+                <div className="form-group">
+                  <label className="form-label">Delivery Location *</label>
+                  <select 
+                    value={formData.area}
+                    onChange={(e) => handleChange('area', e.target.value)}
+                    className="form-select"
+                    required
+                  >
+                    {['Virar', 'Nalasopara', 'Vasai', 'Mumbai City', 'Other'].map((opt) => (
+                      <option key={opt} value={opt}>{opt}</option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Installation Service Checkbox */}
+                <div className="form-group">
+                  <label className="form-label">Labour & Installation Service</label>
+                  <div className="form-radio-group">
+                    <label className="form-radio-label">
+                      <input 
+                        type="checkbox" 
+                        checked={formData.installation}
+                        onChange={(e) => handleChange('installation', e.target.checked)}
+                        className="form-checkbox"
+                      />
+                      Request on-site mounting / installation work
+                    </label>
+                  </div>
+                </div>
+
+                {/* Contact Fields */}
+                <div className="form-group">
+                  <label className="form-label">Contact Number *</label>
+                  <input 
+                    type="tel" 
+                    placeholder="+91" 
+                    value={formData.contact}
+                    onChange={(e) => handleChange('contact', e.target.value)}
+                    className="form-input"
+                    required
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Email Address *</label>
+                  <input 
+                    type="email" 
+                    placeholder="your@email.com" 
+                    value={formData.email}
+                    onChange={(e) => handleChange('email', e.target.value)}
+                    className="form-input"
+                    required
+                  />
+                </div>
+
+                {/* Additional Notes */}
+                <div className="form-group">
+                  <label className="form-label">Design Specifications / Additional Notes</label>
+                  <textarea 
+                    placeholder="Provide margins, double-side print details, custom paper finishes, or installation heights..." 
+                    value={formData.notes}
+                    onChange={(e) => handleChange('notes', e.target.value)}
+                    className="form-textarea"
+                  />
+                </div>
+
+                {/* File Upload Instructions */}
+                <div style={{ 
+                  padding: '16px', 
+                  background: 'rgba(212,175,55,0.03)', 
+                  border: '1px dashed var(--color-border-accent)',
+                  borderRadius: '12px',
+                  fontSize: '0.85rem',
+                  color: 'var(--color-text-secondary)',
+                  marginTop: '16px',
+                  lineHeight: 1.5
+                }}>
+                  Accepted formats: PDF, JPG, JPEG. Please attach design files directly to the email client that opens upon form submission.
+                </div>
+              </form>
             </ScrollReveal>
 
-            <ScrollReveal delay={1}>
-              <EnquiryForm 
-                mailto="printmgmt@jcapexv.com"
-                subject="New eMudran Print Project Estimate Request"
-                fields={formFields}
-                submitText="Get Estimate"
-              />
+            {/* Estimated Quote Summary Side (Sticky Panel) */}
+            <ScrollReveal delay={2}>
+              <div style={{ position: 'sticky', top: '100px', height: 'fit-content' }}>
+                <div className="glass-panel" style={{ padding: '36px', border: '1px solid var(--color-border-accent)', boxShadow: '0 10px 30px rgba(0,0,0,0.3)' }}>
+                  <h3 style={{ fontSize: '1.25rem', marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <Sparkles size={18} color="var(--color-accent)" />
+                    Estimate Summary
+                  </h3>
+                  
+                  {/* Selected Spec Overview */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', borderBottom: '1px solid var(--color-border)', paddingBottom: '20px', marginBottom: '20px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.88rem' }}>
+                      <span style={{ color: 'var(--color-text-muted)' }}>Product</span>
+                      <span style={{ fontWeight: 500 }}>{formData.jobType}</span>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.88rem' }}>
+                      <span style={{ color: 'var(--color-text-muted)' }}>Quantity</span>
+                      <span style={{ fontWeight: 500 }}>{formData.quantity} Units</span>
+                    </div>
+                    {showSizeField && (
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.88rem' }}>
+                        <span style={{ color: 'var(--color-text-muted)' }}>Project Area</span>
+                        <span style={{ fontWeight: 500 }}>{formData.sizeSqFt} Sq. Ft.</span>
+                      </div>
+                    )}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.88rem' }}>
+                      <span style={{ color: 'var(--color-text-muted)' }}>Quality Grade</span>
+                      <span style={{ fontWeight: 500, color: formData.quality === 'Premium' ? 'var(--color-accent)' : 'inherit' }}>{formData.quality}</span>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.88rem' }}>
+                      <span style={{ color: 'var(--color-text-muted)' }}>Delivery Point</span>
+                      <span style={{ fontWeight: 500 }}>{formData.area} Location</span>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.88rem' }}>
+                      <span style={{ color: 'var(--color-text-muted)' }}>Installation Works</span>
+                      <span style={{ fontWeight: 500 }}>{formData.installation ? 'Requested' : 'None'}</span>
+                    </div>
+                  </div>
+
+                  {/* Calculations Breakdowns */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '32px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.9rem', color: 'var(--color-text-secondary)' }}>
+                        <Printer size={16} color="var(--color-text-muted)" />
+                        Printing Charges
+                      </div>
+                      <span style={{ fontWeight: 600 }}>₹{quote.printCost.toLocaleString()}</span>
+                    </div>
+
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.9rem', color: 'var(--color-text-secondary)' }}>
+                        <Truck size={16} color="var(--color-text-muted)" />
+                        Transport & Logistics
+                      </div>
+                      <span style={{ fontWeight: 600 }}>₹{quote.transportCost.toLocaleString()}</span>
+                    </div>
+
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.9rem', color: 'var(--color-text-secondary)' }}>
+                        <Wrench size={16} color="var(--color-text-muted)" />
+                        Installation & Labour
+                      </div>
+                      <span style={{ fontWeight: 600 }}>₹{quote.installationCost.toLocaleString()}</span>
+                    </div>
+                  </div>
+
+                  {/* Final Quote total */}
+                  <div style={{ background: 'rgba(212,175,55,0.05)', border: '1px solid var(--color-border-accent)', borderRadius: '12px', padding: '20px', marginBottom: '24px', textAlign: 'center' }}>
+                    <span style={{ display: 'block', fontSize: '0.8rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '4px' }}>Estimated Project Total</span>
+                    <span style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--color-accent)' }}>₹{quote.total.toLocaleString()}</span>
+                  </div>
+
+                  <button 
+                    onClick={handleSubmit}
+                    type="submit" 
+                    className="btn-primary" 
+                    style={{ width: '100%', padding: '16px' }}
+                    disabled={!formData.contact || !formData.email}
+                  >
+                    <span>Send Project Spec <Send size={16} /></span>
+                  </button>
+
+                  <p style={{ textAlign: 'center', fontSize: '0.75rem', color: 'var(--color-text-muted)', marginTop: '16px', lineHeight: 1.4 }}>
+                    {!formData.contact || !formData.email 
+                      ? "Fill in your contact and email to submit project enquiry." 
+                      : "Submission pre-fills all parameters and estimated quote in your email client."
+                    }
+                  </p>
+                </div>
+              </div>
             </ScrollReveal>
           </div>
         </div>
