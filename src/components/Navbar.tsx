@@ -24,7 +24,7 @@ export default function Navbar() {
   ];
 
   const servicesLinks = [
-    { href: '/print-management', label: 'Print Management & Design' },
+    { href: '/print-management', label: 'eMudran (Print Management)' },
     { href: '/licenses', label: 'Licences & Liaisoning' },
     { href: '/space-planning', label: 'Space Planning & Design' },
     { href: '/electricity-grievances', label: 'Electricity Grievances' },

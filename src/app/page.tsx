@@ -31,7 +31,7 @@ const activeDivisions = [
   { name: "Electricity Grievances", icon: Zap, href: "/electricity-grievances" },
   { name: "Space Planning & Design", icon: Layout, href: "/space-planning" },
   { name: "Licences & Liaisoning", icon: FileCheck, href: "/licenses" },
-  { name: "Print Management & Design", icon: Printer, href: "/print-management" },
+  { name: "eMudran (Print Management)", icon: Printer, href: "/print-management" },
 ];
 
 const upcomingDivisions = [
