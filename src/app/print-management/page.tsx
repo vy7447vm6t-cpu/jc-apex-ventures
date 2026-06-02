@@ -416,6 +416,84 @@ export default function PrintManagementPage() {
         </div>
       </section>
 
+      {/* Product Showcase Gallery */}
+      <section className="section" style={{ paddingBottom: '40px' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+            <ScrollReveal>
+              <h2 style={{ fontSize: 'clamp(2rem, 3vw, 2.5rem)', marginBottom: '16px' }}>
+                Showcase of Fine Craftsmanship
+              </h2>
+              <p style={{ color: 'var(--color-text-secondary)', maxWidth: '600px', margin: '0 auto', fontSize: '0.95rem' }}>
+                A visual overview of the high-fidelity print, binding, and architectural signage projects handled by the eMudran division.
+              </p>
+            </ScrollReveal>
+          </div>
+
+          <div className="grid-3-col">
+            <ScrollReveal delay={1}>
+              <div className="glass-panel" style={{ overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column' }}>
+                <div style={{ position: 'relative', width: '100%', aspectRatio: '1/1', overflow: 'hidden' }}>
+                  <img 
+                    src="/images/corporate_stationery.png" 
+                    alt="Corporate Stationery" 
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease', cursor: 'pointer' }}
+                    onMouseOver={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
+                    onMouseOut={(e) => (e.currentTarget.style.transform = 'scale(1.0)')}
+                  />
+                </div>
+                <div style={{ padding: '24px' }}>
+                  <h3 style={{ fontSize: '1.1rem', marginBottom: '8px' }}>Corporate Stationery Kits</h3>
+                  <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.88rem', lineHeight: 1.5 }}>
+                    Premium letterheads, double-sided envelopes, and textured business cards detailed with fine metallic gold hot stamping.
+                  </p>
+                </div>
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal delay={2}>
+              <div className="glass-panel" style={{ overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column' }}>
+                <div style={{ position: 'relative', width: '100%', aspectRatio: '1/1', overflow: 'hidden' }}>
+                  <img 
+                    src="/images/catalogues_mockup.png" 
+                    alt="Brochures & Catalogues" 
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease', cursor: 'pointer' }}
+                    onMouseOver={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
+                    onMouseOut={(e) => (e.currentTarget.style.transform = 'scale(1.0)')}
+                  />
+                </div>
+                <div style={{ padding: '24px' }}>
+                  <h3 style={{ fontSize: '1.1rem', marginBottom: '8px' }}>Catalogues & Brochures</h3>
+                  <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.88rem', lineHeight: 1.5 }}>
+                    Perfect bound multi-page portfolios, company profiles, and custom product catalogs printed on heavy-grade matte art card.
+                  </p>
+                </div>
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal delay={3}>
+              <div className="glass-panel" style={{ overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column' }}>
+                <div style={{ position: 'relative', width: '100%', aspectRatio: '1/1', overflow: 'hidden' }}>
+                  <img 
+                    src="/images/signage_mockup.png" 
+                    alt="3D LED Signage" 
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease', cursor: 'pointer' }}
+                    onMouseOver={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
+                    onMouseOut={(e) => (e.currentTarget.style.transform = 'scale(1.0)')}
+                  />
+                </div>
+                <div style={{ padding: '24px' }}>
+                  <h3 style={{ fontSize: '1.1rem', marginBottom: '8px' }}>3D Architectural Signage</h3>
+                  <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.88rem', lineHeight: 1.5 }}>
+                    Samsung-LED backlit hollow 3D box letters in acrylic and steel finishes, professionally fitted onto on-site ACP cladding walls.
+                  </p>
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
+        </div>
+      </section>
+
       {/* Catalogue & Rates Section */}
       <section className="section" style={{ paddingBottom: '60px' }}>
         <div className="container">
