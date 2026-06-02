@@ -43,7 +43,75 @@ const formFields: FormField[] = [
   { name: 'files', label: 'Design Files', type: 'file-info', placeholder: 'Accepted formats: PDF, JPG, JPEG. Please attach these files directly in the email that opens when you submit.' },
 ];
 
+const flexRates = [
+  { item: 'Normal Flex', rate: '₹15 / sq. ft.', spec: 'Standard outdoor flex banner' },
+  { item: 'Black Flex', rate: '₹18 / sq. ft.', spec: 'Opaque black back to prevent light bleed' },
+  { item: 'Star Flex', rate: '₹25 / sq. ft.', spec: 'Premium high-gloss heavy flex' },
+  { item: 'One Way Vision', rate: '₹45 / sq. ft.', spec: 'Perforated film for retail glass displays' },
+  { item: 'Eco Solvent Vinyl Print', rate: '₹40 / sq. ft.', spec: 'High-res printing with protective lamination' },
+  { item: 'Glow Sign Board', rate: '₹450 / sq. ft.', spec: 'Backlit sign board with internal LED framing' },
+  { item: 'Sun Board + Vinyl (5mm)', rate: '₹125 / sq. ft.', spec: 'Vinyl print mounted on rigid 5mm PVC sheet' },
+  { item: 'Banner with Wooden Frame', rate: '₹40 / sq. ft.', spec: 'Flex stretched on wooden support batten' },
+  { item: 'GI Pipe with Banner', rate: '₹75 / sq. ft.', spec: 'Flex banner with heavy-duty metal pipe support' },
+  { item: 'Clip-On Light Board', rate: '₹850 / sq. ft.', spec: 'Ultra-thin LED edge-lit clip frame board' },
+  { item: 'Vinyl Normal', rate: '₹35 / sq. ft.', spec: 'Standard self-adhesive print' },
+  { item: 'Star Vinyl', rate: '₹45 / sq. ft.', spec: 'High-durability polymeric adhesive vinyl' },
+  { item: 'Roller Standy with Star Flex', rate: '₹2,500 / standy', spec: 'Standard size retractable display standee with case' },
+];
+
+const offsetRates = [
+  { item: 'Leaflet (4-Color Offset)', rate: '₹8,000 (1 Side) / ₹12,000 (2 Side)', spec: 'Qty 1,000 | 8 x 12 inch | 170 GSM Art Paper' },
+  { item: 'Brochure (4-Color)', rate: '₹16,000 (4-Side)', spec: 'Qty 1,000 | 12 x 18 inch | 300 GSM Art Card' },
+  { item: 'Hospital File / Folder', rate: '₹28,000 (4-Side)', spec: 'Qty 1,000 | 12.5 x 22 inch | 350 GSM Art Card (Lamination: +₹2,000)' },
+  { item: 'Bill Book (1/8 Size)', rate: '₹1,400 (1 Side) / ₹2,000 (2 Side)', spec: 'Qty 1,000 | 5 x 8 inch | 70 GSM Bond Paper' },
+  { item: 'Bill Book (1/4 Size)', rate: '₹2,500 (1 Side) / ₹3,000 (2 Side)', spec: 'Qty 1,000 | 8 x 12 inch | 70 GSM Bond Paper' },
+  { item: 'Pamphlet (1/8 Size)', rate: '₹800 (1 Side) / ₹1,200 (2 Side)', spec: 'Qty 1,000 | 5 x 8 inch | Mix Color Paper' },
+  { item: 'Pamphlet (1/4 Size)', rate: '₹1,400 (1 Side) / ₹1,800 (2 Side)', spec: 'Qty 1,000 | 8 x 12 inch | Mix Color Paper' },
+  { item: 'Visiting Card (Non-Tearable UV)', rate: '₹1,100 (1 Side) / ₹1,500 (2 Side)', spec: 'Qty 1,000 | 2 x 3.5 inch | 250 GSM Synthetic' },
+  { item: 'Business Card (Art Card)', rate: '₹1,200 (1 Side) / ₹1,600 (2 Side)', spec: 'Qty 1,000 | 2 x 3.5 inch | 350 GSM Art Card' },
+  { item: 'Letterhead (Alabaster Paper)', rate: '₹2,000', spec: 'Qty 1,000 | A4 Size | Premium Alabaster Paper' },
+  { item: 'Letterhead (Executive Bond)', rate: '₹2,500', spec: 'Qty 1,000 | A4 Size | Premium Executive Bond Paper' },
+  { item: 'Envelope (Alabaster Paper)', rate: '₹2,800', spec: 'Qty 1,000 | A4 Size | Premium Alabaster Paper' },
+  { item: 'Wedding Card Invitation', rate: '₹1,500 onwards', spec: 'Qty 200+ | Premium cover & inserts, varies by design' },
+  { item: 'Society Name Plate (Acrylic)', rate: '₹400 / plate', spec: 'Custom laser engraved / printed acrylic sign' },
+  { item: 'Society Name Plate (Steel)', rate: '₹600 / plate', spec: 'Etched high-grade stainless steel sign' },
+];
+
+const acrylicRates = [
+  { item: 'Acrylic Lettering (Plain)', rate: '₹60 / sq. inch (4mm) | ₹70 / sq. inch (6mm)', spec: 'Laser-cut solid colored acrylic sheets' },
+  { item: 'Sandwich Lettering', rate: '₹90 / sq. inch', spec: 'Double layer color acrylic with clear spacer' },
+  { item: 'Box Lettering (3D)', rate: '₹140 - ₹150 / sq. inch', spec: '2-inch depth hollow structural letters' },
+  { item: 'LED Lettering (3D illuminated)', rate: '₹180 / sq. inch', spec: '3D box letters with internal Samsung LED modules' },
+  { item: 'ACP Sheet + Aluminium Channel', rate: '₹350 onwards / sq. ft.', spec: 'Aluminium Composite Panel backing sheet structure' },
+  { item: 'Lamination Charges', rate: '₹10 / sq. ft.', spec: 'Gloss or matte protective film overlay' },
+  { item: 'Designing Charges', rate: 'As per complexity', spec: 'Vector mapping, layout composition & proofing' },
+];
+
+const logisticsRates = [
+  { item: 'Transport (Local Virar Area)', rate: 'Minimum ₹300', spec: 'Standard logistics within Virar limits' },
+  { item: 'Transport (Virar to Nalasopara)', rate: '₹500', spec: 'Logistics delivery to Nalasopara area' },
+  { item: 'Transport (Virar to Vasai)', rate: '₹800', spec: 'Logistics delivery to Vasai area' },
+  { item: 'Wooden Frame Making / Fitting', rate: '₹40 / sq. ft.', spec: 'On-site frame construction' },
+  { item: 'Pole Fitting with Light', rate: '₹300 / pole', spec: 'Installation of light poles' },
+  { item: 'Vinyl Pasting', rate: '₹10 / sq. ft.', spec: 'Application of vinyl on storefronts/signboards' },
+  { item: 'Banner Pasting', rate: '₹8 / sq. ft.', spec: 'Sticking banner sheets onto walls/surfaces' },
+  { item: 'One Way Vision Pasting', rate: '₹10 / sq. ft.', spec: 'Glass storefront perforated film installation' },
+  { item: 'Banner Stapling & Fitting', rate: '₹300 / job', spec: 'Wood mount stapling work' },
+  { item: 'Acrylic Letter Fitting', rate: '₹2,500 - ₹3,000 / job', spec: 'Ground floor shopfront installation work' },
+];
+
 export default function PrintManagementPage() {
+  const [activeTab, setActiveTab] = React.useState<'flex' | 'offset' | 'acrylic' | 'logistics'>('flex');
+
+  const getRatesForTab = () => {
+    switch (activeTab) {
+      case 'flex': return flexRates;
+      case 'offset': return offsetRates;
+      case 'acrylic': return acrylicRates;
+      case 'logistics': return logisticsRates;
+    }
+  };
+
   return (
     <main>
       <Navbar />
@@ -205,29 +273,83 @@ export default function PrintManagementPage() {
       {/* Catalogue & Rates Section */}
       <section className="section" style={{ paddingBottom: '60px' }}>
         <div className="container">
-          <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+          <div style={{ maxWidth: '900px', margin: '0 auto' }}>
             <ScrollReveal>
-              <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-                <h3 style={{ fontSize: '1.5rem', marginBottom: '12px' }}>Sample Catalogue & Rates</h3>
-                <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.95rem' }}>
-                  Standard rate structures and samples are digitalized for quick reference.
+              <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+                <h3 style={{ fontSize: '1.8rem', marginBottom: '12px' }}>Standard Rate Chart</h3>
+                <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.95rem', maxWidth: '600px', margin: '0 auto' }}>
+                  Transparent rate cards compiled from standard production benchmarks. Toggle below to review flex signage, offset print, acrylic works, and installation charges.
                 </p>
               </div>
-              
-              <div className="glass-panel" style={{ padding: '40px', textAlign: 'center', border: '1px dashed var(--color-border-accent)' }}>
-                <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', marginBottom: '24px', flexWrap: 'wrap' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.02)', padding: '12px 20px', borderRadius: '12px', border: '1px solid var(--color-border)' }}>
-                    <FileText size={18} color="var(--color-accent)" />
-                    <span style={{ fontSize: '0.9rem', fontWeight: 500 }}>Standard Rates.pdf</span>
+
+              {/* Tabs Switcher */}
+              <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginBottom: '32px', flexWrap: 'wrap' }}>
+                {(['flex', 'offset', 'acrylic', 'logistics'] as const).map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setActiveTab(tab)}
+                    style={{
+                      padding: '12px 24px',
+                      borderRadius: '100px',
+                      border: '1px solid',
+                      borderColor: activeTab === tab ? 'var(--color-accent)' : 'var(--color-border)',
+                      background: activeTab === tab ? 'rgba(212,175,55,0.1)' : 'var(--color-surface)',
+                      color: activeTab === tab ? 'var(--color-accent)' : 'var(--color-text-secondary)',
+                      cursor: 'pointer',
+                      fontSize: '0.85rem',
+                      fontWeight: 600,
+                      fontFamily: 'var(--font-heading)',
+                      letterSpacing: '0.5px',
+                      transition: 'all 0.3s ease',
+                      outline: 'none'
+                    }}
+                  >
+                    {tab === 'flex' && 'Flex & Signage'}
+                    {tab === 'offset' && 'Offset & Digital Print'}
+                    {tab === 'acrylic' && 'Acrylic Lettering'}
+                    {tab === 'logistics' && 'Logistics & Installation'}
+                  </button>
+                ))}
+              </div>
+
+              {/* Table Container */}
+              <div className="glass-panel" style={{ padding: '0', overflowX: 'auto', border: '1px solid var(--color-border-accent)', marginBottom: '40px' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '650px' }}>
+                  <thead>
+                    <tr style={{ background: 'rgba(255,255,255,0.04)', borderBottom: '1px solid var(--color-border)' }}>
+                      <th style={{ padding: '18px 24px', fontWeight: 600, color: 'var(--color-text-muted)', fontSize: '0.85rem', textTransform: 'uppercase', width: '35%' }}>Service / Product</th>
+                      <th style={{ padding: '18px 24px', fontWeight: 600, color: 'var(--color-text-muted)', fontSize: '0.85rem', textTransform: 'uppercase', width: '30%' }}>Standard Rate</th>
+                      <th style={{ padding: '18px 24px', fontWeight: 600, color: 'var(--color-text-muted)', fontSize: '0.85rem', textTransform: 'uppercase', width: '35%' }}>Specifications / Remarks</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {getRatesForTab().map((row, idx) => (
+                      <tr key={idx} style={{ borderBottom: '1px solid rgba(255,255,255,0.03)', background: idx % 2 === 0 ? 'rgba(255,255,255,0.005)' : 'transparent', transition: 'background 0.2s ease' }} className="table-row-hover">
+                        <td style={{ padding: '16px 24px', color: 'var(--color-text-primary)', fontWeight: 600, fontSize: '0.92rem' }}>{row.item}</td>
+                        <td style={{ padding: '16px 24px', color: 'var(--color-accent)', fontWeight: 700, fontSize: '0.92rem' }}>{row.rate}</td>
+                        <td style={{ padding: '16px 24px', color: 'var(--color-text-secondary)', fontSize: '0.88rem', lineHeight: 1.4 }}>{row.spec}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* PDF Documents download card */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '20px 24px', background: 'rgba(212,175,55,0.04)', borderRadius: '16px', border: '1px solid var(--color-border-accent)', justifyContent: 'space-between', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <FileText color="var(--color-accent)" size={20} />
+                  <span style={{ fontSize: '0.92rem', color: 'var(--color-text-secondary)' }}>
+                    Standard processing rates apply. All project designs can be reviewed against our standard pricing catalogs.
+                  </span>
+                </div>
+                <div style={{ display: 'flex', gap: '12px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', color: 'var(--color-text-muted)', background: 'rgba(255,255,255,0.02)', padding: '8px 16px', borderRadius: '100px', border: '1px solid var(--color-border)' }}>
+                    Ratesheet Card.pdf
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.02)', padding: '12px 20px', borderRadius: '12px', border: '1px solid var(--color-border)' }}>
-                    <BookOpen size={18} color="var(--color-accent)" />
-                    <span style={{ fontSize: '0.9rem', fontWeight: 500 }}>eMudran Catalogue.pdf</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', color: 'var(--color-text-muted)', background: 'rgba(255,255,255,0.02)', padding: '8px 16px', borderRadius: '100px', border: '1px solid var(--color-border)' }}>
+                    eMudran Catalog.pdf
                   </div>
                 </div>
-                <p style={{ color: 'var(--color-text-muted)', fontSize: '0.85rem' }}>
-                  Catalogue downloads and standard rate cards are being updated for 2026. Submit an estimate request below to receive rates directly via email.
-                </p>
               </div>
             </ScrollReveal>
           </div>
