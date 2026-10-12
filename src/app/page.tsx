@@ -647,7 +647,7 @@ export default function Home() {
                   One International Centre, Mumbai
                 </div>
                 <img 
-                  src="/images/prestige-office-tower.jpg" 
+                  src="/images/one-international-centre.jpg" 
                   alt="One International Centre, Mumbai"
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
