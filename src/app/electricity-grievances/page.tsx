@@ -13,7 +13,7 @@ const formFields: FormField[] = [
     'Bill not received / Need hard copy',
     'Need arrangement to make bill payment',
     'Need to disconnect the meter',
-    'Query raised with Electric Co. — need response',
+    'Query raised with Electric Co. - need response',
     'Single phase to Three phase connection',
     'High bill complaint',
     'Tariff category change',
@@ -52,9 +52,10 @@ export default function ElectricityGrievancesPage() {
       <Navbar />
       
       <PageHero 
-        title="Electricity Grievances & Support" 
-        tagline="Led by engineering veterans with over 36 years of expertise in urban power systems. We resolve billing disputes and handle complex HT installations."
+        title="Electricity Grievances & Queries" 
+        tagline="Part of our SANYOG division. Submit your bill query or connection issue and we will review your case."
         breadcrumb="Electricity Grievances"
+        parent={{ label: 'SANYOG', href: '/sanyog' }}
       />
 
       <section className="section">

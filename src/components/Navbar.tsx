@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Logo from './Logo';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, Phone } from 'lucide-react';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -18,16 +18,13 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { href: '/#about', label: 'About Us' },
-    { href: '/#expertise', label: 'Expertise' },
-  ];
-
   const servicesLinks = [
-    { href: '/print-management', label: 'eMudran (Print Management)' },
-    { href: '/licenses', label: 'Licences & Liaisoning' },
-    { href: '/space-planning', label: 'Space Planning & Design' },
-    { href: '/electricity-grievances', label: 'Electricity Grievances' },
+    { href: '/solis', label: 'SOLIS (Solar Pergolas & EV Hubs)' },
+    { href: '/sanyog', label: 'SANYOG (Utility Liaison & Licences)' },
+    { href: '/grid-apex', label: 'GRID APEX (HT/LT Electrical & Waste Tech)' },
+    { href: '/tvasta', label: 'TVASTA (Turnkey Interiors & Fit-out)' },
+    { href: '/emudran', label: 'eMUDRAN (Branding & Luxury Print)' },
+    { href: '/agrim', label: 'AGRIM (Project Finance Paperwork)' },
   ];
 
   return (
@@ -40,32 +37,35 @@ export default function Navbar() {
           right: 0,
           zIndex: 50,
           transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-          background: scrolled ? 'rgba(5, 10, 18, 0.85)' : 'transparent',
-          backdropFilter: scrolled ? 'blur(16px) saturate(180%)' : 'none',
-          WebkitBackdropFilter: scrolled ? 'blur(16px) saturate(180%)' : 'none',
+          background: scrolled ? 'rgba(251, 251, 250, 0.94)' : 'rgba(251, 251, 250, 0.6)',
+          backdropFilter: 'blur(16px) saturate(180%)',
+          WebkitBackdropFilter: 'blur(16px) saturate(180%)',
           borderBottom: scrolled ? '1px solid var(--color-border)' : '1px solid transparent',
-          padding: scrolled ? '12px 0' : '20px 0',
+          padding: scrolled ? '12px 0' : '18px 0',
+          boxShadow: scrolled ? 'var(--shadow-sm)' : 'none',
         }}
       >
         <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none' }}>
             <Logo width={36} height={36} />
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <span style={{
                 fontFamily: 'var(--font-heading)',
-                fontWeight: 800,
-                fontSize: '1.15rem',
+                fontWeight: 700,
+                fontSize: '1.2rem',
                 lineHeight: 1.1,
-                letterSpacing: '0.5px',
+                letterSpacing: '-0.01em',
+                color: 'var(--color-text-primary)'
               }}>
                 JC APEX
               </span>
               <span style={{
-                fontSize: '0.65rem',
+                fontSize: '0.66rem',
                 color: 'var(--color-accent)',
-                fontWeight: 600,
-                letterSpacing: '2.5px',
+                fontWeight: 700,
+                letterSpacing: '2px',
                 textTransform: 'uppercase',
+                fontFamily: 'var(--font-sans)',
               }}>
                 Ventures
               </span>
@@ -73,17 +73,17 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop nav */}
-          <nav style={{ display: 'flex', gap: '36px', alignItems: 'center' }} className="desktop-nav">
+          <nav style={{ display: 'flex', gap: '32px', alignItems: 'center' }} className="desktop-nav">
             <Link
               href="/#about"
               style={{
-                fontSize: '0.9rem',
-                fontWeight: 500,
+                fontSize: '0.92rem',
+                fontWeight: 600,
                 color: 'var(--color-text-secondary)',
-                transition: 'color 0.3s ease',
+                transition: 'color 0.2s ease',
               }}
             >
-              About Us
+              About
             </Link>
 
             {/* Services Dropdown */}
@@ -94,31 +94,34 @@ export default function Navbar() {
             >
               <button style={{
                 background: 'none', border: 'none', cursor: 'pointer',
-                display: 'flex', alignItems: 'center', gap: '4px',
-                fontSize: '0.9rem', fontWeight: 500, color: 'var(--color-text-secondary)',
-                fontFamily: 'inherit', transition: 'color 0.3s ease'
+                display: 'flex', alignItems: 'center', gap: '5px',
+                fontSize: '0.92rem', fontWeight: 600, color: 'var(--color-text-secondary)',
+                fontFamily: 'inherit', transition: 'color 0.2s ease',
+                padding: '4px 0',
               }}>
-                Divisions <ChevronDown size={14} style={{ transition: 'transform 0.3s ease', transform: dropdownOpen ? 'rotate(180deg)' : 'rotate(0)' }} />
+                Six Divisions <ChevronDown size={14} style={{ transition: 'transform 0.3s ease', transform: dropdownOpen ? 'rotate(180deg)' : 'rotate(0)' }} />
               </button>
               
               {dropdownOpen && (
                 <div style={{
                   position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%)',
-                  paddingTop: '20px', minWidth: '260px'
+                  paddingTop: '16px', minWidth: '320px'
                 }}>
-                  <div className="glass-panel" style={{
+                  <div style={{
+                    background: '#FFFFFF',
+                    border: '1px solid var(--color-border)',
                     padding: '8px', display: 'flex', flexDirection: 'column', gap: '4px',
-                    boxShadow: '0 20px 40px rgba(0,0,0,0.5)', borderRadius: '16px'
+                    boxShadow: 'var(--shadow-xl)', borderRadius: '16px'
                   }}>
                     {servicesLinks.map(link => (
                       <Link 
                         key={link.href} 
                         href={link.href}
                         style={{
-                          padding: '12px 16px', borderRadius: '10px', fontSize: '0.9rem',
+                          padding: '10px 14px', borderRadius: '10px', fontSize: '0.88rem', fontWeight: 600,
                           color: pathname === link.href ? 'var(--color-accent)' : 'var(--color-text-primary)',
-                          background: pathname === link.href ? 'rgba(212,175,55,0.08)' : 'transparent',
-                          transition: 'all 0.2s ease', display: 'block'
+                          background: pathname === link.href ? 'var(--color-accent-pale)' : 'transparent',
+                          transition: 'all 0.2s ease', display: 'block', textDecoration: 'none'
                         }}
                         className="dropdown-item"
                         onClick={() => setDropdownOpen(false)}
@@ -132,18 +135,45 @@ export default function Navbar() {
             </div>
 
             <Link
-              href="/#expertise"
+              href="/solis"
               style={{
-                fontSize: '0.9rem',
-                fontWeight: 500,
-                color: 'var(--color-text-secondary)',
-                transition: 'color 0.3s ease',
+                fontSize: '0.92rem',
+                fontWeight: 600,
+                color: pathname === '/solis' ? 'var(--color-accent)' : 'var(--color-text-primary)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                transition: 'color 0.2s ease',
+                textDecoration: 'none',
               }}
             >
-              Expertise
+              <span style={{
+                width: '7px',
+                height: '7px',
+                borderRadius: '50%',
+                background: 'var(--color-accent)',
+                display: 'inline-block',
+              }} />
+              Solis Solar Hub
             </Link>
 
-            <Link href="#contact" className="btn-primary" style={{ padding: '10px 24px', fontSize: '0.85rem' }}>
+            <Link
+              href="/#expertise"
+              style={{
+                fontSize: '0.92rem',
+                fontWeight: 600,
+                color: 'var(--color-text-secondary)',
+                transition: 'color 0.2s ease',
+              }}
+            >
+              Why Us
+            </Link>
+
+            <a href="tel:+917021112664" className="btn-outline" style={{ padding: '8px 18px', fontSize: '0.86rem' }}>
+              <Phone size={14} color="var(--color-accent)" /> +91 70211 12664
+            </a>
+
+            <Link href="#contact" className="btn-primary" style={{ padding: '9px 22px', fontSize: '0.88rem' }}>
               <span>Get in Touch</span>
             </Link>
           </nav>
@@ -152,6 +182,7 @@ export default function Navbar() {
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="mobile-toggle"
+            aria-label="Toggle navigation menu"
             style={{
               display: 'none',
               background: 'none',
@@ -161,7 +192,7 @@ export default function Navbar() {
               padding: '8px',
             }}
           >
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+            {mobileOpen ? <X size={26} /> : <Menu size={26} />}
           </button>
         </div>
       </header>
@@ -173,50 +204,64 @@ export default function Navbar() {
             position: 'fixed',
             inset: 0,
             zIndex: 49,
-            background: 'rgba(5, 10, 18, 0.95)',
+            background: 'rgba(251, 251, 250, 0.98)',
             backdropFilter: 'blur(20px)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-            gap: '24px',
+            gap: '20px',
+            padding: '24px',
           }}
           onClick={() => setMobileOpen(false)}
         >
-          <Link href="/#about" style={{ fontFamily: 'var(--font-heading)', fontSize: '1.5rem', fontWeight: 600 }}>About Us</Link>
+          <Link href="/#about" style={{ fontFamily: 'var(--font-heading)', fontSize: '1.4rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>About Us</Link>
           
-          <div style={{ width: '100%', height: '1px', background: 'var(--color-border)', margin: '12px 0', maxWidth: '200px' }} />
+          <div style={{ width: '100%', height: '1px', background: 'var(--color-border)', margin: '8px 0', maxWidth: '240px' }} />
           
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
-            <span style={{ fontSize: '0.85rem', color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '2px' }}>Divisions</span>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+            <span style={{ fontSize: '0.75rem', color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '2px', fontWeight: 700 }}>Six Divisions</span>
             {servicesLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                style={{ fontFamily: 'var(--font-heading)', fontSize: '1.25rem', fontWeight: 500, color: 'var(--color-text-secondary)' }}
+                style={{ fontFamily: 'var(--font-sans)', fontSize: '1.05rem', fontWeight: 600, color: 'var(--color-text-secondary)', textAlign: 'center' }}
               >
                 {link.label}
               </Link>
             ))}
           </div>
 
-          <div style={{ width: '100%', height: '1px', background: 'var(--color-border)', margin: '12px 0', maxWidth: '200px' }} />
+          <div style={{ width: '100%', height: '1px', background: 'var(--color-border)', margin: '8px 0', maxWidth: '240px' }} />
           
-          <Link href="/#expertise" style={{ fontFamily: 'var(--font-heading)', fontSize: '1.5rem', fontWeight: 600 }}>Expertise</Link>
-          
-          <Link href="#contact" className="btn-primary" style={{ marginTop: '24px' }}>
+          <Link
+            href="/solis"
+            style={{
+              fontFamily: 'var(--font-heading)',
+              fontSize: '1.3rem',
+              fontWeight: 700,
+              color: 'var(--color-accent)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+            }}
+          >
+            Solis Solar Hub & Calculator
+          </Link>
+
+          <Link href="#contact" className="btn-primary" style={{ marginTop: '16px' }}>
             <span>Get in Touch</span>
           </Link>
         </div>
       )}
 
-      <style>{`
-        @media (max-width: 768px) {
+      <style jsx global>{`
+        @media (max-width: 900px) {
           .desktop-nav { display: none !important; }
           .mobile-toggle { display: block !important; }
         }
         .dropdown-item:hover {
-          background: rgba(255,255,255,0.05) !important;
+          background: var(--color-accent-pale) !important;
           color: var(--color-accent) !important;
         }
       `}</style>

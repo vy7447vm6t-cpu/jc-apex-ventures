@@ -26,9 +26,10 @@ export default function SpacePlanningPage() {
       <Navbar />
       
       <PageHero 
-        title="Space Planning & Design" 
-        tagline="Built with precision, designed with taste. Turnkey interior decoration and space management for residential and commercial environments."
+        title="Interior Design & Space Planning" 
+        tagline="Part of our TVASTA division. Planning, design and turnkey execution for flats, bungalows and commercial spaces."
         breadcrumb="Space Planning"
+        parent={{ label: 'TVASTA', href: '/tvasta' }}
       />
 
       <section className="section">
@@ -39,10 +40,10 @@ export default function SpacePlanningPage() {
               <ScrollReveal>
                 <div className="section-divider" />
                 <h2 style={{ fontSize: 'clamp(2rem, 3vw, 2.5rem)', marginBottom: '24px' }}>
-                  Environments that inspire.
+                  Design and fit-out enquiry
                 </h2>
                 <p style={{ color: 'var(--color-text-secondary)', fontSize: '1.05rem', lineHeight: 1.8, marginBottom: '32px' }}>
-                  Our space planning division bridges the gap between civil engineering and high-end aesthetic design. We don't just decorate rooms; we optimize spatial utility while ensuring structural integrity and electrical compliance.
+                  TVASTA looks after layout design, carpentry, civil works and electrical fit-out together. Share your property type and requirements below to receive layout advice and a transparent cost estimate.
                 </p>
               </ScrollReveal>
 

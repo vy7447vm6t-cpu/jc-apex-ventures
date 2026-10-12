@@ -3,68 +3,80 @@
 import React from 'react';
 import Link from 'next/link';
 import Logo from './Logo';
-import { Phone, Mail, MapPin } from 'lucide-react';
+import { Phone, Mail, MapPin, ArrowRight } from 'lucide-react';
 
 export default function Footer() {
   return (
     <footer id="contact" style={{
       borderTop: '1px solid var(--color-border)',
       padding: '80px 0 40px 0',
-      background: 'rgba(255,255,255,0.015)',
+      background: 'var(--color-bg-alt)',
     }}>
       <div className="container" style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-        gap: '60px',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+        gap: '48px',
         marginBottom: '60px',
       }}>
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
-            <Logo width={32} height={32} />
-            <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.1rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+            <Logo width={34} height={34} />
+            <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '1.2rem', color: 'var(--color-text-primary)' }}>
               JC APEX VENTURES
             </span>
           </div>
-          <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.92rem', lineHeight: 1.6, maxWidth: '300px' }}>
-            Infrastructure. Finance. Licensing. Growth.<br />
-            When Values Drive the Journey, Destinations Become Divine.
+          <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.92rem', lineHeight: 1.65, maxWidth: '340px', marginBottom: '16px' }}>
+            A consultancy group based in Mumbai. Six focused divisions across electricity liaisoning, electrical contracting, rooftop solar, interior design, branding and print, and project finance paperwork.
+          </p>
+          <p style={{ color: 'var(--color-text-muted)', fontSize: '0.82rem', lineHeight: 1.55 }}>
+            On-site engineering, installation and fabrication work is carried out by vetted, licensed partner contractors.
           </p>
         </div>
 
         <div>
-          <h4 style={{ fontSize: '0.85rem', marginBottom: '20px', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '2px', fontWeight: 600 }}>
-            Quick Links
+          <h4 style={{ fontSize: '0.8rem', marginBottom: '20px', color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '2px', fontWeight: 700 }}>
+            Our Divisions & Hubs
           </h4>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', color: 'var(--color-text-secondary)', fontSize: '0.92rem' }}>
-            <Link href="/#about" style={{ display: 'inline-block' }}>About Us</Link>
-            <Link href="/#services" style={{ display: 'inline-block' }}>Services Hub</Link>
-            <Link href="/#expertise" style={{ display: 'inline-block' }}>Expertise</Link>
-            <Link href="/#contact" style={{ display: 'inline-block' }}>Getting Started</Link>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', color: 'var(--color-text-secondary)', fontSize: '0.92rem', fontWeight: 500 }}>
+            <Link href="/solis" style={{ color: 'var(--color-accent)', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
+              SOLIS (Solar EPC & EV Hub) <ArrowRight size={13} />
+            </Link>
+            <Link href="/sanyog">SANYOG (Utility Liaison & Licences)</Link>
+            <Link href="/grid-apex">GRID APEX (Electrical & Waste Systems)</Link>
+            <Link href="/tvasta">TVASTA (Interiors & Turnkey Fit-out)</Link>
+            <Link href="/emudran">eMUDRAN (Branding & Luxury Print)</Link>
+            <Link href="/agrim">AGRIM (Project Finance Paperwork)</Link>
           </div>
         </div>
 
         <div>
-          <h4 style={{ fontSize: '0.85rem', marginBottom: '20px', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '2px', fontWeight: 600 }}>
-            Contact
+          <h4 style={{ fontSize: '0.8rem', marginBottom: '20px', color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '2px', fontWeight: 700 }}>
+            Contact & Office
           </h4>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', color: 'var(--color-text-secondary)', fontSize: '0.92rem' }}>
-            <p style={{ fontWeight: 600, color: 'var(--color-text-primary)' }}>Jitendra Chavan</p>
+            <p style={{ fontWeight: 700, color: 'var(--color-text-primary)' }}>Jitendra Chavan, Director</p>
             <a href="tel:+917021112664" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Phone size={14} color="var(--color-accent)" /> +91 70211 12664
+            </a>
+            <a href="mailto:Solis@jcapexv.com" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Mail size={14} color="var(--color-accent)" /> Solis@jcapexv.com (Solar & EV)
             </a>
             <a href="mailto:admin@jcapexv.com" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Mail size={14} color="var(--color-accent)" /> admin@jcapexv.com
             </a>
+            <a href="mailto:emudran@jcapexv.com" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Mail size={14} color="var(--color-accent)" /> emudran@jcapexv.com
+            </a>
           </div>
         </div>
 
         <div>
-          <h4 style={{ fontSize: '0.85rem', marginBottom: '20px', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '2px', fontWeight: 600 }}>
-            Office
+          <h4 style={{ fontSize: '0.8rem', marginBottom: '20px', color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '2px', fontWeight: 700 }}>
+            Registered Office
           </h4>
-          <div style={{ display: 'flex', gap: '8px', color: 'var(--color-text-secondary)', fontSize: '0.92rem' }}>
-            <MapPin size={16} color="var(--color-accent)" style={{ marginTop: '4px', flexShrink: 0 }} />
-            <p style={{ lineHeight: 1.6 }}>
+          <div style={{ display: 'flex', gap: '10px', color: 'var(--color-text-secondary)', fontSize: '0.92rem' }}>
+            <MapPin size={18} color="var(--color-accent)" style={{ marginTop: '3px', flexShrink: 0 }} />
+            <p style={{ lineHeight: 1.65 }}>
               Unit 801-802, 8th Floor,<br />
               One International Centre, Tower 1,<br />
               Senapati Bapat Marg,<br />
@@ -83,10 +95,10 @@ export default function Footer() {
         flexWrap: 'wrap',
         gap: '12px',
         color: 'var(--color-text-muted)',
-        fontSize: '0.8rem',
+        fontSize: '0.82rem',
       }}>
         <p>&copy; {new Date().getFullYear()} JC Apex Ventures (OPC) Pvt. Ltd.</p>
-        <p>CIN registered under MCA, India | PAN | TAN</p>
+        <p>CIN: U70200MH2023OPC411326 | Registered with Ministry of Corporate Affairs, India</p>
       </div>
     </footer>
   );

@@ -263,9 +263,10 @@ export default function PrintManagementPage() {
       <Navbar />
       
       <PageHero 
-        title="eMudran" 
-        tagline="The Print Management & Design Division of JC Apex Ventures. Quality is the best kind of advertising. From corporate branding to bespoke event stationery, we handle the print lifecycle with precision."
-        breadcrumb="eMudran"
+        title="eMUDRAN" 
+        tagline="Part of our eMUDRAN division. Calculate print estimates, inspect standard rate cards and submit your job specifications."
+        breadcrumb="Rates & Estimation"
+        parent={{ label: 'eMUDRAN', href: '/emudran' }}
       />
 
       {/* Intro Section */}
@@ -275,13 +276,13 @@ export default function PrintManagementPage() {
             <ScrollReveal>
               <div className="label" style={{ marginBottom: '16px' }}>
                 <span className="label-dot"></span>
-                JC Apex Ventures Division
+                eMUDRAN Print & Design
               </div>
               <h2 style={{ fontSize: 'clamp(2.2rem, 3.5vw, 2.8rem)', marginBottom: '24px', lineHeight: 1.2 }}>
-                Two Streams.<br/><span className="text-gradient-accent">One Standard of Excellence.</span>
+                Print management and cost calculator
               </h2>
               <p style={{ color: 'var(--color-text-secondary)', fontSize: '1.05rem', lineHeight: 1.8 }}>
-                eMudran operates at the intersection of premium creative design and high-fidelity print production. We are structured to service institutional corporate needs and tailored personal commissions with equal quality.
+                We provide complete design and print services under one roof. Review our standard rate sheets below or select your job details to calculate an instant cost estimate.
               </p>
             </ScrollReveal>
           </div>
@@ -434,17 +435,20 @@ export default function PrintManagementPage() {
             <ScrollReveal delay={1}>
               <div className="glass-panel" style={{ overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column' }}>
                 <div style={{ position: 'relative', width: '100%', aspectRatio: '1/1', overflow: 'hidden' }}>
+                  <div className="editorial-pill">
+                    Representative Stationery Array
+                  </div>
                   <img 
-                    src="/images/corporate_stationery.png" 
-                    alt="Corporate Stationery" 
+                    src="/images/luxury-print-packaging.jpg" 
+                    alt="Corporate Stationery Specimen" 
                     style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease', cursor: 'pointer' }}
                     onMouseOver={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
                     onMouseOut={(e) => (e.currentTarget.style.transform = 'scale(1.0)')}
                   />
                 </div>
                 <div style={{ padding: '24px' }}>
-                  <h3 style={{ fontSize: '1.1rem', marginBottom: '8px' }}>Corporate Stationery Kits</h3>
-                  <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.88rem', lineHeight: 1.5 }}>
+                  <h3 style={{ fontSize: '1.15rem', marginBottom: '8px', color: 'var(--color-text-primary)' }}>Corporate Stationery Kits</h3>
+                  <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem', lineHeight: 1.55 }}>
                     Premium letterheads, double-sided envelopes, and textured business cards detailed with fine metallic gold hot stamping.
                   </p>
                 </div>
@@ -454,17 +458,20 @@ export default function PrintManagementPage() {
             <ScrollReveal delay={2}>
               <div className="glass-panel" style={{ overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column' }}>
                 <div style={{ position: 'relative', width: '100%', aspectRatio: '1/1', overflow: 'hidden' }}>
+                  <div className="editorial-pill">
+                    Brochure Print Specimen
+                  </div>
                   <img 
-                    src="/images/catalogues_mockup.png" 
-                    alt="Brochures & Catalogues" 
+                    src="/images/brochures-catalogues-print.jpg" 
+                    alt="Brochures and Catalogues Specimen" 
                     style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease', cursor: 'pointer' }}
                     onMouseOver={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
                     onMouseOut={(e) => (e.currentTarget.style.transform = 'scale(1.0)')}
                   />
                 </div>
                 <div style={{ padding: '24px' }}>
-                  <h3 style={{ fontSize: '1.1rem', marginBottom: '8px' }}>Catalogues & Brochures</h3>
-                  <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.88rem', lineHeight: 1.5 }}>
+                  <h3 style={{ fontSize: '1.15rem', marginBottom: '8px', color: 'var(--color-text-primary)' }}>Catalogues & Brochures</h3>
+                  <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem', lineHeight: 1.55 }}>
                     Perfect bound multi-page portfolios, company profiles, and custom product catalogs printed on heavy-grade matte art card.
                   </p>
                 </div>
@@ -474,17 +481,20 @@ export default function PrintManagementPage() {
             <ScrollReveal delay={3}>
               <div className="glass-panel" style={{ overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column' }}>
                 <div style={{ position: 'relative', width: '100%', aspectRatio: '1/1', overflow: 'hidden' }}>
+                  <div className="editorial-pill">
+                    Architectural Signage Specimen
+                  </div>
                   <img 
-                    src="/images/signage_mockup.png" 
-                    alt="3D LED Signage" 
+                    src="/images/craft-signage-print.jpg" 
+                    alt="3D LED Signage Specimen" 
                     style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease', cursor: 'pointer' }}
                     onMouseOver={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
                     onMouseOut={(e) => (e.currentTarget.style.transform = 'scale(1.0)')}
                   />
                 </div>
                 <div style={{ padding: '24px' }}>
-                  <h3 style={{ fontSize: '1.1rem', marginBottom: '8px' }}>3D Architectural Signage</h3>
-                  <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.88rem', lineHeight: 1.5 }}>
+                  <h3 style={{ fontSize: '1.15rem', marginBottom: '8px', color: 'var(--color-text-primary)' }}>3D Architectural Signage</h3>
+                  <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem', lineHeight: 1.55 }}>
                     Samsung-LED backlit hollow 3D box letters in acrylic and steel finishes, professionally fitted onto on-site ACP cladding walls.
                   </p>
                 </div>

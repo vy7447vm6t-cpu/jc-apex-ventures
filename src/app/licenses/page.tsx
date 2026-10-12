@@ -48,9 +48,10 @@ export default function LicensesPage() {
       <Navbar />
       
       <PageHero 
-        title="Licences & Liaisoning" 
-        tagline="Airtight regulatory navigation. We manage institutional compliance and accelerate liaisoning procedures across municipal and state frameworks."
+        title="Licences & Government Registrations" 
+        tagline="Part of our SANYOG division. PWD contractor licences, business registrations and official documentation handled cleanly."
         breadcrumb="Licences"
+        parent={{ label: 'SANYOG', href: '/sanyog' }}
       />
 
       <section className="section">

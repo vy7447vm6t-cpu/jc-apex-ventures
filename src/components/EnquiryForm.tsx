@@ -56,6 +56,25 @@ export default function EnquiryForm({ mailto, subject, fields, submitText = "Sen
     
     body += `\n---\nSent from JC Apex Ventures Website`;
     
+    // Background serverless dispatch to /api/contact
+    try {
+      fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: mailto,
+          subject,
+          body,
+          details: formData,
+          email: formData.email,
+          phone: formData.contact || formData.phone,
+          name: formData.name,
+        }),
+      }).catch(err => console.warn('[EnquiryForm] Background API dispatch notice:', err));
+    } catch {
+      // Non-blocking
+    }
+
     // Open mailto
     const mailtoUrl = `mailto:${mailto}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     window.location.href = mailtoUrl;
