@@ -37,12 +37,12 @@ export default function Navbar() {
           right: 0,
           zIndex: 50,
           transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-          background: scrolled ? 'rgba(251, 251, 250, 0.94)' : 'rgba(251, 251, 250, 0.6)',
-          backdropFilter: 'blur(16px) saturate(180%)',
-          WebkitBackdropFilter: 'blur(16px) saturate(180%)',
-          borderBottom: scrolled ? '1px solid var(--color-border)' : '1px solid transparent',
+          background: scrolled ? 'rgba(255, 255, 255, 0.84)' : 'rgba(255, 255, 255, 0.58)',
+          backdropFilter: 'blur(24px) saturate(190%)',
+          WebkitBackdropFilter: 'blur(24px) saturate(190%)',
+          borderBottom: scrolled ? '1px solid rgba(232, 228, 218, 0.85)' : '1px solid transparent',
           padding: scrolled ? '12px 0' : '18px 0',
-          boxShadow: scrolled ? 'var(--shadow-sm)' : 'none',
+          boxShadow: scrolled ? '0 4px 24px -2px rgba(20, 23, 26, 0.05), inset 0 1px 1px rgba(255, 255, 255, 0.95)' : 'none',
         }}
       >
         <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -107,12 +107,13 @@ export default function Navbar() {
                   position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%)',
                   paddingTop: '16px', minWidth: '320px'
                 }}>
-                  <div style={{
-                    background: '#FFFFFF',
-                    border: '1px solid var(--color-border)',
-                    padding: '8px', display: 'flex', flexDirection: 'column', gap: '4px',
-                    boxShadow: 'var(--shadow-xl)', borderRadius: '16px'
-                  }}>
+                  <div
+                    className="ios-glass"
+                    style={{
+                      padding: '8px', display: 'flex', flexDirection: 'column', gap: '4px',
+                      borderRadius: '18px'
+                    }}
+                  >
                     {servicesLinks.map(link => (
                       <Link 
                         key={link.href} 
@@ -169,11 +170,11 @@ export default function Navbar() {
               Why Us
             </Link>
 
-            <a href="tel:+917021112664" className="btn-outline" style={{ padding: '8px 18px', fontSize: '0.86rem' }}>
+            <a href="tel:+917021112664" className="btn-outline ios-glass-pill" style={{ padding: '8px 18px', fontSize: '0.86rem' }}>
               <Phone size={14} color="var(--color-accent)" /> +91 70211 12664
             </a>
 
-            <Link href="#contact" className="btn-primary" style={{ padding: '9px 22px', fontSize: '0.88rem' }}>
+            <Link href="#contact" className="btn-primary specular-sheen" style={{ padding: '9px 22px', fontSize: '0.88rem' }}>
               <span>Get in Touch</span>
             </Link>
           </nav>

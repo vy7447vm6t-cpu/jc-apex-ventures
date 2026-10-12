@@ -7,6 +7,8 @@ import Clippy from '@/components/Clippy';
 import PageHero from '@/components/PageHero';
 import ScrollReveal from '@/components/ScrollReveal';
 import SolarCalculator, { CalculationResult } from '@/components/SolarCalculator';
+import SpotlightCard from '@/components/SpotlightCard';
+import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 import {
   Sun,
   CheckCircle2,
@@ -440,7 +442,7 @@ export default function SolisPage() {
             
             {/* 1. Pergola */}
             <ScrollReveal delay={1}>
-              <div className="glass-panel" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+              <SpotlightCard style={{ height: '100%' }}>
                 <div style={{ position: 'relative', height: '220px', width: '100%', overflow: 'hidden' }}>
                   <div className="editorial-pill">
                     Representative Pergola Array
@@ -488,12 +490,12 @@ export default function SolisPage() {
                     Typical installation: 101-panel pergola solar array generating 55 kWp while retaining full resident terrace recreation space.
                   </div>
                 </div>
-              </div>
+              </SpotlightCard>
             </ScrollReveal>
 
             {/* 2. BIPV */}
             <ScrollReveal delay={2}>
-              <div className="glass-panel" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+              <SpotlightCard style={{ height: '100%' }}>
                 <div style={{ position: 'relative', height: '220px', width: '100%', overflow: 'hidden' }}>
                   <div className="editorial-pill">
                     Architectural BIPV Specimen
@@ -541,12 +543,12 @@ export default function SolisPage() {
                     Typical installation: 82 kW rooftop solar paired with 29 kW architectural BIPV skylight glass on a commercial headquarters.
                   </div>
                 </div>
-              </div>
+              </SpotlightCard>
             </ScrollReveal>
 
             {/* 3. EV Charging Hub */}
             <ScrollReveal delay={3}>
-              <div className="glass-panel" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+              <SpotlightCard style={{ height: '100%' }}>
                 <div style={{ position: 'relative', height: '220px', width: '100%', overflow: 'hidden' }}>
                   <div className="editorial-pill">
                     EV Charging Hub Array
@@ -594,9 +596,35 @@ export default function SolisPage() {
                     Complete turnkey supply, cabling, sub-metering, earthing, and software setup for residential societies and commercial facilities.
                   </div>
                 </div>
-              </div>
+              </SpotlightCard>
             </ScrollReveal>
 
+          </div>
+
+          {/* Interactive Walkable Pergola Slider Comparison */}
+          <div style={{ marginTop: '70px', paddingTop: '50px', borderTop: '1px solid var(--color-border)' }}>
+            <ScrollReveal delay={4}>
+              <div style={{ textAlign: 'center', marginBottom: '36px' }}>
+                <span className="label" style={{ marginBottom: '12px' }}>
+                  <span className="label-dot" />
+                  Visual Usability Comparison
+                </span>
+                <h3 style={{ fontSize: 'clamp(1.6rem, 2.8vw, 2.2rem)', color: 'var(--color-text-primary)', marginBottom: '10px' }}>
+                  Floor-Mounted Cluttered Roof vs Elevated Pergola Canopy
+                </h3>
+                <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.98rem', maxWidth: '620px', margin: '0 auto' }}>
+                  Drag the interactive divider to see how Solis elevated steel structures lift solar panels overhead to preserve 100% of your terrace floor for walking and society recreation.
+                </p>
+              </div>
+              <BeforeAfterSlider
+                beforeImage="/images/solar-rooftop-array.jpg"
+                afterImage="/images/solar-pergola-rooftop.jpg"
+                beforeLabel="Traditional Low Mount"
+                afterLabel="Solis Elevated Pergola"
+                beforeBadge="Zero Walkability"
+                afterBadge="100% Usable Floor"
+              />
+            </ScrollReveal>
           </div>
         </div>
       </section>

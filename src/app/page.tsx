@@ -8,6 +8,8 @@ import Footer from '@/components/Footer';
 import Clippy from '@/components/Clippy';
 import ScrollReveal from '@/components/ScrollReveal';
 import AnimatedCounter from '@/components/AnimatedCounter';
+import SpotlightCard from '@/components/SpotlightCard';
+import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 import {
   Plug,
   Sun,
@@ -202,7 +204,7 @@ export default function Home() {
             <div className="bento-col-8">
               <ScrollReveal delay={1}>
                 <Link href="/solis" style={{ display: 'block', textDecoration: 'none', height: '100%' }}>
-                  <div className="glass-panel" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                  <SpotlightCard style={{ height: '100%' }}>
                     <div style={{ position: 'relative', height: '300px', width: '100%', overflow: 'hidden' }}>
                       <div className="editorial-pill">
                         Representative Pergola Array
@@ -267,7 +269,7 @@ export default function Home() {
                         Open Solis Hub, System Specs & Solar Calculator <ArrowRight size={16} />
                       </div>
                     </div>
-                  </div>
+                  </SpotlightCard>
                 </Link>
               </ScrollReveal>
             </div>
@@ -276,7 +278,7 @@ export default function Home() {
             <div className="bento-col-4">
               <ScrollReveal delay={2}>
                 <Link href="/sanyog" style={{ display: 'block', textDecoration: 'none', height: '100%' }}>
-                  <div className="glass-panel" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                  <SpotlightCard style={{ height: '100%' }}>
                     <div style={{ position: 'relative', height: '220px', width: '100%', overflow: 'hidden' }}>
                       <div className="editorial-pill">
                         Mumbai Utility Distribution Network
@@ -328,7 +330,7 @@ export default function Home() {
                         View utility liaisoning services <ArrowRight size={14} />
                       </div>
                     </div>
-                  </div>
+                  </SpotlightCard>
                 </Link>
               </ScrollReveal>
             </div>
@@ -337,7 +339,7 @@ export default function Home() {
             <div className="bento-col-4">
               <ScrollReveal delay={3}>
                 <Link href="/grid-apex" style={{ display: 'block', textDecoration: 'none', height: '100%' }}>
-                  <div className="glass-panel" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                  <SpotlightCard style={{ height: '100%' }}>
                     <div style={{ position: 'relative', height: '220px', width: '100%', overflow: 'hidden' }}>
                       <div className="editorial-pill">
                         HT Substation & Transformer Setup
@@ -389,7 +391,7 @@ export default function Home() {
                         View electrical & waste tech <ArrowRight size={14} />
                       </div>
                     </div>
-                  </div>
+                  </SpotlightCard>
                 </Link>
               </ScrollReveal>
             </div>
@@ -398,7 +400,7 @@ export default function Home() {
             <div className="bento-col-4">
               <ScrollReveal delay={4}>
                 <Link href="/tvasta" style={{ display: 'block', textDecoration: 'none', height: '100%' }}>
-                  <div className="glass-panel" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                  <SpotlightCard style={{ height: '100%' }}>
                     <div style={{ position: 'relative', height: '220px', width: '100%', overflow: 'hidden' }}>
                       <div className="editorial-pill">
                         Architectural Fit-out Specimen
@@ -450,7 +452,7 @@ export default function Home() {
                         View interior design tiers <ArrowRight size={14} />
                       </div>
                     </div>
-                  </div>
+                  </SpotlightCard>
                 </Link>
               </ScrollReveal>
             </div>
@@ -459,7 +461,7 @@ export default function Home() {
             <div className="bento-col-4">
               <ScrollReveal delay={5}>
                 <Link href="/emudran" style={{ display: 'block', textDecoration: 'none', height: '100%' }}>
-                  <div className="glass-panel" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                  <SpotlightCard style={{ height: '100%' }}>
                     <div style={{ position: 'relative', height: '220px', width: '100%', overflow: 'hidden' }}>
                       <div className="editorial-pill">
                         Embossed Corporate Stationery Specimen
@@ -511,7 +513,7 @@ export default function Home() {
                         View print specs & estimate rates <ArrowRight size={14} />
                       </div>
                     </div>
-                  </div>
+                  </SpotlightCard>
                 </Link>
               </ScrollReveal>
             </div>
@@ -520,7 +522,7 @@ export default function Home() {
             <div className="bento-col-12">
               <ScrollReveal delay={6}>
                 <Link href="/agrim" style={{ display: 'block', textDecoration: 'none' }}>
-                  <div className="glass-panel" style={{
+                  <SpotlightCard contentStyle={{
                     display: 'grid', gridTemplateColumns: 'minmax(280px, 420px) 1fr',
                     overflow: 'hidden'
                   }}>
@@ -575,12 +577,44 @@ export default function Home() {
                         Learn how AGRIM prepares bank dossiers <ArrowRight size={16} />
                       </div>
                     </div>
-                  </div>
+                  </SpotlightCard>
                 </Link>
               </ScrollReveal>
             </div>
 
           </div>
+        </div>
+      </section>
+
+      {/* ===== INTERACTIVE BEFORE/AFTER SHOWCASE ===== */}
+      <section className="section" style={{ background: '#FFFFFF', borderBottom: '1px solid var(--color-border)' }}>
+        <div className="container">
+          <ScrollReveal>
+            <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+              <div className="section-divider" style={{ margin: '0 auto 20px auto' }} />
+              <div className="label" style={{ marginBottom: '14px' }}>
+                <span className="label-dot" />
+                Interactive Terrace Comparison
+              </div>
+              <h2 style={{ fontSize: 'clamp(2.1rem, 3.8vw, 2.9rem)', marginBottom: '14px', color: 'var(--color-text-primary)' }}>
+                Traditional Rooftop Solar vs Solis Walkable Pergola
+              </h2>
+              <p style={{ color: 'var(--color-text-secondary)', maxWidth: '640px', margin: '0 auto', fontSize: '1.05rem', lineHeight: 1.7 }}>
+                See why housing societies and homeowners choose elevated pergolas: generate clean electricity overhead without sacrificing walking or recreation space on your terrace.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal delay={1}>
+            <BeforeAfterSlider
+              beforeImage="/images/solar-rooftop-array.jpg"
+              afterImage="/images/solar-pergola-rooftop.jpg"
+              beforeLabel="Traditional Cluttered Roof"
+              afterLabel="Solis Walkable Pergola"
+              beforeBadge="Floor Obstructed"
+              afterBadge="100% Usable Terrace"
+            />
+          </ScrollReveal>
         </div>
       </section>
 
