@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
+import DivisionLogo from './DivisionLogos';
 
 interface ServiceItem {
   id: string;
@@ -156,18 +157,37 @@ export default function GroundedServices() {
                 {activeService.tagline}
               </div>
 
-              <h4
-                style={{
-                  fontSize: '1.5rem',
-                  fontWeight: 500,
-                  color: '#111111',
-                  marginBottom: '14px',
-                  letterSpacing: '-0.015em',
-                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                }}
-              >
-                {activeService.name} Division
-              </h4>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '14px' }}>
+                <div
+                  style={{
+                    width: '52px',
+                    height: '52px',
+                    borderRadius: '12px',
+                    backgroundColor: '#0A0D10',
+                    border: '1px solid rgba(194, 159, 83, 0.3)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: '0 4px 14px rgba(0, 0, 0, 0.15)',
+                    flexShrink: 0,
+                    overflow: 'hidden',
+                  }}
+                >
+                  <DivisionLogo division={activeService.id} size={36} />
+                </div>
+                <h4
+                  style={{
+                    fontSize: '1.5rem',
+                    fontWeight: 500,
+                    color: '#111111',
+                    margin: 0,
+                    letterSpacing: '-0.015em',
+                    fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                  }}
+                >
+                  {activeService.name} Division
+                </h4>
+              </div>
 
               <p
                 style={{

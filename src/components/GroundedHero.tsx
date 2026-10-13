@@ -25,7 +25,7 @@ const HERO_ZONES: HeroZone[] = [
     num: '_02',
     label: 'Walkable Solar Pergola',
     category: '100% Usable Terrace Rooftop EPC',
-    image: '/images/solar-pergola-rooftop.jpg',
+    image: '/images/solis_canopy_page1.jpg',
   },
   {
     id: 'zone-03',
@@ -157,45 +157,7 @@ export default function GroundedHero() {
           pointerEvents: 'none',
         }}
       >
-        {/* Editorial Category Eyebrow Badge */}
-        <div
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '8px',
-            marginBottom: '28px',
-            padding: '6px 14px',
-            borderRadius: '9999px',
-            backgroundColor: 'rgba(255, 255, 255, 0.12)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
-            pointerEvents: 'auto',
-          }}
-        >
-          <span style={{ color: '#E8E4DA', fontSize: '0.78rem' }}>✦</span>
-          <a
-            href="https://www.google.com/maps/search/?api=1&query=One+International+Centre+Senapati+Bapat+Marg+Elphinstone+Mumbai+400013"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Open One International Centre Mumbai in Google Maps"
-            style={{
-              fontFamily: 'var(--font-mono, monospace)',
-              fontSize: '0.78rem',
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              color: '#FFFFFF',
-              fontWeight: 500,
-              textDecoration: 'none',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-            }}
-          >
-            <span>Multi-Disciplinary Engineering & Design Consortium | One International Centre, Mumbai</span>
-            <ArrowUpRight size={13} color="#E8E4DA" />
-          </a>
-        </div>
+
 
         {/* Split Mask Architectural Headline */}
         <div style={{ maxWidth: '960px', marginBottom: '24px' }}>

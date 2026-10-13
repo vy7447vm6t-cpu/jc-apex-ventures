@@ -57,7 +57,7 @@ export default function DivisionPage({
         statPill={data.statPill}
         heroImage={data.heroImage}
         heroImageTag={data.heroImageTag}
-        logo={customHeroLogo || <DivisionLogo division={data.slug} size={48} />}
+        logo={customHeroLogo || <DivisionLogo division={data.slug} size={64} />}
       />
 
       {/* 15-Second Skim Takeaway Banner */}
@@ -137,6 +137,70 @@ export default function DivisionPage({
                         </p>
                       </div>
                     </div>
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Strategic Why Us, Why This Discipline, Why Now */}
+      {data.strategicWhy && (
+        <section className="section" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
+          <div className="container">
+            <SectionHeading
+              title={data.strategicWhy.heading}
+              intro={data.strategicWhy.subheading}
+            />
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+              gap: '24px',
+            }}>
+              {[data.strategicWhy.whyUs, data.strategicWhy.whyDiscipline, data.strategicWhy.whyNow].map((pillar, idx) => (
+                <ScrollReveal key={pillar.title} delay={idx + 1}>
+                  <div
+                    className="ios-glass-card"
+                    style={{
+                      padding: '32px 28px',
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      borderRadius: '24px',
+                    }}
+                  >
+                    <div style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '4px 12px',
+                      borderRadius: '100px',
+                      background: 'var(--color-accent-pale)',
+                      color: 'var(--color-accent)',
+                      fontSize: '0.72rem',
+                      fontWeight: 700,
+                      letterSpacing: '1.2px',
+                      textTransform: 'uppercase',
+                      marginBottom: '16px',
+                      width: 'fit-content',
+                    }}>
+                      {idx === 0 ? 'Pillar 01 : Authority' : idx === 1 ? 'Pillar 02 : Engineering' : 'Pillar 03 : Urgency'}
+                    </div>
+                    <h3 style={{ fontSize: '1.35rem', marginBottom: '6px', color: 'var(--color-text-primary)' }}>
+                      {pillar.title}
+                    </h3>
+                    <p style={{ color: 'var(--color-accent)', fontWeight: 600, fontSize: '0.92rem', marginBottom: '20px' }}>
+                      {pillar.subtitle}
+                    </p>
+                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '14px', flex: 1 }}>
+                      {pillar.points.map((pt, pIdx) => (
+                        <li key={pIdx} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', fontSize: '0.92rem', lineHeight: 1.65, color: 'var(--color-text-secondary)' }}>
+                          <CheckCircle2 size={16} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '4px' }} />
+                          <span>{pt}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </ScrollReveal>
               ))}

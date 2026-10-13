@@ -26,7 +26,7 @@ const divisions: DivisionData[] = [
     shortTag: 'Solar & Mobility',
     category: 'Solar EPC, Elevated Pergolas & EV Hubs',
     leadParagraph: 'Solis transforms residential and commercial terraces into high-yield clean energy generators. Our elevated pergola structures preserve 100% of usable floor area for society residents while harvesting peak Mumbai sunlight.',
-    image: '/images/solar-pergola-rooftop.jpg',
+    image: '/images/solis_canopy_page1.jpg',
     imageAlt: 'Walkable Pergola Solar Rooftop Installation',
     href: '/solis',
     pillars: [
@@ -207,18 +207,19 @@ export default function InteractiveTabbedMonograph() {
                 {/* Division Logo */}
                 <div
                   style={{
-                    width: '38px',
-                    height: '38px',
-                    borderRadius: '10px',
+                    width: '42px',
+                    height: '42px',
+                    borderRadius: '11px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     backgroundColor: isCurrent ? 'var(--color-grounded-stone)' : '#FFFFFF',
                     flexShrink: 0,
-                    border: '1px solid rgba(0, 0, 0, 0.06)',
+                    border: '1px solid rgba(0, 0, 0, 0.08)',
+                    boxShadow: isCurrent ? '0 2px 8px rgba(0,0,0,0.06)' : 'none',
                   }}
                 >
-                  <DivisionLogo division={div.id} size={24} />
+                  <DivisionLogo division={div.id} size={28} />
                 </div>
 
                 {/* Title & Tag */}
@@ -354,9 +355,9 @@ export default function InteractiveTabbedMonograph() {
               <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                 <div
                   style={{
-                    width: '52px',
-                    height: '52px',
-                    borderRadius: '14px',
+                    width: '62px',
+                    height: '62px',
+                    borderRadius: '16px',
                     backgroundColor: 'rgba(255, 255, 255, 0.95)',
                     backdropFilter: 'blur(16px)',
                     border: '1px solid rgba(0, 0, 0, 0.1)',
@@ -366,7 +367,7 @@ export default function InteractiveTabbedMonograph() {
                     boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2)',
                   }}
                 >
-                  <DivisionLogo division={activeDivision.id} size={34} />
+                  <DivisionLogo division={activeDivision.id} size={44} />
                 </div>
                 <div>
                   <h3

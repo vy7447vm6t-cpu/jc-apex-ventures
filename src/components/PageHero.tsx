@@ -56,17 +56,17 @@ export default function PageHero({
         <div style={{ display: 'grid', gridTemplateColumns: heroImage ? '1.15fr 0.85fr' : '1fr', gap: '48px', alignItems: 'center' }}>
           <div>
             {logo && (
-              <div className="animate-fade-in-up" style={{ marginBottom: '20px', display: 'flex', alignItems: 'center' }}>
-                <div style={{
-                  padding: '10px 14px',
-                  borderRadius: '16px',
-                  background: 'rgba(17, 21, 26, 0.75)',
-                  border: '1px solid rgba(194, 159, 83, 0.3)',
-                  boxShadow: '0 8px 24px rgba(0, 0, 0, 0.4)',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  backdropFilter: 'blur(12px)',
-                }}>
+              <div className="animate-fade-in-up" style={{ marginBottom: '24px', display: 'flex', alignItems: 'center' }}>
+                <div
+                  className="ios-glass-light"
+                  style={{
+                    padding: '12px 22px',
+                    borderRadius: '20px',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                  }}
+                >
                   {logo}
                 </div>
               </div>

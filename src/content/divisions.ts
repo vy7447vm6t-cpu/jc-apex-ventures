@@ -38,6 +38,20 @@ export interface VisualCard {
   description: string;
 }
 
+export interface StrategicPillar {
+  title: string;
+  subtitle: string;
+  points: string[];
+}
+
+export interface StrategicWhy {
+  heading: string;
+  subheading: string;
+  whyUs: StrategicPillar;
+  whyDiscipline: StrategicPillar;
+  whyNow: StrategicPillar;
+}
+
 export interface DivisionContent {
   slug: string;
   name: string;
@@ -69,6 +83,7 @@ export interface DivisionContent {
   steps: Service[];
   actions: Action[];
   description: string;
+  strategicWhy?: StrategicWhy;
 }
 
 export const sanyog: DivisionContent = {
@@ -223,6 +238,37 @@ export const sanyog: DivisionContent = {
   ],
   description:
     'SANYOG by JC Apex Ventures helps with electricity connections, bill complaints, CGRF filings and PWD licences in Mumbai.',
+  strategicWhy: {
+    heading: 'Why Choose SANYOG for Power Liaisoning & Grievance Solutions',
+    subheading: 'Navigating Mumbai power utilities requires deep regulatory knowledge, certified engineering signatures, and relentless follow-through.',
+    whyUs: {
+      title: 'Why SANYOG & JC Apex',
+      subtitle: '36+ Years Direct Technical Authority',
+      points: [
+        'Direct institutional experience working across Mumbai distribution utilities: BEST, Adani Electricity (AEML), Tata Power, and MSEDCL.',
+        'Licensed electrical supervisor sign-offs for certified wiring test reports compliant with Central Electricity Authority (CEA) safety norms.',
+        'Dedicated single-window liaisoning eliminating bureaucratic delays for housing societies, commercial complexes, and industrial plants.',
+      ],
+    },
+    whyDiscipline: {
+      title: 'Why Utility Liaisoning & Formal Grievances',
+      subtitle: 'Administrative Bottlenecks Drain Capital',
+      points: [
+        'Billing multiplier errors, arbitrary penalties, and misclassified commercial tariffs cost consumers lakhs in unearned liabilities.',
+        'MERC regulations and the Consumer Grievance Redressal Forum (CGRF) provide statutory mechanisms to force utility accountability.',
+        'Load sanctioning and single-phase to three-phase conversions are critical prerequisites for high-power elevators, centralized HVAC, and solar installations.',
+      ],
+    },
+    whyNow: {
+      title: 'Why Act Now',
+      subtitle: 'Statutory Windows & Grid Quotas',
+      points: [
+        'Statutory CGRF dispute filing requires only a nominal Rs 50 fee, providing immediate legal protection against illegal disconnection.',
+        'Utility distribution transformer solar capacity caps under MERC rules make early load enhancement and net metering registration urgent.',
+        'Annual regulatory tariff filings introduce escalating commercial rates; locking in dispute resolution now prevents compounding back-billing.',
+      ],
+    },
+  },
 };
 
 export const gridApex: DivisionContent = {
@@ -377,6 +423,37 @@ export const gridApex: DivisionContent = {
   ],
   description:
     'GRID APEX by JC Apex Ventures: HT and LT electrical work, rooftop solar, EV charging and a patented solid waste machine.',
+  strategicWhy: {
+    heading: 'Why Entrust Heavy Electrical Infrastructure to GRID APEX',
+    subheading: 'From high-voltage substations powering iconic hospitality landmarks to patented zero-power solid waste treatment systems.',
+    whyUs: {
+      title: 'Why GRID APEX & JC Apex',
+      subtitle: 'Institutional Engineering Pedigree',
+      points: [
+        'Trusted track record across Mumbai marquee hospitality and industrial facilities: The Taj Mahal Palace Colaba, The Oberoi Nariman Point, Trident BKC, Lanxess, Tolia Ball & Roller (691.2 kWp), and Pristo Pipes (180 kWp).',
+        'Complete high-voltage and low-voltage competence covering 11kV/33kV substations, power transformers, vacuum circuit breakers, and certified cable termination.',
+        'Strategic government tender panel empanelment consultancy empowering electrical contractors to bid for major public sector contracts.',
+      ],
+    },
+    whyDiscipline: {
+      title: 'Why Engineered Substations & Solid Waste Tech',
+      subtitle: 'Zero Downtime & On-Site Circularity',
+      points: [
+        'Uninterruptible power delivery: luxury hotels, hospitals, and industrial production plants cannot tolerate switchgear failure or harmonic distortions.',
+        'Mandatory statutory PWD Electrical Inspectorate compliance and preventive maintenance protect facilities from catastrophic transformer fires.',
+        'Decentralized waste processing: patented zero-energy magnetic solid waste machines eliminate municipal tipping fees and composting odors right at source.',
+      ],
+    },
+    whyNow: {
+      title: 'Why Modernize Now',
+      subtitle: 'Grid Safety Standards & Waste Bylaws',
+      points: [
+        'Aging oil-cooled transformers and outdated panels incur heavy no-load losses and fail contemporary fire insurance risk audits.',
+        'BMC DCPR 2034 and Solid Waste Management Rules 2016 strictly penalize commercial properties and societies that fail to process waste on-site.',
+        'Accelerated infrastructure capex: public tenders require immediate empanelment and validated financial eligibility.',
+      ],
+    },
+  },
 };
 
 export const tvasta: DivisionContent = {
@@ -533,6 +610,37 @@ export const tvasta: DivisionContent = {
   ],
   description:
     'TVASTA by JC Apex Ventures: interior design, space planning and turnkey fit-out for homes and offices in Mumbai.',
+  strategicWhy: {
+    heading: 'Why Choose TVASTA for Turnkey Space Planning & Interior Fit-outs',
+    subheading: 'Engineered aesthetics combining architectural design, custom carpentry, and coordinated MEP engineering under single-source accountability.',
+    whyUs: {
+      title: 'Why TVASTA & JC Apex',
+      subtitle: 'Engineered Aesthetics & Fast-Track Execution',
+      points: [
+        'Led by Samruddhi Todkar, uniting interior design, structural alterations, and low-voltage electrical fit-out as one coordinated scope.',
+        'Proven high-stakes delivery: executed the One International Centre corporate headquarters fit-out (4,800 sq ft executive floor, STC 48 acoustic boardroom zoning, delivered in 58 calendar days).',
+        'Transparent three-tier structure (Standard, Premium, Luxury) with itemized BOQs, guaranteed finish specs, and strict delivery dates.',
+      ],
+    },
+    whyDiscipline: {
+      title: 'Why Coordinated Turnkey Execution',
+      subtitle: 'Eliminating Contractor Chaos',
+      points: [
+        'Traditional piecemeal hiring pits carpenters against electricians and plumbers, causing delayed handovers, damaged finishes, and inflated costs.',
+        'Spatial optimization unlocks maximum usable carpet area, incorporating smart storage, bespoke modular kitchens, and tailored lighting compositions.',
+        'Engineered acoustic isolation and concealed MEP distribution keep executive boardrooms and private master suites whisper-quiet and conduit-free.',
+      ],
+    },
+    whyNow: {
+      title: 'Why Design Now',
+      subtitle: 'Real Estate Value & Move-In Certainty',
+      points: [
+        'Premium Mumbai square footage demands space-efficient layouts; sub-optimal carpentry wastes valuable capital real estate.',
+        'Fast-track execution guarantees timely possession, preventing redundant rental expenses while waiting for delayed handover.',
+        'Transparent fixed-rate package contracts hedge homeowners and office tenants against escalating finishing material inflation.',
+      ],
+    },
+  },
 };
 
 export const emudran: DivisionContent = {
@@ -657,6 +765,37 @@ export const emudran: DivisionContent = {
   ],
   description:
     'eMUDRAN by JC Apex Ventures: logo and packaging design, printing, signboards and large-format work in Mumbai.',
+  strategicWhy: {
+    heading: 'Why Choose eMUDRAN for Graphic Design & Print Production',
+    subheading: 'Uniting senior art direction with 22+ years of industrial press mastery to deliver flawless physical brand collateral.',
+    whyUs: {
+      title: 'Why eMUDRAN & JC Apex',
+      subtitle: 'Art Direction Meets 22+ Years Press Mastery',
+      points: [
+        'Creative direction led by Mr. Manish Ajgaonkar, delivering bespoke brand identity, typography systems, and packaging architecture.',
+        'Industrial print execution managed by Hemangi Patil, bringing over 22 years of production expertise across offset, digital, and fabrication lines.',
+        'Single-source continuity from initial vector proof to final die-cut packaging and architectural signage installation across Mumbai.',
+      ],
+    },
+    whyDiscipline: {
+      title: 'Why Professional Print Management',
+      subtitle: 'Physical Collateral Defines Perceived Value',
+      points: [
+        'Unmanaged printing leads to poor color fidelity, improper paper weights, registration drift, and wasted production budgets.',
+        'Precise Pantone color-calibration and certified substrate selection ensure high-end brand packaging stands out on competitive retail shelves.',
+        'Durable exterior architectural signage engineered with weather-resistant coatings withstands harsh Mumbai monsoons and UV exposure.',
+      ],
+    },
+    whyNow: {
+      title: 'Why Produce Now',
+      subtitle: 'Material Costs & Launch Schedules',
+      points: [
+        'Escalating specialty paper, acrylic, and imported ink costs make batch-optimized printing runs financially advantageous.',
+        'Fast-track digital prototyping delivers physical press proofs within 48 hours for immediate stakeholder review.',
+        'Consolidated seasonal production runs secure wholesale fabrication rates before peak commercial and festive demand.',
+      ],
+    },
+  },
 };
 
 export const agrim: DivisionContent = {
@@ -765,6 +904,37 @@ export const agrim: DivisionContent = {
   actions: [{ label: 'Email AGRIM', href: 'mailto:admin@jcapexv.com?subject=AGRIM%20enquiry' }],
   description:
     'AGRIM by JC Apex Ventures prepares project loan and advance files. AGRIM is not a bank, NBFC or lender.',
+  strategicWhy: {
+    heading: 'Why Choose AGRIM for Project Finance Dossiers & Bank DPRs',
+    subheading: 'Bridging technical engineering specifications and banking credit requirements to eliminate appraisal bottlenecks.',
+    whyUs: {
+      title: 'Why AGRIM & JC Apex',
+      subtitle: 'Techno-Economic Precision & Zero-Conflict Advisory',
+      points: [
+        'Non-lender advisory: we never take financing commissions or broker fees, providing objective, uncompromised financial modeling.',
+        'Deep engineering grounding: financial cash flows and DSCR calculations are directly underpinned by real bill of quantities (BOQ) and equipment specifications.',
+        'Proven templates for high-complexity infrastructure: elevated rooftop solar pergolas, 3,900 EV charging station frameworks, and patented 350°C magnetic decomposition waste tech.',
+      ],
+    },
+    whyDiscipline: {
+      title: 'Why Institutional DPR Documentation',
+      subtitle: 'Unindexed Files Stall Bank Appraisals',
+      points: [
+        'Bank lending officers reject or delay over 80% of infrastructure applications due to missing statutory clearances, unverified sensitivity models, or disorganized paperwork.',
+        'Credit Monitoring Arrangement (CMA) data and rigorous debt service coverage ratio (DSCR) models ensure immediate credit committee comprehension.',
+        'Organized statutory binders indexing DISCOM net-metering sanctions, PWD approvals, and patent grants eliminate repetitive banking queries.',
+      ],
+    },
+    whyNow: {
+      title: 'Why Prepare Files Now',
+      subtitle: 'Credit Allocations & Policy Subventions',
+      points: [
+        'Priority Sector Lending (PSL) green infrastructure targets renew on strict annual banking cycles with preferential interest subventions.',
+        'Early submission with complete technical binders secures prime appraisal slots before lenders exhaust quarterly clean-tech debt quotas.',
+        'Audited cash-flow models enable commercial promoters to accurately negotiate lending spreads and repayment moratoriums from a position of data-backed strength.',
+      ],
+    },
+  },
 };
 
 export const solisDivision: DivisionContent = {
@@ -775,8 +945,8 @@ export const solisDivision: DivisionContent = {
   short: 'Turnkey rooftop solar, elevated pergola arrays, BIPV architectural glass and EV charging hubs.',
   tagline:
     'Clean energy EPC, elevated terrace pergolas, solar glass and EV mobility hubs for housing societies, bungalows and businesses.',
-  heroImage: '/images/solar-pergola-rooftop.jpg',
-  heroImageTag: 'Representative Pergola Array',
+  heroImage: '/images/solis_canopy_page1.jpg',
+  heroImageTag: 'Elevated Solar Pergola Canopy',
   statPill: 'Save up to 90% on electricity bills',
   laypersonBadge: 'Walkable Terrace Architecture',
   plainTakeaway:
@@ -786,7 +956,7 @@ export const solisDivision: DivisionContent = {
     {
       title: 'Elevated Pergola Canopies',
       takeaway: 'Walkable, waterproof rooftop canopy that preserves 100% terrace use',
-      image: '/images/solar-pergola-rooftop.jpg',
+      image: '/images/solis_terrace_lounge.jpg',
       imageTag: 'Representative Pergola Array',
       badge: 'Walkable Terrace',
       description: 'Raised structural steel frames with 8+ ft clearance allowing housing societies to host events beneath clean solar arrays.',
@@ -932,6 +1102,37 @@ export const solisDivision: DivisionContent = {
   ],
   description:
     'Solis by JC Apex Ventures offers solar rooftop EPC, elevated pergolas, BIPV solar glass, EV charging hubs and PM Surya Ghar subsidy assistance in Mumbai.',
+  strategicWhy: {
+    heading: 'Why Choose SOLIS for Rooftop Solar & Clean Energy Infrastructure',
+    subheading: 'Unlocking zero-terrace-compromise solar power through elevated pergola architecture, statutory subsidy clearances, and 36+ years of direct utility authority.',
+    whyUs: {
+      title: 'Why SOLIS & JC Apex',
+      subtitle: 'Zero Terrace Compromise & Deep Utility Authority',
+      points: [
+        'Elevated pergola engineering raised 8 to 10 feet with hot-dip galvanised structural steel engineered for coastal 150 km/h wind loads, preserving 100% usable terrace amenity space.',
+        'End-to-end utility liaisoning with BEST, Adani Electricity (AEML), Tata Power, and MSEDCL, backed by Director Jitendra Chavan\'s 36+ years inside Mumbai power distribution networks.',
+        'Architectural integration with semi-transparent BIPV solar glass and integrated EV fast-charging hubs for forward-compatible urban micro-utilities.',
+      ],
+    },
+    whyDiscipline: {
+      title: 'Why Solar & Clean Energy',
+      subtitle: 'Hedging Escalating Power Tariffs & Unlocking Albedo Boost',
+      points: [
+        'Urban residential common-area power tariffs (elevators, water pumping, lobby lighting) escalate at 6% to 8% annually; solar electricity delivers 75% to 90% permanent bill reductions.',
+        'Bifacial solar modules mounted on elevated pergolas capture 12% to 22% secondary albedo generation from white cool-roof terrace flooring.',
+        'Full compliance with BMC DCPR 2034 Regulation 37 FSI exemptions and CFO fire-fighting corridor mandates, ensuring permanent terrace amenity preservation.',
+      ],
+    },
+    whyNow: {
+      title: 'Why Install Now',
+      subtitle: 'PM Surya Ghar Subsidies & Local Grid Transformer Quotas',
+      points: [
+        'Central Government PM Surya Ghar Muft Bijli Yojana provides unprecedented capital subsidies: up to Rs 78,000 for individual homes and up to Rs 10.8 Lakh for housing society common meters.',
+        'Rapid capital recovery: typical 101-panel high-rise society installations achieve full capital payback within 3.2 to 3.8 years, delivering over 21 years of pure dividend generation.',
+        'Local distribution transformer solar caps (MERC 70% to 80% transformer threshold) mean late applicants face rejection once neighborhood substation quotas fill up.',
+      ],
+    },
+  },
 };
 
 export const divisions: DivisionContent[] = [sanyog, gridApex, solisDivision, tvasta, emudran, agrim];

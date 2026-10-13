@@ -137,7 +137,7 @@ export default function Home() {
 
           <BeforeAfterSlider
             beforeImage="/images/solar-rooftop-array.jpg"
-            afterImage="/images/solar-pergola-rooftop.jpg"
+            afterImage="/images/solis_terrace_lounge.jpg"
             beforeLabel="Traditional Cluttered Roof"
             afterLabel="Solis Walkable Pergola"
             beforeBadge="Floor Obstructed"

@@ -10,6 +10,7 @@ import SolarCalculator, { CalculationResult } from '@/components/SolarCalculator
 import SpotlightCard from '@/components/SpotlightCard';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 import DivisionLogo from '@/components/DivisionLogos';
+import { ImageWithLightbox } from '@/components/ImageLightbox';
 import {
   Sun,
   CheckCircle2,
@@ -28,6 +29,10 @@ import {
   Copy,
   X,
   ArrowUpRight,
+  TrendingUp,
+  BarChart3,
+  Clock,
+  Building2,
 } from 'lucide-react';
 
 export default function SolisPage() {
@@ -213,16 +218,23 @@ export default function SolisPage() {
         breadcrumb="Solis Solar & Clean Energy"
         badge="Walkable Terrace Solar Architecture"
         statPill="Save up to 90% Power Bills"
-        heroImage="/images/solar-pergola-rooftop.jpg"
-        heroImageTag="Representative Pergola Array"
+        heroImage="/images/solis_canopy_page1.jpg"
+        heroImageTag="Elevated Solar Pergola Canopy"
         logo={
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '16px',
+            }}
+          >
             <img
               src="/images/logos/solis-logo.png"
               alt="Official Solis Brand Logo"
-              style={{ height: '48px', width: 'auto', objectFit: 'contain' }}
+              style={{ height: '62px', width: 'auto', objectFit: 'contain', display: 'block' }}
             />
-            <DivisionLogo division="solis" size={44} />
+            <div style={{ width: '1px', height: '42px', background: 'rgba(194, 159, 83, 0.45)' }} />
+            <DivisionLogo division="solis" size={56} />
           </div>
         }
       />
@@ -476,10 +488,10 @@ export default function SolisPage() {
               <SpotlightCard style={{ height: '100%' }}>
                 <div style={{ position: 'relative', height: '220px', width: '100%', overflow: 'hidden' }}>
                   <div className="editorial-pill">
-                    Representative Pergola Array
+                    Walkable Sky Lounge Pergola
                   </div>
                   <img
-                    src="/images/solar-pergola-rooftop.jpg"
+                    src="/images/solis_terrace_lounge.jpg"
                     alt="Elevated Pergola Solar"
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   />
@@ -649,7 +661,7 @@ export default function SolisPage() {
               </div>
               <BeforeAfterSlider
                 beforeImage="/images/solar-rooftop-array.jpg"
-                afterImage="/images/solar-pergola-rooftop.jpg"
+                afterImage="/images/solis_terrace_lounge.jpg"
                 beforeLabel="Traditional Low Mount"
                 afterLabel="Solis Elevated Pergola"
                 beforeBadge="Zero Walkability"
@@ -657,6 +669,367 @@ export default function SolisPage() {
               />
             </ScrollReveal>
           </div>
+        </div>
+      </section>
+
+      {/* Strategic Engineering Manifesto: Why Us? Why Solar? Why Now? */}
+      <section className="section" style={{ paddingTop: '80px', paddingBottom: '70px', background: 'var(--color-bg)' }}>
+        <div className="container">
+          <ScrollReveal>
+            <div style={{ textAlign: 'center', marginBottom: '56px' }}>
+              <div className="section-divider" style={{ margin: '0 auto 20px auto' }} />
+              <div className="label" style={{ marginBottom: '14px' }}>
+                <span className="label-dot" />
+                Strategic Clean Energy Manifesto
+              </div>
+              <h2 style={{ fontSize: 'clamp(2rem, 3.6vw, 3rem)', marginBottom: '18px', color: 'var(--color-text-primary)', fontWeight: 700 }}>
+                Why Solis? Why Solar & Clean Energy? Why Now?
+              </h2>
+              <p style={{ color: 'var(--color-text-secondary)', maxWidth: '740px', margin: '0 auto', fontSize: '1.08rem', lineHeight: 1.75 }}>
+                A mathematical, regulatory, and spatial breakdown of why urban rooftop solar is Mumbai's highest-yielding infrastructure investment, and how our elevated pergola engineering eliminates the historic compromise between clean electricity and terrace lifestyle.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          {/* 3 Core Strategic Pillars */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gap: '24px',
+            marginBottom: '64px',
+          }}>
+            {/* Pillar 1: Why Solis */}
+            <ScrollReveal delay={1}>
+              <div
+                className="ios-glass-card"
+                style={{
+                  padding: '36px 30px',
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  borderRadius: '24px',
+                }}
+              >
+                <div style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '4px 12px',
+                  borderRadius: '100px',
+                  background: 'var(--color-accent-pale)',
+                  color: 'var(--color-accent)',
+                  fontSize: '0.72rem',
+                  fontWeight: 700,
+                  letterSpacing: '1.2px',
+                  textTransform: 'uppercase',
+                  marginBottom: '16px',
+                  width: 'fit-content',
+                }}>
+                  Pillar 01 : Authority & Architecture
+                </div>
+                <h3 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '6px', color: 'var(--color-text-primary)' }}>
+                  Why Solis & JC Apex
+                </h3>
+                <p style={{ color: 'var(--color-accent)', fontWeight: 600, fontSize: '0.94rem', marginBottom: '22px' }}>
+                  Zero Terrace Loss & 36+ Years Utility Authority
+                </p>
+                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '14px', flex: 1 }}>
+                  <li style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', fontSize: '0.92rem', lineHeight: 1.65, color: 'var(--color-text-secondary)' }}>
+                    <CheckCircle2 size={16} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '4px' }} />
+                    <span><strong>Multi-Surface Spatial Multiplier:</strong> We lift solar arrays 8 to 10 feet overhead on heavy hot-dip galvanised structural frames, keeping 100% of the terrace floor completely open for walking, morning yoga, and community gatherings.</span>
+                  </li>
+                  <li style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', fontSize: '0.92rem', lineHeight: 1.65, color: 'var(--color-text-secondary)' }}>
+                    <CheckCircle2 size={16} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '4px' }} />
+                    <span><strong>Direct Utility Engineering Authority:</strong> Under Director Jitendra Chavan (36+ years inside Mumbai utilities), we handle all liaisoning with BEST, Adani Electricity (AEML), Tata Power, and MSEDCL with zero bureaucratic delay.</span>
+                  </li>
+                  <li style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', fontSize: '0.92rem', lineHeight: 1.65, color: 'var(--color-text-secondary)' }}>
+                    <CheckCircle2 size={16} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '4px' }} />
+                    <span><strong>Coastal Storm Wind Rating:</strong> Engineered for 150 km/h gusts with chemical epoxy base anchors, diagonal truss bracing, and integrated rainwater perimeter gutters that prevent terrace leaks.</span>
+                  </li>
+                  <li style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', fontSize: '0.92rem', lineHeight: 1.65, color: 'var(--color-text-secondary)' }}>
+                    <CheckCircle2 size={16} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '4px' }} />
+                    <span><strong>Statutory FSI & Fire Clearance:</strong> Fully compliant with BMC DCPR 2034 Regulation 37 solar rooftop FSI exemptions and Chief Fire Officer (CFO) mandatory 1.5m perimeter fire-escape walkways.</span>
+                  </li>
+                </ul>
+              </div>
+            </ScrollReveal>
+
+            {/* Pillar 2: Why Solar & Clean Energy */}
+            <ScrollReveal delay={2}>
+              <div
+                className="ios-glass-card"
+                style={{
+                  padding: '36px 30px',
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  borderRadius: '24px',
+                }}
+              >
+                <div style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '4px 12px',
+                  borderRadius: '100px',
+                  background: 'var(--color-accent-pale)',
+                  color: 'var(--color-accent)',
+                  fontSize: '0.72rem',
+                  fontWeight: 700,
+                  letterSpacing: '1.2px',
+                  textTransform: 'uppercase',
+                  marginBottom: '16px',
+                  width: 'fit-content',
+                }}>
+                  Pillar 02 : Financial & Physical Returns
+                </div>
+                <h3 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '6px', color: 'var(--color-text-primary)' }}>
+                  Why Solar & Clean Energy
+                </h3>
+                <p style={{ color: 'var(--color-accent)', fontWeight: 600, fontSize: '0.94rem', marginBottom: '22px' }}>
+                  Hedge 6% to 8% Tariff Inflation & Harvest Albedo Gain
+                </p>
+                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '14px', flex: 1 }}>
+                  <li style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', fontSize: '0.92rem', lineHeight: 1.65, color: 'var(--color-text-secondary)' }}>
+                    <CheckCircle2 size={16} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '4px' }} />
+                    <span><strong>Permanent Power Tariff Hedge:</strong> Common-meter electricity for elevators, water pumping, and corridor illumination inflates at 6% to 8% every year. Rooftop solar caps energy costs under Rs 2.10/unit for 25+ years.</span>
+                  </li>
+                  <li style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', fontSize: '0.92rem', lineHeight: 1.65, color: 'var(--color-text-secondary)' }}>
+                    <CheckCircle2 size={16} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '4px' }} />
+                    <span><strong>Bifacial Albedo Multiplier:</strong> Elevated pergola arrays allow reflected sunlight from cool-roof white terrace floor membranes to hit the rear side of bifacial glass panels, capturing 12% to 22% additional daily generation.</span>
+                  </li>
+                  <li style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', fontSize: '0.92rem', lineHeight: 1.65, color: 'var(--color-text-secondary)' }}>
+                    <CheckCircle2 size={16} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '4px' }} />
+                    <span><strong>Urban Micro-Utility Synergy:</strong> Direct coupling with EV chargers and architectural BIPV solar glass converts a dead concrete roof into a self-sustaining asset that adds tangible resale valuation to building flats.</span>
+                  </li>
+                  <li style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', fontSize: '0.92rem', lineHeight: 1.65, color: 'var(--color-text-secondary)' }}>
+                    <CheckCircle2 size={16} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '4px' }} />
+                    <span><strong>Measurable Environmental Impact:</strong> A standard 55 kWp residential array mitigates over 68 tons of CO2 annually, offsetting the carbon emissions of approximately 1,100 mature urban trees.</span>
+                  </li>
+                </ul>
+              </div>
+            </ScrollReveal>
+
+            {/* Pillar 3: Why Now */}
+            <ScrollReveal delay={3}>
+              <div
+                className="ios-glass-card"
+                style={{
+                  padding: '36px 30px',
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  borderRadius: '24px',
+                }}
+              >
+                <div style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '4px 12px',
+                  borderRadius: '100px',
+                  background: 'var(--color-accent-pale)',
+                  color: 'var(--color-accent)',
+                  fontSize: '0.72rem',
+                  fontWeight: 700,
+                  letterSpacing: '1.2px',
+                  textTransform: 'uppercase',
+                  marginBottom: '16px',
+                  width: 'fit-content',
+                }}>
+                  Pillar 03 : Subsidies & Capacity Caps
+                </div>
+                <h3 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '6px', color: 'var(--color-text-primary)' }}>
+                  Why Act Now
+                </h3>
+                <p style={{ color: 'var(--color-accent)', fontWeight: 600, fontSize: '0.94rem', marginBottom: '22px' }}>
+                  PM Surya Ghar Subsidies & Local Grid Transformer Quotas
+                </p>
+                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '14px', flex: 1 }}>
+                  <li style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', fontSize: '0.92rem', lineHeight: 1.65, color: 'var(--color-text-secondary)' }}>
+                    <CheckCircle2 size={16} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '4px' }} />
+                    <span><strong>PM Surya Ghar Central Grants:</strong> Unprecedented direct subsidies: up to Rs 78,000 for individual homes and up to Rs 10.8 Lakh (Rs 18,000/kW up to 60 kW) for Group Housing Society common meters.</span>
+                  </li>
+                  <li style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', fontSize: '0.92rem', lineHeight: 1.65, color: 'var(--color-text-secondary)' }}>
+                    <CheckCircle2 size={16} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '4px' }} />
+                    <span><strong>Rapid 3.2 to 3.8 Year Payback:</strong> Net project capital outlay is fully recovered in under 4 years via direct monthly bill credits, yielding over 21 years of pure dividend generation.</span>
+                  </li>
+                  <li style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', fontSize: '0.92rem', lineHeight: 1.65, color: 'var(--color-text-secondary)' }}>
+                    <CheckCircle2 size={16} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '4px' }} />
+                    <span><strong>Distribution Transformer Caps:</strong> Under MERC regulations, local distribution transformers have a 70% to 80% maximum solar injection ceiling. Once neighborhood transformer quotas fill up, new net metering applications are refused.</span>
+                  </li>
+                  <li style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', fontSize: '0.92rem', lineHeight: 1.65, color: 'var(--color-text-secondary)' }}>
+                    <CheckCircle2 size={16} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '4px' }} />
+                    <span><strong>Rising Raw Material Costs:</strong> Structural steel, hot-dip galvanizing, and copper cable costs trend higher annually; executing today locks in current turnkey EPC pricing.</span>
+                  </li>
+                </ul>
+              </div>
+            </ScrollReveal>
+          </div>
+
+          {/* Embedded Engineering & Financial Figures Matrix */}
+          <ScrollReveal delay={2}>
+            <div
+              style={{
+                borderRadius: '24px',
+                border: '1px solid var(--color-border)',
+                background: 'var(--color-bg-alt)',
+                padding: '40px 32px',
+                boxShadow: 'var(--shadow-lg)',
+              }}
+            >
+              <div style={{ textAlign: 'center', marginBottom: '36px' }}>
+                <span className="label" style={{ marginBottom: '10px' }}>
+                  <span className="label-dot" />
+                  Technical Evidence & Quantitative Models
+                </span>
+                <h3 style={{ fontSize: 'clamp(1.5rem, 2.6vw, 2.1rem)', color: 'var(--color-text-primary)', marginBottom: '8px', fontWeight: 700 }}>
+                  Engineering Proof: Spatial, Payback & Tariff Models
+                </h3>
+                <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.96rem', maxWidth: '640px', margin: '0 auto' }}>
+                  Extracted from verified site feasibility studies and audited techno-commercial DPR models. Click any diagram to inspect full-resolution metrics.
+                </p>
+              </div>
+
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                gap: '28px',
+              }}>
+                {/* Figure 1: Spatial Generation Profile */}
+                <div className="glass-panel" style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
+                  <div style={{ position: 'relative', height: '220px', width: '100%', backgroundColor: '#0a0d10' }}>
+                    <div className="editorial-pill" style={{ zIndex: 10, pointerEvents: 'none' }}>
+                      Figure 01 : Spatial Model
+                    </div>
+                    <ImageWithLightbox
+                      src="/images/solis_fig1_spatial_generation_profile.png"
+                      alt="Spatial Generation Profile: Elevated Pergola Canopy dual-zone architecture"
+                      title="Spatial Generation Profile & Dual-Zone Architecture"
+                      category="Spatial Engineering Analysis"
+                      scope="Multi-Surface Spatial Multiplier showing how elevated pergola framing preserves 100% terrace amenity space while capturing rear bifacial albedo gain from white cool-roof flooring."
+                      style={{ width: '100%', height: '100%' }}
+                    />
+                  </div>
+                  <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                    <div>
+                      <div style={{
+                        display: 'inline-block',
+                        padding: '3px 10px',
+                        borderRadius: '100px',
+                        background: 'var(--color-accent-pale)',
+                        color: 'var(--color-accent)',
+                        fontSize: '0.72rem',
+                        fontWeight: 700,
+                        letterSpacing: '1px',
+                        textTransform: 'uppercase',
+                        marginBottom: '10px',
+                      }}>
+                        Spatial Analysis
+                      </div>
+                      <h4 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '8px', color: 'var(--color-text-primary)' }}>
+                        Dual-Zone Terrace Spatial Optimization
+                      </h4>
+                      <p style={{ color: 'var(--color-accent)', fontWeight: 600, fontSize: '0.88rem', marginBottom: '10px' }}>
+                        100% Amenity Floor Preserved Overhead
+                      </p>
+                      <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.88rem', lineHeight: 1.6, margin: 0 }}>
+                        Elevated pergola engineering separates the power generation layer from the living layer. Residents enjoy unimpeded walking and gathering space underneath, while bifacial panels above capture direct sun and reflected floor albedo.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Figure 2: Cumulative Cashflow Payback */}
+                <div className="glass-panel" style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
+                  <div style={{ position: 'relative', height: '220px', width: '100%', backgroundColor: '#0a0d10' }}>
+                    <div className="editorial-pill" style={{ zIndex: 10, pointerEvents: 'none' }}>
+                      Figure 02 : Cashflow Model
+                    </div>
+                    <ImageWithLightbox
+                      src="/images/solis_fig2_cumulative_cashflow_payback.png"
+                      alt="Cumulative Cashflow and Payback Schedule: 3.8 Year Breakeven"
+                      title="Cumulative Cashflow & 3.8-Year Payback Schedule"
+                      category="Financial Breakeven Model"
+                      scope="Comprehensive cashflow trajectory illustrating initial capex offset by Rs 10.8L PM Surya Ghar subsidy, 3.8-year breakeven, and 25-year compounding multi-lakh net savings."
+                      style={{ width: '100%', height: '100%' }}
+                    />
+                  </div>
+                  <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                    <div>
+                      <div style={{
+                        display: 'inline-block',
+                        padding: '3px 10px',
+                        borderRadius: '100px',
+                        background: 'var(--color-accent-pale)',
+                        color: 'var(--color-accent)',
+                        fontSize: '0.72rem',
+                        fontWeight: 700,
+                        letterSpacing: '1px',
+                        textTransform: 'uppercase',
+                        marginBottom: '10px',
+                      }}>
+                        Financial Model
+                      </div>
+                      <h4 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '8px', color: 'var(--color-text-primary)' }}>
+                        Cumulative Cashflow & Payback Schedule
+                      </h4>
+                      <p style={{ color: 'var(--color-accent)', fontWeight: 600, fontSize: '0.88rem', marginBottom: '10px' }}>
+                        3.8-Year Breakeven with PM Surya Ghar Subsidy
+                      </p>
+                      <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.88rem', lineHeight: 1.6, margin: 0 }}>
+                        Audit-grade cashflow model proving that after recovering initial capital outlay in under 4 years via utility credits and central grants, housing societies generate pure financial dividends for the remaining 21+ years of module lifespan.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Figure 3: Tariff Comparison */}
+                <div className="glass-panel" style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
+                  <div style={{ position: 'relative', height: '220px', width: '100%', backgroundColor: '#0a0d10' }}>
+                    <div className="editorial-pill" style={{ zIndex: 10, pointerEvents: 'none' }}>
+                      Figure 03 : Tariff Model
+                    </div>
+                    <ImageWithLightbox
+                      src="/images/solis_fig4_tariff_comparison.png"
+                      alt="Utility Tariff Escalation vs Levelized Solar Cost"
+                      title="DISCOM Grid Tariff Escalation vs Fixed Solar Cost"
+                      category="Tariff Comparison Model"
+                      scope="Comparative analysis between compounding 6-8% annual Mumbai utility tariff inflation and levelized zero-marginal-cost clean rooftop generation."
+                      style={{ width: '100%', height: '100%' }}
+                    />
+                  </div>
+                  <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                    <div>
+                      <div style={{
+                        display: 'inline-block',
+                        padding: '3px 10px',
+                        borderRadius: '100px',
+                        background: 'var(--color-accent-pale)',
+                        color: 'var(--color-accent)',
+                        fontSize: '0.72rem',
+                        fontWeight: 700,
+                        letterSpacing: '1px',
+                        textTransform: 'uppercase',
+                        marginBottom: '10px',
+                      }}>
+                        Tariff Comparison
+                      </div>
+                      <h4 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '8px', color: 'var(--color-text-primary)' }}>
+                        Escalating Grid Tariffs vs Fixed Solar Cost
+                      </h4>
+                      <p style={{ color: 'var(--color-accent)', fontWeight: 600, fontSize: '0.88rem', marginBottom: '10px' }}>
+                        Protection Against 6% to 8% Annual Inflation
+                      </p>
+                      <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.88rem', lineHeight: 1.6, margin: 0 }}>
+                        Utility electricity tariffs across BEST, Adani, Tata Power, and MSEDCL escalate steadily. Installing on-site rooftop solar locks in zero-marginal-cost electricity, shielding societies from compounding multi-decade tariff revisions.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -694,12 +1067,11 @@ export default function SolisPage() {
                 tag: 'Residential CHS Pergola Case Study',
                 stats: '55.55 kWp (101 Bi-Facial Panels) | 100% Usable Terrace',
                 desc: 'Turnkey 10.5 ft elevated hot-dip galvanized structural pergola canopy for Abhilasha Cooperative Housing Society (Kautankar Sir / Managing Committee). Preserved 100% usable terrace space for resident walks and gatherings while powering society common meters via net metering with Adani Electricity Mumbai Limited (AEML).',
-                image: '/images/abhilasha_terrace_pergola.jpg',
+                image: '/images/solis_canopy_page1.jpg',
                 galleryImages: [
-                  '/images/abhilasha_terrace_pergola.jpg',
-                  '/images/rooftop_amenity_sky_lounge.jpg',
-                  '/images/solar-pergola-rooftop.jpg',
                   '/images/solis_canopy_page1.jpg',
+                  '/images/solis_terrace_lounge.jpg',
+                  '/images/rooftop_amenity_sky_lounge.jpg',
                 ],
                 client: 'Abhilasha Cooperative Housing Society (Kautankar Sir / Committee)',
                 challenge: 'The society terrace was actively utilized by residents for morning walks, recreation, and community events. Ground-mounted low RCC frames would have created dangerous trip hazards and made the terrace completely unusable.',

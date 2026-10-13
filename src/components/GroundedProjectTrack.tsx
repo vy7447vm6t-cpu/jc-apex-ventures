@@ -27,11 +27,11 @@ const CASE_STUDIES: CaseStudy[] = [
     location: 'Kandivali West, Mumbai',
     category: 'Renewable Infrastructure / Solis',
     metric: '55.55 kWp (101 Bi-Facial Panels) | 100% Usable Terrace Footprint',
-    primaryImage: '/images/abhilasha_terrace_pergola.jpg',
+    primaryImage: '/images/solis_canopy_page1.jpg',
     galleryImages: [
-      '/images/abhilasha_terrace_pergola.jpg',
+      '/images/solis_canopy_page1.jpg',
+      '/images/solis_terrace_lounge.jpg',
       '/images/rooftop_amenity_sky_lounge.jpg',
-      '/images/solar-pergola-rooftop.jpg',
     ],
     client: 'Abhilasha Cooperative Housing Society (Kautankar Sir / Managing Committee)',
     challenge:
@@ -123,11 +123,11 @@ const CASE_STUDIES: CaseStudy[] = [
     location: 'Elphinstone, Lower Parel, Mumbai',
     category: 'Turnkey Commercial Interior / Tvasta',
     metric: 'Corporate Headquarters | Acoustic Zoning & Integrated MEP',
-    primaryImage: '/images/commercial_office_fitout.jpg',
+    primaryImage: '/images/architectural-interior.jpg',
     galleryImages: [
-      '/images/commercial_office_fitout.jpg',
       '/images/architectural-interior.jpg',
       '/images/architectural-fitout-materials.jpg',
+      '/images/tvasta_luxury_interior.jpg',
     ],
     client: 'Financial Advisory & Wealth Management Headquarters',
     challenge:
