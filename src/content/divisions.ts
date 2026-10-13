@@ -219,6 +219,7 @@ export const sanyog: DivisionContent = {
   actions: [
     { label: 'Electricity enquiry', href: '/electricity-grievances' },
     { label: 'Licences and registrations', href: '/licenses' },
+    { label: 'File Utility Grievance', href: 'mailto:licenses@jcapexv.com?cc=Consumercmpl@jcapexv.com&subject=Utility%20Grievance%20Enquiry' },
   ],
   description:
     'SANYOG by JC Apex Ventures helps with electricity connections, bill complaints, CGRF filings and PWD licences in Mumbai.',
@@ -526,7 +527,10 @@ export const tvasta: DivisionContent = {
     { title: 'Build', text: 'Contractors carry out the civil, electrical and carpentry work, coordinated by us.' },
     { title: 'Finish', text: 'We check the details and hand over the finished space.' },
   ],
-  actions: [{ label: 'Send a design enquiry', href: '/space-planning' }],
+  actions: [
+    { label: 'Send a design enquiry', href: '/space-planning' },
+    { label: 'Email TVASTA Studio', href: 'mailto:spacemgmt@jcapexv.com?subject=TVASTA%20Design%20Enquiry' },
+  ],
   description:
     'TVASTA by JC Apex Ventures: interior design, space planning and turnkey fit-out for homes and offices in Mumbai.',
 };
@@ -649,7 +653,7 @@ export const emudran: DivisionContent = {
   ],
   actions: [
     { label: 'See rates and get an estimate', href: '/print-management' },
-    { label: 'Email eMUDRAN', href: 'mailto:emudran@jcapexv.com' },
+    { label: 'Email eMUDRAN', href: 'mailto:printmgmt@jcapexv.com?cc=emudran@jcapexv.com&subject=Print%20Production%20Enquiry' },
   ],
   description:
     'eMUDRAN by JC Apex Ventures: logo and packaging design, printing, signboards and large-format work in Mumbai.',
@@ -916,6 +920,7 @@ export const solisDivision: DivisionContent = {
   actions: [
     { label: 'Open Solis Solar Calculator', href: '/solis#calculator' },
     { label: 'Request Site Inspection', href: '/solis#enquiry' },
+    { label: 'Email Solis Hub', href: 'mailto:solis@jcapexv.com?cc=admin@jcapexv.com&subject=Solis%20Solar%20Feasibility' },
   ],
   description:
     'Solis by JC Apex Ventures offers solar rooftop EPC, elevated pergolas, BIPV solar glass, EV charging hubs and PM Surya Ghar subsidy assistance in Mumbai.',

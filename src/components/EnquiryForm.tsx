@@ -19,9 +19,10 @@ interface EnquiryFormProps {
   subject: string;
   fields: FormField[];
   submitText?: string;
+  division?: string;
 }
 
-export default function EnquiryForm({ mailto, subject, fields, submitText = "Send Enquiry" }: EnquiryFormProps) {
+export default function EnquiryForm({ mailto, subject, fields, submitText = "Send Enquiry", division }: EnquiryFormProps) {
   const [formData, setFormData] = useState<Record<string, any>>({});
 
   const handleChange = (name: string, value: any) => {

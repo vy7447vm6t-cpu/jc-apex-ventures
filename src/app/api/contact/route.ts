@@ -15,6 +15,13 @@ export async function POST(request: Request) {
       details,
     } = data;
 
+    if (!name && !email && !phone && !body) {
+      return NextResponse.json(
+        { error: 'At least one contact identifier or message body is required' },
+        { status: 400 }
+      );
+    }
+
     // Check if SMTP is configured
     const smtpUser = process.env.SMTP_USER;
     const smtpPass = process.env.SMTP_PASSWORD || process.env.GOOGLE_APP_PASSWORD;

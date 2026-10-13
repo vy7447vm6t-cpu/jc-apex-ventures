@@ -1,12 +1,12 @@
 import React from 'react';
 
-interface LogoProps {
+export interface LogoProps {
   className?: string;
   width?: number;
   height?: number;
 }
 
-export default function Logo({ className = '', width = 100, height = 100 }: LogoProps) {
+export function Logo({ className = '', width = 100, height = 100 }: LogoProps) {
   return (
     <svg 
       width={width} 
@@ -27,6 +27,16 @@ export default function Logo({ className = '', width = 100, height = 100 }: Logo
         strokeLinecap="round" 
         fill="none" 
       />
+
+      {/* Subtle underside gold highlight */}
+      <path 
+        d="M28 50 Q 50 28 72 50" 
+        stroke="#C29F53" 
+        strokeWidth="2.5" 
+        strokeLinecap="round" 
+        fill="none" 
+        opacity="0.85" 
+      />
       
       {/* Handle (J shape) */}
       <path 
@@ -34,9 +44,11 @@ export default function Logo({ className = '', width = 100, height = 100 }: Logo
         stroke="currentColor" 
         strokeWidth="8" 
         strokeLinecap="round" 
-        strokeLinejoin="round"
+        strokeLinejoin="round" 
         fill="none" 
       />
     </svg>
   );
 }
+
+export default Logo;

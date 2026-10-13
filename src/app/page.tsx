@@ -10,6 +10,7 @@ import ScrollReveal from '@/components/ScrollReveal';
 import AnimatedCounter from '@/components/AnimatedCounter';
 import SpotlightCard from '@/components/SpotlightCard';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
+import InteractiveTabbedMonograph from '@/components/InteractiveTabbedMonograph';
 import {
   Plug,
   Sun,
@@ -80,11 +81,11 @@ export default function Home() {
           background: 'radial-gradient(ellipse 65% 55% at 25% 45%, rgba(194,159,83,0.08) 0%, transparent 100%)',
         }} />
 
-        <div className="container" style={{ position: 'relative', zIndex: 2, paddingTop: '130px', paddingBottom: '70px' }}>
-          <div style={{ maxWidth: '860px' }}>
+        <div className="container text-center items-center" style={{ position: 'relative', zIndex: 2, paddingTop: '130px', paddingBottom: '70px' }}>
+          <div style={{ maxWidth: '860px', margin: '0 auto' }}>
             <div className="animate-fade-in-up label" style={{ marginBottom: '22px' }}>
               <span className="label-dot" />
-              CIN: U70200MH2023OPC411326 | MCA Registered, Government of India
+              ✦ Multi-Disciplinary Engineering & Design Consortium | One International Centre, Mumbai
             </div>
 
             <h1
@@ -178,411 +179,28 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== HOMEPAGE DIVISIONS BENTO GRID ===== */}
+      {/* ===== HOMEPAGE DIVISIONS INTERACTIVE MONOGRAPH ===== */}
       <section id="divisions" className="section">
         <div className="container">
           <ScrollReveal>
-            <div style={{ textAlign: 'center', marginBottom: '56px' }}>
+            <div style={{ textAlign: 'center', marginBottom: '48px' }}>
               <div className="section-divider" style={{ margin: '0 auto 20px auto' }} />
               <div className="label" style={{ marginBottom: '14px' }}>
                 <span className="label-dot" />
-                Curated Division Showcase
+                Curated Strategic Division Monograph
               </div>
               <h2 style={{ fontSize: 'clamp(2.1rem, 3.8vw, 3rem)', marginBottom: '16px', color: 'var(--color-text-primary)' }}>
-                Our six specialized divisions
+                Our six strategic divisions
               </h2>
-              <p style={{ color: 'var(--color-text-secondary)', maxWidth: '680px', margin: '0 auto', fontSize: '1.05rem', lineHeight: 1.7 }}>
-                Designed for direct skimmability. Every division pairs authentic photography with a one-sentence plain English breakdown, key stat metrics, and vetted associates.
+              <p style={{ color: 'var(--color-text-secondary)', maxWidth: '680px', margin: '0 auto', fontSize: '1.05rem', lineHeight: 1.7, fontFamily: 'var(--font-serif)' }}>
+                Select any division below to explore authentic project photography, core engineering pillars, technical specifications, and associate credentials.
               </p>
             </div>
           </ScrollReveal>
 
-          {/* BENTO GRID */}
-          <div className="bento-grid" style={{ marginBottom: '40px' }}>
-            
-            {/* 1. SOLIS - HERO BENTO CARD (Span 8) */}
-            <div className="bento-col-8">
-              <ScrollReveal delay={1}>
-                <Link href="/solis" style={{ display: 'block', textDecoration: 'none', height: '100%' }}>
-                  <SpotlightCard style={{ height: '100%' }}>
-                    <div style={{ position: 'relative', height: '300px', width: '100%', overflow: 'hidden' }}>
-                      <div className="editorial-pill">
-                        Representative Pergola Array
-                      </div>
-                      <img
-                        src="/images/solar-pergola-rooftop.jpg"
-                        alt="Solis Rooftop Pergola Solar"
-                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                      />
-                      <div style={{
-                        position: 'absolute', bottom: 16, left: 16, right: 16,
-                        display: 'flex', gap: '8px', flexWrap: 'wrap'
-                      }}>
-                        <span style={{
-                          background: 'rgba(255, 255, 255, 0.95)', backdropFilter: 'blur(8px)',
-                          padding: '5px 12px', borderRadius: '100px', fontSize: '0.75rem', fontWeight: 700,
-                          color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '1px'
-                        }}>
-                          Walkable Terrace Architecture
-                        </span>
-                        <span style={{
-                          background: 'rgba(20, 23, 26, 0.85)', backdropFilter: 'blur(8px)',
-                          padding: '5px 12px', borderRadius: '100px', fontSize: '0.75rem', fontWeight: 600,
-                          color: '#FFFFFF'
-                        }}>
-                          Save up to 90% Power Bills
-                        </span>
-                      </div>
-                    </div>
-
-                    <div style={{ padding: '32px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                      <div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                          <span style={{ fontSize: '0.8rem', color: 'var(--color-accent)', fontWeight: 700, letterSpacing: '1.5px', textTransform: 'uppercase' }}>
-                            Division 01 • Clean Energy EPC
-                          </span>
-                          <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', fontWeight: 600 }}>
-                            SOLIS
-                          </span>
-                        </div>
-                        <h3 style={{ fontSize: '1.6rem', marginBottom: '10px', color: 'var(--color-text-primary)' }}>
-                          Solis: Solar Rooftop Pergolas, BIPV Glass & EV Charging
-                        </h3>
-                        <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.98rem', lineHeight: 1.65, marginBottom: '20px' }}>
-                          Get clean rooftop solar without losing your terrace: our elevated pergolas generate power overhead while keeping walking and gathering space completely open for residents.
-                        </p>
-
-                        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '20px' }}>
-                          {['Elevated Pergolas', 'Zero Terrace Loss', 'BIPV Glass', 'EV Charging', 'Net-Metering'].map((t) => (
-                            <span key={t} style={{
-                              padding: '4px 10px', borderRadius: '6px', background: 'var(--color-bg-alt)',
-                              fontSize: '0.78rem', fontWeight: 600, color: 'var(--color-text-secondary)',
-                              border: '1px solid var(--color-border)'
-                            }}>
-                              {t}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--color-accent)', fontWeight: 700, fontSize: '0.92rem' }}>
-                        Open Solis Hub, System Specs & Solar Calculator <ArrowRight size={16} />
-                      </div>
-                    </div>
-                  </SpotlightCard>
-                </Link>
-              </ScrollReveal>
-            </div>
-
-            {/* 2. SANYOG - UTILITY LIAISON (Span 4) */}
-            <div className="bento-col-4">
-              <ScrollReveal delay={2}>
-                <Link href="/sanyog" style={{ display: 'block', textDecoration: 'none', height: '100%' }}>
-                  <SpotlightCard style={{ height: '100%' }}>
-                    <div style={{ position: 'relative', height: '220px', width: '100%', overflow: 'hidden' }}>
-                      <div className="editorial-pill">
-                        Mumbai Utility Distribution Network
-                      </div>
-                      <img
-                        src="/images/utility-power-grid.jpg"
-                        alt="Sanyog Utility Liaison"
-                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                      />
-                      <div style={{ position: 'absolute', bottom: 12, left: 12 }}>
-                        <span style={{
-                          background: 'rgba(255, 255, 255, 0.95)', backdropFilter: 'blur(8px)',
-                          padding: '4px 10px', borderRadius: '100px', fontSize: '0.72rem', fontWeight: 700,
-                          color: 'var(--color-accent)', textTransform: 'uppercase'
-                        }}>
-                          36+ Yrs Experience
-                        </span>
-                      </div>
-                    </div>
-
-                    <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                      <div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                          <span style={{ fontSize: '0.75rem', color: 'var(--color-accent)', fontWeight: 700, letterSpacing: '1.5px', textTransform: 'uppercase' }}>
-                            Division 02 • Liaisoning
-                          </span>
-                          <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', fontWeight: 600 }}>SANYOG</span>
-                        </div>
-                        <h3 style={{ fontSize: '1.35rem', marginBottom: '8px', color: 'var(--color-text-primary)' }}>
-                          SANYOG: Utility Paperwork & Licences
-                        </h3>
-                        <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.92rem', lineHeight: 1.6, marginBottom: '16px' }}>
-                          We handle the electricity companies (BEST, Adani, Tata Power, MSEDCL) and government paperwork so you never have to stand in queues or chase officers.
-                        </p>
-                        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '16px' }}>
-                          {['BEST / AEML / Tata', 'Bill Dispute', 'CGRF Filing', 'PWD Licences'].map((t) => (
-                            <span key={t} style={{
-                              padding: '3px 8px', borderRadius: '6px', background: 'var(--color-bg-alt)',
-                              fontSize: '0.74rem', fontWeight: 600, color: 'var(--color-text-secondary)',
-                              border: '1px solid var(--color-border)'
-                            }}>
-                              {t}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--color-accent)', fontWeight: 700, fontSize: '0.88rem' }}>
-                        View utility liaisoning services <ArrowRight size={14} />
-                      </div>
-                    </div>
-                  </SpotlightCard>
-                </Link>
-              </ScrollReveal>
-            </div>
-
-            {/* 3. GRID APEX - ELECTRICAL & WASTE TECH (Span 4) */}
-            <div className="bento-col-4">
-              <ScrollReveal delay={3}>
-                <Link href="/grid-apex" style={{ display: 'block', textDecoration: 'none', height: '100%' }}>
-                  <SpotlightCard style={{ height: '100%' }}>
-                    <div style={{ position: 'relative', height: '220px', width: '100%', overflow: 'hidden' }}>
-                      <div className="editorial-pill">
-                        HT Substation & Transformer Setup
-                      </div>
-                      <img
-                        src="/images/electrical-substation.jpg"
-                        alt="Grid Apex Electrical Engineering"
-                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                      />
-                      <div style={{ position: 'absolute', bottom: 12, left: 12 }}>
-                        <span style={{
-                          background: 'rgba(255, 255, 255, 0.95)', backdropFilter: 'blur(8px)',
-                          padding: '4px 10px', borderRadius: '100px', fontSize: '0.72rem', fontWeight: 700,
-                          color: 'var(--color-accent)', textTransform: 'uppercase'
-                        }}>
-                          HT/LT Licenced
-                        </span>
-                      </div>
-                    </div>
-
-                    <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                      <div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                          <span style={{ fontSize: '0.75rem', color: 'var(--color-accent)', fontWeight: 700, letterSpacing: '1.5px', textTransform: 'uppercase' }}>
-                            Division 03 • Engineering
-                          </span>
-                          <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', fontWeight: 600 }}>GRID APEX</span>
-                        </div>
-                        <h3 style={{ fontSize: '1.35rem', marginBottom: '8px', color: 'var(--color-text-primary)' }}>
-                          GRID APEX: HT/LT Electrical & Waste Tech
-                        </h3>
-                        <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.92rem', lineHeight: 1.6, marginBottom: '16px' }}>
-                          Turnkey electrical installations from high-voltage transformers and power distribution boards to innovative zero-energy solid waste disposal machines.
-                        </p>
-                        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '16px' }}>
-                          {['HT Substations', 'Transformers', 'Switchgear', 'Waste Tech'].map((t) => (
-                            <span key={t} style={{
-                              padding: '3px 8px', borderRadius: '6px', background: 'var(--color-bg-alt)',
-                              fontSize: '0.74rem', fontWeight: 600, color: 'var(--color-text-secondary)',
-                              border: '1px solid var(--color-border)'
-                            }}>
-                              {t}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--color-accent)', fontWeight: 700, fontSize: '0.88rem' }}>
-                        View electrical & waste tech <ArrowRight size={14} />
-                      </div>
-                    </div>
-                  </SpotlightCard>
-                </Link>
-              </ScrollReveal>
-            </div>
-
-            {/* 4. TVASTA - INTERIORS & FIT-OUT (Span 4) */}
-            <div className="bento-col-4">
-              <ScrollReveal delay={4}>
-                <Link href="/tvasta" style={{ display: 'block', textDecoration: 'none', height: '100%' }}>
-                  <SpotlightCard style={{ height: '100%' }}>
-                    <div style={{ position: 'relative', height: '220px', width: '100%', overflow: 'hidden' }}>
-                      <div className="editorial-pill">
-                        Architectural Fit-out Specimen
-                      </div>
-                      <img
-                        src="/images/architectural-interior.jpg"
-                        alt="Tvasta Architectural Interiors"
-                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                      />
-                      <div style={{ position: 'absolute', bottom: 12, left: 12 }}>
-                        <span style={{
-                          background: 'rgba(255, 255, 255, 0.95)', backdropFilter: 'blur(8px)',
-                          padding: '4px 10px', borderRadius: '100px', fontSize: '0.72rem', fontWeight: 700,
-                          color: 'var(--color-accent)', textTransform: 'uppercase'
-                        }}>
-                          Architect-Led
-                        </span>
-                      </div>
-                    </div>
-
-                    <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                      <div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                          <span style={{ fontSize: '0.75rem', color: 'var(--color-accent)', fontWeight: 700, letterSpacing: '1.5px', textTransform: 'uppercase' }}>
-                            Division 04 • Interiors
-                          </span>
-                          <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', fontWeight: 600 }}>TVASTA</span>
-                        </div>
-                        <h3 style={{ fontSize: '1.35rem', marginBottom: '8px', color: 'var(--color-text-primary)' }}>
-                          TVASTA: Architectural Interiors & Fit-outs
-                        </h3>
-                        <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.92rem', lineHeight: 1.6, marginBottom: '16px' }}>
-                          Thoughtful space planning, 3D layouts, and luxury turnkey interior contracting for corporate offices and upscale residences with fixed timelines.
-                        </p>
-                        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '16px' }}>
-                          {['Space Planning', 'Turnkey Fit-out', 'Modular Woodwork', '3D Layouts'].map((t) => (
-                            <span key={t} style={{
-                              padding: '3px 8px', borderRadius: '6px', background: 'var(--color-bg-alt)',
-                              fontSize: '0.74rem', fontWeight: 600, color: 'var(--color-text-secondary)',
-                              border: '1px solid var(--color-border)'
-                            }}>
-                              {t}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--color-accent)', fontWeight: 700, fontSize: '0.88rem' }}>
-                        View interior design tiers <ArrowRight size={14} />
-                      </div>
-                    </div>
-                  </SpotlightCard>
-                </Link>
-              </ScrollReveal>
-            </div>
-
-            {/* 5. eMUDRAN - BRANDING & LUXURY PRINT (Span 4) */}
-            <div className="bento-col-4">
-              <ScrollReveal delay={5}>
-                <Link href="/emudran" style={{ display: 'block', textDecoration: 'none', height: '100%' }}>
-                  <SpotlightCard style={{ height: '100%' }}>
-                    <div style={{ position: 'relative', height: '220px', width: '100%', overflow: 'hidden' }}>
-                      <div className="editorial-pill">
-                        Embossed Corporate Stationery Specimen
-                      </div>
-                      <img
-                        src="/images/luxury-print-packaging.jpg"
-                        alt="eMudran Luxury Print and Packaging"
-                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                      />
-                      <div style={{ position: 'absolute', bottom: 12, left: 12 }}>
-                        <span style={{
-                          background: 'rgba(255, 255, 255, 0.95)', backdropFilter: 'blur(8px)',
-                          padding: '4px 10px', borderRadius: '100px', fontSize: '0.72rem', fontWeight: 700,
-                          color: 'var(--color-accent)', textTransform: 'uppercase'
-                        }}>
-                          Direct Press Supervision
-                        </span>
-                      </div>
-                    </div>
-
-                    <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                      <div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                          <span style={{ fontSize: '0.75rem', color: 'var(--color-accent)', fontWeight: 700, letterSpacing: '1.5px', textTransform: 'uppercase' }}>
-                            Division 05 • Print & Brand
-                          </span>
-                          <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', fontWeight: 600 }}>eMUDRAN</span>
-                        </div>
-                        <h3 style={{ fontSize: '1.35rem', marginBottom: '8px', color: 'var(--color-text-primary)' }}>
-                          eMUDRAN: Branding, Packaging & 3D Signage
-                        </h3>
-                        <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.92rem', lineHeight: 1.6, marginBottom: '16px' }}>
-                          High-end embossed stationery, luxury packaging, illuminated 3D signage, and corporate print materials crafted under hands-on production supervision.
-                        </p>
-                        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '16px' }}>
-                          {['Luxury Embossing', 'Stationery', 'Packaging', '3D Signage'].map((t) => (
-                            <span key={t} style={{
-                              padding: '3px 8px', borderRadius: '6px', background: 'var(--color-bg-alt)',
-                              fontSize: '0.74rem', fontWeight: 600, color: 'var(--color-text-secondary)',
-                              border: '1px solid var(--color-border)'
-                            }}>
-                              {t}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--color-accent)', fontWeight: 700, fontSize: '0.88rem' }}>
-                        View print specs & estimate rates <ArrowRight size={14} />
-                      </div>
-                    </div>
-                  </SpotlightCard>
-                </Link>
-              </ScrollReveal>
-            </div>
-
-            {/* 6. AGRIM - PROJECT FINANCE DOSSIERS (Span 12) */}
-            <div className="bento-col-12">
-              <ScrollReveal delay={6}>
-                <Link href="/agrim" style={{ display: 'block', textDecoration: 'none' }}>
-                  <SpotlightCard contentStyle={{
-                    display: 'grid', gridTemplateColumns: 'minmax(280px, 420px) 1fr',
-                    overflow: 'hidden'
-                  }}>
-                    <div style={{ position: 'relative', minHeight: '260px' }}>
-                      <div className="editorial-pill">
-                        Project Finance Feasibility Binder
-                      </div>
-                      <img
-                        src="/images/project-finance-binder.jpg"
-                        alt="Agrim Project Finance Paperwork"
-                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                      />
-                      <div style={{ position: 'absolute', bottom: 16, left: 16 }}>
-                        <span style={{
-                          background: 'rgba(255, 255, 255, 0.95)', backdropFilter: 'blur(8px)',
-                          padding: '4px 12px', borderRadius: '100px', fontSize: '0.74rem', fontWeight: 700,
-                          color: 'var(--color-accent)', textTransform: 'uppercase'
-                        }}>
-                          Institutional Grade Files
-                        </span>
-                      </div>
-                    </div>
-
-                    <div style={{ padding: '32px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                      <div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                          <span style={{ fontSize: '0.78rem', color: 'var(--color-accent)', fontWeight: 700, letterSpacing: '1.5px', textTransform: 'uppercase' }}>
-                            Division 06 • Project Finance Paperwork (Not a Lender)
-                          </span>
-                          <span style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)', fontWeight: 600 }}>AGRIM</span>
-                        </div>
-                        <h3 style={{ fontSize: '1.5rem', marginBottom: '10px', color: 'var(--color-text-primary)' }}>
-                          AGRIM: Bank-Ready Project Reports & Loan File Preparation
-                        </h3>
-                        <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.96rem', lineHeight: 1.65, marginBottom: '16px' }}>
-                          We compile institutional-grade project reports, cash-flow models, and regulatory clearance binders so banks and investors can evaluate your solar, electrical or fit-out project without delays. Every decision is made by your chosen lender.
-                        </p>
-                        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '20px' }}>
-                          {['DPR Preparation', 'CMA Data & Cash Flow', 'Statutory Permissions Order', 'Technical Feasibility'].map((t) => (
-                            <span key={t} style={{
-                              padding: '4px 10px', borderRadius: '6px', background: 'var(--color-bg-alt)',
-                              fontSize: '0.78rem', fontWeight: 600, color: 'var(--color-text-secondary)',
-                              border: '1px solid var(--color-border)'
-                            }}>
-                              {t}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--color-accent)', fontWeight: 700, fontSize: '0.92rem' }}>
-                        Learn how AGRIM prepares bank dossiers <ArrowRight size={16} />
-                      </div>
-                    </div>
-                  </SpotlightCard>
-                </Link>
-              </ScrollReveal>
-            </div>
-
-          </div>
+          <ScrollReveal delay={1}>
+            <InteractiveTabbedMonograph />
+          </ScrollReveal>
         </div>
       </section>
 

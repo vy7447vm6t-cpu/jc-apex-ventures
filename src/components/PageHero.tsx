@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
+import { ImageWithLightbox } from '@/components/ImageLightbox';
 
 interface PageHeroProps {
   title: string;
@@ -13,6 +14,7 @@ interface PageHeroProps {
   statPill?: string;
   heroImage?: string;
   heroImageTag?: string;
+  logo?: React.ReactNode;
 }
 
 export default function PageHero({
@@ -24,6 +26,7 @@ export default function PageHero({
   statPill,
   heroImage,
   heroImageTag,
+  logo,
 }: PageHeroProps) {
   return (
     <section style={{
@@ -52,6 +55,23 @@ export default function PageHero({
 
         <div style={{ display: 'grid', gridTemplateColumns: heroImage ? '1.15fr 0.85fr' : '1fr', gap: '48px', alignItems: 'center' }}>
           <div>
+            {logo && (
+              <div className="animate-fade-in-up" style={{ marginBottom: '20px', display: 'flex', alignItems: 'center' }}>
+                <div style={{
+                  padding: '10px 14px',
+                  borderRadius: '16px',
+                  background: 'rgba(17, 21, 26, 0.75)',
+                  border: '1px solid rgba(194, 159, 83, 0.3)',
+                  boxShadow: '0 8px 24px rgba(0, 0, 0, 0.4)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  backdropFilter: 'blur(12px)',
+                }}>
+                  {logo}
+                </div>
+              </div>
+            )}
+
             {badge && (
               <div className="animate-fade-in-up label" style={{ marginBottom: '18px' }}>
                 <span className="label-dot" />
@@ -99,19 +119,17 @@ export default function PageHero({
               height: '320px',
             }}>
               {heroImageTag && (
-                <div className="editorial-pill">
+                <div className="editorial-pill" style={{ zIndex: 10, pointerEvents: 'none' }}>
                   {heroImageTag}
                 </div>
               )}
-              <img
+              <ImageWithLightbox
                 src={heroImage}
                 alt={title}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  display: 'block',
-                }}
+                title={title}
+                category={heroImageTag || breadcrumb}
+                scope={tagline}
+                style={{ width: '100%', height: '100%' }}
               />
             </div>
           )}

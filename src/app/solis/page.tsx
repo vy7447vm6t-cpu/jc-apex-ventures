@@ -9,6 +9,7 @@ import ScrollReveal from '@/components/ScrollReveal';
 import SolarCalculator, { CalculationResult } from '@/components/SolarCalculator';
 import SpotlightCard from '@/components/SpotlightCard';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
+import DivisionLogo from '@/components/DivisionLogos';
 import {
   Sun,
   CheckCircle2,
@@ -194,6 +195,7 @@ export default function SolisPage() {
         statPill="Save up to 90% Power Bills"
         heroImage="/images/solar-pergola-rooftop.jpg"
         heroImageTag="Representative Pergola Array"
+        logo={<DivisionLogo division="solis" size={48} />}
       />
 
       {/* Overview Intro */}

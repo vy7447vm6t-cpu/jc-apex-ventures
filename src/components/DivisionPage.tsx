@@ -8,6 +8,10 @@ import Clippy from '@/components/Clippy';
 import PageHero from '@/components/PageHero';
 import ScrollReveal from '@/components/ScrollReveal';
 import type { DivisionContent, IconKey } from '@/content/divisions';
+import DivisionLogo from '@/components/DivisionLogos';
+import { ImageWithLightbox } from '@/components/ImageLightbox';
+import PrintCalculator from '@/components/PrintCalculator';
+import InteriorCalculator from '@/components/InteriorCalculator';
 import { Plug, Sun, Layout, Printer, Landmark, Zap, ArrowRight, AlertTriangle, CheckCircle2, User, Sparkles } from 'lucide-react';
 
 export const divisionIcons: Record<IconKey, React.ComponentType<{ size?: number; color?: string }>> = {
@@ -47,6 +51,7 @@ export default function DivisionPage({ data }: { data: DivisionContent }) {
         statPill={data.statPill}
         heroImage={data.heroImage}
         heroImageTag={data.heroImageTag}
+        logo={<DivisionLogo division={data.slug} size={48} />}
       />
 
       {/* 15-Second Skim Takeaway Banner */}
@@ -85,13 +90,16 @@ export default function DivisionPage({ data }: { data: DivisionContent }) {
                 <ScrollReveal key={vc.title} delay={i + 1}>
                   <div className="glass-panel" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                     <div style={{ position: 'relative', height: '220px', width: '100%', overflow: 'hidden' }}>
-                      <div className="editorial-pill">
+                      <div className="editorial-pill" style={{ zIndex: 10, pointerEvents: 'none' }}>
                         {vc.imageTag}
                       </div>
-                      <img
+                      <ImageWithLightbox
                         src={vc.image}
                         alt={vc.title}
-                        style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s ease' }}
+                        title={vc.title}
+                        category={vc.badge || vc.imageTag}
+                        scope={vc.description}
+                        style={{ width: '100%', height: '100%' }}
                       />
                     </div>
                     <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
@@ -294,6 +302,32 @@ export default function DivisionPage({ data }: { data: DivisionContent }) {
           )}
         </div>
       </section>
+
+      {/* Interactive Print & Packaging Estimator for eMudran */}
+      {data.slug === 'emudran' && (
+        <section className="section" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
+          <div className="container">
+            <SectionHeading
+              title="Interactive Print & Signage Estimator"
+              intro="Select your collateral format, quantity tier, and finishing spec to calculate corporate production rates in real time."
+            />
+            <PrintCalculator />
+          </div>
+        </section>
+      )}
+
+      {/* Interactive Turnkey Interior Cost Estimator for TVASTA */}
+      {data.slug === 'tvasta' && (
+        <section className="section" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
+          <div className="container">
+            <SectionHeading
+              title="Interactive Turnkey Cost Estimator"
+              intro="Select your apartment layout or commercial footprint to compute real-time cost benchmarks across Standard, Premium, and Luxury finishing tiers."
+            />
+            <InteriorCalculator />
+          </div>
+        </section>
+      )}
 
       {/* People and Accountability */}
       <section className="section" style={{ paddingBottom: '40px' }}>
