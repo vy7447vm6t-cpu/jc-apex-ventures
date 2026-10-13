@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 import path from "path";
 import fs from "fs";
 
-if (!process.env.NEXT_FONT_GOOGLE_MOCKED_RESPONSES) {
+if (!process.env.VERCEL && !process.env.NEXT_FONT_GOOGLE_MOCKED_RESPONSES) {
   const cacheDir = path.join(__dirname, "node_modules/.cache");
   if (!fs.existsSync(cacheDir)) {
     fs.mkdirSync(cacheDir, { recursive: true });
