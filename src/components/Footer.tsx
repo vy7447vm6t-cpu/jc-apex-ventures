@@ -199,15 +199,43 @@ export default function Footer() {
             >
               Headquarters
             </div>
-            <div style={{ display: 'flex', gap: '10px', color: 'rgba(255, 255, 255, 0.75)', fontSize: '0.92rem', lineHeight: 1.6 }}>
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=One+International+Centre+Senapati+Bapat+Marg+Elphinstone+Mumbai+400013"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Open One International Centre Mumbai in Google Maps"
+              style={{
+                display: 'flex',
+                gap: '10px',
+                color: 'rgba(255, 255, 255, 0.85)',
+                fontSize: '0.92rem',
+                lineHeight: 1.6,
+                textDecoration: 'none',
+                transition: 'color 0.2s ease',
+              }}
+            >
               <MapPin size={18} color="#C29F53" style={{ flexShrink: 0, marginTop: '3px' }} />
               <div>
-                One International Centre, Tower 1,<br />
-                8th Floor, Units 801-802,<br />
-                Senapati Bapat Marg,<br />
-                Elphinstone, Mumbai 400013
+                <span>One International Centre, Tower 1,</span><br />
+                <span>8th Floor, Units 801-802,</span><br />
+                <span>Senapati Bapat Marg,</span><br />
+                <span>Elphinstone, Mumbai 400013</span>
+                <div
+                  style={{
+                    fontSize: '0.74rem',
+                    fontFamily: 'var(--font-mono, monospace)',
+                    color: '#C29F53',
+                    marginTop: '6px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                  }}
+                >
+                  <span>[open in google maps]</span>
+                  <ArrowUpRight size={12} />
+                </div>
               </div>
-            </div>
+            </a>
           </div>
 
           {/* Column 4: Regulatory Transparency */}
@@ -267,7 +295,7 @@ export default function Footer() {
             &copy; 2026 JC Apex Ventures (OPC) Private Limited. All rights reserved.
           </div>
           <div>
-            Ministry of Corporate Affairs (MCA), Govt. of India | CIN: U70200MH2023OPC411326 | One Person Company (OPC)
+            CIN (MCA): U70200MH2023OPC411326
           </div>
         </div>
       </div>

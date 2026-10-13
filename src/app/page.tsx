@@ -72,7 +72,7 @@ export default function Home() {
                 letterSpacing: '-0.02em',
                 color: '#111111',
                 margin: '0 0 16px 0',
-                fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
               }}
             >
               Curated Strategic Division Monograph
@@ -117,7 +117,7 @@ export default function Home() {
                 letterSpacing: '-0.02em',
                 color: '#111111',
                 margin: '0 0 16px 0',
-                fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
               }}
             >
               Traditional Cluttered Roof vs Solis Walkable Pergola
@@ -194,7 +194,7 @@ export default function Home() {
                 letterSpacing: '-0.02em',
                 margin: '0 auto 18px auto',
                 maxWidth: '720px',
-                fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
               }}
             >
               Have a utility sanction, solar EPC, or interior fit-out requirement?

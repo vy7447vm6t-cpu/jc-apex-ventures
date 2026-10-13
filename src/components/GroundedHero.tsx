@@ -174,7 +174,11 @@ export default function GroundedHero() {
           }}
         >
           <span style={{ color: '#E8E4DA', fontSize: '0.78rem' }}>✦</span>
-          <span
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=One+International+Centre+Senapati+Bapat+Marg+Elphinstone+Mumbai+400013"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Open One International Centre Mumbai in Google Maps"
             style={{
               fontFamily: 'var(--font-mono, monospace)',
               fontSize: '0.78rem',
@@ -182,22 +186,27 @@ export default function GroundedHero() {
               textTransform: 'uppercase',
               color: '#FFFFFF',
               fontWeight: 500,
+              textDecoration: 'none',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
             }}
           >
-            Multi-Disciplinary Engineering & Design Consortium | One International Centre, Mumbai
-          </span>
+            <span>Multi-Disciplinary Engineering & Design Consortium | One International Centre, Mumbai</span>
+            <ArrowUpRight size={13} color="#E8E4DA" />
+          </a>
         </div>
 
         {/* Split Mask Architectural Headline */}
         <div style={{ maxWidth: '960px', marginBottom: '24px' }}>
           <h1
             style={{
-              fontSize: 'clamp(2.8rem, 6.2vw, 5.4rem)',
+              fontSize: 'clamp(3rem, 6.8vw, 5.8rem)',
               lineHeight: 1.05,
               fontWeight: 400,
               color: '#FFFFFF',
               letterSpacing: '-0.025em',
-              fontFamily: 'var(--font-sans, Inter, sans-serif)',
+              fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
               margin: 0,
             }}
           >

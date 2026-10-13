@@ -199,8 +199,8 @@ export default function Navbar() {
             </Link>
             <span style={{ color: '#CCCCCC' }}>/</span>
             <Link
-              href="/#about"
-              aria-label="Practice and Leadership"
+              href="/studio"
+              aria-label="Practice, Leadership and Studio"
               style={{ color: '#444444', textDecoration: 'none' }}
             >
               <ScrambleText text="Studio" />
@@ -331,6 +331,36 @@ export default function Navbar() {
                 maxWidth: '1000px',
               }}
             >
+              <Link
+                href="/studio"
+                onClick={() => setMobileOpen(false)}
+                style={{
+                  textDecoration: 'none',
+                  borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
+                  paddingBottom: '16px',
+                  color: '#FFFFFF',
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: 'var(--font-mono, monospace)',
+                    fontSize: '0.74rem',
+                    color: '#C29F53',
+                    marginBottom: '4px',
+                  }}
+                >
+                  Practice &amp; Leadership
+                </div>
+                <div
+                  style={{
+                    fontSize: '1.6rem',
+                    fontWeight: 500,
+                    fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                  }}
+                >
+                  Studio Dossier
+                </div>
+              </Link>
               {divisions.map((div) => (
                 <Link
                   key={div.href}
@@ -379,15 +409,22 @@ export default function Navbar() {
             }}
           >
             <div>
-              <div
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=One+International+Centre+Senapati+Bapat+Marg+Elphinstone+Mumbai+400013"
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{
                   fontFamily: 'var(--font-mono, monospace)',
                   fontSize: '0.76rem',
-                  color: '#888888',
+                  color: '#C29F53',
+                  textDecoration: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '4px',
                 }}
               >
-                One International Centre, Mumbai
-              </div>
+                <span>One International Centre, Mumbai [open maps]</span>
+              </a>
               <div style={{ fontSize: '0.94rem', color: '#FFFFFF', marginTop: '4px' }}>
                 Director: Jitendra Chavan | 36 Years Direct Utility Background
               </div>

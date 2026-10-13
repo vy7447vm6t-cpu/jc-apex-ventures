@@ -26,6 +26,8 @@ import {
   Eye,
   Sliders,
   Copy,
+  X,
+  ArrowUpRight,
 } from 'lucide-react';
 
 export default function SolisPage() {
@@ -33,6 +35,24 @@ export default function SolisPage() {
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
   const [submittedBody, setSubmittedBody] = useState<string>('');
   const [copied, setCopied] = useState<boolean>(false);
+  const [selectedDossier, setSelectedDossier] = useState<any | null>(null);
+  const [dossierPhotoIdx, setDossierPhotoIdx] = useState<number>(0);
+
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSelectedDossier(null);
+    };
+    if (selectedDossier) {
+      window.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [selectedDossier]);
 
   // Enquiry Form State
   const [formData, setFormData] = useState({
@@ -195,7 +215,16 @@ export default function SolisPage() {
         statPill="Save up to 90% Power Bills"
         heroImage="/images/solar-pergola-rooftop.jpg"
         heroImageTag="Representative Pergola Array"
-        logo={<DivisionLogo division="solis" size={48} />}
+        logo={
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <img
+              src="/images/logos/solis-logo.png"
+              alt="Official Solis Brand Logo"
+              style={{ height: '48px', width: 'auto', objectFit: 'contain' }}
+            />
+            <DivisionLogo division="solis" size={44} />
+          </div>
+        }
       />
 
       {/* Overview Intro */}
@@ -660,27 +689,116 @@ export default function SolisPage() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px', marginBottom: '48px' }}>
             {[
               {
+                id: 'abhilasha-chs',
+                title: 'Abhilasha CHS, Kandivali West, Mumbai',
+                tag: 'Residential CHS Pergola Case Study',
+                stats: '55.55 kWp (101 Bi-Facial Panels) | 100% Usable Terrace',
+                desc: 'Turnkey 10.5 ft elevated hot-dip galvanized structural pergola canopy for Abhilasha Cooperative Housing Society (Kautankar Sir / Managing Committee). Preserved 100% usable terrace space for resident walks and gatherings while powering society common meters via net metering with Adani Electricity Mumbai Limited (AEML).',
+                image: '/images/abhilasha_terrace_pergola.jpg',
+                galleryImages: [
+                  '/images/abhilasha_terrace_pergola.jpg',
+                  '/images/rooftop_amenity_sky_lounge.jpg',
+                  '/images/solar-pergola-rooftop.jpg',
+                  '/images/solis_canopy_page1.jpg',
+                ],
+                client: 'Abhilasha Cooperative Housing Society (Kautankar Sir / Committee)',
+                challenge: 'The society terrace was actively utilized by residents for morning walks, recreation, and community events. Ground-mounted low RCC frames would have created dangerous trip hazards and made the terrace completely unusable.',
+                solution: 'Solis designed a 10.5 ft elevated hot-dip galvanized structural steel pergola canopy carrying 101 bi-facial solar modules overhead with integrated rainwater gutters and bidirectional net metering with Adani Electricity (AEML).',
+                outcomes: [
+                  '55.55 kWp plant producing ~80,000 clean units annually',
+                  '85% drop in society common-meter electricity expenses',
+                  '100% usable open terrace preserved for resident recreation',
+                  '150 km/h wind-load rated structure engineered for coastal Mumbai gusts',
+                ],
+                specs: [
+                  { label: 'Plant Size', value: '55.55 kWp' },
+                  { label: 'Solar Tech', value: '101 Bi-Facial Modules' },
+                  { label: 'Headroom', value: '10.5 ft Walkable Frame' },
+                  { label: 'DISCOM', value: 'Adani Electricity (AEML)' },
+                ],
+              },
+              {
+                id: 'corporate-hq',
                 title: 'Corporate Headquarters, Navi Mumbai',
                 tag: 'Commercial & BIPV Reference',
                 stats: '82 kW Rooftop Solar + 29 kW BIPV Glass',
                 desc: 'Full design and execution combining conventional rooftop modules with architectural semi-transparent solar glass over central atriums, reducing lighting and cooling expenses.',
+                image: '/images/solis_facade_solar.jpg',
+                galleryImages: [
+                  '/images/solis_facade_solar.jpg',
+                  '/images/solar-bipv-glass.jpg',
+                  '/images/solis_terrace_lounge.jpg',
+                ],
+                client: 'Commercial Corporate Headquarters',
+                challenge: 'Standard black rooftop panels would look industrial on an architectural glass building atrium, while heavy solar heat gain drove up internal HVAC chiller loads.',
+                solution: 'Engineered architectural semi-transparent BIPV solar glass with 30% daylight transmittance across the atrium, generating 29 kW while cooling internal temperatures.',
+                outcomes: [
+                  '111 kW total combined clean energy generation',
+                  '22% lower HVAC cooling load through heat-absorbing PV glass',
+                  'Architectural facade integration without exposed conduits',
+                ],
+                specs: [
+                  { label: 'Rooftop Array', value: '82 kW Mono PERC' },
+                  { label: 'BIPV Glazing', value: '29 kW Solar Glass' },
+                  { label: 'Transmittance', value: '30% Natural Light' },
+                  { label: 'Grid Feed', value: 'MSEDCL Net Metering' },
+                ],
               },
               {
-                title: 'Residential Housing Society, Mumbai',
-                tag: 'Residential CHS Pergola Reference',
-                stats: '101-Panel Elevated Pergola Array (55 kWp)',
-                desc: 'Engineered an elevated structure 10 feet above the terrace floor. Preserved 2,800 sq ft of recreation area for residents while powering society lifts, pumps, and common lighting.',
-              },
-              {
+                id: 'industrial-plant',
                 title: 'Industrial Manufacturing Unit, Maharashtra',
                 tag: 'Industrial High-Tension Reference',
                 stats: '690 kWp High-Voltage Rooftop Installation',
                 desc: 'End-to-end electrical HT grid synchronization, transformer integration, and industrial net metering approvals.',
+                image: '/images/solis_canopy_page1.jpg',
+                galleryImages: [
+                  '/images/solis_canopy_page1.jpg',
+                  '/images/field_switchgear_panel.jpg',
+                  '/images/solis_ev_canopy_page2.jpg',
+                ],
+                client: 'Industrial Precision Component Manufacturer',
+                challenge: 'Factory operated high peak LT loads with steep monthly maximum demand charges and complex PWD electrical inspectorate compliance requirements.',
+                solution: 'Installed a 690 kWp industrial solar carport and rooftop array linked to on-site 33kV transformers with automated reverse-power relay protection.',
+                outcomes: [
+                  '~1.05 Million clean kWh units generated annually',
+                  'Rapid 3.2 year industrial capital payback',
+                  'PWD Electrical Inspectorate formal charging certificate cleared',
+                ],
+                specs: [
+                  { label: 'Capacity', value: '690 kWp Industrial' },
+                  { label: 'Grid Voltage', value: '33kV HT Interconnection' },
+                  { label: 'Protection', value: 'Reverse Power Relay' },
+                  { label: 'Approvals', value: 'PWD Electrical Clearance' },
+                ],
               },
             ].map((proj, idx) => (
-              <ScrollReveal key={idx} delay={idx + 1}>
-                <div className="glass-panel" style={{ padding: '30px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+              <ScrollReveal key={proj.id} delay={idx + 1}>
+                <div
+                  className="glass-panel"
+                  onClick={() => {
+                    setSelectedDossier(proj);
+                    setDossierPhotoIdx(0);
+                  }}
+                  style={{
+                    padding: '30px',
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    cursor: 'pointer',
+                    transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                  }}
+                >
                   <div>
+                    {proj.image && (
+                      <div style={{ height: '180px', borderRadius: '12px', overflow: 'hidden', marginBottom: '16px' }}>
+                        <img
+                          src={proj.image}
+                          alt={proj.title}
+                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        />
+                      </div>
+                    )}
                     <span style={{ display: 'inline-block', padding: '4px 12px', borderRadius: '100px', background: 'var(--color-accent-pale)', color: 'var(--color-accent)', fontSize: '0.74rem', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '14px' }}>
                       {proj.tag}
                     </span>
@@ -690,14 +808,347 @@ export default function SolisPage() {
                     <div style={{ fontSize: '0.98rem', fontWeight: 700, color: 'var(--color-accent)', marginBottom: '12px' }}>
                       {proj.stats}
                     </div>
-                    <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.92rem', lineHeight: 1.65 }}>
+                    <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.92rem', lineHeight: 1.65, marginBottom: '20px' }}>
                       {proj.desc}
                     </p>
                   </div>
+
+                  <button
+                    type="button"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      width: '100%',
+                      padding: '10px 14px',
+                      borderRadius: '10px',
+                      backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                      border: '1px solid var(--color-border)',
+                      color: 'var(--color-text-primary)',
+                      fontSize: '0.84rem',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                    }}
+                  >
+                    <span>View Case Study Dossier</span>
+                    <ArrowUpRight size={15} color="var(--color-accent)" />
+                  </button>
                 </div>
               </ScrollReveal>
             ))}
           </div>
+
+          {/* Interactive Case Study Dossier Modal */}
+          {selectedDossier && (
+            <div
+              role="dialog"
+              aria-modal="true"
+              onClick={() => setSelectedDossier(null)}
+              style={{
+                position: 'fixed',
+                inset: 0,
+                zIndex: 9999,
+                backgroundColor: 'rgba(0, 0, 0, 0.85)',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '20px',
+                overflowY: 'auto',
+              }}
+            >
+              <div
+                onClick={(e) => e.stopPropagation()}
+                style={{
+                  position: 'relative',
+                  width: '100%',
+                  maxWidth: '880px',
+                  backgroundColor: '#FAF8F5',
+                  borderRadius: '24px',
+                  overflow: 'hidden',
+                  boxShadow: '0 32px 80px rgba(0, 0, 0, 0.6)',
+                  maxHeight: '90vh',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  border: '1px solid rgba(0, 0, 0, 0.1)',
+                }}
+              >
+                {/* Modal Header */}
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    padding: '24px 32px',
+                    borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
+                    backgroundColor: '#FFFFFF',
+                  }}
+                >
+                  <div>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono, monospace)',
+                        fontSize: '0.78rem',
+                        color: '#C29F53',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.08em',
+                        fontWeight: 600,
+                      }}
+                    >
+                      [{selectedDossier.tag}]
+                    </span>
+                    <h3
+                      style={{
+                        margin: '4px 0 0 0',
+                        fontSize: 'clamp(1.4rem, 2.5vw, 1.85rem)',
+                        fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+                        color: '#111111',
+                        lineHeight: 1.2,
+                      }}
+                    >
+                      {selectedDossier.title}
+                    </h3>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => setSelectedDossier(null)}
+                    aria-label="Close case study modal"
+                    style={{
+                      width: '38px',
+                      height: '38px',
+                      borderRadius: '50%',
+                      border: '1px solid rgba(0, 0, 0, 0.12)',
+                      backgroundColor: '#F4F1EA',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      cursor: 'pointer',
+                      color: '#111111',
+                      transition: 'background-color 0.2s ease',
+                      flexShrink: 0,
+                    }}
+                  >
+                    <X size={18} />
+                  </button>
+                </div>
+
+                {/* Modal Scrollable Body */}
+                <div
+                  style={{
+                    padding: '30px',
+                    overflowY: 'auto',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '24px',
+                  }}
+                >
+                  {/* Photo Gallery with Selector */}
+                  <div>
+                    <div
+                      style={{
+                        borderRadius: '16px',
+                        overflow: 'hidden',
+                        height: '340px',
+                        backgroundColor: '#111111',
+                        marginBottom: '10px',
+                      }}
+                    >
+                      <img
+                        src={selectedDossier.galleryImages[dossierPhotoIdx]}
+                        alt={`${selectedDossier.title} photo ${dossierPhotoIdx + 1}`}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                        }}
+                      />
+                    </div>
+
+                    {selectedDossier.galleryImages.length > 1 && (
+                      <div style={{ display: 'flex', gap: '8px' }}>
+                        {selectedDossier.galleryImages.map((img: string, idx: number) => (
+                          <button
+                            key={img}
+                            type="button"
+                            onClick={() => setDossierPhotoIdx(idx)}
+                            style={{
+                              width: '76px',
+                              height: '52px',
+                              borderRadius: '8px',
+                              overflow: 'hidden',
+                              border: dossierPhotoIdx === idx ? '2px solid #C29F53' : '1px solid rgba(0,0,0,0.12)',
+                              padding: 0,
+                              cursor: 'pointer',
+                              opacity: dossierPhotoIdx === idx ? 1 : 0.6,
+                              transition: 'all 0.2s ease',
+                            }}
+                          >
+                            <img src={img} alt="Thumbnail" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Technical Specifications Matrix */}
+                  <div
+                    style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+                      gap: '12px',
+                      backgroundColor: '#FFFFFF',
+                      padding: '16px',
+                      borderRadius: '14px',
+                      border: '1px solid rgba(0, 0, 0, 0.08)',
+                    }}
+                  >
+                    {selectedDossier.specs.map((spec: { label: string; value: string }) => (
+                      <div key={spec.label}>
+                        <span
+                          style={{
+                            fontSize: '0.72rem',
+                            color: '#777777',
+                            fontFamily: 'var(--font-mono, monospace)',
+                            textTransform: 'uppercase',
+                            display: 'block',
+                          }}
+                        >
+                          {spec.label}
+                        </span>
+                        <strong
+                          style={{
+                            fontSize: '0.98rem',
+                            color: '#111111',
+                            fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                          }}
+                        >
+                          {spec.value}
+                        </strong>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Challenge & Solution */}
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                    <div
+                      style={{
+                        padding: '18px',
+                        borderRadius: '14px',
+                        backgroundColor: '#FFFFFF',
+                        border: '1px solid rgba(0, 0, 0, 0.08)',
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: '0.74rem',
+                          fontFamily: 'var(--font-mono, monospace)',
+                          color: '#888888',
+                          textTransform: 'uppercase',
+                          fontWeight: 600,
+                          display: 'block',
+                          marginBottom: '6px',
+                        }}
+                      >
+                        [01 / Site Challenge]
+                      </span>
+                      <p style={{ margin: 0, fontSize: '0.9rem', color: '#444444', lineHeight: 1.6 }}>
+                        {selectedDossier.challenge}
+                      </p>
+                    </div>
+
+                    <div
+                      style={{
+                        padding: '18px',
+                        borderRadius: '14px',
+                        backgroundColor: '#FFFFFF',
+                        border: '1px solid rgba(0, 0, 0, 0.08)',
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: '0.74rem',
+                          fontFamily: 'var(--font-mono, monospace)',
+                          color: '#C29F53',
+                          textTransform: 'uppercase',
+                          fontWeight: 600,
+                          display: 'block',
+                          marginBottom: '6px',
+                        }}
+                      >
+                        [02 / Solis Engineering Solution]
+                      </span>
+                      <p style={{ margin: 0, fontSize: '0.9rem', color: '#444444', lineHeight: 1.6 }}>
+                        {selectedDossier.solution}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Verified Outcomes */}
+                  <div
+                    style={{
+                      padding: '20px',
+                      borderRadius: '14px',
+                      backgroundColor: '#FFFFFF',
+                      border: '1px solid rgba(0, 0, 0, 0.08)',
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontSize: '0.74rem',
+                        fontFamily: 'var(--font-mono, monospace)',
+                        color: '#111111',
+                        textTransform: 'uppercase',
+                        fontWeight: 600,
+                        display: 'block',
+                        marginBottom: '10px',
+                      }}
+                    >
+                      [Verified Field Outcomes]
+                    </span>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                      {selectedDossier.outcomes.map((outcome: string, i: number) => (
+                        <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.88rem', color: '#333333' }}>
+                          <CheckCircle2 size={16} color="#C29F53" style={{ flexShrink: 0 }} />
+                          <span>{outcome}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Modal Action CTA */}
+                  <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', paddingTop: '10px' }}>
+                    <a
+                      href="#calculator"
+                      onClick={() => setSelectedDossier(null)}
+                      className="btn-primary"
+                      style={{ flex: 1, padding: '14px', textAlign: 'center', fontSize: '0.92rem' }}
+                    >
+                      <span>Calculate Solar Sizing for Your Rooftop <ArrowRight size={16} /></span>
+                    </a>
+                    <a
+                      href="#solis-enquiry"
+                      onClick={() => setSelectedDossier(null)}
+                      style={{
+                        padding: '14px 22px',
+                        borderRadius: '12px',
+                        border: '1px solid rgba(0, 0, 0, 0.15)',
+                        backgroundColor: '#FFFFFF',
+                        color: '#111111',
+                        fontSize: '0.92rem',
+                        fontWeight: 600,
+                        textDecoration: 'none',
+                        textAlign: 'center',
+                      }}
+                    >
+                      Book Site Feasibility Audit
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* DISCOM Approvals Ribbon */}
           <ScrollReveal>
@@ -820,10 +1271,15 @@ export default function SolisPage() {
                       <Phone size={15} color="var(--color-accent)" />
                       <span>Direct: <strong style={{ color: 'var(--color-text-primary)' }}>+91 70211 12664</strong></span>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <a
+                      href="https://www.google.com/maps/search/?api=1&query=One+International+Centre+Senapati+Bapat+Marg+Elphinstone+Mumbai+400013"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'inherit', textDecoration: 'none' }}
+                    >
                       <MapPin size={15} color="var(--color-accent)" />
-                      <span>Office: One International Centre, Tower 1, Elphinstone, Mumbai 400013</span>
-                    </div>
+                      <span>Office: One International Centre, Tower 1, Elphinstone, Mumbai 400013 <strong style={{ color: 'var(--color-accent)' }}>[Open Maps ↗]</strong></span>
+                    </a>
                   </div>
                 </div>
               </ScrollReveal>

@@ -101,7 +101,7 @@ export default function GroundedServices() {
                   fontWeight: 400,
                   letterSpacing: '-0.02em',
                   margin: 0,
-                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                  fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
                 }}
               >
                 {SERVICES.map((item, idx) => {

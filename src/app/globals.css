@@ -938,7 +938,7 @@ a:hover {
 }
 
 .stat-counter {
-  font-family: var(--font-grounded-sans);
+  font-family: var(--font-serif-display), 'Instrument Serif', Georgia, serif;
   font-size: clamp(3.2rem, 5.5vw, 4.8rem);
   font-weight: 400;
   letter-spacing: -0.02em;
@@ -1156,14 +1156,19 @@ a:hover {
   }
 }
 
-/* Grounded Canvas Headings override (Ensures clean neo-grotesque sans rather than serif) */
+/* Grounded Canvas Headings (Instrument Serif for editorial titles, Inter for functional UI) */
 .grounded-canvas h1,
 .grounded-canvas h2,
-.grounded-canvas h3,
+.grounded-canvas h3 {
+  font-family: var(--font-serif-display), 'Instrument Serif', Georgia, serif;
+  letter-spacing: -0.02em;
+}
+
 .grounded-canvas h4,
 .grounded-canvas h5,
 .grounded-canvas h6 {
   font-family: var(--font-grounded-sans);
+  letter-spacing: -0.01em;
 }
 
 /* Grounded Hero Indicators Responsive Grid */
@@ -1222,11 +1227,13 @@ a:hover {
 
 /* Grounded Physical Paper Calculator Surface */
 .grounded-calculator-wrapper {
+  --color-bg: #FFFFFF;
+  --color-bg-alt: #F4F1EA;
+  --color-bg-elevated: #F8F6F0;
   --color-surface: #FFFFFF;
   --color-text-primary: #111111;
   --color-text-secondary: #555555;
   --color-text-muted: #727272;
-  --color-bg-alt: #F4F1EA;
   --color-border: rgba(0, 0, 0, 0.08);
   --color-border-accent-light: rgba(0, 0, 0, 0.1);
   --color-accent: #111111;
@@ -1241,7 +1248,12 @@ a:hover {
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.03) !important;
 }
 
-.grounded-calculator-wrapper h3,
+.grounded-calculator-wrapper h3 {
+  color: #111111 !important;
+  font-family: var(--font-serif-display), 'Instrument Serif', Georgia, serif !important;
+  letter-spacing: -0.02em !important;
+}
+
 .grounded-calculator-wrapper h4 {
   color: #111111 !important;
   font-family: var(--font-grounded-sans) !important;
@@ -1258,3 +1270,62 @@ a:hover {
 .grounded-calculator-wrapper input[type="range"] {
   accent-color: #111111 !important;
 }
+
+.grounded-calculator-wrapper input[type="number"],
+.grounded-calculator-wrapper input[type="text"] {
+  background: #FFFFFF !important;
+  color: #111111 !important;
+}
+
+.grounded-calculator-wrapper select,
+.grounded-calculator-wrapper .form-select {
+  background: #FFFFFF !important;
+  color: #111111 !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Grounded Monograph & Calculator Responsive Layouts */
+.monograph-container-grid {
+  display: grid;
+  grid-template-columns: clamp(280px, 28vw, 340px) 1fr;
+  gap: 24px;
+  align-items: stretch;
+}
+
+@media (max-width: 900px) {
+  .monograph-container-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  .monograph-rail {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-bottom: 8px !important;
+    gap: 10px !important;
+  }
+  .monograph-rail > button {
+    flex-shrink: 0 !important;
+    min-width: 220px !important;
+    scroll-snap-align: start !important;
+  }
+  .calculator-grid,
+  .calc-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .monograph-metrics-row {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+  .monograph-pillars-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+}
+

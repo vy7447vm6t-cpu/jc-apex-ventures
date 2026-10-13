@@ -35,7 +35,13 @@ function SectionHeading({ title, intro }: { title: string; intro?: string }) {
   );
 }
 
-export default function DivisionPage({ data }: { data: DivisionContent }) {
+export default function DivisionPage({
+  data,
+  customHeroLogo,
+}: {
+  data: DivisionContent;
+  customHeroLogo?: React.ReactNode;
+}) {
   const Icon = divisionIcons[data.icon];
 
   return (
@@ -51,7 +57,7 @@ export default function DivisionPage({ data }: { data: DivisionContent }) {
         statPill={data.statPill}
         heroImage={data.heroImage}
         heroImageTag={data.heroImageTag}
-        logo={<DivisionLogo division={data.slug} size={48} />}
+        logo={customHeroLogo || <DivisionLogo division={data.slug} size={48} />}
       />
 
       {/* 15-Second Skim Takeaway Banner */}

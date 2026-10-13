@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { DivisionLogo } from './DivisionLogos';
-import { ArrowRight, CheckCircle2, ShieldCheck, Zap, Sun, Award, Building, Sparkles } from 'lucide-react';
+import { ArrowRight, CheckCircle2, ShieldCheck, Sparkles } from 'lucide-react';
 
 interface DivisionData {
   id: string;
@@ -55,7 +55,7 @@ const divisions: DivisionData[] = [
       'Representation before Consumer Grievance Redressal Forums (CGRF) and Electricity Ombudsman',
       'Sanctioned load enhancements, HT/LT substation approvals, and single to three-phase conversions',
       'Government PWD electrical contractor license renewals and compliance filings',
-      'Municipal and utility coordination across BEST, Adani Electricity, Tata Power, and MSEDCL',
+      'Municipal and utility coordination across BEST, Adani Electricity (AEML), Tata Power (TPCL), and MSEDCL',
     ],
     metrics: [
       { label: 'Utility Experience', value: '36+ Years' },
@@ -155,56 +155,36 @@ const divisions: DivisionData[] = [
 ];
 
 export default function InteractiveTabbedMonograph() {
-  const [activeId, setActiveId] = useState<string>('solis');
-  const activeDivision = divisions.find((d) => d.id === activeId) || divisions[0];
+  const [activeTab, setActiveTab] = useState<number>(0);
+  const activeDivision = divisions[activeTab] || divisions[0];
 
   return (
     <div style={{ width: '100%', maxWidth: '1240px', margin: '0 auto' }}>
       {/* Container Grid: Left Switcher Rail + Right Expansive Monograph */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '320px 1fr',
-          gap: '24px',
-          alignItems: 'stretch',
-        }}
-        className="monograph-container-grid"
-      >
+      <div className="monograph-container-grid">
         {/* Left Navigation Rail */}
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '10px',
-          }}
-          className="monograph-rail"
-        >
-          {divisions.map((div) => {
-            const isCurrent = div.id === activeId;
+        <div className="monograph-rail">
+          {divisions.map((div, idx) => {
+            const isCurrent = idx === activeTab;
             return (
               <button
                 key={div.id}
                 type="button"
-                onClick={() => setActiveId(div.id)}
-                className="ios-glass"
+                onClick={() => setActiveTab(idx)}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '16px',
-                  padding: '16px 20px',
-                  borderRadius: '18px',
+                  gap: '14px',
+                  padding: '16px 18px',
+                  borderRadius: '16px',
                   textAlign: 'left',
                   border: isCurrent
-                    ? '1px solid rgba(194, 159, 83, 0.6)'
-                    : '1px solid rgba(255, 255, 255, 0.06)',
-                  background: isCurrent
-                    ? 'rgba(194, 159, 83, 0.12)'
-                    : 'rgba(17, 21, 26, 0.6)',
-                  boxShadow: isCurrent
-                    ? '0 8px 24px rgba(194, 159, 83, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.15)'
-                    : 'none',
+                    ? '1px solid rgba(0, 0, 0, 0.16)'
+                    : '1px solid rgba(0, 0, 0, 0.05)',
+                  backgroundColor: isCurrent ? '#FFFFFF' : 'var(--color-grounded-stone)',
+                  boxShadow: isCurrent ? '0 8px 24px rgba(0, 0, 0, 0.06)' : 'none',
                   cursor: 'pointer',
-                  transition: 'all 0.25s var(--ease-out-expo)',
+                  transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
                   position: 'relative',
                   width: '100%',
                 }}
@@ -215,12 +195,11 @@ export default function InteractiveTabbedMonograph() {
                     style={{
                       position: 'absolute',
                       left: 0,
-                      top: '20%',
-                      bottom: '20%',
-                      width: '4px',
+                      top: '18%',
+                      bottom: '18%',
+                      width: '3.5px',
                       borderRadius: '0 4px 4px 0',
-                      background: 'var(--color-accent)',
-                      boxShadow: '0 0 10px var(--color-accent)',
+                      backgroundColor: '#111111',
                     }}
                   />
                 )}
@@ -228,18 +207,18 @@ export default function InteractiveTabbedMonograph() {
                 {/* Division Logo */}
                 <div
                   style={{
-                    width: '42px',
-                    height: '42px',
-                    borderRadius: '12px',
+                    width: '38px',
+                    height: '38px',
+                    borderRadius: '10px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    background: 'rgba(0, 0, 0, 0.3)',
+                    backgroundColor: isCurrent ? 'var(--color-grounded-stone)' : '#FFFFFF',
                     flexShrink: 0,
-                    border: '1px solid rgba(255, 255, 255, 0.06)',
+                    border: '1px solid rgba(0, 0, 0, 0.06)',
                   }}
                 >
-                  <DivisionLogo division={div.id} size={28} />
+                  <DivisionLogo division={div.id} size={24} />
                 </div>
 
                 {/* Title & Tag */}
@@ -247,9 +226,9 @@ export default function InteractiveTabbedMonograph() {
                   <div
                     style={{
                       fontSize: '0.94rem',
-                      fontWeight: 700,
-                      color: isCurrent ? '#FFFFFF' : 'var(--color-text-secondary)',
-                      fontFamily: 'var(--font-heading)',
+                      fontWeight: 600,
+                      color: isCurrent ? '#111111' : '#444444',
+                      fontFamily: 'var(--font-sans, Inter, sans-serif)',
                       whiteSpace: 'nowrap',
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
@@ -257,14 +236,18 @@ export default function InteractiveTabbedMonograph() {
                   >
                     {div.name}
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <span className="rounded-full animate-pulse bg-emerald-400" style={{ width: '6px', height: '6px', display: 'inline-block' }} />
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '2px' }}>
+                    <span
+                      className="rounded-full animate-pulse bg-emerald-500"
+                      style={{ width: '6px', height: '6px', display: 'inline-block' }}
+                    />
                     <span
                       style={{
-                        fontSize: '0.74rem',
-                        color: isCurrent ? 'var(--color-accent)' : 'var(--color-text-muted)',
-                        fontWeight: 600,
-                        letterSpacing: '0.5px',
+                        fontFamily: 'var(--font-mono, monospace)',
+                        fontSize: '0.72rem',
+                        color: isCurrent ? '#C29F53' : '#888888',
+                        letterSpacing: '0.04em',
+                        textTransform: 'uppercase',
                       }}
                     >
                       {div.shortTag}
@@ -273,12 +256,11 @@ export default function InteractiveTabbedMonograph() {
                 </div>
 
                 <ArrowRight
-                  size={16}
-                  color={isCurrent ? 'var(--color-accent)' : 'var(--color-text-muted)'}
+                  size={15}
+                  color={isCurrent ? '#111111' : '#AAAAAA'}
                   style={{
-                    opacity: isCurrent ? 1 : 0.4,
                     transform: isCurrent ? 'translateX(2px)' : 'translateX(0)',
-                    transition: 'all 0.2s ease',
+                    transition: 'transform 0.2s ease',
                   }}
                 />
               </button>
@@ -286,15 +268,14 @@ export default function InteractiveTabbedMonograph() {
           })}
         </div>
 
-        {/* Right Expansive Monograph Viewport */}
+        {/* Right Expansive Monograph Viewport in Warm Architectural Paper */}
         <div
-          className="ios-glass"
           style={{
-            borderRadius: '26px',
+            borderRadius: '22px',
             overflow: 'hidden',
-            background: 'rgba(17, 21, 26, 0.75)',
-            border: '1px solid rgba(194, 159, 83, 0.3)',
-            boxShadow: '0 24px 60px rgba(0, 0, 0, 0.5)',
+            backgroundColor: '#FFFFFF',
+            border: '1px solid rgba(0, 0, 0, 0.08)',
+            boxShadow: '0 20px 48px rgba(0, 0, 0, 0.04)',
             display: 'flex',
             flexDirection: 'column',
           }}
@@ -306,7 +287,7 @@ export default function InteractiveTabbedMonograph() {
               width: '100%',
               height: '300px',
               overflow: 'hidden',
-              background: '#0A0D10',
+              backgroundColor: '#FAF8F5',
             }}
           >
             <img
@@ -317,7 +298,7 @@ export default function InteractiveTabbedMonograph() {
                 width: '100%',
                 height: '100%',
                 objectFit: 'cover',
-                filter: 'brightness(0.9) contrast(1.05)',
+                filter: 'brightness(0.95) contrast(1.02)',
                 transition: 'transform 0.5s ease',
               }}
             />
@@ -326,7 +307,7 @@ export default function InteractiveTabbedMonograph() {
                 position: 'absolute',
                 inset: 0,
                 background:
-                  'linear-gradient(to top, rgba(17, 21, 26, 0.95) 0%, rgba(17, 21, 26, 0.3) 60%, transparent 100%)',
+                  'linear-gradient(to top, rgba(17, 17, 17, 0.85) 0%, rgba(17, 17, 17, 0.2) 55%, transparent 100%)',
               }}
             />
 
@@ -337,19 +318,20 @@ export default function InteractiveTabbedMonograph() {
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '8px',
-                  padding: '6px 16px',
+                  padding: '6px 14px',
                   borderRadius: '100px',
-                  fontSize: '0.74rem',
-                  fontWeight: 700,
-                  letterSpacing: '1px',
+                  fontSize: '0.72rem',
+                  fontWeight: 600,
+                  letterSpacing: '0.06em',
                   textTransform: 'uppercase',
-                  color: 'var(--color-accent)',
-                  background: 'rgba(10, 13, 16, 0.85)',
+                  color: '#FFFFFF',
+                  backgroundColor: 'rgba(17, 17, 17, 0.8)',
                   backdropFilter: 'blur(12px)',
-                  border: '1px solid rgba(194, 159, 83, 0.35)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  fontFamily: 'var(--font-mono, monospace)',
                 }}
               >
-                <Sparkles size={12} color="var(--color-accent)" />
+                <Sparkles size={12} color="#C29F53" />
                 {activeDivision.category}
               </span>
             </div>
@@ -369,29 +351,29 @@ export default function InteractiveTabbedMonograph() {
                 gap: '16px',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                 <div
                   style={{
-                    width: '56px',
-                    height: '56px',
-                    borderRadius: '16px',
-                    background: 'rgba(10, 13, 16, 0.9)',
+                    width: '52px',
+                    height: '52px',
+                    borderRadius: '14px',
+                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
                     backdropFilter: 'blur(16px)',
-                    border: '1px solid rgba(194, 159, 83, 0.4)',
+                    border: '1px solid rgba(0, 0, 0, 0.1)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.4)',
+                    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2)',
                   }}
                 >
-                  <DivisionLogo division={activeDivision.id} size={38} />
+                  <DivisionLogo division={activeDivision.id} size={34} />
                 </div>
                 <div>
                   <h3
                     style={{
-                      fontFamily: 'var(--font-heading)',
-                      fontSize: '1.75rem',
-                      fontWeight: 800,
+                      fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+                      fontSize: '2.1rem',
+                      fontWeight: 400,
                       color: '#FFFFFF',
                       lineHeight: 1.1,
                       margin: 0,
@@ -402,65 +384,90 @@ export default function InteractiveTabbedMonograph() {
                   <p
                     style={{
                       margin: '4px 0 0 0',
-                      fontSize: '0.84rem',
-                      color: 'var(--color-accent)',
-                      fontWeight: 600,
-                      letterSpacing: '0.5px',
+                      fontSize: '0.8rem',
+                      color: '#E8E4DA',
+                      fontWeight: 500,
+                      letterSpacing: '0.04em',
+                      fontFamily: 'var(--font-mono, monospace)',
                     }}
                   >
-                    A Strategic Division of JC Apex Ventures
+                    Strategic Practice Discipline of JC Apex
                   </p>
                 </div>
               </div>
 
               <Link
                 href={`/${activeDivision.id}`}
-                className="btn-primary specular-sheen"
+                className="button is-icon"
                 style={{
-                  padding: '9px 22px',
-                  fontSize: '0.86rem',
-                  borderRadius: '100px',
+                  padding: '8px 18px',
+                  fontSize: '0.82rem',
+                  backgroundColor: '#FFFFFF',
+                  color: '#111111',
+                  borderRadius: '9999px',
                 }}
               >
-                <span>View Full Portfolio <ArrowRight size={15} /></span>
+                <span>View Full Division</span>
+                <ArrowRight size={14} />
               </Link>
             </div>
           </div>
 
-          {/* Body Content */}
-          <div style={{ padding: '32px', flex: 1, display: 'flex', flexDirection: 'column', gap: '28px' }}>
+          {/* Body Content in Warm Architectural Format */}
+          <div style={{ padding: '32px', flex: 1, display: 'flex', flexDirection: 'column', gap: '26px' }}>
             {/* Editorial Lead Paragraph */}
             <p
               style={{
-                fontFamily: 'var(--font-serif)',
-                fontSize: '1.12rem',
+                fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                fontSize: '1.05rem',
                 lineHeight: 1.7,
-                color: 'var(--color-text-primary)',
+                color: '#333333',
                 margin: 0,
               }}
             >
               {activeDivision.leadParagraph}
             </p>
 
-            {/* Metrics Row */}
+            {/* Metrics Row in Stone Cards */}
             <div
               style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(3, 1fr)',
-                gap: '16px',
-                padding: '16px 20px',
-                borderRadius: '16px',
-                background: 'rgba(255, 255, 255, 0.03)',
-                border: '1px solid rgba(255, 255, 255, 0.06)',
+                gap: '14px',
               }}
               className="monograph-metrics-row"
             >
               {activeDivision.metrics.map((m, i) => (
-                <div key={i}>
-                  <div style={{ fontSize: '0.74rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 600 }}>
+                <div
+                  key={i}
+                  style={{
+                    padding: '16px 18px',
+                    borderRadius: '14px',
+                    backgroundColor: 'var(--color-grounded-stone)',
+                    border: '1px solid rgba(0, 0, 0, 0.06)',
+                  }}
+                >
+                  <div
+                    style={{
+                      fontFamily: 'var(--font-mono, monospace)',
+                      fontSize: '0.72rem',
+                      color: '#777777',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em',
+                    }}
+                  >
                     {m.label}
                   </div>
-                  <div style={{ fontFamily: 'var(--font-heading)', fontSize: '1.35rem', fontWeight: 800, color: '#FFFFFF', marginTop: '4px' }}>
+                  <div
+                    style={{
+                      fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+                      fontSize: '1.6rem',
+                      fontWeight: 400,
+                      color: '#111111',
+                      marginTop: '4px',
+                      lineHeight: 1.1,
+                    }}
+                  >
                     {m.value}
                   </div>
                 </div>
@@ -471,17 +478,25 @@ export default function InteractiveTabbedMonograph() {
             <div>
               <div
                 style={{
-                  fontSize: '0.78rem',
-                  color: 'var(--color-accent)',
-                  fontWeight: 700,
+                  fontFamily: 'var(--font-mono, monospace)',
+                  fontSize: '0.76rem',
+                  color: '#888888',
+                  fontWeight: 600,
                   textTransform: 'uppercase',
-                  letterSpacing: '1.5px',
+                  letterSpacing: '0.08em',
                   marginBottom: '14px',
                 }}
               >
-                Core Pillars & Capabilities
+                [core engineering pillars &amp; deliverables]
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }} className="monograph-pillars-grid">
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: '12px',
+                }}
+                className="monograph-pillars-grid"
+              >
                 {activeDivision.pillars.map((pillar, i) => (
                   <div
                     key={i}
@@ -491,10 +506,15 @@ export default function InteractiveTabbedMonograph() {
                       gap: '10px',
                       fontSize: '0.88rem',
                       lineHeight: 1.5,
-                      color: 'var(--color-text-secondary)',
+                      color: '#444444',
+                      fontFamily: 'var(--font-sans, Inter, sans-serif)',
                     }}
                   >
-                    <CheckCircle2 size={16} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '3px' }} />
+                    <CheckCircle2
+                      size={16}
+                      color="#C29F53"
+                      style={{ flexShrink: 0, marginTop: '3px' }}
+                    />
                     <span>{pillar}</span>
                   </div>
                 ))}
@@ -506,7 +526,7 @@ export default function InteractiveTabbedMonograph() {
               style={{
                 marginTop: 'auto',
                 paddingTop: '20px',
-                borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+                borderTop: '1px solid rgba(0, 0, 0, 0.08)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
@@ -515,23 +535,32 @@ export default function InteractiveTabbedMonograph() {
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <ShieldCheck size={16} color="var(--color-accent)" />
-                <span style={{ fontSize: '0.76rem', color: 'var(--color-text-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px' }}>
-                  Associate & Standard Network:
+                <ShieldCheck size={16} color="#C29F53" />
+                <span
+                  style={{
+                    fontFamily: 'var(--font-mono, monospace)',
+                    fontSize: '0.74rem',
+                    color: '#777777',
+                    fontWeight: 500,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.06em',
+                  }}
+                >
+                  Regulatory &amp; Associate Network:
                 </span>
               </div>
               <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                {activeDivision.associates.map((assoc, i) => (
+                {activeDivision.associates?.map((assoc, i) => (
                   <span
                     key={i}
                     style={{
                       fontSize: '0.74rem',
-                      fontWeight: 600,
-                      color: 'var(--color-text-secondary)',
-                      background: 'rgba(255, 255, 255, 0.05)',
+                      color: '#444444',
+                      backgroundColor: 'var(--color-grounded-stone)',
                       padding: '4px 10px',
-                      borderRadius: '6px',
-                      border: '1px solid rgba(255, 255, 255, 0.08)',
+                      borderRadius: '9999px',
+                      border: '1px solid rgba(0, 0, 0, 0.06)',
+                      fontFamily: 'var(--font-sans, Inter, sans-serif)',
                     }}
                   >
                     {assoc}

@@ -5,6 +5,7 @@ import React from 'react';
 export default function GroundedWhy() {
   return (
     <section id="about" className="section_layout60">
+      <div id="studio" style={{ position: 'relative', top: '-100px', visibility: 'hidden' }} />
       <div style={{ maxWidth: '1240px', margin: '0 auto', width: '100%' }}>
         {/* Eyebrow Label */}
         <div className="eye-brow-container">
@@ -21,7 +22,7 @@ export default function GroundedWhy() {
               letterSpacing: '-0.02em',
               color: '#111111',
               margin: '0 0 28px 0',
-              fontFamily: 'var(--font-sans, Inter, sans-serif)',
+              fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
             }}
           >
             We navigate Mumbai regulatory protocols, utility sanctions, and commercial spaces with engineering rigor. Not in spite of the city constraints, but because of them.

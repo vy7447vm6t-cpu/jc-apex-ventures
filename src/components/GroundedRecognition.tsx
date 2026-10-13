@@ -85,7 +85,7 @@ export default function GroundedRecognition() {
               letterSpacing: '-0.02em',
               color: '#111111',
               margin: '0 0 16px 0',
-              fontFamily: 'var(--font-sans, Inter, sans-serif)',
+              fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
             }}
           >
             Statutory Recognition & Compliance Parameters

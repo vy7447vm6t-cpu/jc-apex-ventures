@@ -41,47 +41,52 @@ export default function PrintCalculator() {
 
   return (
     <div
-      className="ios-glass"
       style={{
         borderRadius: '24px',
-        padding: '36px',
-        background: 'rgba(17, 21, 26, 0.85)',
-        border: '1px solid rgba(194, 159, 83, 0.35)',
-        boxShadow: '0 24px 60px rgba(0, 0, 0, 0.6)',
-        maxWidth: '960px',
+        padding: 'clamp(24px, 4vw, 44px)',
+        background: '#FFFFFF',
+        border: '1px solid rgba(0, 0, 0, 0.08)',
+        boxShadow: '0 20px 48px rgba(0, 0, 0, 0.06)',
+        maxWidth: '1040px',
         margin: '0 auto',
       }}
     >
-      <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+      <div style={{ textAlign: 'center', marginBottom: '36px' }}>
         <span
           style={{
-            fontSize: '0.76rem',
-            fontWeight: 700,
-            color: 'var(--color-accent)',
+            fontSize: '0.78rem',
+            fontWeight: 600,
+            color: '#C29F53',
             textTransform: 'uppercase',
-            letterSpacing: '2px',
+            letterSpacing: '0.08em',
+            fontFamily: 'var(--font-mono, monospace)',
+            display: 'inline-block',
+            marginBottom: '8px',
           }}
         >
-          eMudran Live Production Estimator
+          [emudran print &amp; packaging estimator]
         </span>
         <h3
           style={{
-            fontFamily: 'var(--font-heading)',
-            fontSize: '1.8rem',
-            fontWeight: 800,
-            color: '#FFFFFF',
-            marginTop: '8px',
+            fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+            fontSize: 'clamp(1.8rem, 3.2vw, 2.5rem)',
+            fontWeight: 400,
+            color: '#111111',
+            letterSpacing: '-0.02em',
+            margin: '0 0 8px 0',
+            lineHeight: 1.15,
           }}
         >
-          Calculate Print & Packaging Investment
+          Calculate Print &amp; Packaging Investment
         </h3>
         <p
           style={{
-            fontFamily: 'var(--font-serif)',
-            fontSize: '1rem',
-            color: 'var(--color-text-secondary)',
+            fontFamily: 'var(--font-sans, Inter, sans-serif)',
+            fontSize: '0.96rem',
+            color: '#555555',
             maxWidth: '620px',
-            margin: '8px auto 0 auto',
+            margin: '0 auto',
+            lineHeight: 1.6,
           }}
         >
           Transparent pricing based on actual press capacity, paper stock, and specialty finishes.
@@ -90,13 +95,13 @@ export default function PrintCalculator() {
 
       <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: '32px' }} className="calc-grid">
         {/* Controls Column */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '22px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
           {/* 1. Job Type */}
           <div>
-            <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: 700, color: '#FFFFFF', marginBottom: '10px' }}>
+            <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: 600, color: '#111111', marginBottom: '10px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
               Select Product Category:
             </label>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
               {[
                 { id: 'brochure', label: 'Brochures & Catalogues', icon: Printer },
                 { id: 'packaging', label: 'Box & Packaging', icon: Package },
@@ -110,23 +115,24 @@ export default function PrintCalculator() {
                     type="button"
                     onClick={() => setJobType(t.id as any)}
                     style={{
-                      padding: '12px 8px',
-                      borderRadius: '12px',
-                      border: isSel ? '1px solid var(--color-accent)' : '1px solid rgba(255, 255, 255, 0.08)',
-                      background: isSel ? 'rgba(194, 159, 83, 0.15)' : 'rgba(255, 255, 255, 0.03)',
-                      color: isSel ? '#FFFFFF' : 'var(--color-text-secondary)',
+                      padding: '14px 10px',
+                      borderRadius: '14px',
+                      border: isSel ? '1.5px solid #111111' : '1px solid rgba(0, 0, 0, 0.1)',
+                      background: isSel ? '#111111' : '#FFFFFF',
+                      color: isSel ? '#FFFFFF' : '#333333',
                       cursor: 'pointer',
                       display: 'flex',
                       flexDirection: 'column',
                       alignItems: 'center',
-                      gap: '6px',
-                      fontSize: '0.78rem',
+                      gap: '8px',
+                      fontSize: '0.8rem',
                       fontWeight: 600,
                       transition: 'all 0.2s ease',
+                      boxShadow: isSel ? '0 4px 14px rgba(0, 0, 0, 0.15)' : 'none',
                     }}
                   >
-                    <Icon size={18} color={isSel ? 'var(--color-accent)' : 'var(--color-text-muted)'} />
-                    <span>{t.label}</span>
+                    <Icon size={18} color={isSel ? '#C29F53' : '#666666'} />
+                    <span style={{ textAlign: 'center' }}>{t.label}</span>
                   </button>
                 );
               })}
@@ -137,8 +143,12 @@ export default function PrintCalculator() {
           {jobType === 'signage' ? (
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                <label style={{ fontSize: '0.84rem', fontWeight: 700, color: '#FFFFFF' }}>Total Signage Area:</label>
-                <span style={{ fontSize: '0.84rem', fontWeight: 700, color: 'var(--color-accent)' }}>{sqft} sq.ft.</span>
+                <label style={{ fontSize: '0.84rem', fontWeight: 600, color: '#111111', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+                  Total Signage Area:
+                </label>
+                <span style={{ fontSize: '0.86rem', fontWeight: 700, color: '#C29F53', fontFamily: 'var(--font-mono, monospace)' }}>
+                  {sqft} sq.ft.
+                </span>
               </div>
               <input
                 type="range"
@@ -147,14 +157,18 @@ export default function PrintCalculator() {
                 step="10"
                 value={sqft}
                 onChange={(e) => setSqft(Number(e.target.value))}
-                style={{ width: '100%', accentColor: 'var(--color-accent)' }}
+                style={{ width: '100%', accentColor: '#C29F53' }}
               />
             </div>
           ) : (
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                <label style={{ fontSize: '0.84rem', fontWeight: 700, color: '#FFFFFF' }}>Order Volume:</label>
-                <span style={{ fontSize: '0.84rem', fontWeight: 700, color: 'var(--color-accent)' }}>{quantity} units</span>
+                <label style={{ fontSize: '0.84rem', fontWeight: 600, color: '#111111', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+                  Order Volume:
+                </label>
+                <span style={{ fontSize: '0.86rem', fontWeight: 700, color: '#C29F53', fontFamily: 'var(--font-mono, monospace)' }}>
+                  {quantity} units
+                </span>
               </div>
               <input
                 type="range"
@@ -163,17 +177,17 @@ export default function PrintCalculator() {
                 step="250"
                 value={quantity}
                 onChange={(e) => setQuantity(Number(e.target.value))}
-                style={{ width: '100%', accentColor: 'var(--color-accent)' }}
+                style={{ width: '100%', accentColor: '#C29F53' }}
               />
             </div>
           )}
 
           {/* 3. Finish Tier */}
           <div>
-            <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: 700, color: '#FFFFFF', marginBottom: '10px' }}>
-              Finishing & Substrate Tier:
+            <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: 600, color: '#111111', marginBottom: '10px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+              Finishing &amp; Substrate Tier:
             </label>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
               {[
                 { id: 'standard', title: 'Standard', desc: 'Durable offset' },
                 { id: 'premium', title: 'Premium', desc: 'Matte thermal + UV' },
@@ -186,19 +200,23 @@ export default function PrintCalculator() {
                     type="button"
                     onClick={() => setFinishOption(f.id as any)}
                     style={{
-                      padding: '10px 8px',
-                      borderRadius: '12px',
-                      border: isSel ? '1px solid var(--color-accent)' : '1px solid rgba(255, 255, 255, 0.08)',
-                      background: isSel ? 'rgba(194, 159, 83, 0.15)' : 'rgba(255, 255, 255, 0.03)',
-                      color: isSel ? '#FFFFFF' : 'var(--color-text-secondary)',
+                      padding: '12px 10px',
+                      borderRadius: '14px',
+                      border: isSel ? '1.5px solid #111111' : '1px solid rgba(0, 0, 0, 0.1)',
+                      background: isSel ? '#111111' : '#FFFFFF',
+                      color: isSel ? '#FFFFFF' : '#333333',
                       cursor: 'pointer',
                       textAlign: 'center',
-                      fontSize: '0.8rem',
+                      fontSize: '0.82rem',
                       fontWeight: 600,
+                      transition: 'all 0.2s ease',
+                      boxShadow: isSel ? '0 4px 14px rgba(0, 0, 0, 0.15)' : 'none',
                     }}
                   >
                     <div>{f.title}</div>
-                    <div style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', marginTop: '2px' }}>{f.desc}</div>
+                    <div style={{ fontSize: '0.7rem', color: isSel ? 'rgba(255, 255, 255, 0.7)' : '#777777', marginTop: '2px' }}>
+                      {f.desc}
+                    </div>
                   </button>
                 );
               })}
@@ -208,50 +226,61 @@ export default function PrintCalculator() {
 
         {/* Results Card */}
         <div
-          className="ios-glass"
           style={{
-            padding: '28px',
+            padding: '30px',
             borderRadius: '20px',
-            background: 'rgba(10, 13, 16, 0.8)',
-            border: '1px solid rgba(194, 159, 83, 0.3)',
+            background: '#FAF8F5',
+            border: '1px solid rgba(0, 0, 0, 0.08)',
+            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.03)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
           }}
         >
           <div>
-            <span style={{ fontSize: '0.76rem', color: 'var(--color-accent)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px' }}>
-              Estimated Investment
+            <span
+              style={{
+                fontSize: '0.76rem',
+                color: '#C29F53',
+                fontWeight: 600,
+                textTransform: 'uppercase',
+                letterSpacing: '0.08em',
+                fontFamily: 'var(--font-mono, monospace)',
+                display: 'block',
+              }}
+            >
+              [estimated investment]
             </span>
             <div
               style={{
-                fontFamily: 'var(--font-heading)',
-                fontSize: '2.4rem',
-                fontWeight: 800,
-                color: '#FFFFFF',
+                fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+                fontSize: 'clamp(2.2rem, 3.5vw, 2.8rem)',
+                fontWeight: 400,
+                color: '#111111',
                 marginTop: '6px',
                 lineHeight: 1.1,
+                letterSpacing: '-0.02em',
               }}
             >
               Rs {estimate.total.toLocaleString('en-IN')}
             </div>
-            <div style={{ fontSize: '0.84rem', color: 'var(--color-text-secondary)', marginTop: '6px' }}>
-              Unit cost: <strong style={{ color: '#FFFFFF' }}>{estimate.unitLabel}</strong> (indicative)
+            <div style={{ fontSize: '0.86rem', color: '#555555', marginTop: '6px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+              Unit cost: <strong style={{ color: '#111111' }}>{estimate.unitLabel}</strong> (indicative)
             </div>
 
-            <div style={{ width: '100%', height: '1px', background: 'rgba(255, 255, 255, 0.08)', margin: '20px 0' }} />
+            <div style={{ width: '100%', height: '1px', background: 'rgba(0, 0, 0, 0.08)', margin: '20px 0' }} />
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.84rem', color: 'var(--color-text-secondary)' }}>
-                <CheckCircle2 size={15} color="var(--color-accent)" />
-                <span>Production Turnaround: <strong style={{ color: '#FFFFFF' }}>{estimate.turnaround}</strong></span>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.86rem', color: '#444444', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+                <CheckCircle2 size={16} color="#C29F53" />
+                <span>Production Turnaround: <strong style={{ color: '#111111' }}>{estimate.turnaround}</strong></span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.84rem', color: 'var(--color-text-secondary)' }}>
-                <CheckCircle2 size={15} color="var(--color-accent)" />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.86rem', color: '#444444', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+                <CheckCircle2 size={16} color="#C29F53" />
                 <span>Direct press-pass color calibration included</span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.84rem', color: 'var(--color-text-secondary)' }}>
-                <CheckCircle2 size={15} color="var(--color-accent)" />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.86rem', color: '#444444', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+                <CheckCircle2 size={16} color="#C29F53" />
                 <span>Creative Direction by Manish Ajgaonkar</span>
               </div>
             </div>
@@ -259,10 +288,9 @@ export default function PrintCalculator() {
 
           <a
             href="mailto:printmgmt@jcapexv.com?subject=Print%20Quotation%20Inquiry"
-            className="btn-primary specular-sheen"
             style={{
-              marginTop: '24px',
-              padding: '12px 20px',
+              marginTop: '28px',
+              padding: '14px 20px',
               borderRadius: '12px',
               textAlign: 'center',
               textDecoration: 'none',
@@ -271,9 +299,16 @@ export default function PrintCalculator() {
               justifyContent: 'center',
               gap: '8px',
               fontSize: '0.88rem',
+              fontWeight: 600,
+              backgroundColor: '#111111',
+              color: '#FFFFFF',
+              boxShadow: '0 4px 14px rgba(0, 0, 0, 0.12)',
+              transition: 'background 0.2s ease',
+              fontFamily: 'var(--font-sans, Inter, sans-serif)',
             }}
           >
-            <span>Request Press Proof & Formal Quotation <ArrowRight size={15} /></span>
+            <span>Request Press Proof &amp; Formal Quotation</span>
+            <ArrowRight size={15} />
           </a>
         </div>
       </div>

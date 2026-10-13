@@ -74,7 +74,7 @@ export default function GroundedProcess() {
               letterSpacing: '-0.02em',
               color: '#111111',
               margin: '0 0 20px 0',
-              fontFamily: 'var(--font-sans, Inter, sans-serif)',
+              fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
             }}
           >
             We do not rely on shortcuts. Every sanction and installation follows a disciplined 3-step engineering protocol.
