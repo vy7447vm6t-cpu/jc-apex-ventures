@@ -4,12 +4,44 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Logo from './Logo';
-import { Menu, X, ChevronDown, Phone, ArrowUpRight } from 'lucide-react';
+import { Phone, ArrowUpRight, X } from 'lucide-react';
+
+function ScrambleText({ text }: { text: string }) {
+  const [display, setDisplay] = useState(text);
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+
+  const handleMouseEnter = () => {
+    let iteration = 0;
+    const interval = setInterval(() => {
+      setDisplay(
+        text
+          .split('')
+          .map((letter, index) => {
+            if (index < iteration) return text[index];
+            return chars[Math.floor(Math.random() * chars.length)];
+          })
+          .join('')
+      );
+      if (iteration >= text.length) clearInterval(interval);
+      iteration += 1 / 2;
+    }, 25);
+  };
+
+  const handleMouseLeave = () => {
+    setDisplay(text);
+  };
+
+  return (
+    <span onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      {display}
+    </span>
+  );
+}
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [mumbaiTime, setMumbaiTime] = useState<string>('MUMBAI IST --:--:--');
   const pathname = usePathname();
 
   useEffect(() => {
@@ -18,83 +50,104 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const updateTime = () => {
+      try {
+        const now = new Date();
+        const formatted = new Intl.DateTimeFormat('en-IN', {
+          timeZone: 'Asia/Kolkata',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: true,
+        }).format(now);
+        setMumbaiTime('MUMBAI IST ' + formatted.toUpperCase());
+      } catch {
+        setMumbaiTime('MUMBAI IST');
+      }
+    };
+    updateTime();
+    const timer = setInterval(updateTime, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
   const divisions = [
     { href: '/solis', label: 'Solis', tag: 'Solar & Pergolas' },
     { href: '/sanyog', label: 'Sanyog', tag: 'Utility & CGRF' },
-    { href: '/grid-apex', label: 'Grid Apex', tag: 'HT/LT & Waste Tech' },
+    { href: '/grid-apex', label: 'Grid Apex', tag: 'HT/LT & Substations' },
     { href: '/tvasta', label: 'Tvasta', tag: 'Turnkey Interiors' },
     { href: '/emudran', label: 'eMudran', tag: 'Branding & Print' },
-    { href: '/agrim', label: 'Agrim', tag: 'Project Finance Files' },
+    { href: '/agrim', label: 'Agrim', tag: 'Project Advisory' },
   ];
 
   return (
     <>
-      {/* ===== MINIMALIST FLOATING ISLAND NAVIGATION ===== */}
+      {/* ===== GROUNDED FLOATING ISLAND NAVIGATION ===== */}
       <div
-        className="z-50"
+        className="nav-menu-fixed-wrapper z-50"
         style={{
           position: 'fixed',
-          top: scrolled ? '14px' : '22px',
+          top: scrolled ? '12px' : '18px',
           left: '50%',
           transform: 'translateX(-50%)',
-          zIndex: 100,
           width: 'calc(100% - 32px)',
-          maxWidth: '1160px',
-          transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
+          maxWidth: '1180px',
+          zIndex: 100,
+          pointerEvents: 'none',
+          transition: 'top 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
         }}
       >
         <header
           className="ios-glass"
           style={{
+            pointerEvents: 'auto',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            padding: '10px 18px',
-            borderRadius: '100px',
-            background: 'rgba(17, 21, 26, 0.84)',
+            padding: '8px 20px',
+            borderRadius: '9999px',
+            backgroundColor: 'rgba(244, 241, 234, 0.88)',
             backdropFilter: 'blur(24px) saturate(190%)',
             WebkitBackdropFilter: 'blur(24px) saturate(190%)',
-            border: '1px solid rgba(194, 159, 83, 0.35)',
-            boxShadow: '0 16px 40px rgba(0, 0, 0, 0.45), inset 0 1px 1.5px rgba(255, 255, 255, 0.15)',
+            border: '1px solid rgba(0, 0, 0, 0.08)',
+            boxShadow: '0 8px 30px rgba(0, 0, 0, 0.05)',
+            width: '100%',
           }}
         >
-          {/* Brand Lockup */}
+          {/* Brand Wordmark & Umbrella Mascot */}
           <Link
             href="/"
+            aria-label="JC Apex Ventures Home"
             style={{
               display: 'flex',
               alignItems: 'center',
               gap: '10px',
               textDecoration: 'none',
-              paddingRight: '12px',
+              color: '#111111',
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Logo width={28} height={28} />
+              <Logo width={26} height={26} />
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
               <span
                 style={{
-                  fontFamily: 'var(--font-heading)',
-                  fontWeight: 700,
-                  fontSize: '1.05rem',
-                  lineHeight: 1,
+                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                  fontWeight: 600,
+                  fontSize: '0.98rem',
                   letterSpacing: '-0.02em',
-                  color: '#FFFFFF',
+                  color: '#111111',
                 }}
               >
                 JC APEX
               </span>
               <span
                 style={{
-                  fontSize: '0.62rem',
-                  color: 'var(--color-accent)',
-                  fontWeight: 700,
-                  letterSpacing: '1.5px',
+                  fontFamily: 'var(--font-mono, monospace)',
+                  fontSize: '0.72rem',
+                  color: '#727272',
+                  letterSpacing: '0.04em',
                   textTransform: 'uppercase',
-                  fontFamily: 'var(--font-sans)',
-                  lineHeight: 1,
-                  marginTop: '3px',
                 }}
               >
                 Ventures
@@ -102,331 +155,268 @@ export default function Navbar() {
             </div>
           </Link>
 
-          {/* Center Navigation Capsule */}
+          {/* Desktop Links (Hidden on Mobile) */}
           <nav
+            className="hidden md:flex"
             style={{
-              display: 'flex',
               alignItems: 'center',
-              gap: '6px',
+              gap: '18px',
+              fontFamily: 'var(--font-mono, monospace)',
+              fontSize: '0.8rem',
+              letterSpacing: '0.04em',
             }}
-            className="desktop-nav hidden md:flex"
           >
             <Link
-              href="/#about"
-              style={{
-                fontSize: '0.84rem',
-                fontWeight: 600,
-                color: 'var(--color-text-secondary)',
-                padding: '6px 14px',
-                borderRadius: '100px',
-                textDecoration: 'none',
-                transition: 'all 0.2s ease',
-              }}
-              className="nav-link-pill"
+              href="/#projects"
+              aria-label="View Builds and Projects"
+              style={{ color: '#444444', textDecoration: 'none' }}
             >
-              About
+              <ScrambleText text="Builds" />
             </Link>
-
-            {/* Division Switcher Dropdown */}
-            <div
-              style={{ position: 'relative' }}
-              onMouseEnter={() => setDropdownOpen(true)}
-              onMouseLeave={() => setDropdownOpen(false)}
+            <span style={{ color: '#CCCCCC' }}>/</span>
+            <Link
+              href="/#divisions"
+              aria-label="View Specialized Divisions"
+              style={{ color: '#444444', textDecoration: 'none' }}
             >
-              <button
-                type="button"
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '5px',
-                  fontSize: '0.84rem',
-                  fontWeight: 600,
-                  color: 'var(--color-text-primary)',
-                  padding: '6px 14px',
-                  borderRadius: '100px',
-                  fontFamily: 'inherit',
-                  transition: 'all 0.2s ease',
-                }}
-                className="nav-link-pill"
-              >
-                Divisions{' '}
-                <ChevronDown
-                  size={13}
-                  style={{
-                    transition: 'transform 0.25s ease',
-                    transform: dropdownOpen ? 'rotate(180deg)' : 'rotate(0)',
-                  }}
-                />
-              </button>
-
-              {dropdownOpen && (
-                <div
-                  style={{
-                    position: 'absolute',
-                    top: '100%',
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                    paddingTop: '12px',
-                    minWidth: '340px',
-                  }}
-                >
-                  <div
-                    className="ios-glass"
-                    style={{
-                      padding: '10px',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '4px',
-                      borderRadius: '20px',
-                      background: 'rgba(17, 21, 26, 0.94)',
-                      border: '1px solid rgba(194, 159, 83, 0.35)',
-                      boxShadow: '0 20px 48px rgba(0, 0, 0, 0.65)',
-                    }}
-                  >
-                    {divisions.map((div) => {
-                      const isActive = pathname === div.href;
-                      return (
-                        <Link
-                          key={div.href}
-                          href={div.href}
-                          onClick={() => setDropdownOpen(false)}
-                          style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            padding: '10px 14px',
-                            borderRadius: '12px',
-                            textDecoration: 'none',
-                            background: isActive ? 'rgba(194, 159, 83, 0.16)' : 'transparent',
-                            transition: 'all 0.2s ease',
-                          }}
-                          className="division-dropdown-item"
-                        >
-                          <div>
-                            <span
-                              style={{
-                                display: 'block',
-                                fontSize: '0.9rem',
-                                fontWeight: 700,
-                                color: isActive ? 'var(--color-accent)' : '#FFFFFF',
-                              }}
-                            >
-                              {div.label}
-                            </span>
-                            <span
-                              style={{
-                                display: 'block',
-                                fontSize: '0.74rem',
-                                color: 'var(--color-text-muted)',
-                              }}
-                            >
-                              {div.tag}
-                            </span>
-                          </div>
-                          <ArrowUpRight size={14} color="var(--color-accent)" opacity={isActive ? 1 : 0.6} />
-                        </Link>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Dedicated Solis Highlight Pill */}
+              <ScrambleText text="Divisions" />
+            </Link>
+            <span style={{ color: '#CCCCCC' }}>/</span>
             <Link
               href="/solis"
-              style={{
-                fontSize: '0.84rem',
-                fontWeight: 600,
-                color: pathname === '/solis' ? '#FFFFFF' : 'var(--color-text-secondary)',
-                padding: '6px 14px',
-                borderRadius: '100px',
-                textDecoration: 'none',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '7px',
-                background: pathname === '/solis' ? 'rgba(194, 159, 83, 0.2)' : 'transparent',
-                border: pathname === '/solis' ? '1px solid rgba(194, 159, 83, 0.4)' : '1px solid transparent',
-                transition: 'all 0.2s ease',
-              }}
-              className="nav-link-pill"
+              aria-label="Solis Solar Division"
+              style={{ color: '#111111', fontWeight: 600, textDecoration: 'none' }}
             >
-              <span
-                style={{
-                  width: '6px',
-                  height: '6px',
-                  borderRadius: '50%',
-                  background: 'var(--color-accent)',
-                  boxShadow: '0 0 8px var(--color-accent)',
-                  display: 'inline-block',
-                }}
-              />
-              Solis Solar
+              <ScrambleText text="Solis" />
             </Link>
-
+            <span style={{ color: '#CCCCCC' }}>/</span>
             <Link
-              href="/#expertise"
-              style={{
-                fontSize: '0.84rem',
-                fontWeight: 600,
-                color: 'var(--color-text-secondary)',
-                padding: '6px 14px',
-                borderRadius: '100px',
-                textDecoration: 'none',
-                transition: 'all 0.2s ease',
-              }}
-              className="nav-link-pill"
+              href="/#calculators"
+              aria-label="Field Calculators"
+              style={{ color: '#444444', textDecoration: 'none' }}
             >
-              Why Us
+              <ScrambleText text="Estimators" />
+            </Link>
+            <span style={{ color: '#CCCCCC' }}>/</span>
+            <Link
+              href="/#about"
+              aria-label="Practice and Leadership"
+              style={{ color: '#444444', textDecoration: 'none' }}
+            >
+              <ScrambleText text="Studio" />
             </Link>
           </nav>
 
-          {/* Right Action Cluster */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          {/* Right: Live Mumbai Clock, Phone Action, Menu Trigger & CTA */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+            {/* Live Mumbai Clock */}
+            <div className="mumbai-clock hidden lg:block" style={{ paddingRight: '4px' }}>
+              {mumbaiTime}
+            </div>
+
+            {/* Direct Telephone Action */}
             <a
               href="tel:+917021112664"
-              className="desktop-nav"
+              aria-label="Call JC Apex Ventures"
+              className="hidden md:flex"
               style={{
-                display: 'inline-flex',
                 alignItems: 'center',
                 gap: '6px',
-                padding: '7px 14px',
-                borderRadius: '100px',
-                fontSize: '0.82rem',
-                fontWeight: 600,
-                color: 'var(--color-text-secondary)',
+                fontSize: '0.78rem',
+                fontFamily: 'var(--font-mono, monospace)',
+                color: '#444444',
                 textDecoration: 'none',
-                background: 'rgba(255, 255, 255, 0.04)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-                transition: 'all 0.2s ease',
+                padding: '6px 12px',
+                borderRadius: '9999px',
+                backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                border: '1px solid rgba(0, 0, 0, 0.06)',
               }}
             >
-              <Phone size={13} color="var(--color-accent)" />
+              <Phone size={13} color="#111111" />
               <span>+91 70211 12664</span>
             </a>
 
-            <Link
+            {/* Consultation Action Button */}
+            <a
               href="#contact"
-              className="btn-primary specular-sheen"
+              aria-label="Consultation Enquiry"
+              className="button is-icon hidden md:inline-flex"
               style={{
-                padding: '8px 18px',
-                fontSize: '0.82rem',
-                borderRadius: '100px',
-              }}
-            >
-              <span>Consult Desk</span>
-            </Link>
-
-            {/* Mobile Toggle */}
-            <button
-              onClick={() => setMobileOpen(!mobileOpen)}
-              className="mobile-toggle md:hidden"
-              aria-label="Toggle navigation menu"
-              style={{
-                display: 'none',
-                background: 'none',
-                border: 'none',
+                padding: '6px 14px',
+                fontSize: '0.8rem',
+                backgroundColor: '#111111',
                 color: '#FFFFFF',
-                cursor: 'pointer',
-                padding: '6px',
               }}
             >
-              {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+              <ScrambleText text="Consultation" />
+              <ArrowUpRight size={14} />
+            </a>
+
+            {/* Grounded 3-Dots Menu Trigger Button */}
+            <button
+              type="button"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Toggle Navigation Menu"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '38px',
+                height: '38px',
+                borderRadius: '50%',
+                border: '1px solid rgba(0, 0, 0, 0.1)',
+                backgroundColor: '#FFFFFF',
+                cursor: 'pointer',
+                color: '#111111',
+                transition: 'all 0.2s ease',
+              }}
+            >
+              {mobileOpen ? (
+                <X size={18} />
+              ) : (
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                >
+                  <circle cx="5" cy="12" r="1.5" fill="currentColor" />
+                  <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+                  <circle cx="19" cy="12" r="1.5" fill="currentColor" />
+                </svg>
+              )}
             </button>
           </div>
         </header>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* ===== GROUNDED CURTAIN DRAWER OVERLAY ===== */}
       {mobileOpen && (
         <div
           style={{
             position: 'fixed',
             inset: 0,
             zIndex: 90,
-            background: 'rgba(10, 13, 16, 0.96)',
-            backdropFilter: 'blur(28px)',
-            WebkitBackdropFilter: 'blur(28px)',
+            backgroundColor: '#111111',
+            color: '#FFFFFF',
+            padding: '120px 32px 48px 32px',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: '18px',
-            padding: '24px',
+            justifyContent: 'space-between',
+            overflowY: 'auto',
           }}
-          onClick={() => setMobileOpen(false)}
         >
-          <Logo width={44} height={44} />
-          <span style={{ fontFamily: 'var(--font-heading)', fontSize: '1.4rem', fontWeight: 700, color: '#FFFFFF' }}>
-            JC APEX VENTURES
-          </span>
+          <div>
+            <div
+              style={{
+                fontFamily: 'var(--font-mono, monospace)',
+                fontSize: '0.8rem',
+                letterSpacing: '0.08em',
+                color: '#888888',
+                textTransform: 'uppercase',
+                marginBottom: '32px',
+              }}
+            >
+              Direct Division Navigation
+            </div>
 
-          <div style={{ width: '100%', height: '1px', background: 'var(--color-border)', margin: '8px 0', maxWidth: '260px' }} />
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+                gap: '24px',
+                maxWidth: '1000px',
+              }}
+            >
+              {divisions.map((div) => (
+                <Link
+                  key={div.href}
+                  href={div.href}
+                  onClick={() => setMobileOpen(false)}
+                  style={{
+                    textDecoration: 'none',
+                    borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
+                    paddingBottom: '16px',
+                    color: '#FFFFFF',
+                  }}
+                >
+                  <div
+                    style={{
+                      fontFamily: 'var(--font-mono, monospace)',
+                      fontSize: '0.74rem',
+                      color: '#C29F53',
+                      marginBottom: '4px',
+                    }}
+                  >
+                    {div.tag}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: '1.6rem',
+                      fontWeight: 500,
+                      fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                    }}
+                  >
+                    {div.label}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
-            <span style={{ fontSize: '0.72rem', color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '2px', fontWeight: 700 }}>
-              Strategic Divisions
-            </span>
-            {divisions.map((div) => (
-              <Link
-                key={div.href}
-                href={div.href}
+          <div
+            style={{
+              borderTop: '1px solid rgba(255, 255, 255, 0.12)',
+              paddingTop: '28px',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: '16px',
+            }}
+          >
+            <div>
+              <div
                 style={{
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: '1rem',
-                  fontWeight: 600,
-                  color: 'var(--color-text-secondary)',
+                  fontFamily: 'var(--font-mono, monospace)',
+                  fontSize: '0.76rem',
+                  color: '#888888',
+                }}
+              >
+                One International Centre, Mumbai
+              </div>
+              <div style={{ fontSize: '0.94rem', color: '#FFFFFF', marginTop: '4px' }}>
+                Director: Jitendra Chavan | 36 Years Direct Utility Background
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+              <a
+                href="tel:+917021112664"
+                style={{
+                  color: '#FFFFFF',
+                  fontFamily: 'var(--font-mono, monospace)',
+                  fontSize: '0.85rem',
                   textDecoration: 'none',
                 }}
               >
-                {div.label} ({div.tag})
-              </Link>
-            ))}
+                +91 70211 12664
+              </a>
+              <a
+                href="#contact"
+                onClick={() => setMobileOpen(false)}
+                className="button is-icon is-alternate"
+                style={{ padding: '8px 18px', fontSize: '0.85rem' }}
+              >
+                <span>Direct Consultation</span>
+              </a>
+            </div>
           </div>
-
-          <div style={{ width: '100%', height: '1px', background: 'var(--color-border)', margin: '8px 0', maxWidth: '260px' }} />
-
-          <a
-            href="tel:+917021112664"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              color: 'var(--color-accent)',
-              fontSize: '0.95rem',
-              fontWeight: 600,
-              textDecoration: 'none',
-            }}
-          >
-            <Phone size={16} /> +91 70211 12664
-          </a>
-
-          <Link href="#contact" className="btn-primary" style={{ marginTop: '12px' }}>
-            <span>Connect with Us</span>
-          </Link>
         </div>
       )}
-
-      <style jsx global>{`
-        @media (max-width: 900px) {
-          .desktop-nav {
-            display: none !important;
-          }
-          .mobile-toggle {
-            display: block !important;
-          }
-        }
-        .nav-link-pill:hover {
-          color: #FFFFFF !important;
-          background: rgba(255, 255, 255, 0.08) !important;
-        }
-        .division-dropdown-item:hover {
-          background: rgba(194, 159, 83, 0.14) !important;
-        }
-      `}</style>
     </>
   );
 }

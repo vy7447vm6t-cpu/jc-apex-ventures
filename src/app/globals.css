@@ -794,3 +794,467 @@ a:hover {
 
   .stat-number { font-size: 2.1rem; }
 }
+
+/* =========================================================================
+   GROUNDED 2026 ARCHITECTURAL DESIGN SYSTEM (1:1 FIDELITY REPLICATION)
+   ========================================================================= */
+
+:root {
+  --color-grounded-bg: #FFFFFF;
+  --color-grounded-stone: #F4F1EA;
+  --color-grounded-text: #111111;
+  --color-grounded-text-muted: #727272;
+  --color-grounded-border: rgba(0, 0, 0, 0.08);
+  --color-grounded-border-dark: rgba(255, 255, 255, 0.12);
+  --color-grounded-hairline: #EEEEEE;
+  --font-mono: 'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-grounded-sans: var(--font-sans), Inter, sans-serif;
+  --font-grounded-mono: var(--font-mono);
+}
+
+/* Grounded Page Wrappers */
+.grounded-canvas {
+  background-color: var(--color-grounded-stone);
+  color: var(--color-grounded-text);
+  font-family: var(--font-grounded-sans);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Grounded Eyebrows & Labels */
+.text-eye-brow {
+  font-family: var(--font-grounded-mono);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+  color: var(--color-grounded-text-muted);
+}
+
+.eye-brow-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+/* Grounded Buttons & Badges */
+.button.is-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.75rem 1.4rem;
+  border-radius: 9999px;
+  font-family: var(--font-grounded-sans);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  background-color: rgba(17, 17, 17, 0.9);
+  color: #FFFFFF;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease;
+  cursor: pointer;
+}
+
+.button.is-icon:hover {
+  background-color: #000000;
+  transform: translateY(-1px);
+  color: #FFFFFF;
+}
+
+.button.is-icon.is-alternate {
+  background-color: #FFFFFF;
+  color: #111111;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.button.is-icon.is-alternate:hover {
+  background-color: #F4F1EA;
+  color: #000000;
+}
+
+/* Grounded Fixed Navigation */
+.nav-menu-fixed-wrapper {
+  position: fixed;
+  top: 18px;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  padding: 0 16px;
+  pointer-events: none;
+}
+
+.nav-menu-fixed-container {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 8px 18px;
+  background-color: rgba(244, 241, 234, 0.88);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: 9999px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  width: 100%;
+  max-width: 1180px;
+}
+
+.mumbai-clock {
+  font-family: var(--font-grounded-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.06em;
+  color: #666666;
+  white-space: nowrap;
+}
+
+/* Grounded Split Mask Line Reveal */
+.split-line-mask {
+  overflow: hidden;
+  display: block;
+}
+
+.split-line-inner {
+  display: block;
+  transform: translateY(0);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Section Layout 60 (Our Why) */
+.section_layout60 {
+  background-color: var(--color-grounded-bg);
+  color: var(--color-grounded-text);
+  padding: 120px 24px;
+  position: relative;
+  z-index: 5;
+  border-top: 1px solid var(--color-grounded-border);
+  border-bottom: 1px solid var(--color-grounded-border);
+}
+
+.stat-counter {
+  font-family: var(--font-grounded-sans);
+  font-size: clamp(3.2rem, 5.5vw, 4.8rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--color-grounded-text);
+  margin-top: 8px;
+}
+
+/* Services Directory Section */
+.services-section {
+  background-color: var(--color-grounded-stone);
+  color: var(--color-grounded-text);
+  padding: 120px 24px;
+  position: relative;
+  z-index: 5;
+}
+
+.services-hover-item {
+  color: #888888;
+  cursor: pointer;
+  transition: color 0.25s ease;
+  display: inline;
+}
+
+.services-hover-item.active,
+.services-hover-item:hover {
+  color: #111111;
+}
+
+/* Progressive Edge Blur Panels */
+.progressive-blur_wrap {
+  position: absolute;
+  inset: auto 0% 0%;
+  height: 9vw;
+  min-height: 8rem;
+  pointer-events: none;
+  z-index: 10;
+  background-image: linear-gradient(to top, rgba(17, 17, 17, 0.8) 0%, transparent 100%);
+}
+
+.progressive-blur_wrap-2 {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 120px;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.progressive-blur_wrap-2.blur-edge-left {
+  left: 0;
+  background: linear-gradient(to right, #111111 0%, transparent 100%);
+}
+
+.progressive-blur_wrap-2.blur-edge-right {
+  right: 0;
+  background: linear-gradient(to left, #111111 0%, transparent 100%);
+}
+
+/* Horizontal Project Track */
+.project-section-track {
+  background-color: #111111;
+  color: #FFFFFF;
+  padding: 100px 0;
+  position: relative;
+  z-index: 5;
+  overflow: hidden;
+}
+
+/* Process Section */
+.process-section {
+  background-color: var(--color-grounded-stone);
+  color: var(--color-grounded-text);
+  padding: 120px 24px;
+  position: relative;
+  z-index: 5;
+}
+
+.process-block-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+
+@media (max-width: 900px) {
+  .process-block-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.process-block-container {
+  background-color: #16181A;
+  color: #FFFFFF;
+  border-radius: 16px;
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 380px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+}
+
+.process-block-container:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.process-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 24px;
+}
+
+.process-card-title {
+  font-size: 1.8rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+/* Hairline Accreditations 9-Box Grid */
+.section_logo6 {
+  background-color: var(--color-grounded-bg);
+  padding: 100px 24px;
+  border-top: 1px solid var(--color-grounded-border);
+  border-bottom: 1px solid var(--color-grounded-border);
+}
+
+.logo_list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--color-grounded-hairline);
+  background-color: var(--color-grounded-hairline);
+  gap: 1px;
+}
+
+@media (max-width: 768px) {
+  .logo_list {
+    grid-template-columns: 1fr;
+  }
+}
+
+.logo_wrapper {
+  background-color: #FFFFFF;
+  padding: 40px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 180px;
+  position: relative;
+  transition: background-color 0.2s ease;
+}
+
+.logo_wrapper:hover {
+  background-color: #FBFBFA;
+}
+
+.logo_wrapper .corner-mark {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-color: #CCCCCC;
+}
+
+/* Recognition / Statutory Ledger Table */
+.recognition-section {
+  background-color: var(--color-grounded-stone);
+  padding: 100px 24px;
+}
+
+.recognition-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  margin-top: 32px;
+}
+
+.recognition-table th {
+  text-align: left;
+  padding: 16px 20px;
+  font-family: var(--font-grounded-mono);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-grounded-text-muted);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.recognition-table td {
+  padding: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  color: var(--color-grounded-text);
+  vertical-align: top;
+}
+
+.recognition-table tr:hover td {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+/* Physical Paper Calculator Card */
+.grounded-paper-card {
+  background-color: #FFFFFF;
+  border: 1px solid var(--color-grounded-border);
+  border-radius: 18px;
+  padding: 40px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.03);
+}
+
+@media (max-width: 768px) {
+  .grounded-paper-card {
+    padding: 24px 16px;
+  }
+}
+
+/* Grounded Canvas Headings override (Ensures clean neo-grotesque sans rather than serif) */
+.grounded-canvas h1,
+.grounded-canvas h2,
+.grounded-canvas h3,
+.grounded-canvas h4,
+.grounded-canvas h5,
+.grounded-canvas h6 {
+  font-family: var(--font-grounded-sans);
+}
+
+/* Grounded Hero Indicators Responsive Grid */
+.hero-indicators-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  padding-top: 20px;
+}
+
+@media (max-width: 900px) {
+  .hero-indicators-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-indicators-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+/* Grounded Why Layout 60 Grid */
+.layout60_grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  padding-top: 48px;
+}
+
+@media (max-width: 768px) {
+  .layout60_grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+/* Grounded Services Responsive Grid */
+.services-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 60px;
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+/* Grounded Physical Paper Calculator Surface */
+.grounded-calculator-wrapper {
+  --color-surface: #FFFFFF;
+  --color-text-primary: #111111;
+  --color-text-secondary: #555555;
+  --color-text-muted: #727272;
+  --color-bg-alt: #F4F1EA;
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-border-accent-light: rgba(0, 0, 0, 0.1);
+  --color-accent: #111111;
+  --color-accent-pale: #F4F1EA;
+}
+
+.grounded-calculator-wrapper .glass-panel {
+  background: #FFFFFF !important;
+  color: #111111 !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  border-radius: 18px !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.03) !important;
+}
+
+.grounded-calculator-wrapper h3,
+.grounded-calculator-wrapper h4 {
+  color: #111111 !important;
+  font-family: var(--font-grounded-sans) !important;
+}
+
+.grounded-calculator-wrapper p {
+  color: #555555 !important;
+}
+
+.grounded-calculator-wrapper label {
+  color: #111111 !important;
+}
+
+.grounded-calculator-wrapper input[type="range"] {
+  accent-color: #111111 !important;
+}
