@@ -1,18 +1,19 @@
 import type { Metadata } from 'next';
-import { Instrument_Sans, Newsreader } from 'next/font/google';
+import { Instrument_Serif, Inter } from 'next/font/google';
 import './globals.css';
 
-const instrumentSans = Instrument_Sans({
+const instrumentSerif = Instrument_Serif({
   subsets: ['latin'],
+  weight: ['400'],
+  style: ['normal', 'italic'],
+  variable: '--font-serif-display',
   display: 'swap',
-  variable: '--font-sans',
 });
 
-const newsreader = Newsreader({
+const inter = Inter({
   subsets: ['latin'],
+  variable: '--font-body',
   display: 'swap',
-  variable: '--font-serif',
-  style: ['normal', 'italic'],
 });
 
 export const metadata: Metadata = {
@@ -26,8 +27,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${instrumentSans.variable} ${newsreader.variable}`}>
-      <body className={`${newsreader.className} font-serif`}>{children}</body>
+    <html lang="en" className={`${instrumentSerif.variable} ${inter.variable}`}>
+      <body className="font-body text-slate-100 bg-[#0A0D10]">{children}</body>
     </html>
   );
 }

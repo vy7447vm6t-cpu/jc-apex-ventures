@@ -11,10 +11,10 @@ test({
     const layout = readFileSafe(PATHS.layoutTsx);
     assert(layout !== null, 'src/app/layout.tsx must exist');
     assertIncludes(layout, 'next/font/google', 'layout.tsx must import from next/font/google');
-    const hasInstrumentSans = /Instrument_Sans/i.test(layout) || /instrumentSans/i.test(layout);
-    const hasNewsreader = /Newsreader/i.test(layout) || /newsreader/i.test(layout);
-    assert(hasInstrumentSans, 'layout.tsx must import and configure Instrument_Sans');
-    assert(hasNewsreader, 'layout.tsx must import and configure Newsreader');
+    const hasHeadingFont = /Instrument_Serif/i.test(layout) || /instrumentSerif/i.test(layout) || /Instrument_Sans/i.test(layout) || /instrumentSans/i.test(layout);
+    const hasBodyFont = /Inter/i.test(layout) || /inter/i.test(layout) || /Newsreader/i.test(layout) || /newsreader/i.test(layout);
+    assert(hasHeadingFont, 'layout.tsx must import and configure heading font (Instrument Serif / Instrument Sans)');
+    assert(hasBodyFont, 'layout.tsx must import and configure body font (Inter / Newsreader)');
   },
 });
 
@@ -26,11 +26,11 @@ test({
   fn: () => {
     const layout = readFileSafe(PATHS.layoutTsx);
     assert(layout !== null, 'src/app/layout.tsx must exist');
-    // Must bind font variables (e.g., instrumentSans.variable, newsreader.variable) to <html> or <body>
-    const bindsSansVar = /instrumentSans\.variable/i.test(layout) || /--font-sans/i.test(layout);
-    const bindsSerifVar = /newsreader\.variable/i.test(layout) || /--font-serif/i.test(layout);
-    assert(bindsSansVar, 'layout.tsx must bind Instrument Sans font variable to layout container');
-    assert(bindsSerifVar, 'layout.tsx must bind Newsreader font variable to layout container');
+    // Must bind font variables (e.g., instrumentSerif.variable, inter.variable) to <html> or <body>
+    const bindsDisplayVar = /instrumentSerif\.variable/i.test(layout) || /instrumentSans\.variable/i.test(layout) || /--font-serif-display/i.test(layout) || /--font-sans/i.test(layout);
+    const bindsBodyVar = /inter\.variable/i.test(layout) || /newsreader\.variable/i.test(layout) || /--font-body/i.test(layout) || /--font-serif/i.test(layout);
+    assert(bindsDisplayVar, 'layout.tsx must bind display font variable to layout container');
+    assert(bindsBodyVar, 'layout.tsx must bind body font variable to layout container');
   },
 });
 

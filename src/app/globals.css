@@ -23,10 +23,12 @@
   --color-accent-amber: #D4AF37;
   --color-accent-glow: rgba(194, 159, 83, 0.25);
 
-  --font-heading: var(--font-sans, 'Instrument Sans', -apple-system, BlinkMacSystemFont, sans-serif);
-  --font-sans: var(--font-sans, 'Instrument Sans', -apple-system, BlinkMacSystemFont, sans-serif);
-  --font-serif: var(--font-serif, 'Newsreader', Georgia, serif);
-  --font-body: var(--font-serif, 'Newsreader', Georgia, serif);
+  --font-display: var(--font-serif-display), 'Instrument Serif', Georgia, serif;
+  --font-serif-display: var(--font-serif-display), 'Instrument Serif', Georgia, serif;
+  --font-heading: var(--font-serif-display), 'Instrument Serif', Georgia, serif;
+  --font-sans: var(--font-body), 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: var(--font-serif-display), 'Instrument Serif', Georgia, serif;
+  --font-body: var(--font-body), 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
@@ -72,25 +74,33 @@ body::after {
   opacity: 0.15;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
-  font-weight: 700;
+/* Headings adopt the luxurious Instrument Serif */
+h1, h2, h3, h4, h5, h6, .font-serif-display {
+  font-family: var(--font-display);
+  font-weight: 400;
   color: var(--color-text-primary);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   line-height: 1.15;
 }
 
-p {
+p, body, button, input, nav, .font-body {
   font-family: var(--font-body);
 }
 
+/* Editorial italic accent */
+.editorial-italic {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+}
+
 .font-sans {
-  font-family: var(--font-sans);
-  letter-spacing: -0.02em;
+  font-family: var(--font-body);
+  letter-spacing: -0.01em;
 }
 
 .font-serif {
-  font-family: var(--font-serif);
+  font-family: var(--font-serif-display);
   font-optical-sizing: auto;
   line-height: 1.68;
 }

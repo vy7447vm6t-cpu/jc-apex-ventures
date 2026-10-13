@@ -388,7 +388,7 @@ export default function DivisionPage({ data }: { data: DivisionContent }) {
           <ScrollReveal>
             <div
               style={{
-                background: 'linear-gradient(135deg, var(--color-bg-alt) 0%, #FFFFFF 100%)',
+                background: 'linear-gradient(135deg, rgba(22, 27, 34, 0.85) 0%, rgba(10, 13, 16, 0.95) 100%)',
                 border: '1px solid var(--color-border-accent-light)',
                 borderRadius: '24px',
                 padding: '60px 36px',

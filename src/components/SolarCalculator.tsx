@@ -198,7 +198,7 @@ export default function SolarCalculator({ onApplyCalculation }: SolarCalculatorP
         border: '1px solid var(--color-border-accent-light)',
         borderRadius: '24px',
         boxShadow: 'var(--shadow-xl)',
-        background: '#FFFFFF',
+        background: 'var(--color-surface)',
       }}
     >
       {/* Header */}
@@ -324,7 +324,7 @@ export default function SolarCalculator({ onApplyCalculation }: SolarCalculatorP
                   <label htmlFor={billSliderId} style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>
                     2. Average Monthly Electricity Bill
                   </label>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '4px', background: '#FFFFFF', padding: '6px 14px', borderRadius: '8px', border: '1px solid var(--color-border)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '4px', background: 'var(--color-bg)', padding: '6px 14px', borderRadius: '8px', border: '1px solid var(--color-border)' }}>
                     <IndianRupee size={14} color="var(--color-accent)" />
                     <input
                       id={billNumberId}
@@ -381,7 +381,7 @@ export default function SolarCalculator({ onApplyCalculation }: SolarCalculatorP
                   <label htmlFor={areaSliderId} style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>
                     2. Available Shadow-Free Rooftop Area
                   </label>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', background: '#FFFFFF', padding: '6px 14px', borderRadius: '8px', border: '1px solid var(--color-border)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', background: 'var(--color-bg)', padding: '6px 14px', borderRadius: '8px', border: '1px solid var(--color-border)' }}>
                     <input
                       id={areaNumberId}
                       type="number"
@@ -616,12 +616,12 @@ export default function SolarCalculator({ onApplyCalculation }: SolarCalculatorP
             {/* Tab 1: Generation & Savings */}
             {activeTab === 'summary' && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 14px', borderRadius: '10px', background: '#FFFFFF', border: '1px solid var(--color-border)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 14px', borderRadius: '10px', background: 'var(--color-bg-alt)', border: '1px solid var(--color-border)' }}>
                   <span style={{ fontSize: '0.88rem', color: 'var(--color-text-secondary)' }}>Estimated Monthly Solar Units</span>
                   <strong style={{ fontSize: '0.95rem', color: 'var(--color-text-primary)' }}>~{monthlyGenerationUnits.toLocaleString('en-IN')} units (kWh)</strong>
                 </div>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 14px', borderRadius: '10px', background: '#FFFFFF', border: '1px solid var(--color-border)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 14px', borderRadius: '10px', background: 'var(--color-bg-alt)', border: '1px solid var(--color-border)' }}>
                   <span style={{ fontSize: '0.88rem', color: 'var(--color-text-secondary)' }}>Estimated Annual Solar Units</span>
                   <strong style={{ fontSize: '0.95rem', color: 'var(--color-text-primary)' }}>~{annualGenerationUnits.toLocaleString('en-IN')} units/year</strong>
                 </div>
@@ -631,22 +631,22 @@ export default function SolarCalculator({ onApplyCalculation }: SolarCalculatorP
                   <strong style={{ fontSize: '1.05rem', color: 'var(--color-accent)' }}>{formatCurrency(monthlySavingsRs)} / month</strong>
                 </div>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 14px', borderRadius: '10px', background: '#FFFFFF', border: '1px solid var(--color-border)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 14px', borderRadius: '10px', background: 'var(--color-bg-alt)', border: '1px solid var(--color-border)' }}>
                   <span style={{ fontSize: '0.88rem', color: 'var(--color-text-secondary)' }}>Expected Annual Savings</span>
                   <strong style={{ fontSize: '0.95rem', color: 'var(--color-text-primary)' }}>{formatCurrency(annualSavingsRs)} / year</strong>
                 </div>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 14px', borderRadius: '10px', background: '#FFFFFF', border: '1px solid var(--color-border)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 14px', borderRadius: '10px', background: 'var(--color-bg-alt)', border: '1px solid var(--color-border)' }}>
                   <span style={{ fontSize: '0.88rem', color: 'var(--color-text-secondary)' }}>Estimated Simple Payback</span>
                   <strong style={{ fontSize: '0.95rem', color: 'var(--color-accent)' }}>~{paybackYears} Years</strong>
                 </div>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 14px', borderRadius: '10px', background: '#FFFFFF', border: '1px solid var(--color-border)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 14px', borderRadius: '10px', background: 'var(--color-bg-alt)', border: '1px solid var(--color-border)' }}>
                   <span style={{ fontSize: '0.88rem', color: 'var(--color-text-secondary)' }}>25-Year Estimated Net Savings</span>
                   <strong style={{ fontSize: '0.95rem', color: 'var(--color-accent)' }}>~{formatCurrency(lifetimeSavings25YrsRs)}</strong>
                 </div>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 14px', borderRadius: '10px', background: '#FFFFFF', border: '1px solid var(--color-border)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 14px', borderRadius: '10px', background: 'var(--color-bg-alt)', border: '1px solid var(--color-border)' }}>
                   <span style={{ fontSize: '0.88rem', color: 'var(--color-text-secondary)' }}>Carbon Emissions Offset</span>
                   <strong style={{ fontSize: '0.95rem', color: '#059669' }}>~{co2OffsetTonsPerYear} Metric Tons CO2/yr</strong>
                 </div>

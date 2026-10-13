@@ -234,7 +234,7 @@ export default function SolisPage() {
 
             <ScrollReveal delay={1}>
               <div style={{
-                background: '#FFFFFF',
+                background: 'var(--color-bg-alt)',
                 border: '1px solid var(--color-border)',
                 borderRadius: '24px',
                 padding: '36px',
@@ -704,7 +704,7 @@ export default function SolisPage() {
             <div style={{
               padding: '32px',
               borderRadius: '20px',
-              background: '#FFFFFF',
+              background: 'var(--color-bg-alt)',
               border: '1px solid var(--color-border)',
               boxShadow: 'var(--shadow-sm)',
               display: 'grid',
@@ -803,7 +803,7 @@ export default function SolisPage() {
                 <div style={{
                   padding: '24px',
                   borderRadius: '16px',
-                  background: '#FFFFFF',
+                  background: 'var(--color-bg-alt)',
                   border: '1px solid var(--color-border)',
                   boxShadow: 'var(--shadow-sm)',
                   marginBottom: '28px',
@@ -831,7 +831,7 @@ export default function SolisPage() {
 
             {/* Right Column: Pre-fillable Interactive Enquiry Form */}
             <ScrollReveal delay={2}>
-              <form onSubmit={handleSubmitEnquiry} className="glass-panel" style={{ padding: '36px', background: '#FFFFFF' }}>
+              <form onSubmit={handleSubmitEnquiry} className="glass-panel" style={{ padding: '36px', background: 'var(--color-surface)' }}>
                 <h3 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '6px', color: 'var(--color-text-primary)' }}>
                   Site Feasibility Enquiry
                 </h3>

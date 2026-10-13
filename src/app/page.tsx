@@ -59,7 +59,7 @@ export default function Home() {
           justifyContent: 'center',
           position: 'relative',
           overflow: 'hidden',
-          background: 'linear-gradient(180deg, #FBFBFA 0%, #F6F4EE 100%)',
+          background: 'radial-gradient(ellipse 80% 60% at 50% -20%, rgba(194, 159, 83, 0.15), transparent 70%), linear-gradient(180deg, #0A0D10 0%, #11151A 100%)',
           borderBottom: '1px solid var(--color-border)',
         }}
       >
@@ -91,15 +91,15 @@ export default function Home() {
             <h1
               className="animate-fade-in-up delay-100"
               style={{
-                fontSize: 'clamp(2.4rem, 5.2vw, 4.2rem)',
-                lineHeight: 1.12,
+                fontSize: 'clamp(2.6rem, 5.6vw, 4.4rem)',
+                lineHeight: 1.1,
                 marginBottom: '22px',
-                fontWeight: 700,
+                fontWeight: 400,
                 color: 'var(--color-text-primary)',
-                letterSpacing: '-0.02em',
+                letterSpacing: '-0.01em',
               }}
             >
-              Engineering, utility paperwork, design and business support in Mumbai.
+              Engineering <span className="editorial-italic" style={{ color: 'var(--color-accent)' }}>precision</span>, utility paperwork, design, and business support in Mumbai.
             </h1>
 
             <p
@@ -205,7 +205,7 @@ export default function Home() {
       </section>
 
       {/* ===== INTERACTIVE BEFORE/AFTER SHOWCASE ===== */}
-      <section className="section" style={{ background: '#FFFFFF', borderBottom: '1px solid var(--color-border)' }}>
+      <section className="section" style={{ background: 'var(--color-bg)', borderBottom: '1px solid var(--color-border)' }}>
         <div className="container">
           <ScrollReveal>
             <div style={{ textAlign: 'center', marginBottom: '48px' }}>
@@ -386,7 +386,7 @@ export default function Home() {
         <div className="container">
           <ScrollReveal>
             <div style={{
-              background: 'linear-gradient(135deg, var(--color-bg-alt) 0%, #FFFFFF 100%)',
+              background: 'linear-gradient(135deg, rgba(22, 27, 34, 0.85) 0%, rgba(10, 13, 16, 0.95) 100%)',
               border: '1px solid var(--color-border-accent-light)',
               borderRadius: '28px',
               padding: '68px 36px',
