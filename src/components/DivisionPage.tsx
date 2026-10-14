@@ -38,9 +38,11 @@ function SectionHeading({ title, intro }: { title: string; intro?: string }) {
 export default function DivisionPage({
   data,
   customHeroLogo,
+  children,
 }: {
   data: DivisionContent;
   customHeroLogo?: React.ReactNode;
+  children?: React.ReactNode;
 }) {
   const Icon = divisionIcons[data.icon];
 
@@ -451,6 +453,15 @@ export default function DivisionPage({
           </div>
         </div>
       </section>
+
+      {/* Division-Specific Interactive Module */}
+      {children && (
+        <section className="section" style={{ paddingTop: '20px', paddingBottom: '40px' }}>
+          <div className="container">
+            {children}
+          </div>
+        </section>
+      )}
 
       {/* Call to Action Card */}
       <section className="section" style={{ paddingTop: '20px', paddingBottom: '80px' }}>

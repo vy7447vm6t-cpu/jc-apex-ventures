@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JC Apex Ventures | Visual Regression & Design Inspection Report</title>
+  <style>
+    :root {
+      --bg: #F4F1EA;
+      --card-bg: #FFFFFF;
+      --text-main: #111111;
+      --text-muted: #666666;
+      --border: rgba(0, 0, 0, 0.08);
+      --accent: #C29F53;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      padding: 40px 24px;
+      line-height: 1.5;
+    }
+    .header {
+      max-width: 1400px;
+      margin: 0 auto 40px auto;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      font-family: monospace;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: #111111;
+      color: #FFFFFF;
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    p.lead {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+    .section-card {
+      max-width: 1400px;
+      margin: 0 auto 48px auto;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    }
+    .section-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #FAFAF7;
+    }
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    .route-pill {
+      font-family: monospace;
+      font-size: 0.85rem;
+      background: rgba(194, 159, 83, 0.15);
+      color: #7A622A;
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid rgba(194, 159, 83, 0.3);
+    }
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 0.8fr;
+      gap: 20px;
+      padding: 24px;
+      background: #FFFFFF;
+    }
+    @media (max-width: 1024px) {
+      .comparison-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .device-column {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .device-label {
+      font-family: monospace;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+    }
+    .img-container {
+      background: #F8F8F8;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      max-height: 800px;
+      overflow-y: auto;
+    }
+    .img-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .status-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #107C41;
+      background: #E8F5E9;
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <span class="badge">[AUTOMATED VISUAL SUITE]</span>
+    <h1>JC Apex Ventures: Architectural Canvas Visual Inspection</h1>
+    <p class="lead">
+      Full-spectrum responsive verification across Desktop (1440px), Tablet (768px), and Mobile (390px) viewports with liquid glassmorphism and Grounded limestone aesthetic validation.
+    </p>
+  </div>
+
+  
+    <div class="section-card">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Ground Canvas Homepage</h2>
+          <span class="route-pill">/</span>
+        </div>
+        <span class="status-tag">RENDER VERIFIED</span>
+      </div>
+      <div class="comparison-grid">
+        <div class="device-column">
+          <div class="device-label">
+            <span>DESKTOP VIEWPORT</span>
+            <span>1440 x 900</span>
+          </div>
+          <div class="img-container">
+            <img src="homepage-desktop.png" alt="Ground Canvas Homepage Desktop" loading="lazy" />
+          </div>
+        </div>
+        <div class="device-column">
+          <div class="device-label">
+            <span>TABLET VIEWPORT</span>
+            <span>768 x 1024</span>
+          </div>
+          <div class="img-container">
+            <img src="homepage-tablet.png" alt="Ground Canvas Homepage Tablet" loading="lazy" />
+          </div>
+        </div>
+        <div class="device-column">
+          <div class="device-label">
+            <span>MOBILE VIEWPORT</span>
+            <span>390 x 844 (iOS)</span>
+          </div>
+          <div class="img-container">
+            <img src="homepage-mobile.png" alt="Ground Canvas Homepage Mobile" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="section-card">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Solis Energy Division</h2>
+          <span class="route-pill">/solis</span>
+        </div>
+        <span class="status-tag">RENDER VERIFIED</span>
+      </div>
+      <div class="comparison-grid">
+        <div class="device-column">
+          <div class="device-label">
+            <span>DESKTOP VIEWPORT</span>
+            <span>1440 x 900</span>
+          </div>
+          <div class="img-container">
+            <img src="solis-desktop.png" alt="Solis Energy Division Desktop" loading="lazy" />
+          </div>
+        </div>
+        <div class="device-column">
+          <div class="device-label">
+            <span>TABLET VIEWPORT</span>
+            <span>768 x 1024</span>
+          </div>
+          <div class="img-container">
+            <img src="solis-tablet.png" alt="Solis Energy Division Tablet" loading="lazy" />
+          </div>
+        </div>
+        <div class="device-column">
+          <div class="device-label">
+            <span>MOBILE VIEWPORT</span>
+            <span>390 x 844 (iOS)</span>
+          </div>
+          <div class="img-container">
+            <img src="solis-mobile.png" alt="Solis Energy Division Mobile" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="section-card">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Sanyog Regulatory & Grievance</h2>
+          <span class="route-pill">/sanyog</span>
+        </div>
+        <span class="status-tag">RENDER VERIFIED</span>
+      </div>
+      <div class="comparison-grid">
+        <div class="device-column">
+          <div class="device-label">
+            <span>DESKTOP VIEWPORT</span>
+            <span>1440 x 900</span>
+          </div>
+          <div class="img-container">
+            <img src="sanyog-desktop.png" alt="Sanyog Regulatory & Grievance Desktop" loading="lazy" />
+          </div>
+        </div>
+        <div class="device-column">
+          <div class="device-label">
+            <span>TABLET VIEWPORT</span>
+            <span>768 x 1024</span>
+          </div>
+          <div class="img-container">
+            <img src="sanyog-tablet.png" alt="Sanyog Regulatory & Grievance Tablet" loading="lazy" />
+          </div>
+        </div>
+        <div class="device-column">
+          <div class="device-label">
+            <span>MOBILE VIEWPORT</span>
+            <span>390 x 844 (iOS)</span>
+          </div>
+          <div class="img-container">
+            <img src="sanyog-mobile.png" alt="Sanyog Regulatory & Grievance Mobile" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="section-card">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Grid Apex Substation Engineering</h2>
+          <span class="route-pill">/grid-apex</span>
+        </div>
+        <span class="status-tag">RENDER VERIFIED</span>
+      </div>
+      <div class="comparison-grid">
+        <div class="device-column">
+          <div class="device-label">
+            <span>DESKTOP VIEWPORT</span>
+            <span>1440 x 900</span>
+          </div>
+          <div class="img-container">
+            <img src="grid-apex-desktop.png" alt="Grid Apex Substation Engineering Desktop" loading="lazy" />
+          </div>
+        </div>
+        <div class="device-column">
+          <div class="device-label">
+            <span>TABLET VIEWPORT</span>
+            <span>768 x 1024</span>
+          </div>
+          <div class="img-container">
+            <img src="grid-apex-tablet.png" alt="Grid Apex Substation Engineering Tablet" loading="lazy" />
+          </div>
+        </div>
+        <div class="device-column">
+          <div class="device-label">
+            <span>MOBILE VIEWPORT</span>
+            <span>390 x 844 (iOS)</span>
+          </div>
+          <div class="img-container">
+            <img src="grid-apex-mobile.png" alt="Grid Apex Substation Engineering Mobile" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="section-card">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Tvasta Architectural Interiors</h2>
+          <span class="route-pill">/tvasta</span>
+        </div>
+        <span class="status-tag">RENDER VERIFIED</span>
+      </div>
+      <div class="comparison-grid">
+        <div class="device-column">
+          <div class="device-label">
+            <span>DESKTOP VIEWPORT</span>
+            <span>1440 x 900</span>
+          </div>
+          <div class="img-container">
+            <img src="tvasta-desktop.png" alt="Tvasta Architectural Interiors Desktop" loading="lazy" />
+          </div>
+        </div>
+        <div class="device-column">
+          <div class="device-label">
+            <span>TABLET VIEWPORT</span>
+            <span>768 x 1024</span>
+          </div>
+          <div class="img-container">
+            <img src="tvasta-tablet.png" alt="Tvasta Architectural Interiors Tablet" loading="lazy" />
+          </div>
+        </div>
+        <div class="device-column">
+          <div class="device-label">
+            <span>MOBILE VIEWPORT</span>
+            <span>390 x 844 (iOS)</span>
+          </div>
+          <div class="img-container">
+            <img src="tvasta-mobile.png" alt="Tvasta Architectural Interiors Mobile" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="section-card">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">eMudran Packaging & Print</h2>
+          <span class="route-pill">/emudran</span>
+        </div>
+        <span class="status-tag">RENDER VERIFIED</span>
+      </div>
+      <div class="comparison-grid">
+        <div class="device-column">
+          <div class="device-label">
+            <span>DESKTOP VIEWPORT</span>
+            <span>1440 x 900</span>
+          </div>
+          <div class="img-container">
+            <img src="emudran-desktop.png" alt="eMudran Packaging & Print Desktop" loading="lazy" />
+          </div>
+        </div>
+        <div class="device-column">
+          <div class="device-label">
+            <span>TABLET VIEWPORT</span>
+            <span>768 x 1024</span>
+          </div>
+          <div class="img-container">
+            <img src="emudran-tablet.png" alt="eMudran Packaging & Print Tablet" loading="lazy" />
+          </div>
+        </div>
+        <div class="device-column">
+          <div class="device-label">
+            <span>MOBILE VIEWPORT</span>
+            <span>390 x 844 (iOS)</span>
+          </div>
+          <div class="img-container">
+            <img src="emudran-mobile.png" alt="eMudran Packaging & Print Mobile" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="section-card">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Agrim Project Finance</h2>
+          <span class="route-pill">/agrim</span>
+        </div>
+        <span class="status-tag">RENDER VERIFIED</span>
+      </div>
+      <div class="comparison-grid">
+        <div class="device-column">
+          <div class="device-label">
+            <span>DESKTOP VIEWPORT</span>
+            <span>1440 x 900</span>
+          </div>
+          <div class="img-container">
+            <img src="agrim-desktop.png" alt="Agrim Project Finance Desktop" loading="lazy" />
+          </div>
+        </div>
+        <div class="device-column">
+          <div class="device-label">
+            <span>TABLET VIEWPORT</span>
+            <span>768 x 1024</span>
+          </div>
+          <div class="img-container">
+            <img src="agrim-tablet.png" alt="Agrim Project Finance Tablet" loading="lazy" />
+          </div>
+        </div>
+        <div class="device-column">
+          <div class="device-label">
+            <span>MOBILE VIEWPORT</span>
+            <span>390 x 844 (iOS)</span>
+          </div>
+          <div class="img-container">
+            <img src="agrim-mobile.png" alt="Agrim Project Finance Mobile" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="section-card">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Engineering Studio & Lab</h2>
+          <span class="route-pill">/studio</span>
+        </div>
+        <span class="status-tag">RENDER VERIFIED</span>
+      </div>
+      <div class="comparison-grid">
+        <div class="device-column">
+          <div class="device-label">
+            <span>DESKTOP VIEWPORT</span>
+            <span>1440 x 900</span>
+          </div>
+          <div class="img-container">
+            <img src="studio-desktop.png" alt="Engineering Studio & Lab Desktop" loading="lazy" />
+          </div>
+        </div>
+        <div class="device-column">
+          <div class="device-label">
+            <span>TABLET VIEWPORT</span>
+            <span>768 x 1024</span>
+          </div>
+          <div class="img-container">
+            <img src="studio-tablet.png" alt="Engineering Studio & Lab Tablet" loading="lazy" />
+          </div>
+        </div>
+        <div class="device-column">
+          <div class="device-label">
+            <span>MOBILE VIEWPORT</span>
+            <span>390 x 844 (iOS)</span>
+          </div>
+          <div class="img-container">
+            <img src="studio-mobile.png" alt="Engineering Studio & Lab Mobile" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+  
+
+  <div class="header" style="margin-top: 60px;">
+    <h2>Interactive Component Captures</h2>
+    <p class="lead">Verification of interactive modal dialogues, reactive calculators, and tab switching animations.</p>
+  </div>
+
+  <div class="section-card">
+    <div class="section-header">
+      <h2 class="section-title">Interactive Monograph & State Dynamics</h2>
+      <span class="status-tag">INTERACTIVE STATES PASS</span>
+    </div>
+    <div style="padding: 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 20px;">
+      <div>
+        <div class="device-label" style="margin-bottom: 6px;">
+          <span>MONOGRAPH TAB SWITCH</span>
+        </div>
+        <div class="img-container">
+          <img src="interactive-monograph-tab-switch.png" alt="Monograph Tab Switch" loading="lazy" />
+        </div>
+      </div>
+      <div>
+        <div class="device-label" style="margin-bottom: 6px;">
+          <span>CALCULATOR INTERACTIVE STATE</span>
+        </div>
+        <div class="img-container">
+          <img src="interactive-calculator-state.png" alt="Calculator State" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

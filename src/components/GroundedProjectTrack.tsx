@@ -8,6 +8,7 @@ interface CaseStudy {
   title: string;
   location: string;
   category: string;
+  statusTag: string;
   metric: string;
   primaryImage: string;
   galleryImages: string[];
@@ -26,6 +27,7 @@ const CASE_STUDIES: CaseStudy[] = [
     title: 'Abhilasha CHS Walkable Rooftop Solar Pergola',
     location: 'Kandivali West, Mumbai',
     category: 'Renewable Infrastructure / Solis',
+    statusTag: 'Engineering Feasibility Study / Technical Proposal Framework',
     metric: '55.55 kWp (101 Bi-Facial Panels) | 100% Usable Terrace Footprint',
     primaryImage: '/images/solis_canopy_page1.jpg',
     galleryImages: [
@@ -37,15 +39,15 @@ const CASE_STUDIES: CaseStudy[] = [
     challenge:
       'The society terrace was actively utilized by residents for recreation, morning walks, and festival gatherings. Standard RCC ground-mounted solar structures would have created dangerous trip hazards, blocked movement, and made the terrace completely unusable.',
     solution:
-      'Solis engineered a 10.5 ft elevated hot-dip galvanized structural pergola canopy carrying 101 high-wattage bi-facial solar modules. The structure features integrated rainwater channels, concealed cable raceways, and full net metering liaisoning with Adani Electricity Mumbai Limited (AEML).',
+      'Solis engineered a 10.5 ft elevated hot-dip galvanized structural pergola canopy carrying 101 high-wattage bi-facial solar modules in a comprehensive engineering proposal. The schematic features integrated rainwater channels, concealed cable raceways, and full net metering liaisoning modeling with Adani Electricity Mumbai Limited (AEML).',
     outcomes: [
-      '55.55 kWp plant producing ~80,000 clean units annually',
-      '85% reduction in society common-area electricity billing',
-      '100% usable terrace space preserved with shaded walkable headroom',
-      'Certified wind-load tolerance up to 150 km/h with municipal compliance',
+      'Modeled for 55.55 kWp plant producing ~80,000 projected clean units annually',
+      '85% projected reduction in society common-area electricity billing',
+      '100% usable terrace space preserved with shaded walkable headroom in design',
+      'Certified wind-load tolerance modeled up to 150 km/h with municipal compliance',
     ],
     specs: [
-      { label: 'Plant Capacity', value: '55.55 kWp' },
+      { label: 'Plant Capacity', value: '55.55 kWp (Feasibility Study)' },
       { label: 'Module Tech', value: '101 Bi-Facial PERC Panels' },
       { label: 'Structure Clearance', value: '10.5 ft Walkable Headroom' },
       { label: 'DISCOM Liaison', value: 'Adani Electricity (AEML)' },
@@ -58,6 +60,7 @@ const CASE_STUDIES: CaseStudy[] = [
     title: 'Patented Zero-Power Solid Waste Tech & Project Economics',
     location: 'Maharashtra Municipal & Industrial Zone',
     category: 'Clean Technology & Project Economics / Agrim',
+    statusTag: 'Engineering Feasibility Study & Project Economics DPR',
     metric: '350°C Zero-Electricity Combustion | Central Govt Patent | MPCB Certified',
     primaryImage: '/images/waste-management-tech.jpg',
     galleryImages: [
@@ -90,6 +93,7 @@ const CASE_STUDIES: CaseStudy[] = [
     title: '33kV Substation Switchgear & HT Sanction',
     location: 'Thane Industrial Zone, MMR',
     category: 'Industrial Electrical / Grid Apex',
+    statusTag: 'In-Design Technical Schematic & PWD Proposal',
     metric: '1600 kVA Transformer | PWD Electrical Inspectorate Sanctions',
     primaryImage: '/images/electrical-substation.jpg',
     galleryImages: [
@@ -101,18 +105,18 @@ const CASE_STUDIES: CaseStudy[] = [
     challenge:
       'Factory capacity expansion required an immediate 1600 kVA high-tension load sanction, high-voltage transformer installation, and strict electrical inspectorate approvals without interrupting ongoing plant operations.',
     solution:
-      'Grid Apex completed turnkey engineering for an oil-cooled 1600 kVA step-down transformer bay, SF6 vacuum circuit breaker (VCB) panels, high-voltage cable trenching, neutral earth pit grid, and direct liaisoning with the Maharashtra PWD Electrical Inspectorate.',
+      'Grid Apex prepared turnkey technical schematics for an oil-cooled 1600 kVA step-down transformer bay, SF6 vacuum circuit breaker (VCB) panels, high-voltage cable trenching, neutral earth pit grid, and direct liaisoning with the Maharashtra PWD Electrical Inspectorate.',
     outcomes: [
-      '1600 kVA energized 2 weeks ahead of scheduled production run',
-      'Zero safety observations during statutory electrical inspection',
-      'Fault-current protection coordination verified with parent DISCOM',
-      'Turnkey single-point execution from drawing approvals to charging',
+      'Engineered for 1600 kVA energization timeline',
+      'Zero safety observations in statutory compliance design review',
+      'Fault-current protection coordination verified with parent DISCOM model',
+      'Technical proposal framework spanning engineering drawings to charging protocol',
     ],
     specs: [
       { label: 'Voltage Class', value: '33kV / 433V HT Step-Down' },
       { label: 'Rating', value: '1600 kVA Transformer Bay' },
       { label: 'Switchgear', value: 'Vacuum Circuit Breaker (VCB) HT Panel' },
-      { label: 'Sanctions', value: 'PWD Electrical Inspectorate Approved' },
+      { label: 'Sanctions', value: 'PWD Electrical Inspectorate Guidelines' },
     ],
     actionHref: '/grid-apex',
     actionLabel: 'Consult on HT/LT Substation Engineering',
@@ -122,6 +126,7 @@ const CASE_STUDIES: CaseStudy[] = [
     title: 'One International Centre Corporate Fit-out',
     location: 'Elphinstone, Lower Parel, Mumbai',
     category: 'Turnkey Commercial Interior / Tvasta',
+    statusTag: 'Proposal Framework & 3D CAD Space Schematic',
     metric: 'Corporate Headquarters | Acoustic Zoning & Integrated MEP',
     primaryImage: '/images/architectural-interior.jpg',
     galleryImages: [
@@ -131,19 +136,19 @@ const CASE_STUDIES: CaseStudy[] = [
     ],
     client: 'Financial Advisory & Wealth Management Headquarters',
     challenge:
-      'A fast-track 58-day completion window requiring luxury executive finishes, specialized acoustic isolation for boardrooms, and complex low-voltage data and MEP routing without visible surface conduits.',
+      'A fast-track completion window requiring luxury executive finishes, specialized acoustic isolation for boardrooms, and complex low-voltage data and MEP routing without visible surface conduits.',
     solution:
-      'Tvasta provided turnkey space planning, 3D architectural CAD modeling, custom walnut veneer paneling, acoustic baffle ceilings, and concealed MEP distribution under continuous on-site project management.',
+      'Tvasta engineered complete turnkey space planning, 3D architectural CAD modeling, custom walnut veneer paneling specifications, acoustic baffle ceilings, and concealed MEP distribution schematics.',
     outcomes: [
-      'Turnkey delivery achieved in 58 calendar days',
-      'Boardroom acoustic isolation rated to STC 48 standard',
+      'Fast-track 58-day project delivery framework',
+      'Boardroom acoustic isolation designed to STC 48 standard',
       'Integrated intelligent lighting controls and thermal comfort zones',
-      'Single-source accountability from bare shell to finished handover',
+      'Single-source accountability from bare shell to handover schematic',
     ],
     specs: [
       { label: 'Floor Space', value: '4,800 sq.ft. Executive Floor' },
       { label: 'Acoustics', value: 'STC 48 Rated Isolation' },
-      { label: 'Turnaround', value: '58 Calendar Days Turnkey' },
+      { label: 'Turnaround', value: '58 Calendar Days Plan' },
       { label: 'Finishes', value: 'Natural Walnut Veneer & Imported Stone' },
     ],
     actionHref: '/tvasta',
@@ -154,6 +159,7 @@ const CASE_STUDIES: CaseStudy[] = [
     title: 'Luxury Rigid Packaging & Corporate Identity',
     location: 'Mumbai Corporate Portfolio',
     category: 'Packaging & Identity / eMudran',
+    statusTag: 'Technical Production Framework & Press Specification',
     metric: 'Thermal Micro-Foil Embossing | Precision Paperboard Engineering',
     primaryImage: '/images/luxury-print-packaging.jpg',
     galleryImages: [
@@ -165,11 +171,11 @@ const CASE_STUDIES: CaseStudy[] = [
     challenge:
       'High-end retail packaging demanding exact Pantone color matching, registered micro-foil metallic stamping, and structural rigidity across large print volumes without corner cracking.',
     solution:
-      'eMudran conducted direct press-pass calibration, rigorous substrate humidity testing, precision custom dies, and automated post-press rigid box assembly overseen by Creative Director Manish Ajgaonkar.',
+      'eMudran conducted direct press-pass calibration protocols, substrate humidity testing, precision custom die specifications, and automated post-press rigid box assembly workflows overseen by Creative Director Manish Ajgaonkar.',
     outcomes: [
-      '50,000 unit production run completed with zero batch variance',
+      '50,000 unit production specification with zero batch variance tolerance',
       'Signature tactile unboxing experience with crisp magnetic closures',
-      'FSC-certified sustainable paperboard substrates utilized',
+      'FSC-certified sustainable paperboard substrate specifications',
       'Direct press-pass color accuracy verified against master standards',
     ],
     specs: [
@@ -421,6 +427,26 @@ export default function GroundedProjectTrack() {
                 </span>
               </div>
 
+              <div style={{ marginBottom: '8px' }}>
+                <span
+                  style={{
+                    display: 'inline-block',
+                    padding: '3px 10px',
+                    borderRadius: '100px',
+                    fontSize: '0.68rem',
+                    fontFamily: 'var(--font-mono, monospace)',
+                    fontWeight: 600,
+                    letterSpacing: '0.06em',
+                    textTransform: 'uppercase',
+                    backgroundColor: 'rgba(194, 159, 83, 0.2)',
+                    color: '#C29F53',
+                    border: '1px solid rgba(194, 159, 83, 0.4)',
+                  }}
+                >
+                  {study.statusTag}
+                </span>
+              </div>
+
               <h4
                 style={{
                   fontSize: '1.45rem',
@@ -525,18 +551,37 @@ export default function GroundedProjectTrack() {
               }}
             >
               <div>
-                <span
-                  style={{
-                    fontFamily: 'var(--font-mono, monospace)',
-                    fontSize: '0.78rem',
-                    color: '#C29F53',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.08em',
-                    fontWeight: 600,
-                  }}
-                >
-                  [{selectedStudy.category}]
-                </span>
+                <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap', marginBottom: '6px' }}>
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-mono, monospace)',
+                      fontSize: '0.78rem',
+                      color: '#C29F53',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.08em',
+                      fontWeight: 600,
+                    }}
+                  >
+                    [{selectedStudy.category}]
+                  </span>
+                  <span
+                    style={{
+                      display: 'inline-block',
+                      padding: '2px 8px',
+                      borderRadius: '100px',
+                      fontSize: '0.68rem',
+                      fontFamily: 'var(--font-mono, monospace)',
+                      fontWeight: 600,
+                      letterSpacing: '0.05em',
+                      textTransform: 'uppercase',
+                      backgroundColor: 'rgba(194, 159, 83, 0.15)',
+                      color: '#997328',
+                      border: '1px solid rgba(194, 159, 83, 0.3)',
+                    }}
+                  >
+                    {selectedStudy.statusTag}
+                  </span>
+                </div>
                 <h3
                   style={{
                     margin: '4px 0 0 0',

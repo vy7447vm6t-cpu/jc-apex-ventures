@@ -1,6 +1,46 @@
 "use client";
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { animate } from 'animejs';
+
+function AnimeCounter({ target, suffix = '' }: { target: number; suffix?: string }) {
+  const [val, setVal] = useState(target);
+  const elementRef = useRef<HTMLSpanElement>(null);
+  const hasAnimated = useRef(false);
+
+  useEffect(() => {
+    const el = elementRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !hasAnimated.current) {
+          hasAnimated.current = true;
+          const obj = { count: 0 };
+          setVal(0);
+          animate(obj, {
+            count: target,
+            duration: 1800,
+            ease: 'outExpo',
+            onUpdate: () => {
+              setVal(Math.round(obj.count));
+            },
+          });
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [target]);
+
+  return (
+    <span ref={elementRef}>
+      {val}{suffix}
+    </span>
+  );
+}
 
 export default function GroundedWhy() {
   return (
@@ -49,7 +89,9 @@ export default function GroundedWhy() {
             <div className="text-eye-brow" style={{ marginBottom: '12px' }}>
               Years of Practice
             </div>
-            <div className="stat-counter">36+</div>
+            <div className="stat-counter">
+              <AnimeCounter target={36} suffix="+" />
+            </div>
             <p
               style={{
                 fontSize: '0.94rem',
@@ -68,7 +110,9 @@ export default function GroundedWhy() {
             <div className="text-eye-brow" style={{ marginBottom: '12px' }}>
               Projects & Sanctions
             </div>
-            <div className="stat-counter">140+</div>
+            <div className="stat-counter">
+              <AnimeCounter target={140} suffix="+" />
+            </div>
             <p
               style={{
                 fontSize: '0.94rem',
@@ -87,7 +131,9 @@ export default function GroundedWhy() {
             <div className="text-eye-brow" style={{ marginBottom: '12px' }}>
               Specialized Disciplines
             </div>
-            <div className="stat-counter">6</div>
+            <div className="stat-counter">
+              <AnimeCounter target={6} />
+            </div>
             <p
               style={{
                 fontSize: '0.94rem',

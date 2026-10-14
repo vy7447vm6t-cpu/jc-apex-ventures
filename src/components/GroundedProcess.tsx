@@ -55,6 +55,18 @@ const STEPS: ProcessStep[] = [
   },
 ];
 
+import { ScrollStack } from '@/components/react-bits';
+
+const STACK_CARDS = STEPS.map((s) => ({
+  id: s.num,
+  stepNumber: s.num,
+  title: s.title,
+  subtitle: 'Protocol Milestone',
+  description: s.summary,
+  badge: 'Statutory Protocol',
+  specs: s.checklist,
+}));
+
 export default function GroundedProcess() {
   return (
     <section className="process-section">
@@ -92,85 +104,8 @@ export default function GroundedProcess() {
           </p>
         </div>
 
-        {/* 3 Numbered Process Cards */}
-        <div className="process-block-grid">
-          {STEPS.map((step) => (
-            <div key={step.num} className="process-block-container">
-              <div>
-                <div className="process-card-top">
-                  <h4 className="process-card-title">{step.title}</h4>
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-mono, monospace)',
-                      fontSize: '0.9rem',
-                      color: 'rgba(255, 255, 255, 0.6)',
-                    }}
-                  >
-                    {step.num}
-                  </span>
-                </div>
-
-                <p
-                  style={{
-                    fontSize: '0.98rem',
-                    color: 'rgba(255, 255, 255, 0.85)',
-                    lineHeight: 1.6,
-                    marginBottom: '24px',
-                    fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                  }}
-                >
-                  {step.summary}
-                </p>
-
-                <ul
-                  style={{
-                    listStyle: 'none',
-                    padding: 0,
-                    margin: '0 0 32px 0',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '10px',
-                  }}
-                >
-                  {step.checklist.map((item, idx) => (
-                    <li
-                      key={idx}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'flex-start',
-                        gap: '8px',
-                        fontSize: '0.86rem',
-                        color: 'rgba(255, 255, 255, 0.72)',
-                        lineHeight: 1.45,
-                        fontFamily: 'var(--font-mono, monospace)',
-                      }}
-                    >
-                      <span style={{ color: '#C29F53', flexShrink: 0 }}>+</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div>
-                <a
-                  href={step.actionHref}
-                  className="button is-icon is-alternate"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    fontSize: '0.85rem',
-                    padding: '8px 18px',
-                  }}
-                >
-                  <span>{step.actionLabel}</span>
-                  <ArrowUpRight size={14} />
-                </a>
-              </div>
-            </div>
-          ))}
-        </div>
+        {/* ScrollStack Sticky 3-Step Protocol Cards */}
+        <ScrollStack cards={STACK_CARDS} />
       </div>
     </section>
   );

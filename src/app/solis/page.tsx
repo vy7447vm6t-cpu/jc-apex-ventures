@@ -11,6 +11,8 @@ import SpotlightCard from '@/components/SpotlightCard';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 import DivisionLogo from '@/components/DivisionLogos';
 import { ImageWithLightbox } from '@/components/ImageLightbox';
+import { SolarGenerationCurve, CashflowPaybackSchedule } from '@/components/bklit';
+import { SvgPathAnimator } from '@/components/react-bits';
 import {
   Sun,
   CheckCircle2,
@@ -1059,14 +1061,32 @@ export default function SolisPage() {
             </div>
           </ScrollReveal>
 
+          {/* Architectural SVG Path Animation Flourish */}
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '24px' }}>
+            <SvgPathAnimator
+              d="M10 70 L50 20 L90 70 M30 45 L70 45 M50 20 L50 70 M20 70 L80 70"
+              width={64}
+              height={64}
+              viewBox="0 0 100 80"
+              strokeColor="#C29F53"
+              strokeWidth={2.5}
+            />
+          </div>
+
+          {/* Bklit UI Data Visualizations */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px', marginBottom: '48px' }}>
+            <SolarGenerationCurve capacityKw={55.55} />
+            <CashflowPaybackSchedule initialCapex={28.5} annualSavings={7.4} />
+          </div>
+
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px', marginBottom: '48px' }}>
             {[
               {
                 id: 'abhilasha-chs',
                 title: 'Abhilasha CHS, Kandivali West, Mumbai',
-                tag: 'Residential CHS Pergola Case Study',
+                tag: 'Engineering Feasibility Study & Proposal Framework',
                 stats: '55.55 kWp (101 Bi-Facial Panels) | 100% Usable Terrace',
-                desc: 'Turnkey 10.5 ft elevated hot-dip galvanized structural pergola canopy for Abhilasha Cooperative Housing Society (Kautankar Sir / Managing Committee). Preserved 100% usable terrace space for resident walks and gatherings while powering society common meters via net metering with Adani Electricity Mumbai Limited (AEML).',
+                desc: '10.5 ft elevated hot-dip galvanized structural pergola engineering feasibility study and proposal framework for Abhilasha Cooperative Housing Society (Kautankar Sir / Managing Committee). Designed to preserve 100% usable terrace space for resident walks and gatherings while powering society common meters via net metering with Adani Electricity Mumbai Limited (AEML).',
                 image: '/images/solis_canopy_page1.jpg',
                 galleryImages: [
                   '/images/solis_canopy_page1.jpg',
@@ -1077,13 +1097,13 @@ export default function SolisPage() {
                 challenge: 'The society terrace was actively utilized by residents for morning walks, recreation, and community events. Ground-mounted low RCC frames would have created dangerous trip hazards and made the terrace completely unusable.',
                 solution: 'Solis designed a 10.5 ft elevated hot-dip galvanized structural steel pergola canopy carrying 101 bi-facial solar modules overhead with integrated rainwater gutters and bidirectional net metering with Adani Electricity (AEML).',
                 outcomes: [
-                  '55.55 kWp plant producing ~80,000 clean units annually',
-                  '85% drop in society common-meter electricity expenses',
-                  '100% usable open terrace preserved for resident recreation',
+                  'Modeled for 55.55 kWp plant producing ~80,000 projected clean units annually',
+                  '85% projected drop in society common-meter electricity expenses',
+                  '100% usable open terrace preserved for resident recreation in design',
                   '150 km/h wind-load rated structure engineered for coastal Mumbai gusts',
                 ],
                 specs: [
-                  { label: 'Plant Size', value: '55.55 kWp' },
+                  { label: 'Plant Size', value: '55.55 kWp (Feasibility Study)' },
                   { label: 'Solar Tech', value: '101 Bi-Facial Modules' },
                   { label: 'Headroom', value: '10.5 ft Walkable Frame' },
                   { label: 'DISCOM', value: 'Adani Electricity (AEML)' },
@@ -1092,9 +1112,9 @@ export default function SolisPage() {
               {
                 id: 'corporate-hq',
                 title: 'Corporate Headquarters, Navi Mumbai',
-                tag: 'Commercial & BIPV Reference',
+                tag: 'In-Design Technical Schematic & Feasibility Model',
                 stats: '82 kW Rooftop Solar + 29 kW BIPV Glass',
-                desc: 'Full design and execution combining conventional rooftop modules with architectural semi-transparent solar glass over central atriums, reducing lighting and cooling expenses.',
+                desc: 'Engineering feasibility study combining conventional rooftop modules with architectural semi-transparent solar glass over central atriums, reducing lighting and cooling expenses.',
                 image: '/images/solis_facade_solar.jpg',
                 galleryImages: [
                   '/images/solis_facade_solar.jpg',
@@ -1105,7 +1125,7 @@ export default function SolisPage() {
                 challenge: 'Standard black rooftop panels would look industrial on an architectural glass building atrium, while heavy solar heat gain drove up internal HVAC chiller loads.',
                 solution: 'Engineered architectural semi-transparent BIPV solar glass with 30% daylight transmittance across the atrium, generating 29 kW while cooling internal temperatures.',
                 outcomes: [
-                  '111 kW total combined clean energy generation',
+                  '111 kW total combined clean energy generation model',
                   '22% lower HVAC cooling load through heat-absorbing PV glass',
                   'Architectural facade integration without exposed conduits',
                 ],
@@ -1119,9 +1139,9 @@ export default function SolisPage() {
               {
                 id: 'industrial-plant',
                 title: 'Industrial Manufacturing Unit, Maharashtra',
-                tag: 'Industrial High-Tension Reference',
+                tag: 'Engineering Feasibility Study & HT Grid Framework',
                 stats: '690 kWp High-Voltage Rooftop Installation',
-                desc: 'End-to-end electrical HT grid synchronization, transformer integration, and industrial net metering approvals.',
+                desc: 'Technical schematic for electrical HT grid synchronization, transformer integration, and industrial net metering approvals.',
                 image: '/images/solis_canopy_page1.jpg',
                 galleryImages: [
                   '/images/solis_canopy_page1.jpg',

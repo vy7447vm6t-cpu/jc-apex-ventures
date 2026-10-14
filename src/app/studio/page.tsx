@@ -1,16 +1,198 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Clippy from '@/components/Clippy';
 import { ArrowUpRight, MapPin, Phone, Mail, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import {
+  ParticleText,
+  TargetCursor,
+  MagicBento,
+  FlexCarousel,
+  LineSidebar,
+} from '@/components/react-bits';
+
+const CAPABILITIES_CARDS = [
+  {
+    id: 'bento-solis',
+    title: 'SOLIS Clean Energy',
+    subtitle: 'Walkable Pergola & Rooftop Solar EPC',
+    badge: 'Solar Architecture',
+    colSpan: 2 as const,
+    content: (
+      <div className="flex flex-col gap-2 text-xs text-[#555555]">
+        <p>10.5 ft elevated hot-dip galvanized pergolas that preserve 100% usable terrace space while harvesting peak Mumbai sunlight.</p>
+        <span className="font-semibold text-[#111111]">101 Bi-Facial PERC Modules | PM Surya Ghar Subsidy Liaisoning</span>
+      </div>
+    ),
+  },
+  {
+    id: 'bento-sanyog',
+    title: 'SANYOG Regulatory',
+    subtitle: 'Utility Liaisoning & CGRF Legal Advocacy',
+    badge: '36-Yr Utility Practice',
+    colSpan: 1 as const,
+    content: (
+      <div className="flex flex-col gap-2 text-xs text-[#555555]">
+        <p>High-friction MERC billing audits, sanctioned load releases, and consumer grievance representation across BEST, AEML, Tata Power, and MSEDCL.</p>
+      </div>
+    ),
+  },
+  {
+    id: 'bento-grid',
+    title: 'GRID APEX Engineering',
+    subtitle: '33kV Substations & SF6 Switchgear',
+    badge: 'Heavy Industrial',
+    colSpan: 1 as const,
+    content: (
+      <div className="flex flex-col gap-2 text-xs text-[#555555]">
+        <p>1600 kVA transformer bays, vacuum circuit breakers, busbar trunking, and PWD electrical inspectorate compliance clearances.</p>
+      </div>
+    ),
+  },
+  {
+    id: 'bento-tvasta',
+    title: 'TVASTA Architecture',
+    subtitle: 'Turnkey Space Planning & Fit-Outs',
+    badge: 'Three-Tier Delivery',
+    colSpan: 2 as const,
+    content: (
+      <div className="flex flex-col gap-2 text-xs text-[#555555]">
+        <p>Comprehensive turnkey civil, electrical, plumbing, and carpentry execution under one desk across Standard, Premium, and Luxury tiers.</p>
+        <span className="font-semibold text-[#111111]">Acoustic STC 52 Boardrooms | Book-Matched Marble & Veneers</span>
+      </div>
+    ),
+  },
+  {
+    id: 'bento-emudran',
+    title: 'eMudran Packaging',
+    subtitle: 'Tactile Rigid Boxes & Offset Press',
+    badge: 'Brand Identity',
+    colSpan: 2 as const,
+    content: (
+      <div className="flex flex-col gap-2 text-xs text-[#555555]">
+        <p>Led by veteran FMCG Art Director Manish Ajgaonkar. Thermal micro-embossed foil packaging, custom rigid presentation boxes, and outdoor corporate signage.</p>
+      </div>
+    ),
+  },
+  {
+    id: 'bento-agrim',
+    title: 'AGRIM Financial Advisory',
+    subtitle: 'Project Finance & Bank Loan DPRs',
+    badge: 'Non-Lender Advisory',
+    colSpan: 1 as const,
+    content: (
+      <div className="flex flex-col gap-2 text-xs text-[#555555]">
+        <p>Statutory project finance file assembly, bank credit syndication DPRs, and patented zero-energy solid waste tech feasibility dossiers.</p>
+      </div>
+    ),
+  },
+];
+
+const FEASIBILITY_ITEMS = [
+  {
+    id: 'f1',
+    content: (
+      <div className="rounded-2xl border border-black/8 bg-white p-6 shadow-md flex flex-col justify-between h-[340px] w-[320px]">
+        <div>
+          <span className="text-[10px] uppercase font-bold tracking-wider text-[#C29F53]">SOLIS PROPOSAL</span>
+          <h4 className="text-lg font-serif font-bold text-[#111111] mt-1 mb-2">Abhilasha CHS Walkable Rooftop Pergola</h4>
+          <p className="text-xs text-[#555555] leading-relaxed">
+            55.55 kWp technical proposal framework. 10.5 ft elevated canopy preserving 100% usable terrace space with net metering modeling with AEML.
+          </p>
+        </div>
+        <div className="pt-4 border-t border-black/8 text-[11px] text-[#777777]">
+          <span>Status: Engineering Feasibility Study</span>
+        </div>
+      </div>
+    ),
+  },
+  {
+    id: 'f2',
+    content: (
+      <div className="rounded-2xl border border-black/8 bg-white p-6 shadow-md flex flex-col justify-between h-[340px] w-[320px]">
+        <div>
+          <span className="text-[10px] uppercase font-bold tracking-wider text-[#C29F53]">GRID APEX SCHEMATIC</span>
+          <h4 className="text-lg font-serif font-bold text-[#111111] mt-1 mb-2">33kV Substation & Switchgear Bay</h4>
+          <p className="text-xs text-[#555555] leading-relaxed">
+            1600 kVA step-down transformer technical schematics, vacuum circuit breakers, and statutory PWD inspection compliance drawings.
+          </p>
+        </div>
+        <div className="pt-4 border-t border-black/8 text-[11px] text-[#777777]">
+          <span>Status: In-Design Technical Schematic</span>
+        </div>
+      </div>
+    ),
+  },
+  {
+    id: 'f3',
+    content: (
+      <div className="rounded-2xl border border-black/8 bg-white p-6 shadow-md flex flex-col justify-between h-[340px] w-[320px]">
+        <div>
+          <span className="text-[10px] uppercase font-bold tracking-wider text-[#C29F53]">eMUDRAN PROTOTYPE</span>
+          <h4 className="text-lg font-serif font-bold text-[#111111] mt-1 mb-2">Thermal Foil Rigid Presentation Box</h4>
+          <p className="text-xs text-[#555555] leading-relaxed">
+            Registered micro-embossed gold thermal foil with structural greyboard die-cuts and magnetic closures for luxury corporate editions.
+          </p>
+        </div>
+        <div className="pt-4 border-t border-black/8 text-[11px] text-[#777777]">
+          <span>Status: Structural Prototype Specimen</span>
+        </div>
+      </div>
+    ),
+  },
+  {
+    id: 'f4',
+    content: (
+      <div className="rounded-2xl border border-black/8 bg-white p-6 shadow-md flex flex-col justify-between h-[340px] w-[320px]">
+        <div>
+          <span className="text-[10px] uppercase font-bold tracking-wider text-[#C29F53]">AGRIM DPR MODEL</span>
+          <h4 className="text-lg font-serif font-bold text-[#111111] mt-1 mb-2">Zero-Energy Solid Waste Feasibility Model</h4>
+          <p className="text-xs text-[#555555] leading-relaxed">
+            Comprehensive 25-year CAPEX, NPV, and Payback mathematical models for MPCB-certified patented waste decomposition units.
+          </p>
+        </div>
+        <div className="pt-4 border-t border-black/8 text-[11px] text-[#777777]">
+          <span>Status: Project Economics Framework</span>
+        </div>
+      </div>
+    ),
+  },
+];
+
+const SIDEBAR_ITEMS = [
+  { id: 'coordinates', label: 'COORDINATES', tag: '01' },
+  { id: 'capabilities', label: 'CAPABILITIES', tag: '02' },
+  { id: 'leadership', label: 'LEADERSHIP', tag: '03' },
+  { id: 'feasibility', label: 'FEASIBILITY', tag: '04' },
+];
 
 export default function StudioPage() {
+  const [activeSection, setActiveSection] = useState('coordinates');
+
+  const scrollToSection = (id: string) => {
+    setActiveSection(id);
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <main className="grounded-canvas">
+    <main className="grounded-canvas relative">
       <Navbar />
       <Clippy />
+      <TargetCursor color="#C29F53" />
+
+      {/* Floating LineSidebar Navigation Rail for Desktop */}
+      <div className="hidden xl:block fixed right-8 top-1/3 z-40 p-4 rounded-2xl bg-white/70 backdrop-blur-xl border border-black/8 shadow-lg">
+        <LineSidebar
+          items={SIDEBAR_ITEMS}
+          activeId={activeSection}
+          onSelect={scrollToSection}
+        />
+      </div>
 
       {/* Hero Section */}
       <section
@@ -58,7 +240,7 @@ export default function StudioPage() {
               color: 'rgba(255, 255, 255, 0.78)',
               maxWidth: '820px',
               lineHeight: 1.65,
-              margin: '0 0 36px 0',
+              margin: '0 0 24px 0',
               fontFamily: 'var(--font-sans, Inter, sans-serif)',
               fontWeight: 300,
             }}
@@ -66,7 +248,12 @@ export default function StudioPage() {
             JC Apex Ventures operates from One International Centre, Mumbai. We unite three decades of utility network engineering with world-class creative brand direction to deliver turnkey field execution.
           </p>
 
-          <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', alignItems: 'center' }}>
+          {/* Interactive Particle Typography Accent */}
+          <div className="my-6">
+            <ParticleText text="JC APEX VENTURES" fontSize={32} particleColor="#C29F53" />
+          </div>
+
+          <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', alignItems: 'center', marginTop: '24px' }}>
             <a
               href="https://www.google.com/maps/search/?api=1&query=One+International+Centre+Senapati+Bapat+Marg+Elphinstone+Mumbai+400013"
               target="_blank"
@@ -101,8 +288,9 @@ export default function StudioPage() {
         </div>
       </section>
 
-      {/* Studio Location & Access Card */}
+      {/* 1. Studio Location & Access Card */}
       <section
+        id="coordinates"
         style={{
           backgroundColor: '#FFFFFF',
           padding: '80px 24px',
@@ -249,10 +437,56 @@ export default function StudioPage() {
         </div>
       </section>
 
-      {/* Leadership Dossiers */}
+      {/* 2. MagicBento: Consortium Capabilities */}
       <section
+        id="capabilities"
         style={{
           backgroundColor: 'var(--color-grounded-stone)',
+          padding: '100px 24px',
+          borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
+        }}
+      >
+        <div style={{ maxWidth: '1240px', margin: '0 auto' }}>
+          <div className="eye-brow-container" style={{ marginBottom: '16px' }}>
+            <span className="text-eye-brow">[core specializations]</span>
+          </div>
+
+          <h2
+            style={{
+              fontSize: 'clamp(2.2rem, 4vw, 3.4rem)',
+              lineHeight: 1.15,
+              fontWeight: 400,
+              letterSpacing: '-0.02em',
+              color: '#111111',
+              margin: '0 0 16px 0',
+              fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+            }}
+          >
+            Consortium Engineering Capabilities
+          </h2>
+
+          <p
+            style={{
+              fontSize: '1.05rem',
+              color: '#666666',
+              lineHeight: 1.6,
+              maxWidth: '820px',
+              margin: '0 0 40px 0',
+              fontFamily: 'var(--font-sans, Inter, sans-serif)',
+            }}
+          >
+            Interactive capabilities architecture spanning clean power, high-voltage distribution, commercial interiors, and packaging engineering.
+          </p>
+
+          <MagicBento cards={CAPABILITIES_CARDS} />
+        </div>
+      </section>
+
+      {/* 3. Leadership Dossiers */}
+      <section
+        id="leadership"
+        style={{
+          backgroundColor: '#FFFFFF',
           padding: '100px 24px',
           borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
         }}
@@ -299,7 +533,7 @@ export default function StudioPage() {
             {/* Director 1: Jitendra Chavan */}
             <div
               style={{
-                backgroundColor: '#FFFFFF',
+                backgroundColor: 'var(--color-grounded-stone)',
                 borderRadius: '18px',
                 padding: '32px',
                 border: '1px solid rgba(0, 0, 0, 0.08)',
@@ -359,7 +593,7 @@ export default function StudioPage() {
             {/* Director 2: Manish Ajgaonkar */}
             <div
               style={{
-                backgroundColor: '#FFFFFF',
+                backgroundColor: 'var(--color-grounded-stone)',
                 borderRadius: '18px',
                 padding: '32px',
                 border: '1px solid rgba(0, 0, 0, 0.08)',
@@ -419,7 +653,7 @@ export default function StudioPage() {
             {/* Director 3: Thermal & Solid Waste Tech */}
             <div
               style={{
-                backgroundColor: '#FFFFFF',
+                backgroundColor: 'var(--color-grounded-stone)',
                 borderRadius: '18px',
                 padding: '32px',
                 border: '1px solid rgba(0, 0, 0, 0.08)',
@@ -476,6 +710,51 @@ export default function StudioPage() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* 4. FlexCarousel: Feasibility Proposals & Technical Schematics */}
+      <section
+        id="feasibility"
+        style={{
+          backgroundColor: 'var(--color-grounded-stone)',
+          padding: '100px 24px',
+          borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
+        }}
+      >
+        <div style={{ maxWidth: '1240px', margin: '0 auto' }}>
+          <div className="eye-brow-container" style={{ marginBottom: '16px' }}>
+            <span className="text-eye-brow">[technical schematics &amp; proposals]</span>
+          </div>
+
+          <h2
+            style={{
+              fontSize: 'clamp(2.2rem, 4vw, 3.4rem)',
+              lineHeight: 1.15,
+              fontWeight: 400,
+              letterSpacing: '-0.02em',
+              color: '#111111',
+              margin: '0 0 16px 0',
+              fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+            }}
+          >
+            Engineering Feasibility Studies &amp; Schematics
+          </h2>
+
+          <p
+            style={{
+              fontSize: '1.05rem',
+              color: '#666666',
+              lineHeight: 1.6,
+              maxWidth: '820px',
+              margin: '0 0 40px 0',
+              fontFamily: 'var(--font-sans, Inter, sans-serif)',
+            }}
+          >
+            All non-commissioned projects are transparently documented as engineering feasibility studies and technical proposal frameworks.
+          </p>
+
+          <FlexCarousel items={FEASIBILITY_ITEMS} gap={24} />
         </div>
       </section>
 

@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { ArrowUpRight, Phone } from 'lucide-react';
+import { MicroSlats, TechText, SpecularButton } from '@/components/react-bits';
 
 interface HeroZone {
   id: string;
@@ -67,6 +68,9 @@ export default function GroundedHero() {
         justifyContent: 'space-between',
       }}
     >
+      {/* MicroSlats Architectural Louver Rhythm */}
+      <MicroSlats count={24} color="#FFFFFF" opacity={0.03} />
+
       {/* Background Images Layer with Crossfade */}
       <div
         style={{
@@ -201,34 +205,20 @@ export default function GroundedHero() {
             pointerEvents: 'auto',
           }}
         >
-          <a
+          <SpecularButton
             href="#divisions"
-            className="button is-icon"
-            style={{
-              backgroundColor: '#FFFFFF',
-              color: '#111111',
-              border: 'none',
-              padding: '0.85rem 1.75rem',
-            }}
+            variant="light"
+            icon={<ArrowUpRight size={16} />}
           >
-            <span style={{ fontWeight: 600 }}>Explore Divisions</span>
-            <ArrowUpRight size={16} />
-          </a>
-          <a
+            Explore Divisions
+          </SpecularButton>
+          <SpecularButton
             href="tel:+917021112664"
-            className="button is-icon is-alternate"
-            style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.1)',
-              color: '#FFFFFF',
-              borderColor: 'rgba(255, 255, 255, 0.25)',
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-              padding: '0.85rem 1.5rem',
-            }}
+            variant="dark"
+            icon={<Phone size={15} color="#FFFFFF" />}
           >
-            <Phone size={15} color="#FFFFFF" />
-            <span>+91 70211 12664</span>
-          </a>
+            +91 70211 12664
+          </SpecularButton>
         </div>
       </div>
 
@@ -269,7 +259,7 @@ export default function GroundedHero() {
                     fontWeight: 500,
                   }}
                 >
-                  {zone.num}
+                  <TechText text={zone.num} />
                 </div>
                 <div
                   style={{

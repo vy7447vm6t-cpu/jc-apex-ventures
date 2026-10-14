@@ -14,10 +14,14 @@ import GroundedCalculators from '@/components/GroundedCalculators';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 import InteractiveTabbedMonograph from '@/components/InteractiveTabbedMonograph';
 import { Phone, Mail, ArrowUpRight } from 'lucide-react';
+import { GlowCursor, ScrollExpand } from '@/components/react-bits';
 
 export default function Home() {
   return (
     <main className="grounded-canvas text-center items-center">
+      {/* Ambient Liquid Glass Specular Glow Tracking */}
+      <GlowCursor color="rgba(194, 159, 83, 0.12)" size={380} />
+
       {/* ✦ Multi-Disciplinary Engineering & Design Consortium | One International Centre, Mumbai */}
       <div className="sr-only">
         ✦ Multi-Disciplinary Engineering & Design Consortium | One International Centre, Mumbai
@@ -48,51 +52,53 @@ export default function Home() {
       <GroundedRecognition />
 
       {/* 9. Strategic Division Monograph & Associate Leadership Dossiers */}
-      <section
-        id="monograph"
-        className="section"
-        style={{
-          backgroundColor: '#FFFFFF',
-          borderTop: '1px solid rgba(0, 0, 0, 0.08)',
-          borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
-          padding: '120px 24px',
-        }}
-      >
-        <div style={{ maxWidth: '1240px', margin: '0 auto', textAlign: 'left' }}>
-          <div className="eye-brow-container" style={{ marginBottom: '16px' }}>
-            <span className="text-eye-brow">[consortium dossiers]</span>
-          </div>
+      <ScrollExpand initialScale={0.96} finalScale={1.0}>
+        <section
+          id="monograph"
+          className="section"
+          style={{
+            backgroundColor: '#FFFFFF',
+            borderTop: '1px solid rgba(0, 0, 0, 0.08)',
+            borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
+            padding: '120px 24px',
+          }}
+        >
+          <div style={{ maxWidth: '1240px', margin: '0 auto', textAlign: 'left' }}>
+            <div className="eye-brow-container" style={{ marginBottom: '16px' }}>
+              <span className="text-eye-brow">[consortium dossiers]</span>
+            </div>
 
-          <div style={{ maxWidth: '960px', marginBottom: '40px' }}>
-            <h3
-              style={{
-                fontSize: 'clamp(2.2rem, 4vw, 3.2rem)',
-                lineHeight: 1.15,
-                fontWeight: 400,
-                letterSpacing: '-0.02em',
-                color: '#111111',
-                margin: '0 0 16px 0',
-                fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
-              }}
-            >
-              Curated Strategic Division Monograph
-            </h3>
-            <p
-              style={{
-                fontSize: '1.05rem',
-                color: '#666666',
-                lineHeight: 1.6,
-                margin: 0,
-                fontFamily: 'var(--font-sans, Inter, sans-serif)',
-              }}
-            >
-              Select any discipline below to review authentic field photography, engineering pillars, and verified associate credentials.
-            </p>
-          </div>
+            <div style={{ maxWidth: '960px', marginBottom: '40px' }}>
+              <h3
+                style={{
+                  fontSize: 'clamp(2.2rem, 4vw, 3.2rem)',
+                  lineHeight: 1.15,
+                  fontWeight: 400,
+                  letterSpacing: '-0.02em',
+                  color: '#111111',
+                  margin: '0 0 16px 0',
+                  fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+                }}
+              >
+                Curated Strategic Division Monograph
+              </h3>
+              <p
+                style={{
+                  fontSize: '1.05rem',
+                  color: '#666666',
+                  lineHeight: 1.6,
+                  margin: 0,
+                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                }}
+              >
+                Select any discipline below to review authentic field photography, engineering pillars, and verified associate credentials.
+              </p>
+            </div>
 
-          <InteractiveTabbedMonograph />
-        </div>
-      </section>
+            <InteractiveTabbedMonograph />
+          </div>
+        </section>
+      </ScrollExpand>
 
       {/* 10. Interactive Terrace Comparison: Standard Solar vs Solis Walkable Pergola */}
       <section

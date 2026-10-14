@@ -1,11 +1,37 @@
 import type { Metadata } from 'next';
 import DivisionPage from '@/components/DivisionPage';
 import { emudran } from '@/content/divisions';
+import { PackagingVolumeTierCurve } from '@/components/bklit';
+import { DepthCarousel } from '@/components/react-bits';
 
 export const metadata: Metadata = {
   title: `${emudran.name} | Branding, Print & Signboards | JC Apex Ventures`,
   description: emudran.description,
 };
+
+const PACKAGING_SPECIMENS = [
+  {
+    id: 'specimen-01',
+    title: 'Thermal Micro-Foil Rigid Presentation Box',
+    tag: 'Luxury Packaging',
+    image: '/images/luxury-print-packaging.jpg',
+    description: 'Precision greyboard with registered gold thermal foil stamping and magnetic enclosure flap.',
+  },
+  {
+    id: 'specimen-02',
+    title: 'FMCG Rigid Gift Carton',
+    tag: 'Carton Engineering',
+    image: '/images/catalogues_mockup.png',
+    description: 'Structural die-cut packaging engineered for high-speed automated assembly lines.',
+  },
+  {
+    id: 'specimen-03',
+    title: 'Corporate Catalogues & Annual Reports',
+    tag: 'Offset Press',
+    image: '/images/brochures-catalogues-print.jpg',
+    description: 'High-bulk velvet-finish paper stock with spot UV and perfect binding.',
+  },
+];
 
 export default function EmudranPage() {
   return (
@@ -34,6 +60,27 @@ export default function EmudranPage() {
           </div>
         </div>
       }
-    />
+    >
+      <div className="flex flex-col gap-12">
+        <div className="rounded-3xl border border-black/8 bg-white/80 p-8 backdrop-blur-xl shadow-lg">
+          <div className="text-center max-w-xl mx-auto mb-6">
+            <span className="text-[11px] font-mono uppercase tracking-wider font-semibold text-[#C29F53]">
+              Tactile Studio Inspection
+            </span>
+            <h3 className="text-2xl font-serif font-bold text-[#111111] mt-1">
+              3D Rigid Box & Packaging Depth Specimen Gallery
+            </h3>
+            <p className="text-xs text-[#666666] mt-2">
+              Explore structural cardboard rigidity, gold foil stamping, and Pantone color accuracy.
+            </p>
+          </div>
+          <DepthCarousel items={PACKAGING_SPECIMENS} />
+        </div>
+
+        <div className="max-w-3xl mx-auto w-full">
+          <PackagingVolumeTierCurve />
+        </div>
+      </div>
+    </DivisionPage>
   );
 }

@@ -4,6 +4,19 @@ import React, { useState } from 'react';
 import SolarCalculator from '@/components/SolarCalculator';
 import PrintCalculator from '@/components/PrintCalculator';
 import InteriorCalculator from '@/components/InteriorCalculator';
+import {
+  SolarGenerationCurve,
+  CashflowPaybackSchedule,
+  PackagingVolumeTierCurve,
+} from '@/components/bklit';
+
+import { OptionWheel } from '@/components/react-bits';
+
+const CALCULATOR_OPTIONS = [
+  { label: '(01) Solar & Walkable Pergola', value: 'solar', subtext: 'Solis' },
+  { label: '(02) Print & Packaging Run', value: 'print', subtext: 'eMudran' },
+  { label: '(03) Commercial Interior Fit-Out', value: 'interior', subtext: 'Tvasta' },
+];
 
 export default function GroundedCalculators() {
   const [activeTab, setActiveTab] = useState<'solar' | 'print' | 'interior'>('solar');
@@ -44,44 +57,13 @@ export default function GroundedCalculators() {
           </p>
         </div>
 
-        {/* Grounded Tab Switcher */}
-        <div
-          style={{
-            display: 'flex',
-            gap: '10px',
-            flexWrap: 'wrap',
-            marginBottom: '32px',
-          }}
-        >
-          {[
-            { id: 'solar', label: '(01) Solar & Walkable Pergola (Solis)' },
-            { id: 'print', label: '(02) Print & Packaging Run (eMudran)' },
-            { id: 'interior', label: '(03) Commercial Interior Fit-Out (Tvasta)' },
-          ].map((tab) => {
-            const isActive = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                type="button"
-                onClick={() => setActiveTab(tab.id as any)}
-                style={{
-                  padding: '10px 20px',
-                  borderRadius: '9999px',
-                  border: isActive ? '1px solid #111111' : '1px solid rgba(0, 0, 0, 0.1)',
-                  backgroundColor: isActive ? '#111111' : '#FFFFFF',
-                  color: isActive ? '#FFFFFF' : '#444444',
-                  fontFamily: 'var(--font-mono, monospace)',
-                  fontSize: '0.82rem',
-                  letterSpacing: '0.04em',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease',
-                  boxShadow: isActive ? '0 4px 12px rgba(0,0,0,0.1)' : 'none',
-                }}
-              >
-                {tab.label}
-              </button>
-            );
-          })}
+        {/* OptionWheel iOS Frosted Glass Switcher */}
+        <div className="mb-8 flex justify-start">
+          <OptionWheel
+            options={CALCULATOR_OPTIONS}
+            selectedValue={activeTab}
+            onChange={(val) => setActiveTab(val)}
+          />
         </div>
 
         {/* Calculator Mounting Surface */}
@@ -89,6 +71,22 @@ export default function GroundedCalculators() {
           {activeTab === 'solar' && <SolarCalculator />}
           {activeTab === 'print' && <PrintCalculator />}
           {activeTab === 'interior' && <InteriorCalculator />}
+        </div>
+
+        {/* Dynamic Bklit Engineering Data Visualizations */}
+        <div style={{ marginTop: '48px' }}>
+          {activeTab === 'solar' && (
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px' }}>
+              <SolarGenerationCurve capacityKw={55.55} />
+              <CashflowPaybackSchedule initialCapex={28.5} annualSavings={7.4} />
+            </div>
+          )}
+
+          {activeTab === 'print' && (
+            <div style={{ maxWidth: '720px', margin: '0 auto' }}>
+              <PackagingVolumeTierCurve />
+            </div>
+          )}
         </div>
       </div>
     </section>
