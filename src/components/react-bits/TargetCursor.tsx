@@ -5,18 +5,53 @@ import React, { useEffect, useState } from 'react';
 interface TargetCursorProps {
   containerRef?: React.RefObject<HTMLElement | null>;
   color?: string;
+  className?: string;
 }
 
 export default function TargetCursor({
+  containerRef,
   color = '#C29F53',
+  className = '',
 }: TargetCursorProps) {
   const [pos, setPos] = useState({ x: -100, y: -100 });
   const [active, setActive] = useState(false);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    // Strictly on desktop viewports (min-width: 1024px and precision mouse/pointer)
+    const checkIsDesktop = () => {
+      return Boolean(
+        window.matchMedia &&
+        window.matchMedia('(min-width: 1024px)').matches &&
+        window.matchMedia('(pointer: fine)').matches
+      );
+    };
+
     const handleMove = (e: MouseEvent) => {
-      setPos({ x: e.clientX, y: e.clientY });
-      if (!active) setActive(true);
+      if (!checkIsDesktop()) {
+        setActive(false);
+        return;
+      }
+
+      if (containerRef && containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        const inside =
+          e.clientX >= rect.left &&
+          e.clientX <= rect.right &&
+          e.clientY >= rect.top &&
+          e.clientY <= rect.bottom;
+
+        if (inside) {
+          setPos({ x: e.clientX, y: e.clientY });
+          setActive(true);
+        } else {
+          setActive(false);
+        }
+      } else {
+        setPos({ x: e.clientX, y: e.clientY });
+        setActive(true);
+      }
     };
 
     const handleLeave = () => {
@@ -30,19 +65,18 @@ export default function TargetCursor({
       window.removeEventListener('mousemove', handleMove);
       document.removeEventListener('mouseleave', handleLeave);
     };
-  }, [active]);
-
-  if (!active) return null;
+  }, [containerRef]);
 
   return (
     <div
-      className="pointer-events-none fixed z-50 transition-opacity duration-150"
+      className={`pointer-events-none fixed z-50 transition-opacity duration-200 hidden lg:block ${className}`}
       style={{
         left: `${pos.x}px`,
         top: `${pos.y}px`,
         transform: 'translate(-50%, -50%)',
-        opacity: active ? 1 : 0,
+        opacity: active && pos.x >= 0 ? 1 : 0,
       }}
+      aria-hidden="true"
     >
       {/* Target Reticle */}
       <div

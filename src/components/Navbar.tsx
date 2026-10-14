@@ -51,6 +51,16 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setMobileOpen(false);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
     const updateTime = () => {
       try {
         const now = new Date();
@@ -98,19 +108,19 @@ export default function Navbar() {
         }}
       >
         <header
-          className="ios-glass"
+          className="ios-glass ios-liquid-glass kokonut-nav-pill backdrop-blur-2xl"
           style={{
             pointerEvents: 'auto',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            padding: '8px 20px',
+            padding: '8px 16px',
             borderRadius: '9999px',
-            backgroundColor: 'rgba(244, 241, 234, 0.88)',
-            backdropFilter: 'blur(24px) saturate(190%)',
-            WebkitBackdropFilter: 'blur(24px) saturate(190%)',
-            border: '1px solid rgba(0, 0, 0, 0.08)',
-            boxShadow: '0 8px 30px rgba(0, 0, 0, 0.05)',
+            backgroundColor: 'rgba(255, 255, 255, 0.90)',
+            backdropFilter: 'blur(28px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(28px) saturate(180%)',
+            border: '1px solid rgba(255, 255, 255, 0.75)',
+            boxShadow: '0 12px 36px -4px rgba(0, 0, 0, 0.12), 0 2px 6px -1px rgba(0, 0, 0, 0.05), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.04)',
             width: '100%',
           }}
         >
@@ -124,6 +134,7 @@ export default function Navbar() {
               gap: '10px',
               textDecoration: 'none',
               color: '#111111',
+              flexShrink: 0,
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -133,8 +144,8 @@ export default function Navbar() {
               <span
                 style={{
                   fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                  fontWeight: 600,
-                  fontSize: '0.98rem',
+                  fontWeight: 650,
+                  fontSize: '0.96rem',
                   letterSpacing: '-0.02em',
                   color: '#111111',
                 }}
@@ -145,9 +156,10 @@ export default function Navbar() {
                 style={{
                   fontFamily: 'var(--font-mono, monospace)',
                   fontSize: '0.72rem',
-                  color: '#727272',
-                  letterSpacing: '0.04em',
+                  color: '#666666',
+                  letterSpacing: '0.05em',
                   textTransform: 'uppercase',
+                  fontWeight: 500,
                 }}
               >
                 Ventures
@@ -160,76 +172,104 @@ export default function Navbar() {
             className="hidden md:flex"
             style={{
               alignItems: 'center',
-              gap: '18px',
-              fontFamily: 'var(--font-mono, monospace)',
-              fontSize: '0.8rem',
-              letterSpacing: '0.04em',
+              gap: '14px',
+              fontFamily: 'var(--font-sans, Inter, sans-serif)',
+              fontSize: '0.82rem',
+              letterSpacing: '-0.01em',
+              fontWeight: 500,
             }}
           >
             <Link
               href="/#projects"
               aria-label="View Builds and Projects"
-              style={{ color: '#444444', textDecoration: 'none' }}
+              style={{ color: '#222222', textDecoration: 'none' }}
             >
               <ScrambleText text="Builds" />
             </Link>
-            <span style={{ color: '#CCCCCC' }}>/</span>
+            <span style={{ color: 'rgba(0, 0, 0, 0.18)' }}>/</span>
             <Link
               href="/#divisions"
               aria-label="View Specialized Divisions"
-              style={{ color: '#444444', textDecoration: 'none' }}
+              style={{ color: '#222222', textDecoration: 'none' }}
             >
               <ScrambleText text="Divisions" />
             </Link>
-            <span style={{ color: '#CCCCCC' }}>/</span>
+            <span style={{ color: 'rgba(0, 0, 0, 0.18)' }}>/</span>
             <Link
               href="/solis"
               aria-label="Solis Solar Division"
-              style={{ color: '#111111', fontWeight: 600, textDecoration: 'none' }}
+              style={{ color: '#111111', fontWeight: 650, textDecoration: 'none' }}
             >
               <ScrambleText text="Solis" />
             </Link>
-            <span style={{ color: '#CCCCCC' }}>/</span>
+            <span style={{ color: 'rgba(0, 0, 0, 0.18)' }}>/</span>
             <Link
               href="/#calculators"
               aria-label="Field Calculators"
-              style={{ color: '#444444', textDecoration: 'none' }}
+              style={{ color: '#222222', textDecoration: 'none' }}
             >
               <ScrambleText text="Estimators" />
             </Link>
-            <span style={{ color: '#CCCCCC' }}>/</span>
+            <span style={{ color: 'rgba(0, 0, 0, 0.18)' }}>/</span>
             <Link
               href="/studio"
               aria-label="Practice, Leadership and Studio"
-              style={{ color: '#444444', textDecoration: 'none' }}
+              style={{ color: '#222222', textDecoration: 'none' }}
             >
               <ScrambleText text="Studio" />
             </Link>
           </nav>
 
           {/* Right: Live Mumbai Clock, Phone Action, Menu Trigger & CTA */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-            {/* Live Mumbai Clock */}
-            <div className="mumbai-clock hidden lg:block" style={{ paddingRight: '4px' }}>
-              {mumbaiTime}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
+            {/* Live Mumbai Clock with isolated pill container */}
+            <div
+              className="mumbai-clock hidden xl:flex"
+              style={{
+                alignItems: 'center',
+                gap: '6px',
+                padding: '5px 11px',
+                borderRadius: '9999px',
+                backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                border: '1px solid rgba(0, 0, 0, 0.06)',
+                fontFamily: 'var(--font-mono, monospace)',
+                fontSize: '0.68rem',
+                letterSpacing: '0.04em',
+                color: '#333333',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              <span
+                style={{
+                  width: '6px',
+                  height: '6px',
+                  borderRadius: '50%',
+                  backgroundColor: '#16A34A',
+                  display: 'inline-block',
+                }}
+              />
+              <span>{mumbaiTime}</span>
             </div>
 
             {/* Direct Telephone Action */}
             <a
               href="tel:+917021112664"
               aria-label="Call JC Apex Ventures"
-              className="hidden md:flex"
+              className="hidden lg:flex"
               style={{
                 alignItems: 'center',
                 gap: '6px',
                 fontSize: '0.78rem',
-                fontFamily: 'var(--font-mono, monospace)',
-                color: '#444444',
+                fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                fontWeight: 500,
+                color: '#111111',
                 textDecoration: 'none',
                 padding: '6px 12px',
                 borderRadius: '9999px',
-                backgroundColor: 'rgba(0, 0, 0, 0.04)',
-                border: '1px solid rgba(0, 0, 0, 0.06)',
+                backgroundColor: 'rgba(0, 0, 0, 0.05)',
+                border: '1px solid rgba(0, 0, 0, 0.08)',
+                whiteSpace: 'nowrap',
+                transition: 'all 0.2s ease',
               }}
             >
               <Phone size={13} color="#111111" />
@@ -240,35 +280,44 @@ export default function Navbar() {
             <a
               href="#contact"
               aria-label="Consultation Enquiry"
-              className="button is-icon hidden md:inline-flex"
+              className="hidden md:inline-flex"
               style={{
-                padding: '6px 14px',
-                fontSize: '0.8rem',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '7px 16px',
+                fontSize: '0.78rem',
+                fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                fontWeight: 600,
                 backgroundColor: '#111111',
                 color: '#FFFFFF',
+                borderRadius: '9999px',
+                textDecoration: 'none',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+                boxShadow: '0 4px 14px rgba(0, 0, 0, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.35)',
+                whiteSpace: 'nowrap',
+                transition: 'all 0.2s ease',
               }}
             >
               <ScrambleText text="Consultation" />
               <ArrowUpRight size={14} />
             </a>
 
-            {/* Grounded 3-Dots Menu Trigger Button */}
+            {/* Grounded 3-Dots Menu Trigger Button (Mobile only) */}
             <button
               type="button"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle Navigation Menu"
+              className="flex md:hidden items-center justify-center shrink-0"
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '38px',
-                height: '38px',
+                width: '36px',
+                height: '36px',
                 borderRadius: '50%',
                 border: '1px solid rgba(0, 0, 0, 0.1)',
-                backgroundColor: '#FFFFFF',
+                backgroundColor: 'rgba(255, 255, 255, 0.85)',
                 cursor: 'pointer',
                 color: '#111111',
                 transition: 'all 0.2s ease',
+                flexShrink: 0,
               }}
             >
               {mobileOpen ? (

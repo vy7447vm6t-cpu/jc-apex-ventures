@@ -14,14 +14,11 @@ import GroundedCalculators from '@/components/GroundedCalculators';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 import InteractiveTabbedMonograph from '@/components/InteractiveTabbedMonograph';
 import { Phone, Mail, ArrowUpRight } from 'lucide-react';
-import { GlowCursor, ScrollExpand } from '@/components/react-bits';
+import { ScrollExpand } from '@/components/react-bits';
 
 export default function Home() {
   return (
     <main className="grounded-canvas text-center items-center">
-      {/* Ambient Liquid Glass Specular Glow Tracking */}
-      <GlowCursor color="rgba(194, 159, 83, 0.12)" size={380} />
-
       {/* ✦ Multi-Disciplinary Engineering & Design Consortium | One International Centre, Mumbai */}
       <div className="sr-only">
         ✦ Multi-Disciplinary Engineering & Design Consortium | One International Centre, Mumbai

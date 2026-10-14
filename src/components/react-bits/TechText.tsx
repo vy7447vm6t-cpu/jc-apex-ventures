@@ -9,17 +9,19 @@ interface TechTextProps {
   maxScrambles?: number;
   triggerOnHover?: boolean;
   preserveSpaces?: boolean;
+  style?: React.CSSProperties;
 }
 
-const CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_#*+~<>[]{}';
+const CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
 export default function TechText({
   text,
   className = '',
-  scrambleSpeed = 30,
-  maxScrambles = 8,
+  scrambleSpeed = 28,
+  maxScrambles = 6,
   triggerOnHover = true,
   preserveSpaces = true,
+  style,
 }: TechTextProps) {
   const [displayText, setDisplayText] = useState(text);
   const isScramblingRef = useRef(false);
@@ -62,12 +64,17 @@ export default function TechText({
     startScramble();
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
+      isScramblingRef.current = false;
     };
   }, [text]);
 
+  const hasCustomFont = Boolean(style?.fontFamily) || /font-(serif|sans)|tracking-/.test(className);
+  const fontClasses = hasCustomFont ? '' : 'font-mono tracking-wider';
+
   return (
     <span
-      className={`inline-block font-mono tracking-wider transition-colors duration-200 ${className}`}
+      className={`inline-block transition-colors duration-200 ${fontClasses} ${className}`}
+      style={style}
       onMouseEnter={triggerOnHover ? startScramble : undefined}
     >
       {displayText}
