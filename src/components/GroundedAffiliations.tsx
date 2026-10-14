@@ -1,7 +1,6 @@
 "use client";
 
 import React from 'react';
-import { LogoLoop } from '@/components/react-bits';
 
 interface AffiliationItem {
   id: string;
@@ -104,18 +103,6 @@ export default function GroundedAffiliations() {
           >
             Statutory Grid & Regulatory Authorities
           </span>
-        </div>
-
-        {/* Seamless Infinite Marquee Loop */}
-        <div style={{ marginBottom: '36px' }}>
-          <LogoLoop
-            items={AFFILIATIONS.map((a) => ({
-              id: a.id,
-              name: a.name,
-              category: a.jurisdiction,
-            }))}
-            speed={26}
-          />
         </div>
 
         {/* 9-Box Hairline Bordered Grid */}

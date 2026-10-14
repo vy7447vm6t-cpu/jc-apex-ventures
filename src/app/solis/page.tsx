@@ -253,7 +253,7 @@ export default function SolisPage() {
                 </span>
               </div>
 
-              <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', marginBottom: '20px', fontWeight: 700, color: 'var(--color-text-primary)' }}>
+              <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', marginBottom: '20px', fontWeight: 400, fontFamily: 'var(--font-serif-display), Instrument Serif, Georgia, serif', letterSpacing: '-0.02em', color: 'var(--color-text-primary)' }}>
                 High-efficiency rooftop solar built for Mumbai housing societies and businesses.
               </h2>
 
@@ -283,7 +283,7 @@ export default function SolisPage() {
                 padding: '36px',
                 boxShadow: 'var(--shadow-xl)',
               }}>
-                <h3 style={{ fontSize: '1.25rem', marginBottom: '20px', color: 'var(--color-text-primary)', fontWeight: 700 }}>
+                <h3 style={{ fontSize: '1.25rem', marginBottom: '20px', color: 'var(--color-text-primary)', fontWeight: 400, fontFamily: 'var(--font-serif-display), Instrument Serif, Georgia, serif', letterSpacing: '-0.01em' }}>
                   Key Highlights at a Glance
                 </h3>
 
@@ -443,7 +443,7 @@ export default function SolisPage() {
                         </span>
                       </div>
 
-                      <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '16px', color: 'var(--color-text-primary)' }}>
+                      <h3 style={{ fontSize: '1.2rem', fontWeight: 400, fontFamily: 'var(--font-serif-display), Instrument Serif, Georgia, serif', letterSpacing: '-0.01em', marginBottom: '16px', color: 'var(--color-text-primary)' }}>
                         {item.title}
                       </h3>
 
@@ -500,7 +500,7 @@ export default function SolisPage() {
                   <div style={{ position: 'absolute', bottom: 12, left: 12 }}>
                     <span style={{
                       background: 'rgba(255, 255, 255, 0.95)', backdropFilter: 'blur(8px)',
-                      padding: '4px 10px', borderRadius: '100px', fontSize: '0.72rem', fontWeight: 700,
+                      padding: '4px 10px', borderRadius: '100px', fontSize: '0.72rem', fontWeight: 600,
                       color: 'var(--color-accent)', textTransform: 'uppercase'
                     }}>
                       Walkable Terrace
@@ -510,7 +510,7 @@ export default function SolisPage() {
 
                 <div style={{ padding: '30px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                   <div>
-                    <h3 style={{ fontSize: '1.35rem', fontWeight: 700, marginBottom: '12px', color: 'var(--color-text-primary)' }}>
+                    <h3 style={{ fontSize: '1.35rem', fontWeight: 400, fontFamily: 'var(--font-serif-display), Instrument Serif, Georgia, serif', letterSpacing: '-0.02em', marginBottom: '12px', color: 'var(--color-text-primary)' }}>
                       Elevated Pergola Solar Structures
                     </h3>
                     <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.93rem', lineHeight: 1.65, marginBottom: '20px' }}>
@@ -553,7 +553,7 @@ export default function SolisPage() {
                   <div style={{ position: 'absolute', bottom: 12, left: 12 }}>
                     <span style={{
                       background: 'rgba(255, 255, 255, 0.95)', backdropFilter: 'blur(8px)',
-                      padding: '4px 10px', borderRadius: '100px', fontSize: '0.72rem', fontWeight: 700,
+                      padding: '4px 10px', borderRadius: '100px', fontSize: '0.72rem', fontWeight: 600,
                       color: 'var(--color-accent)', textTransform: 'uppercase'
                     }}>
                       Aesthetic Glazing
@@ -563,7 +563,7 @@ export default function SolisPage() {
 
                 <div style={{ padding: '30px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                   <div>
-                    <h3 style={{ fontSize: '1.35rem', fontWeight: 700, marginBottom: '12px', color: 'var(--color-text-primary)' }}>
+                    <h3 style={{ fontSize: '1.35rem', fontWeight: 400, fontFamily: 'var(--font-serif-display), Instrument Serif, Georgia, serif', letterSpacing: '-0.02em', marginBottom: '12px', color: 'var(--color-text-primary)' }}>
                       Building Integrated Photovoltaics (BIPV)
                     </h3>
                     <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.93rem', lineHeight: 1.65, marginBottom: '20px' }}>
@@ -606,7 +606,7 @@ export default function SolisPage() {
                   <div style={{ position: 'absolute', bottom: 12, left: 12 }}>
                     <span style={{
                       background: 'rgba(255, 255, 255, 0.95)', backdropFilter: 'blur(8px)',
-                      padding: '4px 10px', borderRadius: '100px', fontSize: '0.72rem', fontWeight: 700,
+                      padding: '4px 10px', borderRadius: '100px', fontSize: '0.72rem', fontWeight: 600,
                       color: 'var(--color-accent)', textTransform: 'uppercase'
                     }}>
                       Clean Mobility
@@ -616,7 +616,7 @@ export default function SolisPage() {
 
                 <div style={{ padding: '30px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                   <div>
-                    <h3 style={{ fontSize: '1.35rem', fontWeight: 700, marginBottom: '12px', color: 'var(--color-text-primary)' }}>
+                    <h3 style={{ fontSize: '1.35rem', fontWeight: 400, fontFamily: 'var(--font-serif-display), Instrument Serif, Georgia, serif', letterSpacing: '-0.02em', marginBottom: '12px', color: 'var(--color-text-primary)' }}>
                       Integrated EV Charging Hubs
                     </h3>
                     <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.93rem', lineHeight: 1.65, marginBottom: '20px' }}>
@@ -684,7 +684,7 @@ export default function SolisPage() {
                 <span className="label-dot" />
                 Strategic Clean Energy Manifesto
               </div>
-              <h2 style={{ fontSize: 'clamp(2rem, 3.6vw, 3rem)', marginBottom: '18px', color: 'var(--color-text-primary)', fontWeight: 700 }}>
+              <h2 style={{ fontSize: 'clamp(2rem, 3.6vw, 3rem)', marginBottom: '18px', color: 'var(--color-text-primary)', fontWeight: 400, fontFamily: 'var(--font-serif-display), Instrument Serif, Georgia, serif', letterSpacing: '-0.02em' }}>
                 Why Solis? Why Solar & Clean Energy? Why Now?
               </h2>
               <p style={{ color: 'var(--color-text-secondary)', maxWidth: '740px', margin: '0 auto', fontSize: '1.08rem', lineHeight: 1.75 }}>
@@ -721,7 +721,7 @@ export default function SolisPage() {
                   background: 'var(--color-accent-pale)',
                   color: 'var(--color-accent)',
                   fontSize: '0.72rem',
-                  fontWeight: 700,
+                  fontWeight: 600,
                   letterSpacing: '1.2px',
                   textTransform: 'uppercase',
                   marginBottom: '16px',
@@ -729,7 +729,7 @@ export default function SolisPage() {
                 }}>
                   Pillar 01 : Authority & Architecture
                 </div>
-                <h3 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '6px', color: 'var(--color-text-primary)' }}>
+                <h3 style={{ fontSize: '1.4rem', fontWeight: 400, fontFamily: 'var(--font-serif-display), Instrument Serif, Georgia, serif', letterSpacing: '-0.02em', marginBottom: '6px', color: 'var(--color-text-primary)' }}>
                   Why Solis & JC Apex
                 </h3>
                 <p style={{ color: 'var(--color-accent)', fontWeight: 600, fontSize: '0.94rem', marginBottom: '22px' }}>
@@ -777,7 +777,7 @@ export default function SolisPage() {
                   background: 'var(--color-accent-pale)',
                   color: 'var(--color-accent)',
                   fontSize: '0.72rem',
-                  fontWeight: 700,
+                  fontWeight: 600,
                   letterSpacing: '1.2px',
                   textTransform: 'uppercase',
                   marginBottom: '16px',
@@ -785,7 +785,7 @@ export default function SolisPage() {
                 }}>
                   Pillar 02 : Financial & Physical Returns
                 </div>
-                <h3 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '6px', color: 'var(--color-text-primary)' }}>
+                <h3 style={{ fontSize: '1.4rem', fontWeight: 400, fontFamily: 'var(--font-serif-display), Instrument Serif, Georgia, serif', letterSpacing: '-0.02em', marginBottom: '6px', color: 'var(--color-text-primary)' }}>
                   Why Solar & Clean Energy
                 </h3>
                 <p style={{ color: 'var(--color-accent)', fontWeight: 600, fontSize: '0.94rem', marginBottom: '22px' }}>
@@ -833,7 +833,7 @@ export default function SolisPage() {
                   background: 'var(--color-accent-pale)',
                   color: 'var(--color-accent)',
                   fontSize: '0.72rem',
-                  fontWeight: 700,
+                  fontWeight: 600,
                   letterSpacing: '1.2px',
                   textTransform: 'uppercase',
                   marginBottom: '16px',
@@ -841,7 +841,7 @@ export default function SolisPage() {
                 }}>
                   Pillar 03 : Subsidies & Capacity Caps
                 </div>
-                <h3 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '6px', color: 'var(--color-text-primary)' }}>
+                <h3 style={{ fontSize: '1.4rem', fontWeight: 400, fontFamily: 'var(--font-serif-display), Instrument Serif, Georgia, serif', letterSpacing: '-0.02em', marginBottom: '6px', color: 'var(--color-text-primary)' }}>
                   Why Act Now
                 </h3>
                 <p style={{ color: 'var(--color-accent)', fontWeight: 600, fontSize: '0.94rem', marginBottom: '22px' }}>
@@ -885,7 +885,7 @@ export default function SolisPage() {
                   <span className="label-dot" />
                   Technical Evidence & Quantitative Models
                 </span>
-                <h3 style={{ fontSize: 'clamp(1.5rem, 2.6vw, 2.1rem)', color: 'var(--color-text-primary)', marginBottom: '8px', fontWeight: 700 }}>
+                <h3 style={{ fontSize: 'clamp(1.5rem, 2.6vw, 2.1rem)', color: 'var(--color-text-primary)', marginBottom: '8px', fontWeight: 400, fontFamily: 'var(--font-serif-display), Instrument Serif, Georgia, serif', letterSpacing: '-0.02em' }}>
                   Engineering Proof: Spatial, Payback & Tariff Models
                 </h3>
                 <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.96rem', maxWidth: '640px', margin: '0 auto' }}>
@@ -922,14 +922,14 @@ export default function SolisPage() {
                         background: 'var(--color-accent-pale)',
                         color: 'var(--color-accent)',
                         fontSize: '0.72rem',
-                        fontWeight: 700,
+                        fontWeight: 600,
                         letterSpacing: '1px',
                         textTransform: 'uppercase',
                         marginBottom: '10px',
                       }}>
                         Spatial Analysis
                       </div>
-                      <h4 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '8px', color: 'var(--color-text-primary)' }}>
+                      <h4 style={{ fontSize: '1.15rem', fontWeight: 400, fontFamily: 'var(--font-serif-display), Instrument Serif, Georgia, serif', letterSpacing: '-0.01em', marginBottom: '8px', color: 'var(--color-text-primary)' }}>
                         Dual-Zone Terrace Spatial Optimization
                       </h4>
                       <p style={{ color: 'var(--color-accent)', fontWeight: 600, fontSize: '0.88rem', marginBottom: '10px' }}>
@@ -966,14 +966,14 @@ export default function SolisPage() {
                         background: 'var(--color-accent-pale)',
                         color: 'var(--color-accent)',
                         fontSize: '0.72rem',
-                        fontWeight: 700,
+                        fontWeight: 600,
                         letterSpacing: '1px',
                         textTransform: 'uppercase',
                         marginBottom: '10px',
                       }}>
                         Financial Model
                       </div>
-                      <h4 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '8px', color: 'var(--color-text-primary)' }}>
+                      <h4 style={{ fontSize: '1.15rem', fontWeight: 400, fontFamily: 'var(--font-serif-display), Instrument Serif, Georgia, serif', letterSpacing: '-0.01em', marginBottom: '8px', color: 'var(--color-text-primary)' }}>
                         Cumulative Cashflow & Payback Schedule
                       </h4>
                       <p style={{ color: 'var(--color-accent)', fontWeight: 600, fontSize: '0.88rem', marginBottom: '10px' }}>
@@ -1010,14 +1010,14 @@ export default function SolisPage() {
                         background: 'var(--color-accent-pale)',
                         color: 'var(--color-accent)',
                         fontSize: '0.72rem',
-                        fontWeight: 700,
+                        fontWeight: 600,
                         letterSpacing: '1px',
                         textTransform: 'uppercase',
                         marginBottom: '10px',
                       }}>
                         Tariff Comparison
                       </div>
-                      <h4 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '8px', color: 'var(--color-text-primary)' }}>
+                      <h4 style={{ fontSize: '1.15rem', fontWeight: 400, fontFamily: 'var(--font-serif-display), Instrument Serif, Georgia, serif', letterSpacing: '-0.01em', marginBottom: '8px', color: 'var(--color-text-primary)' }}>
                         Escalating Grid Tariffs vs Fixed Solar Cost
                       </h4>
                       <p style={{ color: 'var(--color-accent)', fontWeight: 600, fontSize: '0.88rem', marginBottom: '10px' }}>
@@ -1191,13 +1191,13 @@ export default function SolisPage() {
                         />
                       </div>
                     )}
-                    <span style={{ display: 'inline-block', padding: '4px 12px', borderRadius: '100px', background: 'var(--color-accent-pale)', color: 'var(--color-accent)', fontSize: '0.74rem', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '14px' }}>
+                    <span style={{ display: 'inline-block', padding: '4px 12px', borderRadius: '100px', background: 'var(--color-accent-pale)', color: 'var(--color-accent)', fontSize: '0.74rem', fontWeight: 600, letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '14px' }}>
                       {proj.tag}
                     </span>
-                    <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '8px', color: 'var(--color-text-primary)' }}>
+                    <h3 style={{ fontSize: '1.25rem', fontWeight: 400, fontFamily: 'var(--font-serif-display), Instrument Serif, Georgia, serif', letterSpacing: '-0.01em', marginBottom: '8px', color: 'var(--color-text-primary)' }}>
                       {proj.title}
                     </h3>
-                    <div style={{ fontSize: '0.98rem', fontWeight: 700, color: 'var(--color-accent)', marginBottom: '12px' }}>
+                    <div style={{ fontSize: '0.98rem', fontWeight: 600, color: 'var(--color-accent)', marginBottom: '12px' }}>
                       {proj.stats}
                     </div>
                     <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.92rem', lineHeight: 1.65, marginBottom: '20px' }}>
@@ -1556,7 +1556,7 @@ export default function SolisPage() {
               alignItems: 'center',
             }}>
               <div>
-                <h4 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '6px', color: 'var(--color-text-primary)' }}>
+                <h4 style={{ fontSize: '1.05rem', fontWeight: 400, fontFamily: 'var(--font-serif-display), Instrument Serif, Georgia, serif', letterSpacing: '-0.01em', marginBottom: '6px', color: 'var(--color-text-primary)' }}>
                   DISCOM Net Metering Paperwork
                 </h4>
                 <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.88rem', lineHeight: 1.55 }}>
@@ -1571,7 +1571,7 @@ export default function SolisPage() {
                 { name: 'MSEDCL (Mahavitaran)', area: 'Thane, Navi Mumbai & Rest of Maharashtra' },
               ].map((disc) => (
                 <div key={disc.name} style={{ borderLeft: '2px solid var(--color-accent)', paddingLeft: '14px' }}>
-                  <div style={{ fontWeight: 700, fontSize: '0.92rem', color: 'var(--color-text-primary)' }}>
+                  <div style={{ fontWeight: 600, fontSize: '0.92rem', color: 'var(--color-text-primary)' }}>
                     {disc.name}
                   </div>
                   <div style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>
@@ -1651,7 +1651,7 @@ export default function SolisPage() {
                   boxShadow: 'var(--shadow-sm)',
                   marginBottom: '28px',
                 }}>
-                  <div style={{ fontWeight: 700, fontSize: '0.95rem', color: 'var(--color-accent)', marginBottom: '8px' }}>
+                  <div style={{ fontWeight: 600, fontSize: '0.95rem', color: 'var(--color-accent)', marginBottom: '8px' }}>
                     Direct Solar Contact Desk
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.9rem', color: 'var(--color-text-secondary)' }}>
@@ -1680,7 +1680,7 @@ export default function SolisPage() {
             {/* Right Column: Pre-fillable Interactive Enquiry Form */}
             <ScrollReveal delay={2}>
               <form onSubmit={handleSubmitEnquiry} className="glass-panel" style={{ padding: '36px', background: 'var(--color-surface)' }}>
-                <h3 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '6px', color: 'var(--color-text-primary)' }}>
+                <h3 style={{ fontSize: '1.4rem', fontWeight: 400, fontFamily: 'var(--font-serif-display), Instrument Serif, Georgia, serif', letterSpacing: '-0.02em', marginBottom: '6px', color: 'var(--color-text-primary)' }}>
                   Site Feasibility Enquiry
                 </h3>
                 <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.88rem', marginBottom: '24px' }}>
@@ -1697,7 +1697,7 @@ export default function SolisPage() {
                     background: 'var(--color-accent-pale)',
                     color: 'var(--color-accent)',
                     fontSize: '0.82rem',
-                    fontWeight: 700,
+                    fontWeight: 600,
                     marginBottom: '16px',
                   }}>
                     <CheckCircle2 size={14} />
@@ -1916,7 +1916,7 @@ export default function SolisPage() {
                     background: 'var(--color-accent-pale)',
                     border: '1px solid var(--color-border-accent-light)',
                   }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', color: 'var(--color-accent)', fontWeight: 700, fontSize: '0.92rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', color: 'var(--color-accent)', fontWeight: 600, fontSize: '0.92rem' }}>
                       <CheckCircle2 size={18} />
                       <span>Request draft generated</span>
                     </div>

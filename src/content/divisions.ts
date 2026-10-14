@@ -889,11 +889,28 @@ export const agrim: DivisionContent = {
       tag: 'EV Infrastructure DPR',
     },
   ],
-  peopleTitle: 'Who decides',
-  people: [],
+  peopleTitle: 'Advisory Panel & DPR Modeling Fellows',
+  peopleIntro: 'Project finance files and technical appraisal dossiers are structured by licensed engineering consultants and chartered project fellows.',
+  people: [
+    {
+      heading: 'Project Advisory & Engineering Fellows',
+      members: [
+        {
+          name: 'Jitendra Chavan',
+          role: 'Director & Senior Utility Consultant',
+          note: '36+ years of direct Mumbai utility network engineering and statutory tariff appraisal.',
+        },
+        {
+          name: 'Dr. Manoj Chavan & Mahendra Kabnurkar',
+          role: 'Patented CleanTech & Industrial DPR Advisory',
+          note: 'Co-inventors of patented zero-energy solid waste degradation technology and MPCB compliance modeling.',
+        },
+      ],
+    },
+  ],
   whoDoesTheWork: {
-    title: 'Who decides',
-    text: 'Banks and other lenders decide. AGRIM prepares the file and you apply directly to the lender.',
+    title: 'Statutory Non-Lender Advisory Mandate',
+    text: 'Banks, NBFCs, and institutional credit committees determine final credit sanction and disbursement. AGRIM operates strictly as a technical and financial project advisory desk, assembling credit-ready DPR binders, CMA debt schedules, and statutory NOC dossiers to eliminate procedural delays.',
   },
   steps: [
     { title: 'Tell us about the project', text: 'Share what you plan to build and what you need.' },

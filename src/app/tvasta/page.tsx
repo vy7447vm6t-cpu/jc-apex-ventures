@@ -1,31 +1,36 @@
+import React from 'react';
 import type { Metadata } from 'next';
 import DivisionPage from '@/components/DivisionPage';
 import { tvasta } from '@/content/divisions';
-import { AccordionGallery } from '@/components/react-bits';
+import TvastaTierGallery, { TvastaTier } from '@/components/TvastaTierGallery';
 
 export const metadata: Metadata = {
   title: `${tvasta.name} | Interior Design & Space Planning | JC Apex Ventures`,
   description: tvasta.description,
 };
 
-const TVASTA_TIERS = [
+const TVASTA_TIERS: TvastaTier[] = [
   {
     id: 'tier-standard',
     title: 'Standard Tier : Durable Essentials',
     subtitle: 'Functional Commercial Grade',
     badge: 'Tier 01',
-    description: 'Vitrified high-traffic tile flooring, commercial grade modular laminate workstations, acoustic drywall partitions, and energy-efficient LED task lighting.',
+    description: 'Vitrified high-traffic tile flooring, commercial grade modular laminate workstations, acoustic drywall partitions, concealed electrical conduit wiring, and energy-efficient LED task lighting.',
     image: '/images/architectural-interior.jpg',
-    specs: ['Commercial Laminates', 'Gypsum Acoustic Partitions', 'Concealed Wiring', '2-Year Warranty'],
+    specs: ['Commercial Laminates', 'Gypsum Acoustic Partitions', 'Concealed Conduit Wiring', '2-Year Turnkey Warranty'],
+    rate: 'Rs 1,850 / sq.ft',
+    turnaround: '45 to 60 days',
   },
   {
     id: 'tier-premium',
     title: 'Premium Tier : Curated Architectural Finishes',
     subtitle: 'Contemporary Executive Suite',
     badge: 'Tier 02',
-    description: 'Natural veneer paneling, fluted acoustic baffle ceilings, frameless double-glazed glass partitions, integrated smart HVAC controls, and engineered quartz counters.',
+    description: 'Natural veneer paneling, fluted acoustic baffle ceilings, frameless double-glazed glass partitions, integrated smart HVAC controls, and engineered quartz counters with acoustic isolation.',
     image: '/images/architectural-fitout-materials.jpg',
-    specs: ['Natural Wood Veneers', 'Acoustic Ceiling Baffles', 'Smart Automation', '5-Year Warranty'],
+    specs: ['Natural Wood Veneers', 'Acoustic Ceiling Baffles', 'Smart Automation', '5-Year Turnkey Warranty'],
+    rate: 'Rs 2,850 / sq.ft',
+    turnaround: '60 to 75 days',
   },
   {
     id: 'tier-luxury',
@@ -34,7 +39,9 @@ const TVASTA_TIERS = [
     badge: 'Tier 03',
     description: 'Book-matched imported Italian marble, custom architectural bronze and brass metalwork, boardroom acoustic isolation rated to STC 52, and museum-grade dimmable lighting scenes.',
     image: '/images/tvasta_luxury_interior.jpg',
-    specs: ['Italian Marble', 'Bespoke Architectural Metals', 'STC 52 Isolation', 'Lifetime Heritage Support'],
+    specs: ['Italian Marble', 'Bespoke Architectural Metals', 'STC 52 Acoustic Isolation', 'Lifetime Heritage Support'],
+    rate: 'Rs 4,600+ / sq.ft',
+    turnaround: '90 to 120 days',
   },
 ];
 
@@ -63,20 +70,7 @@ export default function TvastaPage() {
         </div>
       }
     >
-      <div className="flex flex-col gap-6">
-        <div className="text-center max-w-xl mx-auto mb-2">
-          <span className="text-[11px] font-mono uppercase tracking-wider font-semibold text-[#C29F53]">
-            Architectural Fit-Out Horizons
-          </span>
-          <h3 className="text-2xl font-serif font-bold text-[#111111] mt-1">
-            Interactive Three-Tier Material & Execution Palette
-          </h3>
-          <p className="text-xs text-[#666666] mt-1">
-            Click any tier to expand finishes, acoustic ratings, and material specifications.
-          </p>
-        </div>
-        <AccordionGallery items={TVASTA_TIERS} />
-      </div>
+      <TvastaTierGallery tiers={TVASTA_TIERS} />
     </DivisionPage>
   );
 }

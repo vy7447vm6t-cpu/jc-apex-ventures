@@ -19,9 +19,9 @@ const REPORT_FILE = path.join(process.cwd(), 'tests', 'visual-report.html');
 const ARTIFACT_REPORT_FILE = path.join(ARTIFACT_DIR, 'visual-report.html');
 
 const VIEWPORTS = [
-  { name: 'desktop', width: 1440, height: 900, deviceScaleFactor: 2 },
-  { name: 'tablet', width: 768, height: 1024, deviceScaleFactor: 2 },
-  { name: 'mobile', width: 390, height: 844, deviceScaleFactor: 2, isMobile: true },
+  { name: 'desktop', width: 1440, height: 900, deviceScaleFactor: 1 },
+  { name: 'tablet', width: 768, height: 1024, deviceScaleFactor: 1 },
+  { name: 'mobile', width: 390, height: 844, deviceScaleFactor: 1, isMobile: true },
 ];
 
 const ROUTES = [
@@ -140,6 +140,20 @@ async function runVisualTests() {
         console.log(`  -> Capturing [${vp.name.toUpperCase()}] ${vp.width}x${vp.height} @ ${targetUrl}`);
 
         await page.goto(targetUrl, { waitUntil: 'networkidle2', timeout: 30000 });
+
+        await page.evaluate(() => {
+          window.__PUPPETEER__ = true;
+          document.documentElement.style.scrollBehavior = 'auto';
+          document.body.style.scrollBehavior = 'auto';
+          const style = document.createElement('style');
+          style.innerHTML = `
+            *, *::before, *::after {
+              scroll-behavior: auto !important;
+            }
+          `;
+          document.head.appendChild(style);
+          window.scrollTo(0, 0);
+        });
 
         // Small stabilization wait for animations / fonts to settle
         await new Promise((r) => setTimeout(r, 600));

@@ -79,10 +79,26 @@ export default function MagicBento({
                 )}
               </div>
 
-              <h4 className="text-xl md:text-2xl font-serif font-bold text-[#111111] mb-2">
+              <h4
+                style={{
+                  color: '#111111',
+                  fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+                  fontWeight: 400,
+                  letterSpacing: '-0.015em',
+                  lineHeight: 1.2,
+                }}
+                className="text-xl md:text-2xl mb-2"
+              >
                 {card.title}
               </h4>
-              <p className="text-sm font-sans text-[#666666] leading-relaxed mb-4">
+              <p
+                style={{
+                  color: '#555555',
+                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                  lineHeight: 1.6,
+                }}
+                className="text-sm mb-4"
+              >
                 {card.subtitle}
               </p>
 

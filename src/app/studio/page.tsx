@@ -6,11 +6,8 @@ import Footer from '@/components/Footer';
 import Clippy from '@/components/Clippy';
 import { ArrowUpRight, MapPin, Phone, Mail, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import {
-  ParticleText,
-  TargetCursor,
   MagicBento,
   FlexCarousel,
-  LineSidebar,
 } from '@/components/react-bits';
 
 const CAPABILITIES_CARDS = [
@@ -94,16 +91,77 @@ const FEASIBILITY_ITEMS = [
   {
     id: 'f1',
     content: (
-      <div className="rounded-2xl border border-black/8 bg-white p-6 shadow-md flex flex-col justify-between h-[340px] w-[320px]">
+      <div
+        className="rounded-2xl shadow-md flex flex-col justify-between h-[360px] w-[340px]"
+        style={{ backgroundColor: '#FFFFFF', border: '1px solid rgba(0, 0, 0, 0.08)', padding: '28px' }}
+      >
         <div>
-          <span className="text-[10px] uppercase font-bold tracking-wider text-[#C29F53]">SOLIS PROPOSAL</span>
-          <h4 className="text-lg font-serif font-bold text-[#111111] mt-1 mb-2">Abhilasha CHS Walkable Rooftop Pergola</h4>
-          <p className="text-xs text-[#555555] leading-relaxed">
+          <span
+            style={{
+              fontFamily: 'var(--font-mono, monospace)',
+              fontSize: '0.72rem',
+              fontWeight: 600,
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+              color: '#C29F53',
+              display: 'block',
+              marginBottom: '8px',
+            }}
+          >
+            [SOLIS SOLAR EPC DOSSIER]
+          </span>
+          <h4
+            style={{
+              fontSize: '1.4rem',
+              lineHeight: 1.25,
+              fontWeight: 400,
+              color: '#111111',
+              margin: '0 0 12px 0',
+              fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+            }}
+          >
+            Abhilasha CHS Walkable Rooftop Pergola
+          </h4>
+          <p
+            style={{
+              fontSize: '0.92rem',
+              color: '#555555',
+              lineHeight: 1.65,
+              margin: 0,
+              fontFamily: 'var(--font-sans, Inter, sans-serif)',
+            }}
+          >
             55.55 kWp technical proposal framework. 10.5 ft elevated canopy preserving 100% usable terrace space with net metering modeling with AEML.
           </p>
         </div>
-        <div className="pt-4 border-t border-black/8 text-[11px] text-[#777777]">
-          <span>Status: Engineering Feasibility Study</span>
+        <div
+          style={{
+            borderTop: '1px solid rgba(0, 0, 0, 0.06)',
+            paddingTop: '16px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
+          <span
+            style={{
+              fontSize: '0.78rem',
+              color: '#777777',
+              fontFamily: 'var(--font-mono, monospace)',
+            }}
+          >
+            Status: Feasibility Study
+          </span>
+          <span
+            style={{
+              fontSize: '0.75rem',
+              color: '#C29F53',
+              fontWeight: 600,
+              fontFamily: 'var(--font-mono, monospace)',
+            }}
+          >
+            55.55 kWp
+          </span>
         </div>
       </div>
     ),
@@ -111,16 +169,77 @@ const FEASIBILITY_ITEMS = [
   {
     id: 'f2',
     content: (
-      <div className="rounded-2xl border border-black/8 bg-white p-6 shadow-md flex flex-col justify-between h-[340px] w-[320px]">
+      <div
+        className="rounded-2xl shadow-md flex flex-col justify-between h-[360px] w-[340px]"
+        style={{ backgroundColor: '#FFFFFF', border: '1px solid rgba(0, 0, 0, 0.08)', padding: '28px' }}
+      >
         <div>
-          <span className="text-[10px] uppercase font-bold tracking-wider text-[#C29F53]">GRID APEX SCHEMATIC</span>
-          <h4 className="text-lg font-serif font-bold text-[#111111] mt-1 mb-2">33kV Substation & Switchgear Bay</h4>
-          <p className="text-xs text-[#555555] leading-relaxed">
+          <span
+            style={{
+              fontFamily: 'var(--font-mono, monospace)',
+              fontSize: '0.72rem',
+              fontWeight: 600,
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+              color: '#C29F53',
+              display: 'block',
+              marginBottom: '8px',
+            }}
+          >
+            [GRID APEX HT SCHEMATIC]
+          </span>
+          <h4
+            style={{
+              fontSize: '1.4rem',
+              lineHeight: 1.25,
+              fontWeight: 400,
+              color: '#111111',
+              margin: '0 0 12px 0',
+              fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+            }}
+          >
+            33kV Substation &amp; Switchgear Bay
+          </h4>
+          <p
+            style={{
+              fontSize: '0.92rem',
+              color: '#555555',
+              lineHeight: 1.65,
+              margin: 0,
+              fontFamily: 'var(--font-sans, Inter, sans-serif)',
+            }}
+          >
             1600 kVA step-down transformer technical schematics, vacuum circuit breakers, and statutory PWD inspection compliance drawings.
           </p>
         </div>
-        <div className="pt-4 border-t border-black/8 text-[11px] text-[#777777]">
-          <span>Status: In-Design Technical Schematic</span>
+        <div
+          style={{
+            borderTop: '1px solid rgba(0, 0, 0, 0.06)',
+            paddingTop: '16px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
+          <span
+            style={{
+              fontSize: '0.78rem',
+              color: '#777777',
+              fontFamily: 'var(--font-mono, monospace)',
+            }}
+          >
+            Status: In-Design Schematic
+          </span>
+          <span
+            style={{
+              fontSize: '0.75rem',
+              color: '#C29F53',
+              fontWeight: 600,
+              fontFamily: 'var(--font-mono, monospace)',
+            }}
+          >
+            1600 kVA
+          </span>
         </div>
       </div>
     ),
@@ -128,16 +247,77 @@ const FEASIBILITY_ITEMS = [
   {
     id: 'f3',
     content: (
-      <div className="rounded-2xl border border-black/8 bg-white p-6 shadow-md flex flex-col justify-between h-[340px] w-[320px]">
+      <div
+        className="rounded-2xl shadow-md flex flex-col justify-between h-[360px] w-[340px]"
+        style={{ backgroundColor: '#FFFFFF', border: '1px solid rgba(0, 0, 0, 0.08)', padding: '28px' }}
+      >
         <div>
-          <span className="text-[10px] uppercase font-bold tracking-wider text-[#C29F53]">eMUDRAN PROTOTYPE</span>
-          <h4 className="text-lg font-serif font-bold text-[#111111] mt-1 mb-2">Thermal Foil Rigid Presentation Box</h4>
-          <p className="text-xs text-[#555555] leading-relaxed">
+          <span
+            style={{
+              fontFamily: 'var(--font-mono, monospace)',
+              fontSize: '0.72rem',
+              fontWeight: 600,
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+              color: '#C29F53',
+              display: 'block',
+              marginBottom: '8px',
+            }}
+          >
+            [eMUDRAN LUXURY PROTOTYPE]
+          </span>
+          <h4
+            style={{
+              fontSize: '1.4rem',
+              lineHeight: 1.25,
+              fontWeight: 400,
+              color: '#111111',
+              margin: '0 0 12px 0',
+              fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+            }}
+          >
+            Thermal Foil Rigid Presentation Box
+          </h4>
+          <p
+            style={{
+              fontSize: '0.92rem',
+              color: '#555555',
+              lineHeight: 1.65,
+              margin: 0,
+              fontFamily: 'var(--font-sans, Inter, sans-serif)',
+            }}
+          >
             Registered micro-embossed gold thermal foil with structural greyboard die-cuts and magnetic closures for luxury corporate editions.
           </p>
         </div>
-        <div className="pt-4 border-t border-black/8 text-[11px] text-[#777777]">
-          <span>Status: Structural Prototype Specimen</span>
+        <div
+          style={{
+            borderTop: '1px solid rgba(0, 0, 0, 0.06)',
+            paddingTop: '16px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
+          <span
+            style={{
+              fontSize: '0.78rem',
+              color: '#777777',
+              fontFamily: 'var(--font-mono, monospace)',
+            }}
+          >
+            Status: Structural Specimen
+          </span>
+          <span
+            style={{
+              fontSize: '0.75rem',
+              color: '#C29F53',
+              fontWeight: 600,
+              fontFamily: 'var(--font-mono, monospace)',
+            }}
+          >
+            1200 GSM
+          </span>
         </div>
       </div>
     ),
@@ -145,16 +325,77 @@ const FEASIBILITY_ITEMS = [
   {
     id: 'f4',
     content: (
-      <div className="rounded-2xl border border-black/8 bg-white p-6 shadow-md flex flex-col justify-between h-[340px] w-[320px]">
+      <div
+        className="rounded-2xl shadow-md flex flex-col justify-between h-[360px] w-[340px]"
+        style={{ backgroundColor: '#FFFFFF', border: '1px solid rgba(0, 0, 0, 0.08)', padding: '28px' }}
+      >
         <div>
-          <span className="text-[10px] uppercase font-bold tracking-wider text-[#C29F53]">AGRIM DPR MODEL</span>
-          <h4 className="text-lg font-serif font-bold text-[#111111] mt-1 mb-2">Zero-Energy Solid Waste Feasibility Model</h4>
-          <p className="text-xs text-[#555555] leading-relaxed">
+          <span
+            style={{
+              fontFamily: 'var(--font-mono, monospace)',
+              fontSize: '0.72rem',
+              fontWeight: 600,
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+              color: '#C29F53',
+              display: 'block',
+              marginBottom: '8px',
+            }}
+          >
+            [AGRIM CLEANTECH MODEL]
+          </span>
+          <h4
+            style={{
+              fontSize: '1.4rem',
+              lineHeight: 1.25,
+              fontWeight: 400,
+              color: '#111111',
+              margin: '0 0 12px 0',
+              fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+            }}
+          >
+            Zero-Energy Solid Waste Feasibility Model
+          </h4>
+          <p
+            style={{
+              fontSize: '0.92rem',
+              color: '#555555',
+              lineHeight: 1.65,
+              margin: 0,
+              fontFamily: 'var(--font-sans, Inter, sans-serif)',
+            }}
+          >
             Comprehensive 25-year CAPEX, NPV, and Payback mathematical models for MPCB-certified patented waste decomposition units.
           </p>
         </div>
-        <div className="pt-4 border-t border-black/8 text-[11px] text-[#777777]">
-          <span>Status: Project Economics Framework</span>
+        <div
+          style={{
+            borderTop: '1px solid rgba(0, 0, 0, 0.06)',
+            paddingTop: '16px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
+          <span
+            style={{
+              fontSize: '0.78rem',
+              color: '#777777',
+              fontFamily: 'var(--font-mono, monospace)',
+            }}
+          >
+            Status: Project Economics
+          </span>
+          <span
+            style={{
+              fontSize: '0.75rem',
+              color: '#C29F53',
+              fontWeight: 600,
+              fontFamily: 'var(--font-mono, monospace)',
+            }}
+          >
+            25-Yr CAPEX
+          </span>
         </div>
       </div>
     ),
@@ -183,16 +424,6 @@ export default function StudioPage() {
     <main className="grounded-canvas relative">
       <Navbar />
       <Clippy />
-      <TargetCursor color="#C29F53" />
-
-      {/* Floating LineSidebar Navigation Rail for Desktop */}
-      <div className="hidden xl:block fixed right-8 top-1/3 z-40 p-4 rounded-2xl bg-white/70 backdrop-blur-xl border border-black/8 shadow-lg">
-        <LineSidebar
-          items={SIDEBAR_ITEMS}
-          activeId={activeSection}
-          onSelect={scrollToSection}
-        />
-      </div>
 
       {/* Hero Section */}
       <section
@@ -240,18 +471,13 @@ export default function StudioPage() {
               color: 'rgba(255, 255, 255, 0.78)',
               maxWidth: '820px',
               lineHeight: 1.65,
-              margin: '0 0 24px 0',
+              margin: '0 0 32px 0',
               fontFamily: 'var(--font-sans, Inter, sans-serif)',
               fontWeight: 300,
             }}
           >
             JC Apex Ventures operates from One International Centre, Mumbai. We unite three decades of utility network engineering with world-class creative brand direction to deliver turnkey field execution.
           </p>
-
-          {/* Interactive Particle Typography Accent */}
-          <div className="my-6">
-            <ParticleText text="JC APEX VENTURES" fontSize={32} particleColor="#C29F53" />
-          </div>
 
           <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', alignItems: 'center', marginTop: '24px' }}>
             <a
