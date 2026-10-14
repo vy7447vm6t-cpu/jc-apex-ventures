@@ -19,3 +19,4 @@ export { default as TargetCursor } from './TargetCursor';
 export { default as ScrollStack } from './ScrollStack';
 export { default as MagicBento } from './MagicBento';
 export { default as SvgPathAnimator } from './SvgPathAnimator';
+export { default as SpotlightCard } from '../SpotlightCard';

@@ -8,6 +8,7 @@ interface SpotlightCardProps extends React.HTMLAttributes<HTMLDivElement> {
   spotlightColor?: string;
   borderColor?: string;
   contentStyle?: React.CSSProperties;
+  theme?: 'dark' | 'light';
 }
 
 export default function SpotlightCard({
@@ -16,10 +17,16 @@ export default function SpotlightCard({
   style = {},
   contentStyle = {},
   enableTilt = true,
-  spotlightColor = 'rgba(194, 159, 83, 0.14)',
-  borderColor = 'rgba(194, 159, 83, 0.45)',
+  spotlightColor,
+  borderColor,
+  theme = 'dark',
   ...props
 }: SpotlightCardProps) {
+  const isLight = theme === 'light';
+  const defaultSpotlight = isLight ? 'rgba(194, 159, 83, 0.12)' : 'rgba(194, 159, 83, 0.14)';
+  const defaultBorder = isLight ? 'rgba(194, 159, 83, 0.35)' : 'rgba(194, 159, 83, 0.45)';
+  const activeSpotlight = spotlightColor ?? defaultSpotlight;
+  const activeBorder = borderColor ?? defaultBorder;
   const cardRef = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
@@ -52,13 +59,15 @@ export default function SpotlightCard({
     setTilt({ x: 0, y: 0 });
   }, []);
 
+  const baseGlassClass = isLight ? 'ios-liquid-glass' : 'glass-panel ios-glass';
+
   return (
     <div
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`glass-panel ios-glass ${className}`}
+      className={`${baseGlassClass} ${className}`}
       style={{
         position: 'relative',
         transform: enableTilt && isHovered
@@ -81,7 +90,7 @@ export default function SpotlightCard({
           borderRadius: 'inherit',
           padding: '1px',
           background: isHovered
-            ? `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, ${borderColor}, transparent 60%)`
+            ? `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, ${activeBorder}, transparent 60%)`
             : 'transparent',
           WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
           WebkitMaskComposite: 'xor',
@@ -100,7 +109,7 @@ export default function SpotlightCard({
           inset: 0,
           borderRadius: 'inherit',
           background: isHovered
-            ? `radial-gradient(550px circle at ${mousePos.x}px ${mousePos.y}px, ${spotlightColor}, transparent 65%)`
+            ? `radial-gradient(550px circle at ${mousePos.x}px ${mousePos.y}px, ${activeSpotlight}, transparent 65%)`
             : 'transparent',
           pointerEvents: 'none',
           zIndex: 2,

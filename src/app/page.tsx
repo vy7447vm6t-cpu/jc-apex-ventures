@@ -18,7 +18,7 @@ import { ScrollExpand } from '@/components/react-bits';
 
 export default function Home() {
   return (
-    <main className="grounded-canvas text-center items-center">
+    <main className="grounded-canvas">
       {/* ✦ Multi-Disciplinary Engineering & Design Consortium | One International Centre, Mumbai */}
       <div className="sr-only">
         ✦ Multi-Disciplinary Engineering & Design Consortium | One International Centre, Mumbai
@@ -161,7 +161,7 @@ export default function Home() {
           borderTop: '1px solid var(--color-grounded-border)',
         }}
       >
-        <div style={{ maxWidth: '1040px', margin: '0 auto', textAlign: 'center' }}>
+        <div className="text-center" style={{ maxWidth: '1040px', margin: '0 auto', textAlign: 'center' }}>
           <div
             style={{
               backgroundColor: '#111111',
@@ -218,6 +218,7 @@ export default function Home() {
             </p>
 
             <div
+              className="items-center"
               style={{
                 display: 'flex',
                 gap: '14px',

@@ -1092,11 +1092,21 @@ a:hover {
 .section_layout60 {
   background-color: var(--color-grounded-bg);
   color: var(--color-grounded-text);
-  padding: 120px 24px;
+  padding: 104px 24px 96px 24px;
   position: relative;
   z-index: 5;
   border-top: 1px solid var(--color-grounded-border);
   border-bottom: 1px solid var(--color-grounded-border);
+  text-align: left;
+  scroll-margin-top: 90px;
+}
+
+@media (max-width: 768px) {
+  .section_layout60 {
+    padding-top: 84px;
+    padding-bottom: 72px;
+    scroll-margin-top: 80px;
+  }
 }
 
 .stat-counter {
@@ -1374,20 +1384,46 @@ a:hover {
   }
 }
 
-/* Grounded Why Layout 60 Grid */
+/* Grounded Why Layout 60 Grid & KokonutUI Liquid Glass Stat Cards */
 .layout60_grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
-  padding-top: 48px;
+  gap: 24px;
+  text-align: left;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .layout60_grid {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 18px;
   }
+}
+
+.why-stat-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 18px;
+  padding: 34px 28px;
+  box-shadow: 
+    0 8px 30px -4px rgba(0, 0, 0, 0.04),
+    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.95);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  justifyContent: space-between;
+  text-align: left;
+}
+
+.why-stat-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(194, 159, 83, 0.35);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 
+    0 16px 36px -4px rgba(0, 0, 0, 0.08),
+    inset 0 1.5px 1px 0 #FFFFFF;
 }
 
 /* Grounded Services Responsive Grid */
