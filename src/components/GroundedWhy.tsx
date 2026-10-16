@@ -102,7 +102,7 @@ export default function GroundedWhy() {
       }}
     >
       {/* Background Architectural MicroSlats Rhythm matching Hero 24-slat grid */}
-      <MicroSlats count={24} color="#000000" opacity={0.045} />
+      <MicroSlats count={24} color="#8C733E" opacity={0.11} zIndex={1} showTicks={true} />
 
       {/* Anchor destination for header studio navigation */}
       <div id="studio" style={{ position: 'absolute', top: '-100px', left: 0, visibility: 'hidden' }} />

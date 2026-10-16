@@ -12,16 +12,21 @@ import GroundedProcess from '@/components/GroundedProcess';
 import GroundedRecognition from '@/components/GroundedRecognition';
 import GroundedCalculators from '@/components/GroundedCalculators';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
-import InteractiveTabbedMonograph from '@/components/InteractiveTabbedMonograph';
-import { Phone, Mail, ArrowUpRight } from 'lucide-react';
-import { ScrollExpand } from '@/components/react-bits';
+import { Phone, Mail } from 'lucide-react';
+import {
+  ScrollExpand,
+  MicroSlats,
+  ShapeWaves,
+  TechText,
+  SpecularButton,
+} from '@/components/react-bits';
 
 export default function Home() {
   return (
     <main className="grounded-canvas">
       {/* ✦ Multi-Disciplinary Engineering & Design Consortium | One International Centre, Mumbai */}
       <div className="sr-only">
-        ✦ Multi-Disciplinary Engineering & Design Consortium | One International Centre, Mumbai
+        ✦ Multi-Disciplinary Engineering &amp; Design Consortium | One International Centre, Mumbai
       </div>
 
       {/* 1. Grounded Fixed Minimalist Island Navigation with Live Mumbai Clock */}
@@ -30,46 +35,53 @@ export default function Home() {
       {/* 2. Grounded Full-Bleed Multi-Zone Interactive Hero */}
       <GroundedHero />
 
-      {/* 3. "Our Why" Section (section_layout60) with Engineering Manifesto & Stat Counters */}
+      {/* 3. Section 2: "Our Why" Section (section_layout60) with Engineering Manifesto & Stat Counters */}
       <GroundedWhy />
 
-      {/* 4. Interactive Services & Divisions Directory with Photo Crossfade Viewport */}
+      {/* 4. Section 3: Interactive Services & Divisions Directory with Photo Crossfade Viewport */}
       <GroundedServices />
 
-      {/* 5. Horizontal Project Track with Progressive Blur Edge Masks */}
+      {/* 5. Section 4: Horizontal Project Track with FlexCarousel & DepthCarousel Dossier Modal */}
       <GroundedProjectTrack />
 
-      {/* 6. Institutional Accreditations 9-Box Hairline Grid */}
+      {/* 6. Section 5: Institutional Accreditations 9-Box MagicBento Grid */}
       <GroundedAffiliations />
 
-      {/* 7. Numbered 3-Step Process Protocol Cards */}
+      {/* 7. Section 6: Numbered 3-Step Process Protocol Cards with SvgPathAnimator */}
       <GroundedProcess />
 
-      {/* 8. Statutory Recognition & Regulatory Parameters 4-Column Ledger Table */}
-      <GroundedRecognition />
-
-      {/* 9. Strategic Division Monograph & Associate Leadership Dossiers */}
+      {/* 8. Section 7: Interactive Terrace Comparison wrapped in ScrollExpand */}
       <ScrollExpand initialScale={0.96} finalScale={1.0}>
         <section
-          id="monograph"
           className="section"
           style={{
-            backgroundColor: '#FFFFFF',
+            backgroundColor: '#F4F1EA',
+            padding: 'clamp(80px, 9vw, 128px) clamp(20px, 4vw, 48px)',
             borderTop: '1px solid rgba(0, 0, 0, 0.08)',
             borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
-            padding: '120px 24px',
           }}
         >
           <div style={{ maxWidth: '1240px', margin: '0 auto', textAlign: 'left' }}>
             <div className="eye-brow-container" style={{ marginBottom: '16px' }}>
-              <span className="text-eye-brow">[consortium dossiers]</span>
+              <span
+                style={{
+                  fontFamily: 'var(--font-sans), Inter, sans-serif',
+                  fontSize: '0.75rem',
+                  fontWeight: 600,
+                  letterSpacing: '0.16em',
+                  textTransform: 'uppercase',
+                  color: '#666666',
+                }}
+              >
+                [07 / SPATIAL AMENITY COMPARISON]
+              </span>
             </div>
 
             <div style={{ maxWidth: '960px', marginBottom: '40px' }}>
-              <h3
+              <h2
                 style={{
                   fontSize: 'clamp(2.2rem, 4vw, 3.2rem)',
-                  lineHeight: 1.15,
+                  lineHeight: 1.12,
                   fontWeight: 400,
                   letterSpacing: '-0.02em',
                   color: '#111111',
@@ -77,187 +89,147 @@ export default function Home() {
                   fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
                 }}
               >
-                Curated Strategic Division Monograph
-              </h3>
+                Traditional Cluttered Roof vs Solis Walkable Pergola.
+              </h2>
               <p
                 style={{
-                  fontSize: '1.05rem',
-                  color: '#666666',
-                  lineHeight: 1.6,
+                  fontSize: '1.02rem',
+                  color: '#4A4A46',
+                  lineHeight: 1.65,
                   margin: 0,
                   fontFamily: 'var(--font-sans, Inter, sans-serif)',
                 }}
               >
-                Select any discipline below to review authentic field photography, engineering pillars, and verified associate credentials.
+                See why Mumbai housing societies and private bungalows choose elevated pergolas: generate clean electricity overhead without forfeiting recreation or walking space.
               </p>
             </div>
 
-            <InteractiveTabbedMonograph />
+            <BeforeAfterSlider
+              beforeImage="/images/solar-rooftop-array.jpg"
+              afterImage="/images/solis_terrace_lounge.jpg"
+              beforeLabel="Traditional Cluttered Roof"
+              afterLabel="Solis Walkable Pergola"
+              beforeBadge="Floor Obstructed"
+              afterBadge="100% Usable Terrace"
+            />
           </div>
         </section>
       </ScrollExpand>
 
-      {/* 10. Interactive Terrace Comparison: Standard Solar vs Solis Walkable Pergola */}
-      <section
-        className="section"
-        style={{
-          backgroundColor: 'var(--color-grounded-stone)',
-          padding: '120px 24px',
-          borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
-        }}
-      >
-        <div style={{ maxWidth: '1240px', margin: '0 auto', textAlign: 'left' }}>
-          <div className="eye-brow-container" style={{ marginBottom: '16px' }}>
-            <span className="text-eye-brow">[spatial comparison]</span>
-          </div>
-
-          <div style={{ maxWidth: '960px', marginBottom: '40px' }}>
-            <h3
-              style={{
-                fontSize: 'clamp(2.2rem, 4vw, 3.2rem)',
-                lineHeight: 1.15,
-                fontWeight: 400,
-                letterSpacing: '-0.02em',
-                color: '#111111',
-                margin: '0 0 16px 0',
-                fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
-              }}
-            >
-              Traditional Cluttered Roof vs Solis Walkable Pergola
-            </h3>
-            <p
-              style={{
-                fontSize: '1.05rem',
-                color: '#666666',
-                lineHeight: 1.6,
-                margin: 0,
-                fontFamily: 'var(--font-sans, Inter, sans-serif)',
-              }}
-            >
-              See why Mumbai housing societies and private bungalows choose elevated pergolas: generate clean electricity overhead without forfeiting recreation or walking space.
-            </p>
-          </div>
-
-          <BeforeAfterSlider
-            beforeImage="/images/solar-rooftop-array.jpg"
-            afterImage="/images/solis_terrace_lounge.jpg"
-            beforeLabel="Traditional Cluttered Roof"
-            afterLabel="Solis Walkable Pergola"
-            beforeBadge="Floor Obstructed"
-            afterBadge="100% Usable Terrace"
-          />
-        </div>
-      </section>
-
-      {/* 11. Restyled Estimators in Grounded Physical Paper Format */}
+      {/* 9. Section 8: Restyled Estimators in Grounded Physical Paper Format with Live Bklit Charts */}
       <GroundedCalculators />
 
-      {/* 12. Grounded Architectural Consultation CTA Section */}
+      {/* 10. Section 9: Statutory Recognition & Regulatory Parameters Ledger with LineSidebar */}
+      <GroundedRecognition />
+
+      {/* 11. Section 10: Grounded Architectural Consultation CTA Section */}
       <section
         className="section"
         style={{
-          backgroundColor: 'var(--color-grounded-bg)',
-          padding: '100px 24px',
-          borderTop: '1px solid var(--color-grounded-border)',
+          backgroundColor: '#F4F1EA',
+          padding: 'clamp(72px, 8vw, 112px) clamp(20px, 4vw, 48px)',
+          borderTop: '1px solid rgba(0, 0, 0, 0.08)',
         }}
       >
-        <div className="text-center" style={{ maxWidth: '1040px', margin: '0 auto', textAlign: 'center' }}>
+        <div className="text-center" style={{ maxWidth: '1120px', margin: '0 auto', textAlign: 'center' }}>
           <div
             style={{
               backgroundColor: '#111111',
               color: '#FFFFFF',
-              borderRadius: '20px',
-              padding: 'clamp(44px, 6vw, 72px) clamp(24px, 5vw, 48px)',
-              border: '1px solid rgba(255, 255, 255, 0.12)',
-              boxShadow: '0 20px 50px rgba(0, 0, 0, 0.12)',
+              borderRadius: '28px',
+              padding: 'clamp(48px, 6vw, 80px) clamp(24px, 5vw, 56px)',
+              border: '1px solid rgba(255, 255, 255, 0.14)',
+              boxShadow: '0 24px 60px rgba(0, 0, 0, 0.16), inset 0 1px 1px rgba(255, 255, 255, 0.2)',
               position: 'relative',
               overflow: 'hidden',
             }}
           >
-            <div
-              style={{
-                fontFamily: 'var(--font-mono, monospace)',
-                fontSize: '0.8rem',
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-                color: '#999999',
-                marginBottom: '18px',
-                fontWeight: 500,
-              }}
-            >
-              [engineering consultation desk]
+            {/* Architectural Louver Geometry & Topographic Waves */}
+            <MicroSlats
+              count={14}
+              opacity={0.14}
+              color="rgba(255, 255, 255, 0.45)"
+              showTicks={true}
+              zIndex={1}
+            />
+            <div className="pointer-events-none absolute inset-0 z-[1] opacity-30">
+              <ShapeWaves color="rgba(194, 159, 83, 0.42)" lineCount={5} />
             </div>
 
-            <h3
-              style={{
-                fontSize: 'clamp(2rem, 3.8vw, 3.2rem)',
-                lineHeight: 1.15,
-                fontWeight: 400,
-                color: '#FFFFFF',
-                letterSpacing: '-0.02em',
-                margin: '0 auto 18px auto',
-                maxWidth: '720px',
-                fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
-              }}
-            >
-              Have a utility sanction, solar EPC, or interior fit-out requirement?
-            </h3>
-
-            <p
-              style={{
-                fontSize: '1.05rem',
-                color: 'rgba(255, 255, 255, 0.8)',
-                maxWidth: '640px',
-                margin: '0 auto 36px auto',
-                lineHeight: 1.6,
-                fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                fontWeight: 300,
-              }}
-            >
-              Call our engineering desk directly or send us an enquiry. We review your site parameters, verify statutory feasibility, and provide verified next steps.
-            </p>
-
-            <div
-              className="items-center"
-              style={{
-                display: 'flex',
-                gap: '14px',
-                justifyContent: 'center',
-                flexWrap: 'wrap',
-                alignItems: 'center',
-              }}
-            >
-              <a
-                href="tel:+917021112664"
-                className="button is-icon"
+            <div style={{ position: 'relative', zIndex: 5 }}>
+              <div
                 style={{
-                  backgroundColor: '#FFFFFF',
-                  color: '#111111',
-                  padding: '0.85rem 1.6rem',
+                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                  fontSize: '0.75rem',
+                  letterSpacing: '0.16em',
+                  textTransform: 'uppercase',
+                  color: '#D4B56A',
+                  marginBottom: '18px',
+                  fontWeight: 700,
                 }}
               >
-                <Phone size={16} />
-                <span>Call +91 70211 12664</span>
-              </a>
-              <a
-                href="mailto:admin@jcapexv.com"
-                className="button is-icon is-alternate"
+                <TechText
+                  text="[10 / ENGINEERING CONSULTATION DESK · MUMBAI HQ]"
+                  trigger="mount"
+                  speed={22}
+                />
+              </div>
+
+              <h2
                 style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                  fontSize: 'clamp(2.1rem, 4vw, 3.4rem)',
+                  lineHeight: 1.12,
+                  fontWeight: 400,
                   color: '#FFFFFF',
-                  borderColor: 'rgba(255, 255, 255, 0.25)',
-                  padding: '0.85rem 1.6rem',
+                  letterSpacing: '-0.02em',
+                  margin: '0 auto 18px auto',
+                  maxWidth: '760px',
+                  fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
                 }}
               >
-                <Mail size={16} color="#FFFFFF" />
-                <span>Email admin@jcapexv.com</span>
-              </a>
+                Have a utility sanction, solar EPC, or interior fit-out requirement?
+              </h2>
+
+              <p
+                style={{
+                  fontSize: '1.04rem',
+                  color: 'rgba(255, 255, 255, 0.82)',
+                  maxWidth: '640px',
+                  margin: '0 auto 36px auto',
+                  lineHeight: 1.65,
+                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                  fontWeight: 400,
+                }}
+              >
+                Call our engineering desk directly at One International Centre or send us an enquiry. We review your site parameters, verify statutory feasibility across BEST, Adani, Tata Power, or MSEDCL, and provide verified next steps.
+              </p>
+
+              <div
+                className="items-center"
+                style={{
+                  display: 'flex',
+                  gap: '14px',
+                  justifyContent: 'center',
+                  flexWrap: 'wrap',
+                  alignItems: 'center',
+                }}
+              >
+                <SpecularButton href="tel:+917021112664" variant="gold">
+                  <Phone size={15} />
+                  <span>Call +91 70211 12664</span>
+                </SpecularButton>
+
+                <SpecularButton href="mailto:admin@jcapexv.com" variant="glass">
+                  <Mail size={15} />
+                  <span>Email admin@jcapexv.com</span>
+                </SpecularButton>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 13. Grounded Architectural Footer */}
+      {/* 12. Grounded Architectural Footer */}
       <Footer />
     </main>
   );

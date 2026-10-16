@@ -34,9 +34,9 @@ interface KnowledgeItem {
 const KNOWLEDGE_BASE: KnowledgeItem[] = [
   {
     shortQ: 'Walkable Pergola',
-    keywords: ['pergola', 'solar', 'terrace', 'walkable', 'abhilasha', 'kandivali', 'roof', 'rooftop', 'elevation'],
+    keywords: ['pergola', 'solar', 'terrace', 'walkable', 'suburban', 'kandivali', 'roof', 'rooftop', 'elevation'],
     q: 'How does the rooftop solar pergola preserve terrace space?',
-    a: 'Solis elevates high-wattage bi-facial solar panels 10.5 ft overhead on hot-dip galvanized steel framing. This creates cool, shaded shelter while leaving 100% of the terrace footprint completely open for morning walks, children, and society gatherings (as engineered in our feasibility study and proposal framework for Abhilasha CHS, Kandivali).',
+    a: 'Solis elevates high-wattage bi-facial solar panels 10.5 ft overhead on hot-dip galvanized steel framing. This creates cool, shaded shelter while leaving 100% of the terrace footprint completely open for morning walks, children, and society gatherings (as engineered in our feasibility study and proposal framework for a premier Kandivali West cooperative housing society).',
     actionHref: '/solis#calculator',
     actionLabel: 'Calculate Solar Sizing & Savings',
   },

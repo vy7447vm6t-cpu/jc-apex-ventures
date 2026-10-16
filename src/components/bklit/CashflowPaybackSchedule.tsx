@@ -15,13 +15,15 @@ export default function CashflowPaybackSchedule({
 }: CashflowPaybackScheduleProps) {
   const [hoveredYear, setHoveredYear] = useState<number | null>(null);
 
+  const safeCapex = Math.max(1, initialCapex);
+  const safeAnnual = Math.max(0.5, annualSavings);
+
   // Generate 25-year NPV progression
   const years = Array.from({ length: 26 }, (_, i) => i);
   const data = years.map((year) => {
-    // 4% tariff escalation per year, 0.5% module degradation
-    let cumulative = -initialCapex;
+    let cumulative = -safeCapex;
     for (let y = 1; y <= year; y++) {
-      const escalatedSavings = annualSavings * Math.pow(1.04, y - 1) * Math.pow(0.995, y - 1);
+      const escalatedSavings = safeAnnual * Math.pow(1.04, y - 1) * Math.pow(0.995, y - 1);
       cumulative += escalatedSavings;
     }
     return {
@@ -30,7 +32,7 @@ export default function CashflowPaybackSchedule({
     };
   });
 
-  const breakevenYear = (initialCapex / annualSavings).toFixed(1);
+  const breakevenYear = (safeCapex / safeAnnual).toFixed(1);
   const finalSavings = data[25].cumulative;
 
   const width = 560;
@@ -38,9 +40,9 @@ export default function CashflowPaybackSchedule({
   const paddingX = 45;
   const paddingY = 30;
 
-  const minVal = -initialCapex;
-  const maxVal = finalSavings;
-  const range = maxVal - minVal;
+  const minVal = -safeCapex;
+  const maxVal = Math.max(1, finalSavings);
+  const range = Math.max(1, maxVal - minVal);
 
   const points = data.map((d) => {
     const x = paddingX + (d.year / 25) * (width - paddingX * 2);
@@ -48,7 +50,6 @@ export default function CashflowPaybackSchedule({
     return { x, y, year: d.year, cumulative: d.cumulative };
   });
 
-  // Zero-line position
   const zeroY = height - paddingY - ((0 - minVal) / range) * (height - paddingY * 2);
 
   const pathD = points.reduce((acc, p, idx) => {
@@ -57,19 +58,22 @@ export default function CashflowPaybackSchedule({
   }, '');
 
   return (
-    <div className={`rounded-3xl border border-black/8 bg-white/80 p-6 md:p-8 backdrop-blur-xl shadow-lg ${className}`}>
+    <div className={`rounded-3xl border border-black/8 bg-white/90 p-6 md:p-8 backdrop-blur-xl shadow-lg font-sans ${className}`}>
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-6">
         <div>
-          <span className="text-[11px] font-mono uppercase tracking-wider font-semibold text-[#C29F53]">
-            Bklit DataViz : Financial Engineering
+          <span className="text-[11px] uppercase tracking-[0.14em] font-semibold text-[#8C6D23]">
+            [BKLIT DATAVIZ / FINANCIAL ENGINEERING]
           </span>
-          <h4 className="text-xl font-serif font-bold text-[#111111] mt-0.5">
-            25-Year Cumulative Cashflow & Payback Schedule
+          <h4
+            className="text-2xl font-normal text-[#111111] mt-1 tracking-tight"
+            style={{ fontFamily: "var(--font-serif-display), 'Instrument Serif', Georgia, serif" }}
+          >
+            25-Year Cumulative Cashflow &amp; Payback Schedule
           </h4>
         </div>
 
-        <div className="px-3 py-1.5 rounded-full bg-[#C29F53]/15 border border-[#C29F53]/30 text-xs font-mono font-bold text-[#111111] w-fit">
+        <div className="px-3 py-1.5 rounded-full bg-[#C29F53]/15 border border-[#C29F53]/30 text-xs font-bold text-[#111111] w-fit tabular-nums">
           Breakeven: Year {breakevenYear}
         </div>
       </div>
@@ -94,16 +98,16 @@ export default function CashflowPaybackSchedule({
             x={paddingX - 6}
             y={zeroY + 3}
             textAnchor="end"
-            className="text-[9px] fill-[#666666] font-mono"
+            className="text-[9px] fill-[#666666] font-sans"
           >
             Rs 0
           </text>
 
           {/* Breakeven marker vertical */}
           <line
-            x1={paddingX + (parseFloat(breakevenYear) / 25) * (width - paddingX * 2)}
+            x1={paddingX + (Math.min(25, parseFloat(breakevenYear)) / 25) * (width - paddingX * 2)}
             y1={paddingY}
-            x2={paddingX + (parseFloat(breakevenYear) / 25) * (width - paddingX * 2)}
+            x2={paddingX + (Math.min(25, parseFloat(breakevenYear)) / 25) * (width - paddingX * 2)}
             y2={height - paddingY}
             stroke="#27C93F"
             strokeWidth="1"
@@ -142,7 +146,7 @@ export default function CashflowPaybackSchedule({
                   x={p.x}
                   y={height - 10}
                   textAnchor="middle"
-                  className="text-[9px] fill-[#777777] font-mono"
+                  className="text-[9px] fill-[#777777] font-sans"
                 >
                   Yr {p.year}
                 </text>
@@ -152,7 +156,7 @@ export default function CashflowPaybackSchedule({
         </svg>
 
         {/* Hover / Selected year badge */}
-        <div className="mt-3 flex items-center justify-between px-3 py-2 rounded-xl bg-[#F4F1EA] text-xs font-mono">
+        <div className="mt-3 flex items-center justify-between px-3 py-2 rounded-xl bg-[#F4F1EA] text-xs font-sans tabular-nums">
           <span className="text-[#666666]">
             {hoveredYear !== null ? `Year ${hoveredYear} Net Cashflow:` : '25-Year Cumulative Lifetime Return:'}
           </span>
@@ -167,20 +171,20 @@ export default function CashflowPaybackSchedule({
       {/* Financial Summary KPIs */}
       <div className="mt-4 pt-4 border-t border-black/8 grid grid-cols-3 gap-2 text-center">
         <div>
-          <span className="text-[10px] font-mono text-[#888888] block">INITIAL OUTLAY</span>
-          <span className="text-sm font-mono font-bold text-[#FF5F56]">
-            -Rs {initialCapex}L
+          <span className="text-[10px] font-semibold tracking-wider text-[#888888] block">INITIAL OUTLAY</span>
+          <span className="text-sm font-bold text-[#FF5F56] tabular-nums">
+            -Rs {safeCapex.toFixed(1)}L
           </span>
         </div>
         <div>
-          <span className="text-[10px] font-mono text-[#888888] block">PAYBACK PERIOD</span>
-          <span className="text-sm font-mono font-bold text-[#27C93F]">
+          <span className="text-[10px] font-semibold tracking-wider text-[#888888] block">PAYBACK PERIOD</span>
+          <span className="text-sm font-bold text-[#27C93F] tabular-nums">
             {breakevenYear} Years
           </span>
         </div>
         <div>
-          <span className="text-[10px] font-mono text-[#888888] block">25-YR NET RETURN</span>
-          <span className="text-sm font-mono font-bold text-[#C29F53]">
+          <span className="text-[10px] font-semibold tracking-wider text-[#888888] block">25-YR NET RETURN</span>
+          <span className="text-sm font-bold text-[#8C6D23] tabular-nums">
             +Rs {finalSavings}L
           </span>
         </div>

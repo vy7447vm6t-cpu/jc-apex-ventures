@@ -6,8 +6,11 @@ interface TechTextProps {
   text: string;
   className?: string;
   scrambleSpeed?: number;
+  speed?: number;
   maxScrambles?: number;
   triggerOnHover?: boolean;
+  trigger?: 'hover' | 'mount' | 'always' | string;
+  active?: boolean;
   preserveSpaces?: boolean;
   style?: React.CSSProperties;
 }
@@ -17,12 +20,16 @@ const CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 export default function TechText({
   text,
   className = '',
-  scrambleSpeed = 28,
+  scrambleSpeed,
+  speed,
   maxScrambles = 6,
   triggerOnHover = true,
+  trigger,
+  active,
   preserveSpaces = true,
   style,
 }: TechTextProps) {
+  const effectiveSpeed = scrambleSpeed ?? speed ?? 28;
   const [displayText, setDisplayText] = useState(text);
   const isScramblingRef = useRef(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -57,7 +64,7 @@ export default function TechText({
       }
 
       iteration += 1 / (maxScrambles / 3);
-    }, scrambleSpeed);
+    }, effectiveSpeed);
   };
 
   useEffect(() => {
@@ -68,14 +75,20 @@ export default function TechText({
     };
   }, [text]);
 
+  useEffect(() => {
+    if (active) {
+      startScramble();
+    }
+  }, [active]);
+
   const hasCustomFont = Boolean(style?.fontFamily) || /font-(serif|sans)|tracking-/.test(className);
-  const fontClasses = hasCustomFont ? '' : 'font-mono tracking-wider';
+  const fontClasses = hasCustomFont ? '' : 'font-sans tracking-wider';
 
   return (
     <span
       className={`inline-block transition-colors duration-200 ${fontClasses} ${className}`}
       style={style}
-      onMouseEnter={triggerOnHover ? startScramble : undefined}
+      onMouseEnter={triggerOnHover || trigger === 'hover' ? startScramble : undefined}
     >
       {displayText}
     </span>

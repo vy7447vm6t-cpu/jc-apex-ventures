@@ -48,9 +48,14 @@ export interface CalculationResult {
 
 interface SolarCalculatorProps {
   onApplyCalculation?: (result: CalculationResult) => void;
+  onLiveChange?: (metrics: {
+    actualKwp: number;
+    netInvestmentLakhs: number;
+    annualSavingsLakhs: number;
+  }) => void;
 }
 
-export default function SolarCalculator({ onApplyCalculation }: SolarCalculatorProps) {
+export default function SolarCalculator({ onApplyCalculation, onLiveChange }: SolarCalculatorProps) {
   const [inputMode, setInputMode] = useState<'bill' | 'area'>('bill');
   const [billAmount, setBillAmount] = useState<number>(18000);
   const [areaAmount, setAreaAmount] = useState<number>(1500);
@@ -145,8 +150,24 @@ export default function SolarCalculator({ onApplyCalculation }: SolarCalculatorP
 
   const netInvestmentRs = Math.max(0, grossCostRs - subsidyRs);
   const paybackYears = Number((netInvestmentRs / (annualSavingsRs || 1)).toFixed(1));
-  const lifetimeSavings25YrsRs = Math.round(annualSavingsRs * 25 - netInvestmentRs);
+  
+  // 25-Year Cumulative Lifecycle Net Return with 4% compound DISCOM tariff escalation & 0.5% module degradation
+  let cumulative25YrsSavingsRs = -netInvestmentRs;
+  for (let y = 1; y <= 25; y++) {
+    cumulative25YrsSavingsRs += annualSavingsRs * Math.pow(1.04, y - 1) * Math.pow(0.995, y - 1);
+  }
+  const lifetimeSavings25YrsRs = Math.round(cumulative25YrsSavingsRs);
   const co2OffsetTonsPerYear = Number(((annualGenerationUnits * 0.82) / 1000).toFixed(1));
+
+  React.useEffect(() => {
+    if (onLiveChange) {
+      onLiveChange({
+        actualKwp,
+        netInvestmentLakhs: Number((netInvestmentRs / 100000).toFixed(2)),
+        annualSavingsLakhs: Number((annualSavingsRs / 100000).toFixed(2)),
+      });
+    }
+  }, [actualKwp, netInvestmentRs, annualSavingsRs, onLiveChange]);
 
   const handleApplyToForm = () => {
     if (onApplyCalculation) {
@@ -177,10 +198,14 @@ export default function SolarCalculator({ onApplyCalculation }: SolarCalculatorP
         lifetimeSavings25YrsRs,
         co2OffsetTonsPerYear,
       });
-      setAppliedNotice(true);
-      setTimeout(() => setAppliedNotice(false), 4000);
-      const el = document.getElementById('solis-enquiry');
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+    setAppliedNotice(true);
+    setTimeout(() => setAppliedNotice(false), 4000);
+    const el = document.getElementById('solis-enquiry') || document.getElementById('contact');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.location.href = `/solis#solis-enquiry`;
     }
   };
 
@@ -203,8 +228,13 @@ export default function SolarCalculator({ onApplyCalculation }: SolarCalculatorP
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', marginBottom: '32px' }}>
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-            <span style={{ fontSize: '0.78rem', color: '#C29F53', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 600, fontFamily: 'var(--font-mono, monospace)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '10px' }}>
+            <img
+              src="/images/logos/solis-official.png"
+              alt="Solis Official Logo"
+              style={{ height: '28px', width: 'auto', objectFit: 'contain' }}
+            />
+            <span style={{ fontSize: '0.74rem', color: '#8C733E', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 650, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
               [solis solar &amp; clean energy estimator]
             </span>
           </div>
@@ -219,7 +249,7 @@ export default function SolarCalculator({ onApplyCalculation }: SolarCalculatorP
         {/* Input Mode Toggle */}
         <div style={{
           display: 'flex',
-          background: '#FAF8F5',
+          background: '#F4F1EA',
           padding: '4px',
           borderRadius: '100px',
           border: '1px solid rgba(0, 0, 0, 0.08)',
@@ -234,8 +264,8 @@ export default function SolarCalculator({ onApplyCalculation }: SolarCalculatorP
               background: inputMode === 'bill' ? '#111111' : 'transparent',
               color: inputMode === 'bill' ? '#FFFFFF' : '#555555',
               fontWeight: 600,
-              fontSize: '0.84rem',
-              fontFamily: 'var(--font-mono, monospace)',
+              fontSize: '0.82rem',
+              fontFamily: 'var(--font-sans, Inter, sans-serif)',
               cursor: 'pointer',
               transition: 'all 0.2s ease',
             }}
@@ -252,8 +282,8 @@ export default function SolarCalculator({ onApplyCalculation }: SolarCalculatorP
               background: inputMode === 'area' ? '#111111' : 'transparent',
               color: inputMode === 'area' ? '#FFFFFF' : '#555555',
               fontWeight: 600,
-              fontSize: '0.84rem',
-              fontFamily: 'var(--font-mono, monospace)',
+              fontSize: '0.82rem',
+              fontFamily: 'var(--font-sans, Inter, sans-serif)',
               cursor: 'pointer',
               transition: 'all 0.2s ease',
             }}
@@ -367,7 +397,7 @@ export default function SolarCalculator({ onApplyCalculation }: SolarCalculatorP
                   onChange={(e) => setBillAmount(Number(e.target.value))}
                   style={{ width: '100%', accentColor: '#111111', cursor: 'pointer' }}
                 />
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: '#666666', marginTop: '6px', fontFamily: 'var(--font-mono, monospace)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: '#666666', marginTop: '6px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                   <span>Rs 3,000 / mo</span>
                   <span>Rs 1,00,000 / mo</span>
                   <span>Rs 2,50,000+ / mo</span>
@@ -411,7 +441,7 @@ export default function SolarCalculator({ onApplyCalculation }: SolarCalculatorP
                         fontFamily: 'var(--font-sans, Inter, sans-serif)',
                       }}
                     />
-                    <span style={{ fontSize: '0.85rem', color: '#666666', fontWeight: 600, fontFamily: 'var(--font-mono, monospace)' }}>sq ft</span>
+                    <span style={{ fontSize: '0.85rem', color: '#666666', fontWeight: 600, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>sq ft</span>
                   </div>
                 </div>
                 <input
@@ -424,7 +454,7 @@ export default function SolarCalculator({ onApplyCalculation }: SolarCalculatorP
                   onChange={(e) => setAreaAmount(Number(e.target.value))}
                   style={{ width: '100%', accentColor: '#111111', cursor: 'pointer' }}
                 />
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: '#666666', marginTop: '6px', fontFamily: 'var(--font-mono, monospace)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: '#666666', marginTop: '6px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                   <span>200 sq ft</span>
                   <span>5,000 sq ft</span>
                   <span>20,000+ sq ft</span>
@@ -457,14 +487,14 @@ export default function SolarCalculator({ onApplyCalculation }: SolarCalculatorP
                   <div style={{ fontWeight: 600, fontSize: '0.92rem', color: '#111111', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                     Elevated Pergola
                   </div>
-                  <span style={{ fontSize: '0.72rem', padding: '2px 8px', borderRadius: '100px', background: '#111111', color: '#FFFFFF', fontWeight: 600, fontFamily: 'var(--font-mono, monospace)' }}>
+                  <span style={{ fontSize: '0.72rem', padding: '2px 8px', borderRadius: '100px', background: '#111111', color: '#FFFFFF', fontWeight: 600, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                     Recommended
                   </span>
                 </div>
                 <p style={{ fontSize: '0.82rem', color: '#666666', lineHeight: 1.4, margin: 0, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                   Elevated 10 to 12 ft on galvanized columns. 100% usable terrace, walking space, and rain gutters.
                 </p>
-                <span style={{ display: 'inline-block', marginTop: '8px', fontSize: '0.74rem', color: '#C29F53', fontWeight: 600, fontFamily: 'var(--font-mono, monospace)' }}>
+                <span style={{ display: 'inline-block', marginTop: '8px', fontSize: '0.74rem', color: '#C29F53', fontWeight: 600, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                   +Rs 12/watt premium
                 </span>
               </button>
@@ -491,7 +521,7 @@ export default function SolarCalculator({ onApplyCalculation }: SolarCalculatorP
                 <p style={{ fontSize: '0.82rem', color: '#666666', lineHeight: 1.4, margin: 0, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                   Hot-dip galvanized structure elevated 1 to 2 metres above roof floor. Lowest initial cost, ideal for closed roofs.
                 </p>
-                <span style={{ display: 'inline-block', marginTop: '8px', fontSize: '0.74rem', color: '#777777', fontWeight: 600, fontFamily: 'var(--font-mono, monospace)' }}>
+                <span style={{ display: 'inline-block', marginTop: '8px', fontSize: '0.74rem', color: '#777777', fontWeight: 600, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                   Standard EPC Base
                 </span>
               </button>
@@ -576,7 +606,7 @@ export default function SolarCalculator({ onApplyCalculation }: SolarCalculatorP
               borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
             }}>
               <div>
-                <span style={{ fontSize: '0.72rem', color: '#777777', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 600, fontFamily: 'var(--font-mono, monospace)' }}>
+                <span style={{ fontSize: '0.72rem', color: '#777777', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 600, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                   Recommended Size
                 </span>
                 <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2.2rem)', fontWeight: 400, color: '#111111', fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif', marginTop: '2px', lineHeight: 1.1 }}>
@@ -584,7 +614,7 @@ export default function SolarCalculator({ onApplyCalculation }: SolarCalculatorP
                 </div>
               </div>
               <div>
-                <span style={{ fontSize: '0.72rem', color: '#777777', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 600, fontFamily: 'var(--font-mono, monospace)' }}>
+                <span style={{ fontSize: '0.72rem', color: '#777777', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 600, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                   Panels (550W)
                 </span>
                 <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2.2rem)', fontWeight: 400, color: '#111111', fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif', marginTop: '2px', lineHeight: 1.1 }}>
@@ -592,7 +622,7 @@ export default function SolarCalculator({ onApplyCalculation }: SolarCalculatorP
                 </div>
               </div>
               <div>
-                <span style={{ fontSize: '0.72rem', color: '#777777', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 600, fontFamily: 'var(--font-mono, monospace)' }}>
+                <span style={{ fontSize: '0.72rem', color: '#777777', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 600, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                   Shadow-Free Area
                 </span>
                 <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2.2rem)', fontWeight: 400, color: '#111111', fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif', marginTop: '2px', lineHeight: 1.1 }}>
@@ -655,12 +685,15 @@ export default function SolarCalculator({ onApplyCalculation }: SolarCalculatorP
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 14px', borderRadius: '10px', background: '#FFFFFF', border: '1px solid rgba(0, 0, 0, 0.06)' }}>
                   <span style={{ fontSize: '0.88rem', color: '#555555', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>Estimated Simple Payback</span>
-                  <strong style={{ fontSize: '0.95rem', color: '#111111', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>~{paybackYears} Years</strong>
+                  <strong style={{ fontSize: '0.95rem', color: '#111111', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>~{paybackYears.toFixed(1)} Years</strong>
                 </div>
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 14px', borderRadius: '10px', background: '#FFFFFF', border: '1px solid rgba(0, 0, 0, 0.06)' }}>
-                  <span style={{ fontSize: '0.88rem', color: '#555555', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>25-Year Estimated Net Savings</span>
-                  <strong style={{ fontSize: '0.95rem', color: '#111111', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>~{formatCurrency(lifetimeSavings25YrsRs)}</strong>
+                  <div>
+                    <span style={{ fontSize: '0.88rem', color: '#555555', fontFamily: 'var(--font-sans, Inter, sans-serif)', display: 'block' }}>25-Year Cumulative Net Return</span>
+                    <span style={{ fontSize: '0.70rem', color: '#888888', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>4% annual tariff hike · 0.5% degradation</span>
+                  </div>
+                  <strong style={{ fontSize: '0.95rem', color: '#111111', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>+{formatCurrency(lifetimeSavings25YrsRs)}</strong>
                 </div>
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 14px', borderRadius: '10px', background: '#FFFFFF', border: '1px solid rgba(0, 0, 0, 0.06)' }}>

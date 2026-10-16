@@ -7,14 +7,17 @@ interface ShapeWavesProps {
   color?: string;
   height?: number;
   waveCount?: number;
+  lineCount?: number;
 }
 
 export default function ShapeWaves({
   className = '',
   color = '#C29F53',
   height = 120,
-  waveCount = 3,
+  waveCount,
+  lineCount,
 }: ShapeWavesProps) {
+  const effectiveWaveCount = waveCount ?? lineCount ?? 3;
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -31,7 +34,7 @@ export default function ShapeWaves({
       const h = canvas.height;
       ctx.clearRect(0, 0, width, h);
 
-      for (let j = 0; j < waveCount; j++) {
+      for (let j = 0; j < effectiveWaveCount; j++) {
         ctx.beginPath();
         const freq = 0.015 + j * 0.005;
         const speed = 0.03 + j * 0.015;
@@ -62,7 +65,7 @@ export default function ShapeWaves({
     return () => {
       cancelAnimationFrame(animationFrameId);
     };
-  }, [color, height, waveCount]);
+  }, [color, height, effectiveWaveCount]);
 
   return (
     <div className={`relative w-full overflow-hidden ${className}`} style={{ height: `${height}px` }}>

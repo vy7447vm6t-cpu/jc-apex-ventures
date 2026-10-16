@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState, useRef } from 'react';
-import Link from 'next/link';
-import { ArrowUpRight, Phone, Scale, Zap, Building2, ShieldCheck, Award, SunMedium } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
+import AuthorityLogo from './AuthorityLogos';
 import {
   MicroSlats,
   TechText,
@@ -61,52 +61,64 @@ const HERO_ZONES: HeroZone[] = [
 
 const REGULATORY_AUTHORITIES = [
   {
-    id: 'reg-merc',
-    name: 'MERC Sanctions',
-    category: 'Maharashtra Electricity Regulatory Commission',
-    icon: <Scale size={13} />,
-  },
-  {
     id: 'reg-best',
     name: 'BEST Undertaking',
     category: 'Island City HT/LT Power Clearances',
-    icon: <Zap size={13} />,
+    icon: <AuthorityLogo id="best" size={20} />,
   },
   {
     id: 'reg-adani',
     name: 'Adani Electricity (AEML)',
     category: 'Suburban Distribution & Net Metering',
-    icon: <Building2 size={13} />,
+    icon: <AuthorityLogo id="adani" size={20} />,
   },
   {
     id: 'reg-tata',
     name: 'Tata Power (TPCL)',
     category: 'MMR Grid Interconnection Protocols',
-    icon: <Zap size={13} />,
+    icon: <AuthorityLogo id="tata" size={20} />,
   },
   {
     id: 'reg-msedcl',
     name: 'MSEDCL Mahavitaran',
     category: 'Industrial HT Feeder Clearances',
-    icon: <ShieldCheck size={13} />,
+    icon: <AuthorityLogo id="msedcl" size={20} />,
   },
   {
     id: 'reg-pwd',
     name: 'PWD Electrical Inspectorate',
     category: 'CEI Statutory Safety Certification',
-    icon: <Award size={13} />,
+    icon: <AuthorityLogo id="pwd" size={20} />,
   },
   {
     id: 'reg-mpcb',
     name: 'Pollution Control Board (MPCB)',
     category: 'CTE / CTO Environmental Consents',
-    icon: <ShieldCheck size={13} />,
+    icon: <AuthorityLogo id="mpcb" size={20} />,
   },
   {
     id: 'reg-mnre',
-    name: 'MNRE / PM Surya Ghar',
+    name: 'PM Surya Ghar National Portal',
     category: 'National Solar Subsidy Verification',
-    icon: <SunMedium size={13} />,
+    icon: <AuthorityLogo id="pmsuryaghar" size={20} />,
+  },
+  {
+    id: 'reg-bee',
+    name: 'Bureau of Energy Efficiency (BEE)',
+    category: 'ECBC & PAT Scheme Statutory Compliance',
+    icon: <AuthorityLogo id="bee" size={20} />,
+  },
+  {
+    id: 'reg-mca',
+    name: 'Ministry of Corporate Affairs (MCA)',
+    category: 'Consortium Corporate Entity Verification',
+    icon: <AuthorityLogo id="mca" size={20} />,
+  },
+  {
+    id: 'reg-merc',
+    name: 'MERC Sanctions',
+    category: 'Maharashtra Electricity Regulatory Commission',
+    icon: <AuthorityLogo id="merc" size={20} />,
   },
 ];
 
@@ -132,15 +144,15 @@ export default function GroundedHero() {
       {/* Precision Architectural CAD Crosshair Cursor (strictly desktop viewports) */}
       <TargetCursor containerRef={heroRef} color="#C29F53" />
 
-      {/* MicroSlats Architectural Louver Rhythm */}
-      <MicroSlats count={24} color="#FFFFFF" opacity={0.03} />
+      {/* MicroSlats Architectural Louver Rhythm with CAD Datum Ticks */}
+      <MicroSlats count={24} color="#FFFFFF" opacity={0.10} zIndex={12} showTicks={true} />
 
-      {/* Subtle Engineering Geometric Resonance Spiral */}
+      {/* Engineering Geometric Resonance Spiral */}
       <div
-        className="pointer-events-none absolute top-20 right-12 z-10 opacity-15 hidden lg:block"
+        className="pointer-events-none absolute top-24 right-10 z-[12] opacity-35 hidden lg:block"
         aria-hidden="true"
       >
-        <InfiniteSpiral size={280} color="#C29F53" speed={0.004} />
+        <InfiniteSpiral size={310} color="#C29F53" speed={0.004} />
       </div>
 
       {/* Background Images Layer with Crossfade */}
@@ -168,7 +180,7 @@ export default function GroundedHero() {
           }}
         />
 
-        {/* 5 Hover Trigger Images */}
+        {/* 5 Hover/Tap Trigger Images */}
         {HERO_ZONES.map((zone, idx) => (
           <img
             key={zone.id}
@@ -198,12 +210,12 @@ export default function GroundedHero() {
         />
       </div>
 
-      {/* Subtle Bottom Horizon Wave Resonance */}
+      {/* Bottom Horizon Wave Resonance */}
       <div
-        className="pointer-events-none absolute bottom-24 left-0 w-full z-10 opacity-20 overflow-hidden"
+        className="pointer-events-none absolute bottom-24 left-0 w-full z-[12] opacity-35 overflow-hidden"
         aria-hidden="true"
       >
-        <ShapeWaves color="#C29F53" height={90} waveCount={2} />
+        <ShapeWaves color="#C29F53" height={95} waveCount={3} />
       </div>
 
       {/* 5 Invisible Hover Columns Triggering Image Crossfade (Desktop hover only) */}
@@ -233,7 +245,7 @@ export default function GroundedHero() {
         style={{
           position: 'relative',
           zIndex: 20,
-          padding: 'clamp(115px, 16vh, 150px) 24px 0 24px',
+          padding: 'clamp(112px, 15vh, 144px) 24px 0 24px',
           maxWidth: '1240px',
           margin: '0 auto',
           width: '100%',
@@ -313,19 +325,19 @@ export default function GroundedHero() {
             Explore Divisions
           </SpecularButton>
           <SpecularButton
-            href="tel:+917021112664"
+            href="#contact"
             variant="dark"
             className="hero-cta-btn-dark"
           >
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
-              <Phone size={14} color="#FFFFFF" />
-              <span>+91 70211 12664</span>
+              <span>Initiate Consultation</span>
+              <ArrowUpRight size={14} color="#C29F53" />
             </span>
           </SpecularButton>
         </div>
       </div>
 
-      {/* Bottom 5 Column Indicators (Grounded Signature Interactive Cards) */}
+      {/* Bottom Column Indicators */}
       <div
         className="hero-indicators-container"
         style={{
@@ -334,11 +346,12 @@ export default function GroundedHero() {
           maxWidth: '1240px',
           margin: '0 auto',
           width: '100%',
-          padding: '0 24px 36px 24px',
+          padding: '0 24px 32px 24px',
           pointerEvents: 'none',
         }}
       >
-        <div className="hero-indicators-grid" style={{ pointerEvents: 'auto' }}>
+        {/* Desktop View: 5-Column Architectural Grid */}
+        <div className="hero-indicators-grid hidden md:grid" style={{ pointerEvents: 'auto' }}>
           {HERO_ZONES.map((zone, idx) => {
             const isHovered = activeZone === idx;
             const isFaded = activeZone !== null && !isHovered;
@@ -395,6 +408,101 @@ export default function GroundedHero() {
               </div>
             );
           })}
+        </div>
+
+        {/* Mobile View: Sleek Compact Segmented Pill Switcher */}
+        <div className="flex md:hidden flex-col gap-2.5 w-full pointer-events-auto">
+          {/* 5-Item Pill Navigation Strip */}
+          <div
+            className="flex items-center justify-between gap-1.5 p-1 rounded-full"
+            style={{
+              backgroundColor: 'rgba(17, 17, 17, 0.72)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.12)',
+            }}
+          >
+            {HERO_ZONES.map((zone, idx) => {
+              const isSelected = activeZone === idx;
+              return (
+                <button
+                  key={`mob-tab-${zone.id}`}
+                  type="button"
+                  onClick={() => setActiveZone(activeZone === idx ? null : idx)}
+                  className="flex-1 py-1.5 px-2 rounded-full text-center transition-all duration-300 cursor-pointer"
+                  style={{
+                    backgroundColor: isSelected ? '#C29F53' : 'transparent',
+                    color: isSelected ? '#111111' : 'rgba(255, 255, 255, 0.75)',
+                    fontWeight: isSelected ? 700 : 500,
+                    fontSize: '0.74rem',
+                    fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                    letterSpacing: '0.02em',
+                    border: 'none',
+                  }}
+                >
+                  {zone.num}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Liquid Glass Zone Card */}
+          <div
+            className="p-3 rounded-2xl flex items-center justify-between gap-3"
+            style={{
+              backgroundColor: 'rgba(17, 17, 17, 0.78)',
+              backdropFilter: 'blur(24px) saturate(180%)',
+              WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+              border: '1px solid rgba(194, 159, 83, 0.35)',
+              boxShadow: '0 8px 24px rgba(0, 0, 0, 0.35)',
+            }}
+          >
+            <div className="min-w-0 flex-1">
+              <div
+                style={{
+                  fontSize: '0.84rem',
+                  fontWeight: 650,
+                  color: '#FFFFFF',
+                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                  lineHeight: 1.25,
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }}
+              >
+                {activeZone !== null ? HERO_ZONES[activeZone].label : 'Consortium Operating Infrastructure'}
+              </div>
+              <div
+                style={{
+                  fontSize: '0.7rem',
+                  color: '#C29F53',
+                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                  lineHeight: 1.2,
+                  marginTop: '2px',
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }}
+              >
+                {activeZone !== null ? HERO_ZONES[activeZone].category : 'One International Centre · Tap _01 to _05'}
+              </div>
+            </div>
+
+            <div className="flex items-center gap-1 shrink-0">
+              {HERO_ZONES.map((_, i) => (
+                <span
+                  key={`dot-${i}`}
+                  style={{
+                    width: activeZone === i ? '14px' : '4px',
+                    height: '4px',
+                    borderRadius: '2px',
+                    backgroundColor: activeZone === i ? '#C29F53' : 'rgba(255, 255, 255, 0.25)',
+                    transition: 'all 0.3s ease',
+                  }}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 

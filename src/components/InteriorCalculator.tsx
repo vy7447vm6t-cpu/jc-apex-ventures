@@ -45,20 +45,36 @@ export default function InteriorCalculator() {
       }}
     >
       <div style={{ textAlign: 'center', marginBottom: '36px' }}>
-        <span
+        <div
           style={{
-            fontSize: '0.78rem',
-            fontWeight: 600,
-            color: '#C29F53',
-            textTransform: 'uppercase',
-            letterSpacing: '0.08em',
-            fontFamily: 'var(--font-mono, monospace)',
-            display: 'inline-block',
-            marginBottom: '8px',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '10px',
+            padding: '6px 14px',
+            borderRadius: '9999px',
+            background: '#F4F1EA',
+            border: '1px solid rgba(0, 0, 0, 0.08)',
+            marginBottom: '14px',
           }}
         >
-          [tvasta turnkey cost estimator]
-        </span>
+          <img
+            src="/images/logos/tvasta-dark.png"
+            alt="Tvasta Official Brand Mark"
+            style={{ height: '18px', width: 'auto', objectFit: 'contain' }}
+          />
+          <span
+            style={{
+              fontSize: '0.72rem',
+              fontWeight: 700,
+              color: '#8C6D23',
+              textTransform: 'uppercase',
+              letterSpacing: '0.12em',
+              fontFamily: 'var(--font-sans, Inter, sans-serif)',
+            }}
+          >
+            [tvasta turnkey cost estimator]
+          </span>
+        </div>
         <h3
           style={{
             fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
@@ -136,7 +152,7 @@ export default function InteriorCalculator() {
               <label style={{ fontSize: '0.84rem', fontWeight: 600, color: '#111111', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                 Usable Carpet Area:
               </label>
-              <span style={{ fontSize: '0.86rem', fontWeight: 700, color: '#C29F53', fontFamily: 'var(--font-mono, monospace)' }}>
+              <span style={{ fontSize: '0.86rem', fontWeight: 700, color: '#C29F53', fontFamily: 'var(--font-sans, Inter, sans-serif)', fontVariantNumeric: 'tabular-nums' }}>
                 {area} sq.ft.
               </span>
             </div>
@@ -212,12 +228,12 @@ export default function InteriorCalculator() {
           <div>
             <span
               style={{
-                fontSize: '0.76rem',
-                color: '#C29F53',
-                fontWeight: 600,
+                fontSize: '0.74rem',
+                color: '#8C6D23',
+                fontWeight: 700,
                 textTransform: 'uppercase',
-                letterSpacing: '0.08em',
-                fontFamily: 'var(--font-mono, monospace)',
+                letterSpacing: '0.1em',
+                fontFamily: 'var(--font-sans, Inter, sans-serif)',
                 display: 'block',
               }}
             >

@@ -35,35 +35,83 @@ export default function ScrollStack({
           >
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-black/8">
               <div className="flex items-center gap-4">
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#C29F53]/15 font-mono text-base font-bold text-[#C29F53] border border-[#C29F53]/30">
+                <span
+                  style={{
+                    fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+                    fontSize: '1.5rem',
+                    fontWeight: 400,
+                    color: '#8C733E',
+                  }}
+                  className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#C29F53]/15 border border-[#C29F53]/35"
+                >
                   {card.stepNumber}
                 </span>
                 <div>
-                  <h3 className="text-xl md:text-2xl font-serif font-bold text-[#111111]">
+                  <h3
+                    style={{
+                      fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+                      fontSize: '1.55rem',
+                      fontWeight: 400,
+                      color: '#111111',
+                      margin: 0,
+                      lineHeight: 1.2,
+                    }}
+                  >
                     {card.title}
                   </h3>
-                  <p className="text-xs font-mono text-[#666666]">
+                  <p
+                    style={{
+                      fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                      fontSize: '0.76rem',
+                      color: '#666666',
+                      fontWeight: 550,
+                      letterSpacing: '0.04em',
+                      textTransform: 'uppercase',
+                      margin: '2px 0 0 0',
+                    }}
+                  >
                     {card.subtitle}
                   </p>
                 </div>
               </div>
               {card.badge && (
-                <span className="w-fit px-3 py-1 text-xs font-mono uppercase tracking-wider font-semibold rounded-full bg-black/5 text-[#111111] border border-black/10">
+                <span
+                  style={{
+                    fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                    fontSize: '0.7rem',
+                    fontWeight: 650,
+                    letterSpacing: '0.06em',
+                    textTransform: 'uppercase',
+                  }}
+                  className="w-fit px-3 py-1 rounded-full bg-[#F4F1EA] text-[#8C733E] border border-[#C29F53]/30"
+                >
                   {card.badge}
                 </span>
               )}
             </div>
 
-            <p className="mt-6 text-sm md:text-base leading-relaxed text-[#555555]">
+            <p
+              style={{
+                fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                color: '#444444',
+                lineHeight: 1.65,
+              }}
+              className="mt-5 text-sm md:text-base"
+            >
               {card.description}
             </p>
 
             {card.specs && card.specs.length > 0 && (
-              <div className="mt-6 flex flex-wrap gap-2 pt-4 border-t border-black/5">
+              <div className="mt-5 flex flex-wrap gap-2 pt-4 border-t border-black/8">
                 {card.specs.map((spec, sIdx) => (
                   <span
                     key={sIdx}
-                    className="text-xs font-mono px-3 py-1.5 rounded-lg bg-[#F4F1EA] text-[#222222]"
+                    style={{
+                      fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                      fontSize: '0.78rem',
+                      fontWeight: 500,
+                    }}
+                    className="px-3 py-1.5 rounded-lg bg-[#F4F1EA] text-[#222222] border border-black/6"
                   >
                     {spec}
                   </span>

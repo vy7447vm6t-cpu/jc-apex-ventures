@@ -120,7 +120,7 @@ const FEASIBILITY_ITEMS = [
               fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
             }}
           >
-            Abhilasha CHS Walkable Rooftop Pergola
+            Suburban CHS Walkable Rooftop Pergola
           </h4>
           <p
             style={{

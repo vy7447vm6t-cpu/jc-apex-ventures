@@ -60,7 +60,7 @@ body {
   font-family: var(--font-body);
   font-size: 1.05rem;
   line-height: 1.68;
-  overflow-x: hidden;
+  overflow-x: clip;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -225,47 +225,61 @@ a:hover {
   50% { opacity: 0.5; transform: scale(0.8); }
 }
 
-/* Editorial specimen tag overlay on photos */
+/* Editorial specimen tag overlay on photos - KokonutUI / Apple Liquid Glass */
 .editorial-pill {
   position: absolute;
   top: 14px;
   left: 14px;
-  z-index: 3;
-  background: rgba(10, 13, 16, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  color: #FFFFFF;
-  font-family: var(--font-sans);
-  font-size: 0.72rem;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  color: #111111;
+  font-family: var(--font-sans, Inter, sans-serif);
+  font-size: 0.65rem;
   font-weight: 600;
-  letter-spacing: 1.5px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 5px 12px;
-  border-radius: 100px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.9);
   pointer-events: none;
+  max-width: calc(100% - 28px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .editorial-pill-light {
   position: absolute;
   top: 14px;
   left: 14px;
-  z-index: 3;
-  background: rgba(17, 21, 26, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  color: #FFFFFF;
-  font-family: var(--font-sans);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 1.5px;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  color: #111111;
+  font-family: var(--font-sans, Inter, sans-serif);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 5px 12px;
-  border-radius: 100px;
-  border: 1px solid var(--color-border);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.9);
   pointer-events: none;
+  max-width: calc(100% - 28px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Metric pills */
@@ -976,12 +990,99 @@ a:hover {
 
 /* Grounded Page Wrappers */
 .grounded-canvas {
+  --color-bg: #F4F1EA;
+  --color-bg-alt: #FFFFFF;
+  --color-bg-elevated: #FAF8F5;
+  --color-surface: rgba(255, 255, 255, 0.92);
+  --color-surface-translucent: rgba(255, 255, 255, 0.92);
+  --color-surface-hover: #FFFFFF;
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-border-subtle: rgba(0, 0, 0, 0.05);
+  --color-border-accent: rgba(194, 159, 83, 0.35);
+  --color-border-accent-light: rgba(194, 159, 83, 0.22);
+  --color-text-primary: #111111;
+  --color-text-secondary: #4A4A46;
+  --color-text-muted: #666666;
+  --color-accent: #8C6D23;
+  --color-accent-hover: #705619;
+  --color-accent-light: #C29F53;
+  --color-accent-pale: rgba(194, 159, 83, 0.14);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.06);
+  --shadow-xl: 0 20px 48px rgba(0, 0, 0, 0.08);
   background-color: var(--color-grounded-stone);
   color: var(--color-grounded-text);
   font-family: var(--font-grounded-sans);
   min-height: 100vh;
   position: relative;
-  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+.grounded-canvas .ios-glass-card,
+.grounded-canvas .glass-panel {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: #111111;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.grounded-canvas .ios-glass-light {
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+}
+
+.grounded-canvas .metric-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: #111111;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.grounded-canvas .btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 9999px;
+  background: #111111;
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 0.88rem;
+  border: 1px solid #111111;
+}
+
+.grounded-canvas .btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 9999px;
+  background: #FFFFFF;
+  color: #111111;
+  font-weight: 600;
+  font-size: 0.88rem;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+}
+
+.grounded-canvas .form-input,
+.grounded-canvas .form-select,
+.grounded-canvas .form-textarea {
+  background: #FFFFFF;
+  color: #111111;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
 }
 
 /* Grounded Eyebrows & Labels */
@@ -1042,13 +1143,28 @@ a:hover {
 .nav-menu-fixed-wrapper {
   position: fixed;
   top: 18px;
-  left: 0;
-  right: 0;
-  z-index: 9999;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 32px);
+  max-width: 1180px;
+  z-index: 100;
   display: flex;
   justify-content: center;
-  padding: 0 16px;
   pointer-events: none;
+}
+
+/* Section scroll clearance for floating navigation */
+#builds,
+#projects,
+#divisions,
+#calculators,
+#recognition,
+.recognition-section,
+#process,
+#contact,
+#about,
+#affiliations {
+  scroll-margin-top: 104px;
 }
 
 .nav-menu-fixed-container {
@@ -1358,29 +1474,7 @@ a:hover {
     padding-bottom: 24px !important;
   }
   .hero-indicators-grid {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    gap: 12px;
-    padding: 12px 20px 14px 20px;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    pointer-events: auto !important;
-  }
-  .hero-indicators-grid::-webkit-scrollbar {
-    display: none;
-  }
-  .hero-indicators-grid > div {
-    flex: 0 0 170px;
-    scroll-snap-align: start;
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    border-radius: 14px;
-    padding: 12px 14px;
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+    display: none !important;
   }
 }
 

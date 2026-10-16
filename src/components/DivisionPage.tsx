@@ -8,7 +8,6 @@ import Clippy from '@/components/Clippy';
 import PageHero from '@/components/PageHero';
 import ScrollReveal from '@/components/ScrollReveal';
 import type { DivisionContent, IconKey } from '@/content/divisions';
-import DivisionLogo from '@/components/DivisionLogos';
 import { ImageWithLightbox } from '@/components/ImageLightbox';
 import PrintCalculator from '@/components/PrintCalculator';
 import InteriorCalculator from '@/components/InteriorCalculator';
@@ -58,6 +57,15 @@ function SectionHeading({ title, intro }: { title: string; intro?: string }) {
   );
 }
 
+const OFFICIAL_DIVISION_LOGOS: Record<string, { src: string; alt: string; height?: number }> = {
+  solis: { src: '/images/logos/solis-official.png', alt: 'Solis Official Logo', height: 44 },
+  sanyog: { src: '/images/logos/sanyog-official.png', alt: 'Sanyog Official Logo', height: 44 },
+  'grid-apex': { src: '/images/logos/grid-apex-official.png', alt: 'Grid Apex Official Logo', height: 42 },
+  tvasta: { src: '/images/logos/tvasta-dark.png', alt: 'Tvasta Official Logo', height: 46 },
+  emudran: { src: '/images/logos/emudran-official.png', alt: 'eMudran Official Logo', height: 42 },
+  agrim: { src: '/images/logos/agrim-dark.png', alt: 'Agrim Official Logo', height: 44 },
+};
+
 export default function DivisionPage({
   data,
   customHeroLogo,
@@ -68,9 +76,10 @@ export default function DivisionPage({
   children?: React.ReactNode;
 }) {
   const Icon = divisionIcons[data.icon];
+  const defaultLogo = OFFICIAL_DIVISION_LOGOS[data.slug];
 
   return (
-    <main style={{ background: 'var(--color-bg)', minHeight: '100vh' }}>
+    <main className="grounded-canvas" style={{ background: 'var(--color-bg)', minHeight: '100vh' }}>
       <Navbar />
       <Clippy />
 
@@ -78,11 +87,23 @@ export default function DivisionPage({
         title={data.name}
         tagline={data.tagline}
         breadcrumb={data.name}
-        badge={data.laypersonBadge}
         statPill={data.statPill}
         heroImage={data.heroImage}
         heroImageTag={data.heroImageTag}
-        logo={customHeroLogo || <DivisionLogo division={data.slug} size={64} />}
+        logo={
+          customHeroLogo || (
+            <img
+              src={defaultLogo?.src || '/images/logos/solis-official.png'}
+              alt={defaultLogo?.alt || data.name}
+              style={{
+                height: `${defaultLogo?.height || 44}px`,
+                width: 'auto',
+                objectFit: 'contain',
+                display: 'block',
+              }}
+            />
+          )
+        }
       />
 
       {/* Grounded Operational Mandate Dossier Banner */}
@@ -133,7 +154,17 @@ export default function DivisionPage({
                   <div className="glass-panel" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                     <div style={{ position: 'relative', height: '220px', width: '100%', overflow: 'hidden' }}>
                       <div className="editorial-pill" style={{ zIndex: 10, pointerEvents: 'none' }}>
-                        {vc.imageTag}
+                        <span
+                          style={{
+                            width: '5px',
+                            height: '5px',
+                            borderRadius: '50%',
+                            backgroundColor: '#C29F53',
+                            display: 'inline-block',
+                            flexShrink: 0,
+                          }}
+                        />
+                        <span>{vc.imageTag}</span>
                       </div>
                       <ImageWithLightbox
                         src={vc.image}

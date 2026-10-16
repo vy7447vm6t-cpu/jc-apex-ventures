@@ -22,7 +22,7 @@ const formFields: FormField[] = [
 
 export default function SpacePlanningPage() {
   return (
-    <main>
+    <main className="grounded-canvas">
       <Navbar />
       
       <PageHero 

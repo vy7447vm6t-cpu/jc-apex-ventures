@@ -3,9 +3,8 @@ import type { Metadata } from 'next';
 import DivisionPage from '@/components/DivisionPage';
 import { emudran } from '@/content/divisions';
 import { PackagingVolumeTierCurve } from '@/components/bklit';
-import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowUpRight, CheckCircle2, Sparkles, Printer, Layers } from 'lucide-react';
+import { ArrowUpRight, CheckCircle2 } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: `${emudran.name} | Branding, Print & Signboards | JC Apex Ventures`,
@@ -48,55 +47,46 @@ export default function EmudranPage() {
           style={{
             display: 'inline-flex',
             alignItems: 'center',
-            gap: '16px',
+            padding: '2px 4px',
           }}
         >
           <img
-            src="/images/logos/00003033-eMudran_Business_Card_p1_img_0_X5.png"
-            alt="eMudran Official CMYK Emblem"
-            style={{ height: '60px', width: 'auto', objectFit: 'contain', display: 'block' }}
+            src="/images/logos/emudran-official.png"
+            alt="eMudran Official Brand Mark"
+            style={{ height: '48px', width: 'auto', objectFit: 'contain', display: 'block' }}
           />
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <span style={{ fontSize: '1.25rem', fontWeight: 700, letterSpacing: '0.04em', color: '#111111' }}>
-              eMudran
-            </span>
-            <span style={{ fontSize: '0.72rem', letterSpacing: '0.12em', color: '#888888', textTransform: 'uppercase' }}>
-              Luxury Packaging &amp; Print
-            </span>
-          </div>
         </div>
       }
     >
-      <div className="max-w-5xl mx-auto w-full flex flex-col gap-12">
+      <div className="max-w-5xl mx-auto w-full flex flex-col gap-12 font-sans">
         {/* Section Header */}
         <div className="text-center">
-          <div className="inline-block px-3 py-1 rounded-full bg-[#C29F53]/15 text-[#C29F53] text-[11px] font-mono uppercase tracking-wider font-semibold border border-[#C29F53]/30 mb-3">
-            Art Direction &amp; Press Engineering
+          <div className="inline-block px-3.5 py-1 rounded-full bg-[#C29F53]/15 text-[#8C6D23] text-[11px] uppercase tracking-[0.12em] font-bold border border-[#C29F53]/30 mb-3">
+            [ART DIRECTION &amp; PRESS ENGINEERING]
           </div>
           <h3
             style={{
-              fontSize: 'clamp(1.8rem, 3.2vw, 2.6rem)',
-              lineHeight: 1.2,
+              fontSize: 'clamp(1.9rem, 3.4vw, 2.7rem)',
+              lineHeight: 1.15,
               fontWeight: 400,
               letterSpacing: '-0.02em',
-              color: '#FFFFFF',
+              color: '#111111',
               fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
             }}
           >
-            Tactile Packaging Specimens &amp; Production Benchmarks
+            Tactile Packaging Specimens &amp; Production Benchmarks.
           </h3>
-          <p className="text-sm text-[#AAAAAA] mt-3 max-w-2xl mx-auto leading-relaxed font-sans">
+          <p className="text-sm text-[#4A4A46] mt-3 max-w-2xl mx-auto leading-relaxed font-sans">
             Led by veteran FMCG Art Director Manish Ajgaonkar. Explore structural greyboard rigidity, precision thermal stamping, and high-volume offset economics.
           </p>
         </div>
 
         {/* 3-Column Luxury Packaging Specimen Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {PACKAGING_SPECIMENS.map((specimen, idx) => (
+          {PACKAGING_SPECIMENS.map((specimen) => (
             <div
               key={specimen.id}
-              className="ios-glass-card rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-xl overflow-hidden flex flex-col justify-between"
-              style={{ boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)' }}
+              className="rounded-2xl border border-black/8 bg-white overflow-hidden flex flex-col justify-between shadow-sm"
             >
               <div>
                 <div className="relative h-52 w-full overflow-hidden">
@@ -106,8 +96,8 @@ export default function EmudranPage() {
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     className="transition-transform duration-500 hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-                  <span className="absolute top-3 left-3 px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-wider rounded-full bg-[#C29F53] text-[#111111]">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent pointer-events-none" />
+                  <span className="absolute top-3 left-3 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-full bg-[#C29F53] text-[#111111]">
                     {specimen.tag}
                   </span>
                 </div>
@@ -115,27 +105,27 @@ export default function EmudranPage() {
                 <div className="p-6">
                   <h4
                     style={{
-                      fontSize: '1.35rem',
-                      lineHeight: 1.25,
+                      fontSize: '1.45rem',
+                      lineHeight: 1.2,
                       fontWeight: 400,
-                      color: '#FFFFFF',
+                      color: '#111111',
                       marginBottom: '10px',
                       fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
                     }}
                   >
                     {specimen.title}
                   </h4>
-                  <p className="text-xs text-[#CCCCCC] leading-relaxed mb-6 font-sans">
+                  <p className="text-xs text-[#4A4A46] leading-relaxed mb-6 font-sans">
                     {specimen.description}
                   </p>
 
-                  <div className="pt-4 border-t border-white/10">
-                    <div className="text-[10px] font-mono uppercase tracking-wider text-[#888888] mb-2.5">
+                  <div className="pt-4 border-t border-black/8">
+                    <div className="text-[10px] uppercase tracking-wider font-bold text-[#777777] mb-2.5">
                       Technical Substrates
                     </div>
                     <div className="flex flex-col gap-1.5">
                       {specimen.specs.map((s, sIdx) => (
-                        <div key={sIdx} className="flex items-center gap-2 text-[11px] text-[#E8E4DA] font-sans">
+                        <div key={sIdx} className="flex items-center gap-2 text-[11px] text-[#222222] font-medium font-sans">
                           <CheckCircle2 size={13} color="#C29F53" className="flex-shrink-0" />
                           <span>{s}</span>
                         </div>
@@ -148,10 +138,10 @@ export default function EmudranPage() {
               <div className="p-6 pt-0">
                 <Link
                   href="/print-management"
-                  className="w-full inline-flex items-center justify-between px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-xs font-mono hover:bg-white/10 transition-colors"
+                  className="w-full inline-flex items-center justify-between px-4 py-2.5 rounded-xl bg-[#F4F1EA] border border-black/8 text-[#111111] text-xs font-semibold hover:bg-[#EAE5D9] transition-colors"
                 >
                   <span>Calculate Volume Tier</span>
-                  <ArrowUpRight size={13} color="#C29F53" />
+                  <ArrowUpRight size={13} color="#8C6D23" />
                 </Link>
               </div>
             </div>
@@ -159,22 +149,22 @@ export default function EmudranPage() {
         </div>
 
         {/* Volume Tier Curve Visual Module */}
-        <div className="ios-glass-card rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-xl p-8 shadow-2xl">
+        <div className="rounded-3xl border border-black/8 bg-white p-8 shadow-md">
           <div className="mb-6">
-            <span className="text-[11px] font-mono uppercase tracking-wider font-semibold text-[#C29F53]">
-              Economy of Scale Physics
+            <span className="text-[11px] uppercase tracking-wider font-bold text-[#8C6D23]">
+              [ECONOMY OF SCALE PHYSICS]
             </span>
             <h4
               style={{
-                fontSize: '1.4rem',
-                color: '#FFFFFF',
+                fontSize: '1.5rem',
+                color: '#111111',
                 marginTop: '4px',
                 fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
               }}
             >
               Volume Tier Unit Cost Optimization Curve
             </h4>
-            <p className="text-xs text-[#888888] mt-1 font-sans">
+            <p className="text-xs text-[#555555] mt-1 font-sans">
               Unit prices drop sharply beyond 1,000 units as cylinder setup, die-tooling, and plate amortization reach steady-state.
             </p>
           </div>

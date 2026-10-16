@@ -4,8 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowUpRight, ChevronDown } from 'lucide-react';
-import DivisionLogo from './DivisionLogos';
-import { TechText, SpecularButton } from '@/components/react-bits';
+import { TechText, SpecularButton, ElectricBorder, MicroSlats } from '@/components/react-bits';
 
 interface PracticeDiscipline {
   id: string;
@@ -16,6 +15,7 @@ interface PracticeDiscipline {
   image: string;
   scope: string;
   statutoryMetric: string;
+  leadAssociate: string;
   badge: string;
   logoLight: string;
   logoDark: string;
@@ -33,6 +33,7 @@ const DISCIPLINES: PracticeDiscipline[] = [
     scope:
       'Elevated walkable solar pergolas, BIPV architectural glass, integrated EV charging hubs, and PM Surya Ghar central capital subsidy liaisoning.',
     statutoryMetric: '10.5 ft clearance · 150 km/h wind certified · Up to ₹10.8L society subsidy',
+    leadAssociate: 'Jitendra Chavan (Director) & Solis EPC Engineering Network',
     badge: 'MNRE / DISCOM NET-METERING',
     logoLight: '/images/logos/solis-official.png',
     logoDark: '/images/logos/solis-logo-white.png',
@@ -48,6 +49,7 @@ const DISCIPLINES: PracticeDiscipline[] = [
     scope:
       'Power billing dispute resolution, commercial-to-residential tariff re-categorization, sanctioned load enhancements, and statutory representation before CGRF and the Electricity Ombudsman.',
     statutoryMetric: 'Electricity Act 2003 · BEST, Adani Electricity, Tata Power, MSEDCL jurisdiction',
+    leadAssociate: 'Jitendra Chavan (36+ Years Direct Utility Engineering Practice)',
     badge: 'MERC REGULATORY PRACTICE',
     logoLight: '/images/logos/sanyog-official.png',
     logoDark: '/images/logos/sanyog-official.png',
@@ -63,6 +65,7 @@ const DISCIPLINES: PracticeDiscipline[] = [
     scope:
       'Turnkey 33kV/11kV substations, VCB switchgear bays, busbar trunking, PWD Electrical Inspectorate approvals, and MPCB-certified patented zero-power thermal waste decomposition.',
     statutoryMetric: 'Central Government Patented · PWD Licensed Class-A execution',
+    leadAssociate: 'Jitendra Chavan & Dr. Manoj Chavan (Patented Waste Decomposition Tech)',
     badge: 'PWD CLASS-A / MPCB CERTIFIED',
     logoLight: '/images/logos/grid-apex-official.png',
     logoDark: '/images/logos/grid-apex-white.png',
@@ -78,6 +81,7 @@ const DISCIPLINES: PracticeDiscipline[] = [
     scope:
       'Commercial office interiors, acoustic isolation zoning (STC 48), concealed low-voltage MEP distribution, and 3-tier architectural material execution.',
     statutoryMetric: 'CAD space planning · Zero contractor abandonment guarantee',
+    leadAssociate: 'Tvasta Architectural & MEP Execution Consortium',
     badge: 'STC 48 ACOUSTIC EPC',
     logoLight: '/images/logos/tvasta-dark.png',
     logoDark: '/images/logos/tvasta-official.png',
@@ -93,6 +97,7 @@ const DISCIPLINES: PracticeDiscipline[] = [
     scope:
       'Custom rigid packaging boxes, thermal foil stamping, corporate annual reports, architectural environmental signage, and automated press-pass color calibration.',
     statutoryMetric: '22+ years production supervision · High-precision offset & digital',
+    leadAssociate: 'Manish Ajgaonkar (Creative Director) & Hemangi Patil (22+ Yrs Print Production)',
     badge: 'PRECISION PRODUCTION',
     logoLight: '/images/logos/emudran-official.png',
     logoDark: '/images/logos/emudran-white.png',
@@ -108,6 +113,7 @@ const DISCIPLINES: PracticeDiscipline[] = [
     scope:
       'Detailed Project Report (DPR) preparation, 10-year CAPEX/NPV cashflow modeling, and bank submission documentation for industrial and EV charging networks.',
     statutoryMetric: 'Pure advisory & technical preparation (explicitly non-lender / non-NBFC)',
+    leadAssociate: 'Agrim Financial Modeling & DPR Desk (Non-NBFC Advisory)',
     badge: 'BANKABLE DPR ADVISORY',
     logoLight: '/images/logos/agrim-dark.png',
     logoDark: '/images/logos/agrim-official.png',
@@ -130,11 +136,13 @@ export default function GroundedServices() {
         padding: 'clamp(100px, 13vh, 140px) 24px',
         position: 'relative',
         zIndex: 5,
-        scrollMarginTop: '96px',
+        scrollMarginTop: '104px',
         borderTop: '1px solid rgba(0, 0, 0, 0.08)',
         borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
       }}
     >
+      {/* Background Architectural MicroSlats CAD Louvers with Datum Ticks */}
+      <MicroSlats count={24} color="#8C733E" opacity={0.06} zIndex={1} showTicks={true} />
       <div style={{ maxWidth: '1240px', margin: '0 auto', width: '100%', position: 'relative', zIndex: 2 }}>
         {/* Eyebrow Label */}
         <div className="eye-brow-container" style={{ marginBottom: '24px', textAlign: 'left' }}>
@@ -150,7 +158,7 @@ export default function GroundedServices() {
               display: 'inline-block',
             }}
           >
-            [03 / PRACTICE DISCIPLINES]
+            [<TechText text="03 / PRACTICE DISCIPLINES" scrambleSpeed={26} maxScrambles={5} triggerOnHover={true} />]
           </span>
         </div>
 
@@ -190,330 +198,385 @@ export default function GroundedServices() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {DISCIPLINES.map((item, idx) => {
               const isActive = activeIndex === idx;
+              const showElectricRow = Boolean(item.isElectric && (isActive || item.id === 'grid-apex'));
               return (
-                <div
+                <ElectricBorder
                   key={item.id}
-                  onClick={() => setActiveIndex(idx)}
-                  onMouseEnter={() => setActiveIndex(idx)}
-                  className="services-item-card"
+                  active={showElectricRow}
+                  borderRadius={16}
+                  glowColor={item.id === 'grid-apex' ? '#D4AF37' : '#C29F53'}
+                  innerBg={isActive ? '#F4F1EA' : '#FFFFFF'}
                   style={{
-                    position: 'relative',
-                    cursor: 'pointer',
-                    padding: '24px 28px',
-                    borderRadius: '16px',
-                    backgroundColor: isActive ? 'rgba(244, 241, 234, 0.7)' : 'transparent',
-                    border: isActive ? '1px solid rgba(194, 159, 83, 0.35)' : '1px solid rgba(0, 0, 0, 0.05)',
-                    transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-                    opacity: isActive ? 1 : 0.55,
                     transform: isActive ? 'translateX(4px)' : 'none',
+                    transition: 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease',
+                    opacity: isActive ? 1 : 0.65,
                   }}
                 >
-                  {/* Subtle Top Gold Hairline Glide */}
                   <div
+                    onClick={() => setActiveIndex(idx)}
+                    onMouseEnter={() => setActiveIndex(idx)}
+                    className="services-item-card"
                     style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: '20px',
-                      right: '20px',
-                      height: '2px',
-                      background: isActive
-                        ? 'linear-gradient(90deg, rgba(194, 159, 83, 0.85) 0%, rgba(194, 159, 83, 0.1) 100%)'
-                        : 'transparent',
-                      transition: 'background 0.3s ease',
-                    }}
-                  />
-
-                  {/* Header Row */}
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      flexWrap: 'wrap',
-                      gap: '10px 14px',
-                      marginBottom: '10px',
+                      position: 'relative',
+                      cursor: 'pointer',
+                      padding: '22px 26px',
+                      borderRadius: '14px',
                     }}
                   >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
+                    {/* Header Row */}
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        flexWrap: 'wrap',
+                        gap: '10px 14px',
+                        marginBottom: '10px',
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
+                        <span
+                          style={{
+                            fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                            fontSize: '0.82rem',
+                            fontWeight: 650,
+                            color: isActive ? '#8C733E' : '#888888',
+                            letterSpacing: '0.04em',
+                          }}
+                        >
+                          {item.num}
+                        </span>
+                        {/* Prominent Official Brand Logo */}
+                        <div
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            height: '38px',
+                            padding: '2px 0',
+                          }}
+                        >
+                          <img
+                            src={item.logoLight}
+                            alt={item.name}
+                            style={{
+                              maxHeight: '36px',
+                              maxWidth: item.id === 'tvasta' ? '150px' : item.id === 'emudran' ? '135px' : item.id === 'grid-apex' ? '140px' : '120px',
+                              width: 'auto',
+                              height: 'auto',
+                              objectFit: 'contain',
+                              filter: isActive ? 'none' : 'grayscale(15%) opacity(0.85)',
+                              transition: 'all 0.3s ease',
+                            }}
+                          />
+                          <span className="sr-only">{item.name}</span>
+                        </div>
+                      </div>
                       <span
                         style={{
                           fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                          fontSize: '0.82rem',
-                          fontWeight: 650,
+                          fontSize: '0.68rem',
+                          fontWeight: 600,
+                          letterSpacing: '0.05em',
+                          textTransform: 'uppercase',
                           color: isActive ? '#8C733E' : '#888888',
-                          letterSpacing: '0.04em',
+                          backgroundColor: isActive ? 'rgba(255, 255, 255, 0.95)' : 'transparent',
+                          padding: isActive ? '3px 8px' : '0',
+                          borderRadius: '6px',
+                          border: isActive ? '1px solid rgba(194, 159, 83, 0.25)' : 'none',
+                          whiteSpace: 'nowrap',
                         }}
                       >
-                        {item.num}
+                        {item.badge}
                       </span>
-                      {/* Prominent Official Brand Logo */}
-                      <div
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          height: '38px',
-                          padding: '2px 0',
-                        }}
-                      >
-                        <img
-                          src={item.logoLight}
-                          alt={item.name}
-                          style={{
-                            maxHeight: '36px',
-                            maxWidth: item.id === 'tvasta' ? '150px' : item.id === 'emudran' ? '135px' : item.id === 'grid-apex' ? '140px' : '120px',
-                            width: 'auto',
-                            height: 'auto',
-                            objectFit: 'contain',
-                            filter: isActive ? 'none' : 'grayscale(15%) opacity(0.85)',
-                            transition: 'all 0.3s ease',
-                          }}
-                        />
-                        <span className="sr-only">{item.name}</span>
-                      </div>
                     </div>
-                    <span
+
+                    {/* Discipline Subtitle */}
+                    <div
                       style={{
                         fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                        fontSize: '0.68rem',
-                        fontWeight: 600,
-                        letterSpacing: '0.05em',
-                        textTransform: 'uppercase',
-                        color: isActive ? '#8C733E' : '#888888',
-                        backgroundColor: isActive ? 'rgba(255, 255, 255, 0.95)' : 'transparent',
-                        padding: isActive ? '3px 8px' : '0',
-                        borderRadius: '6px',
-                        border: isActive ? '1px solid rgba(194, 159, 83, 0.25)' : 'none',
-                        whiteSpace: 'nowrap',
+                        fontSize: '0.92rem',
+                        color: isActive ? '#222222' : '#666666',
+                        fontWeight: 500,
+                        marginBottom: isActive ? '12px' : '0',
                       }}
                     >
-                      {item.badge}
-                    </span>
-                  </div>
-
-                  {/* Discipline Subtitle */}
-                  <div
-                    style={{
-                      fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                      fontSize: '0.92rem',
-                      color: isActive ? '#333333' : '#666666',
-                      fontWeight: 500,
-                      marginBottom: isActive ? '12px' : '0',
-                    }}
-                  >
-                    {item.discipline}
-                  </div>
-
-                  {/* Expanded Scope on Active */}
-                  {isActive && (
-                    <div style={{ marginTop: '10px' }}>
-                      <p
-                        style={{
-                          fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                          fontSize: '0.88rem',
-                          lineHeight: 1.6,
-                          color: '#555555',
-                          margin: '0 0 14px 0',
-                          fontWeight: 380,
-                        }}
-                      >
-                        {item.scope}
-                      </p>
-                      <div
-                        style={{
-                          fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                          fontSize: '0.76rem',
-                          color: '#8C733E',
-                          fontWeight: 600,
-                          backgroundColor: '#FFFFFF',
-                          padding: '6px 12px',
-                          borderRadius: '8px',
-                          display: 'inline-block',
-                          border: '1px solid rgba(194, 159, 83, 0.25)',
-                          letterSpacing: '0.02em',
-                        }}
-                      >
-                        {item.statutoryMetric}
-                      </div>
+                      {item.discipline}
                     </div>
-                  )}
-                </div>
+
+                    {/* Expanded Scope on Active */}
+                    {isActive && (
+                      <div style={{ marginTop: '10px' }}>
+                        <p
+                          style={{
+                            fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                            fontSize: '0.88rem',
+                            lineHeight: 1.6,
+                            color: '#555555',
+                            margin: '0 0 12px 0',
+                            fontWeight: 380,
+                          }}
+                        >
+                          {item.scope}
+                        </p>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'flex-start' }}>
+                          <div
+                            style={{
+                              fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                              fontSize: '0.76rem',
+                              color: '#8C733E',
+                              fontWeight: 600,
+                              backgroundColor: '#FFFFFF',
+                              padding: '6px 12px',
+                              borderRadius: '8px',
+                              display: 'inline-block',
+                              border: '1px solid rgba(194, 159, 83, 0.25)',
+                              letterSpacing: '0.02em',
+                            }}
+                          >
+                            {item.statutoryMetric}
+                          </div>
+                          <span
+                            style={{
+                              fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                              fontSize: '0.74rem',
+                              color: '#666666',
+                              fontWeight: 450,
+                            }}
+                          >
+                            Lead Practice: {item.leadAssociate}
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </ElectricBorder>
               );
             })}
           </div>
 
-          {/* Right Column: Sticky Field Photography Viewport with KokonutUI Liquid Glass Card */}
-          <div
-            style={{
-              position: 'sticky',
-              top: '120px',
-              height: '560px',
-              borderRadius: '20px',
-              overflow: 'hidden',
-              border: '1px solid rgba(0, 0, 0, 0.08)',
-              backgroundColor: '#111111',
-              boxShadow: '0 20px 48px -8px rgba(0, 0, 0, 0.12)',
-            }}
-          >
-            {/* Crossfading Background Field Photography */}
-            {DISCIPLINES.map((item, idx) => (
-              <img
-                key={`desk-img-${item.id}`}
-                src={item.image}
-                alt={`${item.name} Field Operation`}
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  opacity: activeIndex === idx ? 1 : 0,
-                  transition: 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
-                  filter: 'brightness(0.9) contrast(1.05)',
-                }}
-              />
-            ))}
-
-            {/* Gradient Mask for High Contrast */}
-            <div
-              style={{
-                position: 'absolute',
-                inset: 0,
-                background:
-                  'linear-gradient(to top, rgba(17,17,17,0.85) 0%, rgba(17,17,17,0.2) 50%, transparent 100%)',
-                pointerEvents: 'none',
-              }}
-            />
-
-            {/* KokonutUI Apple Liquid Glass Floating Spec Capsule */}
-            <div
-              style={{
-                position: 'absolute',
-                bottom: '16px',
-                left: '16px',
-                right: '16px',
-                background: 'rgba(255, 255, 255, 0.92)',
-                backdropFilter: 'blur(28px) saturate(180%)',
-                WebkitBackdropFilter: 'blur(28px) saturate(180%)',
-                border: '1px solid rgba(255, 255, 255, 0.75)',
-                borderRadius: '16px',
-                padding: '14px 18px',
-                boxShadow:
-                  '0 14px 36px -6px rgba(0, 0, 0, 0.18), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.95)',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '10px',
-                zIndex: 10,
-              }}
+          {/* Right Column: Sticky Field Photography Viewport wrapped in ElectricBorder for Electrical Divisions */}
+          <div style={{ position: 'sticky', top: '120px' }}>
+            <ElectricBorder
+              active={Boolean(activeDiscipline.isElectric)}
+              borderRadius={22}
+              glowColor="#C29F53"
+              innerBg="#111111"
             >
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', minWidth: 0, flex: 1 }}>
+              <div
+                style={{
+                  position: 'relative',
+                  height: '560px',
+                  borderRadius: '20px',
+                  overflow: 'hidden',
+                  backgroundColor: '#111111',
+                  boxShadow: '0 20px 48px -8px rgba(0, 0, 0, 0.12)',
+                }}
+              >
+                {/* Crossfading Background Field Photography */}
+                {DISCIPLINES.map((item, idx) => (
+                  <img
+                    key={`desk-img-${item.id}`}
+                    src={item.image}
+                    alt={`${item.name} Field Operation`}
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      opacity: activeIndex === idx ? 1 : 0,
+                      transition: 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+                      filter: 'brightness(0.9) contrast(1.05)',
+                    }}
+                  />
+                ))}
+
+                {/* Gradient Mask for High Contrast */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background:
+                      'linear-gradient(to top, rgba(17,17,17,0.85) 0%, rgba(17,17,17,0.2) 50%, transparent 100%)',
+                    pointerEvents: 'none',
+                  }}
+                />
+
+                {/* Top-Right Electric Status Badge when active division is electrical */}
+                {activeDiscipline.isElectric && (
                   <div
                     style={{
-                      height: '42px',
-                      padding: '3px 8px',
-                      borderRadius: '10px',
-                      backgroundColor: '#FFFFFF',
-                      border: '1px solid rgba(0, 0, 0, 0.08)',
-                      display: 'flex',
+                      position: 'absolute',
+                      top: '16px',
+                      right: '16px',
+                      zIndex: 10,
+                      padding: '6px 12px',
+                      borderRadius: '9999px',
+                      backgroundColor: 'rgba(17, 17, 17, 0.78)',
+                      backdropFilter: 'blur(16px)',
+                      border: '1px solid rgba(194, 159, 83, 0.5)',
+                      display: 'inline-flex',
                       alignItems: 'center',
-                      justifyContent: 'center',
-                      flexShrink: 0,
-                      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+                      gap: '7px',
                     }}
                   >
-                    <img
-                      src={activeDiscipline.logoLight}
-                      alt={`${activeDiscipline.name} Official Logo`}
+                    <span
                       style={{
-                        maxHeight: '30px',
-                        maxWidth: activeDiscipline.id === 'tvasta' ? '110px' : activeDiscipline.id === 'emudran' ? '100px' : '85px',
-                        width: 'auto',
-                        height: 'auto',
-                        objectFit: 'contain',
+                        width: '6px',
+                        height: '6px',
+                        borderRadius: '9999px',
+                        backgroundColor: '#C29F53',
+                        boxShadow: '0 0 8px #C29F53',
                       }}
                     />
-                  </div>
-                  <div style={{ minWidth: 0, flex: 1 }}>
-                    <h4
-                      style={{
-                        fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
-                        fontSize: '1.3rem',
-                        fontWeight: 400,
-                        margin: 0,
-                        color: '#111111',
-                        lineHeight: 1.1,
-                        whiteSpace: 'nowrap',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                      }}
-                    >
-                      {activeDiscipline.name}
-                    </h4>
                     <span
                       style={{
                         fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                        fontSize: '0.72rem',
-                        color: '#666666',
-                        fontWeight: 500,
-                        display: 'block',
-                        whiteSpace: 'nowrap',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
+                        fontSize: '0.66rem',
+                        fontWeight: 650,
+                        letterSpacing: '0.06em',
+                        color: '#F4F1EA',
+                        textTransform: 'uppercase',
                       }}
                     >
-                      {activeDiscipline.discipline}
+                      HT/LT Grid & Statutory Division
+                    </span>
+                  </div>
+                )}
+
+                {/* KokonutUI Apple Liquid Glass Floating Spec Capsule */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    bottom: '16px',
+                    left: '16px',
+                    right: '16px',
+                    background: 'rgba(255, 255, 255, 0.92)',
+                    backdropFilter: 'blur(28px) saturate(180%)',
+                    WebkitBackdropFilter: 'blur(28px) saturate(180%)',
+                    border: '1px solid rgba(255, 255, 255, 0.75)',
+                    borderRadius: '16px',
+                    padding: '14px 18px',
+                    boxShadow:
+                      '0 14px 36px -6px rgba(0, 0, 0, 0.18), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.95)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '10px',
+                    zIndex: 10,
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', minWidth: 0, flex: 1 }}>
+                      <div
+                        style={{
+                          height: '42px',
+                          padding: '3px 8px',
+                          borderRadius: '10px',
+                          backgroundColor: '#FFFFFF',
+                          border: '1px solid rgba(0, 0, 0, 0.08)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          flexShrink: 0,
+                          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+                        }}
+                      >
+                        <img
+                          src={activeDiscipline.logoLight}
+                          alt={`${activeDiscipline.name} Official Logo`}
+                          style={{
+                            maxHeight: '30px',
+                            maxWidth: activeDiscipline.id === 'tvasta' ? '110px' : activeDiscipline.id === 'emudran' ? '100px' : '85px',
+                            width: 'auto',
+                            height: 'auto',
+                            objectFit: 'contain',
+                          }}
+                        />
+                      </div>
+                      <div style={{ minWidth: 0, flex: 1 }}>
+                        <h4
+                          style={{
+                            fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+                            fontSize: '1.3rem',
+                            fontWeight: 400,
+                            margin: 0,
+                            color: '#111111',
+                            lineHeight: 1.1,
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                          }}
+                        >
+                          {activeDiscipline.name}
+                        </h4>
+                        <span
+                          style={{
+                            fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                            fontSize: '0.72rem',
+                            color: '#666666',
+                            fontWeight: 500,
+                            display: 'block',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                          }}
+                        >
+                          {activeDiscipline.discipline}
+                        </span>
+                      </div>
+                    </div>
+
+                    <SpecularButton
+                      href={activeDiscipline.href}
+                      variant="dark"
+                      className="!py-2 !px-3.5 !text-[0.72rem] !normal-case flex-shrink-0"
+                      icon={<ArrowUpRight size={13} />}
+                    >
+                      Dossier
+                    </SpecularButton>
+                  </div>
+
+                  {/* Decrypting TechText Statutory Metric */}
+                  <div
+                    style={{
+                      borderTop: '1px solid rgba(0, 0, 0, 0.08)',
+                      paddingTop: '10px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                        fontSize: '0.68rem',
+                        fontWeight: 700,
+                        letterSpacing: '0.06em',
+                        textTransform: 'uppercase',
+                        color: '#8C733E',
+                      }}
+                    >
+                      Metric:
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                        fontSize: '0.78rem',
+                        color: '#333333',
+                        fontWeight: 500,
+                      }}
+                    >
+                      <TechText
+                        key={activeDiscipline.statutoryMetric}
+                        text={activeDiscipline.statutoryMetric}
+                        scrambleSpeed={20}
+                        maxScrambles={5}
+                      />
                     </span>
                   </div>
                 </div>
-
-                <SpecularButton
-                  href={activeDiscipline.href}
-                  variant="dark"
-                  className="!py-2 !px-3.5 !text-[0.72rem] !normal-case flex-shrink-0"
-                  icon={<ArrowUpRight size={13} />}
-                >
-                  Dossier
-                </SpecularButton>
               </div>
-
-              {/* Decrypting TechText Statutory Metric */}
-              <div
-                style={{
-                  borderTop: '1px solid rgba(0, 0, 0, 0.08)',
-                  paddingTop: '10px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                    fontSize: '0.68rem',
-                    fontWeight: 700,
-                    letterSpacing: '0.06em',
-                    textTransform: 'uppercase',
-                    color: '#8C733E',
-                  }}
-                >
-                  Metric:
-                </span>
-                <span
-                  style={{
-                    fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                    fontSize: '0.78rem',
-                    color: '#333333',
-                    fontWeight: 500,
-                  }}
-                >
-                  <TechText
-                    text={activeDiscipline.statutoryMetric}
-                    scrambleSpeed={20}
-                    maxScrambles={5}
-                  />
-                </span>
-              </div>
-            </div>
+            </ElectricBorder>
           </div>
         </div>
 

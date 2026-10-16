@@ -1,9 +1,13 @@
 "use client";
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Printer, Package, Sparkles, CheckCircle2, ArrowRight } from 'lucide-react';
 
-export default function PrintCalculator() {
+interface PrintCalculatorProps {
+  onLiveChange?: (data: { quantity: number; jobType: string }) => void;
+}
+
+export default function PrintCalculator({ onLiveChange }: PrintCalculatorProps = {}) {
   const [jobType, setJobType] = useState<'brochure' | 'packaging' | 'signage'>('brochure');
   const [quantity, setQuantity] = useState<number>(1000);
   const [finishOption, setFinishOption] = useState<'standard' | 'premium' | 'luxury'>('premium');
@@ -25,7 +29,6 @@ export default function PrintCalculator() {
       unitLabel = `Rs ${(baseTotal / quantity).toFixed(1)} / carton`;
       turnaround = '7 to 10 business days';
     } else {
-      // Signage per sq.ft.
       const perSqftRate = finishOption === 'standard' ? 140 : finishOption === 'premium' ? 260 : 420;
       baseTotal = sqft * perSqftRate;
       unitLabel = `Rs ${perSqftRate} / sq.ft.`;
@@ -38,6 +41,12 @@ export default function PrintCalculator() {
       turnaround,
     };
   }, [jobType, quantity, finishOption, sqft]);
+
+  useEffect(() => {
+    if (onLiveChange) {
+      onLiveChange({ quantity, jobType });
+    }
+  }, [quantity, jobType, onLiveChange]);
 
   return (
     <div
@@ -52,20 +61,36 @@ export default function PrintCalculator() {
       }}
     >
       <div style={{ textAlign: 'center', marginBottom: '36px' }}>
-        <span
+        <div
           style={{
-            fontSize: '0.78rem',
-            fontWeight: 600,
-            color: '#C29F53',
-            textTransform: 'uppercase',
-            letterSpacing: '0.08em',
-            fontFamily: 'var(--font-mono, monospace)',
-            display: 'inline-block',
-            marginBottom: '8px',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '10px',
+            padding: '6px 14px',
+            borderRadius: '9999px',
+            background: '#F4F1EA',
+            border: '1px solid rgba(0, 0, 0, 0.08)',
+            marginBottom: '14px',
           }}
         >
-          [emudran print &amp; packaging estimator]
-        </span>
+          <img
+            src="/images/logos/emudran-official.png"
+            alt="eMudran Official Brand Mark"
+            style={{ height: '20px', width: 'auto', objectFit: 'contain' }}
+          />
+          <span
+            style={{
+              fontSize: '0.72rem',
+              fontWeight: 700,
+              color: '#8C6D23',
+              textTransform: 'uppercase',
+              letterSpacing: '0.12em',
+              fontFamily: 'var(--font-sans, Inter, sans-serif)',
+            }}
+          >
+            [emudran print &amp; packaging estimator]
+          </span>
+        </div>
         <h3
           style={{
             fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
@@ -146,7 +171,7 @@ export default function PrintCalculator() {
                 <label style={{ fontSize: '0.84rem', fontWeight: 600, color: '#111111', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                   Total Signage Area:
                 </label>
-                <span style={{ fontSize: '0.86rem', fontWeight: 700, color: '#C29F53', fontFamily: 'var(--font-mono, monospace)' }}>
+                <span style={{ fontSize: '0.86rem', fontWeight: 700, color: '#C29F53', fontFamily: 'var(--font-sans, Inter, sans-serif)', fontVariantNumeric: 'tabular-nums' }}>
                   {sqft} sq.ft.
                 </span>
               </div>
@@ -166,7 +191,7 @@ export default function PrintCalculator() {
                 <label style={{ fontSize: '0.84rem', fontWeight: 600, color: '#111111', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                   Order Volume:
                 </label>
-                <span style={{ fontSize: '0.86rem', fontWeight: 700, color: '#C29F53', fontFamily: 'var(--font-mono, monospace)' }}>
+                <span style={{ fontSize: '0.86rem', fontWeight: 700, color: '#C29F53', fontFamily: 'var(--font-sans, Inter, sans-serif)', fontVariantNumeric: 'tabular-nums' }}>
                   {quantity} units
                 </span>
               </div>
@@ -240,12 +265,12 @@ export default function PrintCalculator() {
           <div>
             <span
               style={{
-                fontSize: '0.76rem',
-                color: '#C29F53',
-                fontWeight: 600,
+                fontSize: '0.74rem',
+                color: '#8C6D23',
+                fontWeight: 700,
                 textTransform: 'uppercase',
-                letterSpacing: '0.08em',
-                fontFamily: 'var(--font-mono, monospace)',
+                letterSpacing: '0.1em',
+                fontFamily: 'var(--font-sans, Inter, sans-serif)',
                 display: 'block',
               }}
             >

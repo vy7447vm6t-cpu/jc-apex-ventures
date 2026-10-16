@@ -68,12 +68,25 @@ export default function MagicBento({
               {/* Header */}
               <div className="flex items-center justify-between gap-4 mb-4">
                 {card.badge && (
-                  <span className="px-3 py-1 text-[11px] font-mono uppercase tracking-wider font-semibold rounded-full bg-[#C29F53]/15 text-[#C29F53] border border-[#C29F53]/30">
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                      fontSize: '0.68rem',
+                      fontWeight: 650,
+                      letterSpacing: '0.06em',
+                      textTransform: 'uppercase',
+                      color: '#8C733E',
+                      backgroundColor: 'rgba(194, 159, 83, 0.14)',
+                      border: '1px solid rgba(194, 159, 83, 0.32)',
+                      padding: '4px 10px',
+                      borderRadius: '9999px',
+                    }}
+                  >
                     {card.badge}
                   </span>
                 )}
                 {card.icon && (
-                  <div className="text-[#C29F53] transition-transform duration-300 group-hover:scale-110">
+                  <div className="text-[#8C733E] transition-transform duration-300 group-hover:scale-110">
                     {card.icon}
                   </div>
                 )}
@@ -86,8 +99,9 @@ export default function MagicBento({
                   fontWeight: 400,
                   letterSpacing: '-0.015em',
                   lineHeight: 1.2,
+                  fontSize: '1.45rem',
+                  margin: '0 0 8px 0',
                 }}
-                className="text-xl md:text-2xl mb-2"
               >
                 {card.title}
               </h4>
@@ -96,8 +110,9 @@ export default function MagicBento({
                   color: '#555555',
                   fontFamily: 'var(--font-sans, Inter, sans-serif)',
                   lineHeight: 1.6,
+                  fontSize: '0.9rem',
+                  margin: 0,
                 }}
-                className="text-sm mb-4"
               >
                 {card.subtitle}
               </p>
@@ -106,7 +121,15 @@ export default function MagicBento({
             </div>
 
             {card.footer && (
-              <div className="mt-6 pt-4 border-t border-black/5 text-xs font-mono text-[#888888]">
+              <div
+                style={{
+                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                  fontSize: '0.76rem',
+                  color: '#666666',
+                  fontWeight: 500,
+                }}
+                className="mt-6 pt-4 border-t border-black/8"
+              >
                 {card.footer}
               </div>
             )}

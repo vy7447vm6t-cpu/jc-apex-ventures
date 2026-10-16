@@ -39,19 +39,22 @@ export default function EvNetworkCapexRevenueChart({
   const spacing = chartAreaWidth / years.length;
 
   return (
-    <div className={`rounded-3xl border border-black/8 bg-white/80 p-6 md:p-8 backdrop-blur-xl shadow-lg ${className}`}>
+    <div className={`rounded-3xl border border-black/8 bg-white/90 p-6 md:p-8 backdrop-blur-xl shadow-lg font-sans ${className}`}>
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-6">
         <div>
-          <span className="text-[11px] font-mono uppercase tracking-wider font-semibold text-[#C29F53]">
-            Bklit DataViz : Infrastructure DPR
+          <span className="text-[11px] uppercase tracking-[0.14em] font-semibold text-[#8C6D23]">
+            [BKLIT DATAVIZ / INFRASTRUCTURE DPR]
           </span>
-          <h4 className="text-xl font-serif font-bold text-[#111111] mt-0.5">
+          <h4
+            className="text-2xl font-normal text-[#111111] mt-1 tracking-tight"
+            style={{ fontFamily: "var(--font-serif-display), 'Instrument Serif', Georgia, serif" }}
+          >
             3,900 EV Network: Site CAPEX vs 10-Yr Revenue
           </h4>
         </div>
 
-        <div className="flex items-center gap-4 text-xs font-mono">
+        <div className="flex items-center gap-4 text-xs font-semibold">
           <div className="flex items-center gap-1.5">
             <span className="h-3 w-3 rounded-sm bg-[#FF5F56]" />
             <span className="text-[#666666]">CAPEX (Rs 40L)</span>
@@ -106,7 +109,7 @@ export default function EvNetworkCapexRevenueChart({
                   x={x + barWidth / 2}
                   y={height - 10}
                   textAnchor="middle"
-                  className="text-[9px] fill-[#777777] font-mono"
+                  className="text-[9px] fill-[#777777] font-sans"
                 >
                   {item.year}
                 </text>
@@ -116,7 +119,7 @@ export default function EvNetworkCapexRevenueChart({
         </svg>
 
         {/* Dynamic Detail Callout */}
-        <div className="mt-3 flex items-center justify-between px-3 py-2 rounded-xl bg-[#F4F1EA] text-xs font-mono">
+        <div className="mt-3 flex items-center justify-between px-3 py-2 rounded-xl bg-[#F4F1EA] text-xs font-sans tabular-nums">
           <span className="text-[#666666]">
             {hoveredBar !== null ? `${years[hoveredBar].year} Projection:` : '10-Year Cumulative Operational Cashflow:'}
           </span>
@@ -133,20 +136,20 @@ export default function EvNetworkCapexRevenueChart({
       {/* DPR Financial Validation */}
       <div className="mt-4 pt-4 border-t border-black/8 grid grid-cols-3 gap-2 text-center">
         <div>
-          <span className="text-[10px] font-mono text-[#888888] block">PER-SITE CAPEX</span>
-          <span className="text-sm font-mono font-bold text-[#FF5F56]">
+          <span className="text-[10px] font-semibold tracking-wider text-[#888888] block">PER-SITE CAPEX</span>
+          <span className="text-sm font-bold text-[#FF5F56] tabular-nums">
             Rs 40.0L
           </span>
         </div>
         <div>
-          <span className="text-[10px] font-mono text-[#888888] block">BREAKEVEN</span>
-          <span className="text-sm font-mono font-bold text-[#27C93F]">
+          <span className="text-[10px] font-semibold tracking-wider text-[#888888] block">BREAKEVEN</span>
+          <span className="text-sm font-bold text-[#27C93F] tabular-nums">
             Year 2.4
           </span>
         </div>
         <div>
-          <span className="text-[10px] font-mono text-[#888888] block">10-YR PROJECT IRR</span>
-          <span className="text-sm font-mono font-bold text-[#C29F53]">
+          <span className="text-[10px] font-semibold tracking-wider text-[#888888] block">10-YR PROJECT IRR</span>
+          <span className="text-sm font-bold text-[#8C6D23] tabular-nums">
             34.8%
           </span>
         </div>

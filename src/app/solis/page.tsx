@@ -9,7 +9,6 @@ import ScrollReveal from '@/components/ScrollReveal';
 import SolarCalculator, { CalculationResult } from '@/components/SolarCalculator';
 import SpotlightCard from '@/components/SpotlightCard';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
-import DivisionLogo from '@/components/DivisionLogos';
 import { ImageWithLightbox } from '@/components/ImageLightbox';
 import { SolarGenerationCurve, CashflowPaybackSchedule } from '@/components/bklit';
 import { SvgPathAnimator } from '@/components/react-bits';
@@ -209,35 +208,24 @@ export default function SolisPage() {
   };
 
   return (
-    <main style={{ background: 'var(--color-bg)', minHeight: '100vh' }}>
+    <main className="grounded-canvas" style={{ background: 'var(--color-bg)', minHeight: '100vh' }}>
       <Navbar />
       <Clippy />
 
       {/* Page Hero */}
       <PageHero
-        title="Solis by JC Apex"
+        title="Solis Solar EPC"
         tagline="Turnkey Solar EPC, Elevated Terrace Pergolas, BIPV Architectural Glass and EV Charging Hubs in Mumbai."
         breadcrumb="Solis Solar & Clean Energy"
-        badge="Walkable Terrace Solar Architecture"
         statPill="Save up to 90% Power Bills"
         heroImage="/images/solis_canopy_page1.jpg"
         heroImageTag="Elevated Solar Pergola Canopy"
         logo={
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '16px',
-            }}
-          >
-            <img
-              src="/images/logos/solis-logo.png"
-              alt="Official Solis Brand Logo"
-              style={{ height: '62px', width: 'auto', objectFit: 'contain', display: 'block' }}
-            />
-            <div style={{ width: '1px', height: '42px', background: 'rgba(194, 159, 83, 0.45)' }} />
-            <DivisionLogo division="solis" size={56} />
-          </div>
+          <img
+            src="/images/logos/solis-official.png"
+            alt="Official Solis Brand Logo"
+            style={{ height: '48px', width: 'auto', objectFit: 'contain', display: 'block' }}
+          />
         }
       />
 
@@ -1082,18 +1070,18 @@ export default function SolisPage() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px', marginBottom: '48px' }}>
             {[
               {
-                id: 'abhilasha-chs',
-                title: 'Abhilasha CHS, Kandivali West, Mumbai',
+                id: 'suburban-chs',
+                title: 'Suburban CHS, Kandivali West, Mumbai',
                 tag: 'Engineering Feasibility Study & Proposal Framework',
                 stats: '55.55 kWp (101 Bi-Facial Panels) | 100% Usable Terrace',
-                desc: '10.5 ft elevated hot-dip galvanized structural pergola engineering feasibility study and proposal framework for Abhilasha Cooperative Housing Society (Kautankar Sir / Managing Committee). Designed to preserve 100% usable terrace space for resident walks and gatherings while powering society common meters via net metering with Adani Electricity Mumbai Limited (AEML).',
+                desc: '10.5 ft elevated hot-dip galvanized structural pergola engineering feasibility study and proposal framework for a premier Kandivali West Cooperative Housing Society (Managing Committee). Designed to preserve 100% usable terrace space for resident walks and gatherings while powering society common meters via net metering with Adani Electricity Mumbai Limited (AEML).',
                 image: '/images/solis_canopy_page1.jpg',
                 galleryImages: [
                   '/images/solis_canopy_page1.jpg',
                   '/images/solis_terrace_lounge.jpg',
                   '/images/rooftop_amenity_sky_lounge.jpg',
                 ],
-                client: 'Abhilasha Cooperative Housing Society (Kautankar Sir / Committee)',
+                client: 'Suburban Cooperative Housing Society (Managing Committee)',
                 challenge: 'The society terrace was actively utilized by residents for morning walks, recreation, and community events. Ground-mounted low RCC frames would have created dangerous trip hazards and made the terrace completely unusable.',
                 solution: 'Solis designed a 10.5 ft elevated hot-dip galvanized structural steel pergola canopy carrying 101 bi-facial solar modules overhead with integrated rainwater gutters and bidirectional net metering with Adani Electricity (AEML).',
                 outcomes: [

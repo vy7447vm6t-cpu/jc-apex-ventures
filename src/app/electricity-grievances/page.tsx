@@ -48,7 +48,7 @@ const supports = [
 
 export default function ElectricityGrievancesPage() {
   return (
-    <main>
+    <main className="grounded-canvas">
       <Navbar />
       
       <PageHero 

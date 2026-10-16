@@ -44,7 +44,7 @@ const servicesList = [
 
 export default function LicensesPage() {
   return (
-    <main>
+    <main className="grounded-canvas">
       <Navbar />
       
       <PageHero 

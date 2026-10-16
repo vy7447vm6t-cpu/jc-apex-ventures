@@ -6,38 +6,60 @@ interface ElectricBorderProps {
   children: React.ReactNode;
   className?: string;
   glowColor?: string;
-  borderRadius?: number;
+  color?: string;
+  borderRadius?: number | string;
   duration?: number;
+  active?: boolean;
+  innerBg?: string;
+  style?: React.CSSProperties;
 }
 
 export default function ElectricBorder({
   children,
   className = '',
-  glowColor = '#C29F53',
+  glowColor,
+  color,
   borderRadius = 20,
-  duration = 4,
+  duration = 3.6,
+  active = true,
+  innerBg = 'transparent',
+  style = {},
 }: ElectricBorderProps) {
+  const effectiveGlow = glowColor || color || '#C29F53';
+  const radiusNum =
+    typeof borderRadius === 'number'
+      ? borderRadius
+      : parseInt(String(borderRadius), 10) || 20;
+
   return (
     <div
-      className={`relative p-[1px] overflow-hidden group ${className}`}
+      className={`relative overflow-hidden group ${className}`}
       style={{
-        borderRadius: `${borderRadius}px`,
+        padding: active ? '2px' : '1px',
+        borderRadius: `${radiusNum}px`,
+        backgroundColor: active ? 'rgba(194, 159, 83, 0.22)' : 'rgba(0, 0, 0, 0.08)',
+        boxShadow: active ? `0 0 22px -4px rgba(194, 159, 83, 0.35)` : 'none',
+        transition: 'box-shadow 0.35s ease, background-color 0.35s ease',
+        ...style,
       }}
     >
-      {/* Animated spinning conical gradient */}
-      <div
-        className="absolute inset-[-150%] pointer-events-none"
-        style={{
-          background: `conic-gradient(from 0deg at 50% 50%, transparent 0deg, transparent 270deg, ${glowColor} 330deg, transparent 360deg)`,
-          animation: `electricSpin ${duration}s linear infinite`,
-        }}
-      />
+      {/* Animated dual-arc spinning conical gradient */}
+      {active && (
+        <div
+          className="absolute inset-[-150%] pointer-events-none"
+          style={{
+            background: `conic-gradient(from 45deg at 50% 50%, transparent 0deg, ${effectiveGlow} 55deg, #F5D78E 75deg, transparent 105deg, transparent 180deg, ${effectiveGlow} 235deg, #F5D78E 255deg, transparent 285deg, transparent 360deg)`,
+            animation: `electricSpin ${duration}s linear infinite`,
+          }}
+        />
+      )}
 
       {/* Inner surface */}
       <div
-        className="relative h-full w-full bg-[#FFFFFF] backdrop-blur-xl"
+        className="relative h-full w-full"
         style={{
-          borderRadius: `${Math.max(0, borderRadius - 1)}px`,
+          backgroundColor: innerBg,
+          borderRadius: `${Math.max(0, radiusNum - 2)}px`,
         }}
       >
         {children}

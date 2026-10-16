@@ -91,15 +91,15 @@ export const sanyog: DivisionContent = {
   name: 'SANYOG',
   href: '/sanyog',
   icon: 'plug',
-  short: 'Electricity connections, bill complaints and government licences.',
+  short: 'Utility liaisoning, load sanctions, CGRF consumer grievances, and PWD electrical licensing.',
   tagline:
-    'We deal with the electricity company and government offices for you, so you do not have to queue or chase.',
-  heroImage: '/images/utility-power-grid.jpg',
-  heroImageTag: 'Mumbai Utility Distribution Network',
+    'Statutory utility liaisoning, sanctioned load enhancements, tariff re-categorization, and Consumer Grievance Redressal Forum (CGRF) representation across Mumbai distribution licensees.',
+  heroImage: '/images/utility-metering-liaison.jpg',
+  heroImageTag: 'Commercial Utility Metering & Sanction Specimen',
   statPill: '36+ Years Inside Mumbai Utilities',
-  laypersonBadge: 'Direct Utility Engineering Liaison',
+  laypersonBadge: 'Statutory Utility Liaison & Redressal',
   plainTakeaway:
-    'We handle the electricity companies (BEST, Adani, Tata Power, MSEDCL) and government paperwork so you never have to stand in queues or chase officers.',
+    'Direct statutory representation before BEST Undertaking, Adani Electricity (AEML), Tata Power (TPCL), MSEDCL, the Electricity Ombudsman, and the PWD Electrical Inspectorate.',
   visualTags: ['BEST / AEML / Tata / MSEDCL', 'Bill Dispute Resolution', 'CGRF Filing', 'PWD Licences'],
   visualCards: [
     {
@@ -278,13 +278,13 @@ export const gridApex: DivisionContent = {
   icon: 'sun',
   short: 'HT and LT electrical engineering, substation switchgear and solid waste machines.',
   tagline:
-    'Electrical installations, substation switchgear, transformers and on-site waste treatment for homes, businesses and industry.',
+    'Turnkey 33kV/11kV substation bays, VCB switchgear panels, PWD Electrical Inspectorate clearances, and MPCB-certified zero-power thermal waste decomposition systems.',
   heroImage: '/images/electrical-substation.jpg',
   heroImageTag: 'HT Substation & Transformer Setup',
   statPill: 'PWD Licenced Electrical Contracting',
   laypersonBadge: 'Heavy Electrical & Clean Waste Tech',
   plainTakeaway:
-    'Turnkey electrical installations from high-voltage transformers and power distribution boards to innovative zero-energy solid waste disposal machines.',
+    'Engineered high-voltage transformer installations, low-tension distribution boards, and Central Government patented zero-electricity solid waste treatment units.',
   visualTags: ['HT/LT Substations', 'Transformers', 'Distribution Boards', 'Zero-Energy Solid Waste Tech'],
   visualCards: [
     {
@@ -462,13 +462,13 @@ export const tvasta: DivisionContent = {
   href: '/tvasta',
   icon: 'layout',
   short: 'Interior design and space planning, from first sketch to finished site.',
-  tagline: 'Interior design and space planning for homes and offices, with the building and electrical work managed for you.',
+  tagline: 'Architectural space planning, STC 48 acoustic zoning, concealed MEP distribution, and 3-tier turnkey interior execution across commercial and residential sites.',
   heroImage: '/images/architectural-interior.jpg',
   heroImageTag: 'Architectural Fit-out Specimen',
   statPill: 'Architect-Led Execution',
   laypersonBadge: 'Turnkey Space Transformation',
   plainTakeaway:
-    'Thoughtful space planning, 3D layouts, and luxury turnkey interior contracting for corporate offices and upscale residences with fixed timelines.',
+    'Coordinated architectural layouts, itemized material schedules, and single-source civil and electrical contracting across Standard, Premium, and Luxury tiers.',
   visualTags: ['Space Planning', 'Turnkey Interiors', '3D Visualization', 'Custom Fit-outs'],
   visualCards: [
     {
@@ -649,13 +649,13 @@ export const emudran: DivisionContent = {
   href: '/emudran',
   icon: 'printer',
   short: 'Logos, packaging, printing and signboards from one desk.',
-  tagline: 'Logos, packaging, printing and signboards, all from one desk.',
+  tagline: 'Custom rigid box packaging, thermal foil stamping, corporate annual reports, and architectural environmental signage under direct 22+ year press supervision.',
   heroImage: '/images/luxury-print-packaging.jpg',
   heroImageTag: 'Embossed Corporate Stationery & Packaging Specimen',
   statPill: 'Direct Press Supervision',
   laypersonBadge: 'Prestige Branding & Production',
   plainTakeaway:
-    'High-end embossed stationery, luxury packaging, illuminated 3D signage, and corporate print materials crafted under hands-on production supervision.',
+    'Single-desk art direction, Pantone-calibrated offset production, micro-embossed corporate stationery, and weatherproof LED architectural signage.',
   visualTags: ['Luxury Embossing', 'Corporate Stationery', 'Custom Packaging', '3D Signage'],
   visualCards: [
     {
@@ -804,7 +804,7 @@ export const agrim: DivisionContent = {
   href: '/agrim',
   icon: 'landmark',
   short: 'Help preparing project loan and advance files. Not a lender.',
-  tagline: 'We prepare your project loan and advance paperwork. We do not lend money.',
+  tagline: 'Institutional Detailed Project Reports (DPR), CAPEX/NPV financial modeling, and statutory clearance binders for infrastructure credit appraisal. Strictly a non-lender advisory.',
   heroImage: '/images/project-finance-binder.jpg',
   heroImageTag: 'Project Finance Feasibility Binder',
   statPill: 'Bank-Ready Institutional Dossiers',

@@ -259,7 +259,7 @@ export default function PrintManagementPage() {
   };
 
   return (
-    <main>
+    <main className="grounded-canvas">
       <Navbar />
       
       <PageHero 

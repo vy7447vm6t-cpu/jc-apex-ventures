@@ -40,13 +40,41 @@ function ScrambleText({ text }: { text: string }) {
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [divisionsHover, setDivisionsHover] = useState(false);
   const [mumbaiTime, setMumbaiTime] = useState<string>('MUMBAI IST --:--:--');
   const pathname = usePathname();
+  const lastScrollY = React.useRef(0);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setScrolled(currentScrollY > 20);
+
+      // At or near top: always reveal
+      if (currentScrollY < 60) {
+        setHidden(false);
+        lastScrollY.current = currentScrollY;
+        return;
+      }
+
+      // Ignore micro-jitter
+      const diff = currentScrollY - lastScrollY.current;
+      if (Math.abs(diff) < 8) return;
+
+      if (diff > 0 && currentScrollY > 100) {
+        // Scrolling down: hide navbar so it never sits across section headers or reading content
+        setHidden(true);
+      } else if (diff < 0) {
+        // Scrolling up: reveal navbar cleanly
+        setHidden(false);
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -59,6 +87,17 @@ export default function Navbar() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileOpen]);
 
   useEffect(() => {
     const updateTime = () => {
@@ -82,12 +121,54 @@ export default function Navbar() {
   }, []);
 
   const divisions = [
-    { href: '/solis', label: 'Solis', tag: 'Solar & Pergolas' },
-    { href: '/sanyog', label: 'Sanyog', tag: 'Utility & CGRF' },
-    { href: '/grid-apex', label: 'Grid Apex', tag: 'HT/LT & Substations' },
-    { href: '/tvasta', label: 'Tvasta', tag: 'Turnkey Interiors' },
-    { href: '/emudran', label: 'eMudran', tag: 'Branding & Print' },
-    { href: '/agrim', label: 'Agrim', tag: 'Project Advisory' },
+    {
+      href: '/solis',
+      label: 'Solis',
+      tag: 'Solar & Pergolas',
+      logo: '/images/logos/solis-official.png',
+      logoDark: '/images/logos/solis-logo-white.png',
+      bg: '#FFFFFF',
+    },
+    {
+      href: '/sanyog',
+      label: 'Sanyog',
+      tag: 'Utility & CGRF',
+      logo: '/images/logos/sanyog-official.png',
+      logoDark: '/images/logos/sanyog-official.png',
+      bg: '#FFFFFF',
+    },
+    {
+      href: '/grid-apex',
+      label: 'Grid Apex',
+      tag: 'HT/LT & Substations',
+      logo: '/images/logos/grid-apex-official.png',
+      logoDark: '/images/logos/grid-apex-white.png',
+      bg: 'rgba(255, 255, 255, 0.08)',
+    },
+    {
+      href: '/tvasta',
+      label: 'Tvasta',
+      tag: 'Turnkey Interiors',
+      logo: '/images/logos/tvasta-dark.png',
+      logoDark: '/images/logos/tvasta-official.png',
+      bg: 'rgba(255, 255, 255, 0.08)',
+    },
+    {
+      href: '/emudran',
+      label: 'eMudran',
+      tag: 'Branding & Print',
+      logo: '/images/logos/emudran-official.png',
+      logoDark: '/images/logos/emudran-white.png',
+      bg: 'rgba(255, 255, 255, 0.08)',
+    },
+    {
+      href: '/agrim',
+      label: 'Agrim',
+      tag: 'Project Advisory',
+      logo: '/images/logos/agrim-dark.png',
+      logoDark: '/images/logos/agrim-official.png',
+      bg: 'rgba(255, 255, 255, 0.08)',
+    },
   ];
 
   return (
@@ -99,12 +180,12 @@ export default function Navbar() {
           position: 'fixed',
           top: scrolled ? '12px' : '18px',
           left: '50%',
-          transform: 'translateX(-50%)',
+          transform: hidden && !mobileOpen ? 'translateX(-50%) translateY(-150%)' : 'translateX(-50%) translateY(0)',
           width: 'calc(100% - 32px)',
           maxWidth: '1180px',
           zIndex: 100,
-          pointerEvents: 'none',
-          transition: 'top 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+          pointerEvents: hidden && !mobileOpen ? 'none' : 'auto',
+          transition: 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), top 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
         }}
       >
         <header
@@ -187,13 +268,61 @@ export default function Navbar() {
               <ScrambleText text="Builds" />
             </Link>
             <span style={{ color: 'rgba(0, 0, 0, 0.18)' }}>/</span>
-            <Link
-              href="/#divisions"
-              aria-label="View Specialized Divisions"
-              style={{ color: '#222222', textDecoration: 'none' }}
+            <div
+              className="relative"
+              onMouseEnter={() => setDivisionsHover(true)}
+              onMouseLeave={() => setDivisionsHover(false)}
             >
-              <ScrambleText text="Divisions" />
-            </Link>
+              <Link
+                href="/#divisions"
+                aria-label="View Specialized Divisions"
+                style={{ color: '#222222', textDecoration: 'none' }}
+              >
+                <ScrambleText text="Divisions" />
+              </Link>
+              {divisionsHover && (
+                <div
+                  className="absolute left-1/2 -translate-x-1/2 top-full mt-3 w-[460px] p-3 rounded-2xl shadow-2xl z-50 pointer-events-auto"
+                  style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                    backdropFilter: 'blur(28px) saturate(180%)',
+                    WebkitBackdropFilter: 'blur(28px) saturate(180%)',
+                    border: '1px solid rgba(255, 255, 255, 0.85)',
+                    boxShadow: '0 20px 48px -8px rgba(0, 0, 0, 0.16), inset 0 1px 1px rgba(255, 255, 255, 0.9)',
+                  }}
+                >
+                  <div className="grid grid-cols-2 gap-2">
+                    {divisions.map((div) => (
+                      <Link
+                        key={div.href}
+                        href={div.href}
+                        className="flex items-center gap-2.5 p-2 rounded-xl hover:bg-black/5 transition-colors no-underline group"
+                      >
+                        <div
+                          className="w-9 h-9 rounded-lg flex items-center justify-center p-1 shrink-0 overflow-hidden"
+                          style={{
+                            backgroundColor: div.href === '/grid-apex' ? '#111111' : '#FFFFFF',
+                            border: '1px solid rgba(0, 0, 0, 0.08)',
+                          }}
+                        >
+                          <img
+                            src={div.logo}
+                            alt={`${div.label} official logo`}
+                            className="max-h-5 max-w-full object-contain"
+                          />
+                        </div>
+                        <div>
+                          <div className="text-xs font-semibold text-[#111111] group-hover:text-[#C29F53] transition-colors">
+                            {div.label}
+                          </div>
+                          <div className="text-[10px] text-[#666666] leading-tight">{div.tag}</div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
             <span style={{ color: 'rgba(0, 0, 0, 0.18)' }}>/</span>
             <Link
               href="/solis"
@@ -420,26 +549,49 @@ export default function Navbar() {
                     borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
                     paddingBottom: '16px',
                     color: '#FFFFFF',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
                   }}
                 >
-                  <div
-                    style={{
-                      fontFamily: 'var(--font-mono, monospace)',
-                      fontSize: '0.74rem',
-                      color: '#C29F53',
-                      marginBottom: '4px',
-                    }}
-                  >
-                    {div.tag}
+                  <div>
+                    <div
+                      style={{
+                        fontFamily: 'var(--font-mono, monospace)',
+                        fontSize: '0.74rem',
+                        color: '#C29F53',
+                        marginBottom: '4px',
+                      }}
+                    >
+                      {div.tag}
+                    </div>
+                    <div
+                      style={{
+                        fontSize: '1.6rem',
+                        fontWeight: 500,
+                        fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                      }}
+                    >
+                      {div.label}
+                    </div>
                   </div>
                   <div
                     style={{
-                      fontSize: '1.6rem',
-                      fontWeight: 500,
-                      fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                      height: '40px',
+                      padding: '4px 10px',
+                      borderRadius: '8px',
+                      backgroundColor: div.bg,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
                     }}
                   >
-                    {div.label}
+                    <img
+                      src={div.logoDark || div.logo}
+                      alt={`${div.label} official logo`}
+                      style={{ maxHeight: '28px', maxWidth: '80px', objectFit: 'contain' }}
+                    />
                   </div>
                 </Link>
               ))}

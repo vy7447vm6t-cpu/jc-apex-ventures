@@ -1,12 +1,14 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface PackagingVolumeTierCurveProps {
+  activeQuantity?: number;
   className?: string;
 }
 
 export default function PackagingVolumeTierCurve({
+  activeQuantity,
   className = '',
 }: PackagingVolumeTierCurveProps) {
   const [selectedQty, setSelectedQty] = useState<number>(5000);
@@ -21,6 +23,15 @@ export default function PackagingVolumeTierCurve({
     { qty: 25000, digital: 58, offset: 22, label: '25k' },
     { qty: 50000, digital: 54, offset: 16, label: '50k' },
   ];
+
+  useEffect(() => {
+    if (typeof activeQuantity === 'number') {
+      const closest = tiers.reduce((prev, curr) =>
+        Math.abs(curr.qty - activeQuantity) < Math.abs(prev.qty - activeQuantity) ? curr : prev
+      );
+      setSelectedQty(closest.qty);
+    }
+  }, [activeQuantity]);
 
   const width = 560;
   const height = 220;
@@ -51,19 +62,22 @@ export default function PackagingVolumeTierCurve({
   const currentTier = tiers.find((t) => t.qty === selectedQty) || tiers[3];
 
   return (
-    <div className={`rounded-3xl border border-black/8 bg-white/80 p-6 md:p-8 backdrop-blur-xl shadow-lg ${className}`}>
+    <div className={`rounded-3xl border border-black/8 bg-white/90 p-6 md:p-8 backdrop-blur-xl shadow-lg font-sans ${className}`}>
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-6">
         <div>
-          <span className="text-[11px] font-mono uppercase tracking-wider font-semibold text-[#C29F53]">
-            Bklit DataViz : Production Economics
+          <span className="text-[11px] uppercase tracking-[0.14em] font-semibold text-[#8C6D23]">
+            [BKLIT DATAVIZ / PRODUCTION ECONOMICS]
           </span>
-          <h4 className="text-xl font-serif font-bold text-[#111111] mt-0.5">
-            Packaging Volume Tier & Press Economics
+          <h4
+            className="text-2xl font-normal text-[#111111] mt-1 tracking-tight"
+            style={{ fontFamily: "var(--font-serif-display), 'Instrument Serif', Georgia, serif" }}
+          >
+            Packaging Volume Tier &amp; Press Economics
           </h4>
         </div>
 
-        <div className="flex items-center gap-4 text-xs font-mono">
+        <div className="flex items-center gap-4 text-xs font-semibold">
           <div className="flex items-center gap-1.5">
             <span className="h-2 w-5 rounded-full bg-[#111111]" />
             <span className="text-[#666666]">Offset Press</span>
@@ -145,7 +159,7 @@ export default function PackagingVolumeTierCurve({
                   x={x}
                   y={height - 10}
                   textAnchor="middle"
-                  className="text-[9px] fill-[#777777] font-mono"
+                  className="text-[9px] fill-[#777777] font-sans"
                 >
                   {t.label}
                 </text>
@@ -155,9 +169,9 @@ export default function PackagingVolumeTierCurve({
         </svg>
 
         {/* Selected Tier Callout */}
-        <div className="mt-3 flex items-center justify-between px-3 py-2 rounded-xl bg-[#F4F1EA] text-xs font-mono">
+        <div className="mt-3 flex items-center justify-between px-3 py-2 rounded-xl bg-[#F4F1EA] text-xs font-sans tabular-nums">
           <span className="text-[#666666]">
-            Selected Tier ({currentTier.qty.toLocaleString()} boxes):
+            Selected Tier ({currentTier.qty.toLocaleString('en-IN')} boxes):
           </span>
           <span className="font-bold text-[#111111]">
             Offset: Rs {currentTier.offset}/unit vs Digital: Rs {currentTier.digital}/unit
@@ -168,20 +182,20 @@ export default function PackagingVolumeTierCurve({
       {/* Recommended Process Guidance */}
       <div className="mt-4 pt-4 border-t border-black/8 grid grid-cols-3 gap-2 text-center">
         <div>
-          <span className="text-[10px] font-mono text-[#888888] block">OPTIMAL THRESHOLD</span>
-          <span className="text-sm font-mono font-bold text-[#111111]">
+          <span className="text-[10px] font-semibold tracking-wider text-[#888888] block">OPTIMAL THRESHOLD</span>
+          <span className="text-sm font-bold text-[#111111] tabular-nums">
             &gt; 2,500 Units (Offset)
           </span>
         </div>
         <div>
-          <span className="text-[10px] font-mono text-[#888888] block">MAX SCALE SAVING</span>
-          <span className="text-sm font-mono font-bold text-[#27C93F]">
+          <span className="text-[10px] font-semibold tracking-wider text-[#888888] block">MAX SCALE SAVING</span>
+          <span className="text-sm font-bold text-[#27C93F] tabular-nums">
             92.7% per-unit drop
           </span>
         </div>
         <div>
-          <span className="text-[10px] font-mono text-[#888888] block">PRESS DIRECTION</span>
-          <span className="text-sm font-mono font-bold text-[#C29F53]">
+          <span className="text-[10px] font-semibold tracking-wider text-[#888888] block">PRESS DIRECTION</span>
+          <span className="text-sm font-bold text-[#8C6D23]">
             Manish Ajgaonkar
           </span>
         </div>

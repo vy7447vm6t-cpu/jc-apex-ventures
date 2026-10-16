@@ -6,6 +6,8 @@ export interface WheelOption {
   label: string;
   value: string | number;
   subtext?: string;
+  logoSrc?: string;
+  logoDark?: string;
 }
 
 interface OptionWheelProps {
@@ -21,12 +23,19 @@ export default function OptionWheel({
   onChange,
   className = '',
 }: OptionWheelProps) {
-  const scrollRef = useRef<HTMLDivElement>(null);
-
   return (
-    <div className={`relative flex items-center justify-center p-2 ${className}`}>
-      {/* Outer iOS glass well */}
-      <div className="relative flex items-center gap-2 overflow-x-auto py-2 px-3 rounded-full border border-black/10 bg-white/70 backdrop-blur-xl shadow-inner no-scrollbar">
+    <div className={`relative flex items-center justify-center p-1.5 ${className}`}>
+      {/* Outer KokonutUI iOS liquid glass well */}
+      <div
+        style={{
+          backgroundColor: 'rgba(255, 255, 255, 0.85)',
+          backdropFilter: 'blur(24px) saturate(180%)',
+          WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+          border: '1px solid rgba(0, 0, 0, 0.08)',
+          boxShadow: '0 8px 24px rgba(0, 0, 0, 0.05), inset 0 1px 1px rgba(255, 255, 255, 0.9)',
+        }}
+        className="relative flex items-center gap-2 overflow-x-auto py-1.5 px-2 rounded-full no-scrollbar max-w-full"
+      >
         {options.map((opt) => {
           const isSelected = opt.value === selectedValue;
           return (
@@ -34,15 +43,39 @@ export default function OptionWheel({
               key={String(opt.value)}
               type="button"
               onClick={() => onChange(opt.value)}
-              className={`relative px-4 py-2 rounded-full text-xs font-mono font-medium transition-all duration-300 whitespace-nowrap cursor-pointer ${
-                isSelected
-                  ? 'bg-[#111111] text-[#FFFFFF] shadow-md scale-105'
-                  : 'text-[#666666] hover:text-[#111111] hover:bg-black/5'
-              }`}
+              style={{
+                fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                fontSize: '0.78rem',
+                fontWeight: isSelected ? 600 : 500,
+                letterSpacing: '0.02em',
+                backgroundColor: isSelected ? '#111111' : 'transparent',
+                color: isSelected ? '#FFFFFF' : '#555555',
+                border: isSelected ? '1px solid rgba(194, 159, 83, 0.45)' : '1px solid transparent',
+                boxShadow: isSelected ? '0 4px 14px rgba(0, 0, 0, 0.16)' : 'none',
+              }}
+              className="relative inline-flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 whitespace-nowrap cursor-pointer"
             >
-              {opt.label}
-              {opt.subtext && (
-                <span className="ml-1 opacity-70 text-[10px]">
+              {opt.logoSrc && (
+                <span
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: 'transparent',
+                    height: '22px',
+                    flexShrink: 0,
+                  }}
+                >
+                  <img
+                    src={isSelected && opt.logoDark ? opt.logoDark : opt.logoSrc}
+                    alt={opt.subtext || opt.label}
+                    style={{ maxHeight: '18px', maxWidth: '64px', objectFit: 'contain', display: 'block' }}
+                  />
+                </span>
+              )}
+              <span>{opt.label}</span>
+              {opt.subtext && !opt.logoSrc && (
+                <span style={{ opacity: 0.72, fontSize: '0.7rem' }}>
                   ({opt.subtext})
                 </span>
               )}
