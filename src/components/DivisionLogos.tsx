@@ -262,4 +262,76 @@ export function DivisionLogo({ division, size = 48, className = '' }: DivisionLo
   }
 }
 
+export const OFFICIAL_LOGOS = {
+  solis: {
+    light: '/images/logos/solis-official.png',
+    dark: '/images/logos/solis-logo-white.png',
+  },
+  sanyog: {
+    light: '/images/logos/sanyog-official.png',
+    dark: '/images/logos/sanyog-official.png',
+  },
+  'grid-apex': {
+    light: '/images/logos/grid-apex-official.png',
+    dark: '/images/logos/grid-apex-white.png',
+  },
+  gridapex: {
+    light: '/images/logos/grid-apex-official.png',
+    dark: '/images/logos/grid-apex-white.png',
+  },
+  tvasta: {
+    light: '/images/logos/tvasta-dark.png',
+    dark: '/images/logos/tvasta-official.png',
+  },
+  emudran: {
+    light: '/images/logos/emudran-official.png',
+    dark: '/images/logos/emudran-white.png',
+  },
+  agrim: {
+    light: '/images/logos/agrim-dark.png',
+    dark: '/images/logos/agrim-official.png',
+  },
+};
+
+export interface OfficialBrandMarkProps {
+  division: string;
+  theme?: 'light' | 'dark';
+  maxHeight?: number | string;
+  maxWidth?: number | string;
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+export function OfficialBrandMark({
+  division,
+  theme = 'light',
+  maxHeight = 34,
+  maxWidth = 140,
+  className = '',
+  style = {},
+}: OfficialBrandMarkProps) {
+  const key = (division || '').toString().toLowerCase().trim();
+  const logoConfig = OFFICIAL_LOGOS[key as keyof typeof OFFICIAL_LOGOS];
+  if (!logoConfig) {
+    return <Logo width={32} height={32} className={className} />;
+  }
+  const src = theme === 'dark' ? logoConfig.dark : logoConfig.light;
+  return (
+    <img
+      src={src}
+      alt={`${division} Official Logo`}
+      className={className}
+      style={{
+        maxHeight: typeof maxHeight === 'number' ? `${maxHeight}px` : maxHeight,
+        maxWidth: typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth,
+        width: 'auto',
+        height: 'auto',
+        objectFit: 'contain',
+        display: 'inline-block',
+        ...style,
+      }}
+    />
+  );
+}
+
 export default DivisionLogo;

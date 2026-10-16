@@ -42,6 +42,8 @@ export default function SpecularButton({
       'bg-white/85 text-[#111111] border border-black/10 backdrop-blur-2xl shadow-[0_6px_20px_rgba(0,0,0,0.06),inset_0_1.5px_1px_rgba(255,255,255,0.95)] hover:bg-white hover:scale-[1.02] hover:shadow-[0_10px_28px_rgba(0,0,0,0.1)]';
   }
 
+  const textColor = variant === 'dark' ? '#FFFFFF' : '#111111';
+
   const content = (
     <>
       {/* Specular sheen sweep */}
@@ -49,9 +51,19 @@ export default function SpecularButton({
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full"
       />
-      <span className="relative z-10 flex items-center gap-2">
-        {children}
-        {icon && <span className="transition-transform duration-300 group-hover:translate-x-0.5">{icon}</span>}
+      <span
+        className="relative z-10 flex items-center gap-2"
+        style={{ color: textColor }}
+      >
+        <span style={{ color: textColor }}>{children}</span>
+        {icon && (
+          <span
+            className="transition-transform duration-300 group-hover:translate-x-0.5 flex items-center"
+            style={{ color: textColor }}
+          >
+            {icon}
+          </span>
+        )}
       </span>
     </>
   );
@@ -61,6 +73,7 @@ export default function SpecularButton({
       <Link
         href={href}
         className={`${baseStyles} ${variantStyles} ${className}`}
+        style={{ color: textColor }}
       >
         {content}
       </Link>
@@ -74,6 +87,7 @@ export default function SpecularButton({
       onClick={onClick}
       disabled={disabled}
       className={`${baseStyles} ${variantStyles} ${className}`}
+      style={{ color: textColor }}
     >
       {content}
     </button>

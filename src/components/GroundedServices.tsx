@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowUpRight, ChevronDown } from 'lucide-react';
 import DivisionLogo from './DivisionLogos';
-import { TechText } from '@/components/react-bits';
+import { TechText, SpecularButton } from '@/components/react-bits';
 
 interface PracticeDiscipline {
   id: string;
@@ -17,6 +17,9 @@ interface PracticeDiscipline {
   scope: string;
   statutoryMetric: string;
   badge: string;
+  logoLight: string;
+  logoDark: string;
+  isElectric?: boolean;
 }
 
 const DISCIPLINES: PracticeDiscipline[] = [
@@ -31,6 +34,9 @@ const DISCIPLINES: PracticeDiscipline[] = [
       'Elevated walkable solar pergolas, BIPV architectural glass, integrated EV charging hubs, and PM Surya Ghar central capital subsidy liaisoning.',
     statutoryMetric: '10.5 ft clearance · 150 km/h wind certified · Up to ₹10.8L society subsidy',
     badge: 'MNRE / DISCOM NET-METERING',
+    logoLight: '/images/logos/solis-official.png',
+    logoDark: '/images/logos/solis-logo-white.png',
+    isElectric: true,
   },
   {
     id: 'sanyog',
@@ -43,6 +49,9 @@ const DISCIPLINES: PracticeDiscipline[] = [
       'Power billing dispute resolution, commercial-to-residential tariff re-categorization, sanctioned load enhancements, and statutory representation before CGRF and the Electricity Ombudsman.',
     statutoryMetric: 'Electricity Act 2003 · BEST, Adani Electricity, Tata Power, MSEDCL jurisdiction',
     badge: 'MERC REGULATORY PRACTICE',
+    logoLight: '/images/logos/sanyog-official.png',
+    logoDark: '/images/logos/sanyog-official.png',
+    isElectric: true,
   },
   {
     id: 'grid-apex',
@@ -55,6 +64,9 @@ const DISCIPLINES: PracticeDiscipline[] = [
       'Turnkey 33kV/11kV substations, VCB switchgear bays, busbar trunking, PWD Electrical Inspectorate approvals, and MPCB-certified patented zero-power thermal waste decomposition.',
     statutoryMetric: 'Central Government Patented · PWD Licensed Class-A execution',
     badge: 'PWD CLASS-A / MPCB CERTIFIED',
+    logoLight: '/images/logos/grid-apex-official.png',
+    logoDark: '/images/logos/grid-apex-white.png',
+    isElectric: true,
   },
   {
     id: 'tvasta',
@@ -67,6 +79,9 @@ const DISCIPLINES: PracticeDiscipline[] = [
       'Commercial office interiors, acoustic isolation zoning (STC 48), concealed low-voltage MEP distribution, and 3-tier architectural material execution.',
     statutoryMetric: 'CAD space planning · Zero contractor abandonment guarantee',
     badge: 'STC 48 ACOUSTIC EPC',
+    logoLight: '/images/logos/tvasta-dark.png',
+    logoDark: '/images/logos/tvasta-official.png',
+    isElectric: false,
   },
   {
     id: 'emudran',
@@ -79,6 +94,9 @@ const DISCIPLINES: PracticeDiscipline[] = [
       'Custom rigid packaging boxes, thermal foil stamping, corporate annual reports, architectural environmental signage, and automated press-pass color calibration.',
     statutoryMetric: '22+ years production supervision · High-precision offset & digital',
     badge: 'PRECISION PRODUCTION',
+    logoLight: '/images/logos/emudran-official.png',
+    logoDark: '/images/logos/emudran-white.png',
+    isElectric: false,
   },
   {
     id: 'agrim',
@@ -91,6 +109,9 @@ const DISCIPLINES: PracticeDiscipline[] = [
       'Detailed Project Report (DPR) preparation, 10-year CAPEX/NPV cashflow modeling, and bank submission documentation for industrial and EV charging networks.',
     statutoryMetric: 'Pure advisory & technical preparation (explicitly non-lender / non-NBFC)',
     badge: 'BANKABLE DPR ADVISORY',
+    logoLight: '/images/logos/agrim-dark.png',
+    logoDark: '/images/logos/agrim-official.png',
+    isElectric: false,
   },
 ];
 
@@ -206,18 +227,18 @@ export default function GroundedServices() {
                   <div
                     style={{
                       display: 'flex',
-                      alignItems: 'baseline',
+                      alignItems: 'center',
                       justifyContent: 'space-between',
                       flexWrap: 'wrap',
-                      gap: '8px 12px',
-                      marginBottom: '8px',
+                      gap: '10px 14px',
+                      marginBottom: '10px',
                     }}
                   >
-                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '14px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
                       <span
                         style={{
                           fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                          fontSize: '0.8rem',
+                          fontSize: '0.82rem',
                           fontWeight: 650,
                           color: isActive ? '#8C733E' : '#888888',
                           letterSpacing: '0.04em',
@@ -225,19 +246,30 @@ export default function GroundedServices() {
                       >
                         {item.num}
                       </span>
-                      <h3
+                      {/* Prominent Official Brand Logo */}
+                      <div
                         style={{
-                          fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
-                          fontSize: '1.65rem',
-                          fontWeight: 400,
-                          letterSpacing: '-0.015em',
-                          color: '#111111',
-                          margin: 0,
-                          lineHeight: 1.2,
+                          display: 'flex',
+                          alignItems: 'center',
+                          height: '38px',
+                          padding: '2px 0',
                         }}
                       >
-                        {item.name}
-                      </h3>
+                        <img
+                          src={item.logoLight}
+                          alt={item.name}
+                          style={{
+                            maxHeight: '36px',
+                            maxWidth: item.id === 'tvasta' ? '150px' : item.id === 'emudran' ? '135px' : item.id === 'grid-apex' ? '140px' : '120px',
+                            width: 'auto',
+                            height: 'auto',
+                            objectFit: 'contain',
+                            filter: isActive ? 'none' : 'grayscale(15%) opacity(0.85)',
+                            transition: 'all 0.3s ease',
+                          }}
+                        />
+                        <span className="sr-only">{item.name}</span>
+                      </div>
                     </div>
                     <span
                       style={{
@@ -247,7 +279,7 @@ export default function GroundedServices() {
                         letterSpacing: '0.05em',
                         textTransform: 'uppercase',
                         color: isActive ? '#8C733E' : '#888888',
-                        backgroundColor: isActive ? 'rgba(255, 255, 255, 0.9)' : 'transparent',
+                        backgroundColor: isActive ? 'rgba(255, 255, 255, 0.95)' : 'transparent',
                         padding: isActive ? '3px 8px' : '0',
                         borderRadius: '6px',
                         border: isActive ? '1px solid rgba(194, 159, 83, 0.25)' : 'none',
@@ -356,50 +388,63 @@ export default function GroundedServices() {
             <div
               style={{
                 position: 'absolute',
-                bottom: '20px',
-                left: '20px',
-                right: '20px',
-                background: 'rgba(255, 255, 255, 0.90)',
+                bottom: '16px',
+                left: '16px',
+                right: '16px',
+                background: 'rgba(255, 255, 255, 0.92)',
                 backdropFilter: 'blur(28px) saturate(180%)',
                 WebkitBackdropFilter: 'blur(28px) saturate(180%)',
                 border: '1px solid rgba(255, 255, 255, 0.75)',
                 borderRadius: '16px',
-                padding: '20px 24px',
+                padding: '14px 18px',
                 boxShadow:
                   '0 14px 36px -6px rgba(0, 0, 0, 0.18), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.95)',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '12px',
+                gap: '10px',
                 zIndex: 10,
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', minWidth: 0, flex: 1 }}>
                   <div
                     style={{
-                      width: '42px',
                       height: '42px',
+                      padding: '3px 8px',
                       borderRadius: '10px',
-                      backgroundColor: '#111111',
-                      border: '1px solid rgba(194, 159, 83, 0.35)',
+                      backgroundColor: '#FFFFFF',
+                      border: '1px solid rgba(0, 0, 0, 0.08)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       flexShrink: 0,
-                      boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
                     }}
                   >
-                    <DivisionLogo division={activeDiscipline.id} size={28} />
+                    <img
+                      src={activeDiscipline.logoLight}
+                      alt={`${activeDiscipline.name} Official Logo`}
+                      style={{
+                        maxHeight: '30px',
+                        maxWidth: activeDiscipline.id === 'tvasta' ? '110px' : activeDiscipline.id === 'emudran' ? '100px' : '85px',
+                        width: 'auto',
+                        height: 'auto',
+                        objectFit: 'contain',
+                      }}
+                    />
                   </div>
-                  <div>
+                  <div style={{ minWidth: 0, flex: 1 }}>
                     <h4
                       style={{
                         fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
-                        fontSize: '1.4rem',
+                        fontSize: '1.3rem',
                         fontWeight: 400,
                         margin: 0,
                         color: '#111111',
                         lineHeight: 1.1,
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
                       }}
                     >
                       {activeDiscipline.name}
@@ -408,8 +453,12 @@ export default function GroundedServices() {
                       style={{
                         fontFamily: 'var(--font-sans, Inter, sans-serif)',
                         fontSize: '0.72rem',
-                        color: '#777777',
+                        color: '#666666',
                         fontWeight: 500,
+                        display: 'block',
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
                       }}
                     >
                       {activeDiscipline.discipline}
@@ -417,27 +466,14 @@ export default function GroundedServices() {
                   </div>
                 </div>
 
-                <Link
+                <SpecularButton
                   href={activeDiscipline.href}
-                  className="button is-icon"
-                  style={{
-                    backgroundColor: '#111111',
-                    color: '#FFFFFF',
-                    padding: '8px 16px',
-                    borderRadius: '9999px',
-                    fontSize: '0.8rem',
-                    fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                    fontWeight: 550,
-                    textDecoration: 'none',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    boxShadow: '0 4px 14px rgba(0,0,0,0.2)',
-                  }}
+                  variant="dark"
+                  className="!py-2 !px-3.5 !text-[0.72rem] !normal-case flex-shrink-0"
+                  icon={<ArrowUpRight size={13} />}
                 >
-                  <span>Dossier</span>
-                  <ArrowUpRight size={14} />
-                </Link>
+                  Dossier
+                </SpecularButton>
               </div>
 
               {/* Decrypting TechText Statutory Metric */}
@@ -517,18 +553,29 @@ export default function GroundedServices() {
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                     <div
                       style={{
-                        width: '34px',
-                        height: '34px',
+                        minWidth: '56px',
+                        height: '36px',
+                        padding: '4px 8px',
                         borderRadius: '8px',
-                        backgroundColor: '#111111',
-                        border: '1px solid rgba(194, 159, 83, 0.3)',
+                        backgroundColor: '#FFFFFF',
+                        border: '1px solid rgba(0, 0, 0, 0.08)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         flexShrink: 0,
+                        boxShadow: '0 2px 6px rgba(0, 0, 0, 0.04)',
                       }}
                     >
-                      <DivisionLogo division={item.id} size={22} />
+                      <img
+                        src={item.logoLight}
+                        alt={`${item.name} Official Brand Mark`}
+                        style={{
+                          maxHeight: '26px',
+                          maxWidth: '70px',
+                          objectFit: 'contain',
+                          display: 'block',
+                        }}
+                      />
                     </div>
                     <div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -651,28 +698,16 @@ export default function GroundedServices() {
                     </div>
 
                     {/* Direct Jump CTA */}
-                    <Link
-                      href={item.href}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '8px',
-                        width: '100%',
-                        padding: '12px 18px',
-                        backgroundColor: '#111111',
-                        color: '#FFFFFF',
-                        borderRadius: '9999px',
-                        fontSize: '0.84rem',
-                        fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                        fontWeight: 600,
-                        textDecoration: 'none',
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-                      }}
-                    >
-                      <span>Explore {item.name} Dossier</span>
-                      <ArrowUpRight size={15} />
-                    </Link>
+                    <div style={{ width: '100%', marginTop: '4px' }}>
+                      <SpecularButton
+                        href={item.href}
+                        variant="dark"
+                        icon={<ArrowUpRight size={14} />}
+                        className="w-full justify-center !py-2.5 !text-[0.78rem]"
+                      >
+                        Explore {item.name} Dossier
+                      </SpecularButton>
+                    </div>
                   </div>
                 )}
               </div>
