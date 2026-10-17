@@ -50,33 +50,41 @@ export default function LogoLoop({
             key={`${item.id}-${index}`}
             className={
               isDark
-                ? "flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-white/10 bg-white/[0.04] backdrop-blur-md shadow-sm transition-all hover:bg-white/[0.09] hover:border-[#C29F53]/40 hover:scale-[1.02]"
-                : "flex items-center gap-3 px-4 py-2 rounded-full border border-black/8 bg-white/70 backdrop-blur-md shadow-sm transition-all hover:bg-white hover:scale-105"
+                ? 'flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-white/10 bg-white/[0.04] backdrop-blur-md shadow-sm transition-all hover:bg-white/[0.09] hover:border-[#C29F53]/40 hover:scale-[1.02]'
+                : 'flex items-center gap-3 px-4 py-2 rounded-full border border-black/8 bg-white/70 backdrop-blur-md shadow-sm transition-all hover:bg-white hover:scale-105'
             }
           >
             {item.icon && (
-              <div className={isDark ? "text-[#C29F53]/90 shrink-0" : "text-[#C29F53] shrink-0"}>
+              <div className={isDark ? 'text-[#C29F53]/90 shrink-0' : 'text-[#C29F53] shrink-0'}>
                 {item.icon}
               </div>
             )}
             <div className="flex items-center gap-2">
               <span
+                style={{
+                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                }}
                 className={
                   isDark
-                    ? "text-[11px] font-mono font-medium tracking-wider text-white/90 whitespace-nowrap"
-                    : "text-xs font-mono font-bold tracking-wider text-[#111111] whitespace-nowrap"
+                    ? 'text-[11px] font-medium tracking-wider text-white/90 whitespace-nowrap'
+                    : 'text-xs font-semibold tracking-wider text-[#111111] whitespace-nowrap'
                 }
               >
                 {item.name}
               </span>
               {item.category && (
                 <>
-                  <span className={isDark ? "text-white/20 text-[10px]" : "text-black/20 text-[10px]"}>•</span>
+                  <span className={isDark ? 'text-white/20 text-[10px]' : 'text-black/20 text-[10px]'}>
+                    •
+                  </span>
                   <span
+                    style={{
+                      fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                    }}
                     className={
                       isDark
-                        ? "text-[10px] text-[#C29F53]/80 font-mono tracking-tight whitespace-nowrap"
-                        : "text-[10px] text-[#777777] font-mono whitespace-nowrap"
+                        ? 'text-[10px] text-[#C29F53]/80 tracking-tight whitespace-nowrap'
+                        : 'text-[10px] text-[#777777] whitespace-nowrap'
                     }
                   >
                     {item.category}
@@ -87,17 +95,6 @@ export default function LogoLoop({
           </div>
         ))}
       </div>
-
-      <style jsx global>{`
-        @keyframes logoLoopAnimation {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-33.333333%);
-          }
-        }
-      `}</style>
     </div>
   );
 }

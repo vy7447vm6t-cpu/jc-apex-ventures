@@ -128,7 +128,7 @@ export default function GroundedServices() {
 
   return (
     <section
-      id="divisions"
+      id="services"
       className="services-section relative overflow-hidden"
       style={{
         backgroundColor: '#FFFFFF',
@@ -141,6 +141,9 @@ export default function GroundedServices() {
         borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
       }}
     >
+      {/* Anchor for backward compatibility with #divisions */}
+      <div id="divisions" className="absolute -top-24 pointer-events-none" aria-hidden="true" />
+
       {/* Background Architectural MicroSlats CAD Louvers with Datum Ticks */}
       <MicroSlats count={24} color="#8C733E" opacity={0.06} zIndex={1} showTicks={true} />
       <div style={{ maxWidth: '1240px', margin: '0 auto', width: '100%', position: 'relative', zIndex: 2 }}>
@@ -202,6 +205,7 @@ export default function GroundedServices() {
               return (
                 <ElectricBorder
                   key={item.id}
+                  division={item.id}
                   active={showElectricRow}
                   borderRadius={16}
                   glowColor={item.id === 'grid-apex' ? '#D4AF37' : '#C29F53'}
@@ -357,6 +361,7 @@ export default function GroundedServices() {
           {/* Right Column: Sticky Field Photography Viewport wrapped in ElectricBorder for Electrical Divisions */}
           <div style={{ position: 'sticky', top: '120px' }}>
             <ElectricBorder
+              division={activeDiscipline.id}
               active={Boolean(activeDiscipline.isElectric)}
               borderRadius={22}
               glowColor="#C29F53"
@@ -580,22 +585,30 @@ export default function GroundedServices() {
           </div>
         </div>
 
-        {/* Mobile View: Fluid AccordionGallery (Tapping expands photo, specs, and link inline) */}
+        {/* Mobile View: Tactile Accordion (Tapping expands photo, specs, and link inline) */}
         <div className="flex flex-col md:hidden gap-4" style={{ textAlign: 'left' }}>
           {DISCIPLINES.map((item, idx) => {
             const isExpanded = mobileExpanded === idx;
+            const isElectric = Boolean(item.isElectric && isExpanded);
             return (
-              <div
+              <ElectricBorder
                 key={`mob-${item.id}`}
-                style={{
-                  borderRadius: '16px',
-                  backgroundColor: '#F8F6F0',
-                  border: isExpanded ? '1px solid rgba(194, 159, 83, 0.4)' : '1px solid rgba(0, 0, 0, 0.08)',
-                  overflow: 'hidden',
-                  transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-                  boxShadow: isExpanded ? '0 8px 24px rgba(0, 0, 0, 0.06)' : 'none',
-                }}
+                division={item.id}
+                active={isElectric}
+                borderRadius={16}
+                glowColor="#C29F53"
+                className="rounded-2xl"
               >
+                <div
+                  style={{
+                    borderRadius: '16px',
+                    backgroundColor: '#F8F6F0',
+                    border: isExpanded ? '1px solid rgba(194, 159, 83, 0.4)' : '1px solid rgba(0, 0, 0, 0.08)',
+                    overflow: 'hidden',
+                    transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                    boxShadow: isExpanded ? '0 8px 24px rgba(0, 0, 0, 0.06)' : 'none',
+                  }}
+                >
                 {/* Accordion Header Row */}
                 <button
                   type="button"
@@ -773,7 +786,8 @@ export default function GroundedServices() {
                     </div>
                   </div>
                 )}
-              </div>
+                </div>
+              </ElectricBorder>
             );
           })}
         </div>

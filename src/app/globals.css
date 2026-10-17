@@ -129,6 +129,11 @@ a:hover {
 .section {
   padding: 100px 24px;
   position: relative;
+  scroll-margin-top: 108px;
+}
+
+section[id] {
+  scroll-margin-top: 108px;
 }
 
 .grid-2-col {
@@ -1651,6 +1656,24 @@ a:hover {
   .monograph-pillars-grid {
     grid-template-columns: 1fr !important;
     gap: 10px !important;
+  }
+}
+
+@keyframes electricSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes logoLoopAnimation {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.333333%);
   }
 }
 

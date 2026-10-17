@@ -260,6 +260,7 @@ export default function BeforeAfterSlider({
               alignItems: 'center',
               justifyContent: 'center',
               cursor: isDragging ? 'grabbing' : 'ew-resize',
+              touchAction: 'none',
               transition: isDragging ? 'transform 0.1s ease' : 'transform 0.2s ease',
               scale: isDragging ? '1.08' : '1',
             }}

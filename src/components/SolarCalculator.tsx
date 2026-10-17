@@ -228,14 +228,15 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', marginBottom: '32px' }}>
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '10px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '14px', flexWrap: 'wrap' }}>
             <img
               src="/images/logos/solis-official.png"
               alt="Solis Official Logo"
-              style={{ height: '28px', width: 'auto', objectFit: 'contain' }}
+              style={{ height: '36px', width: 'auto', objectFit: 'contain', display: 'block' }}
             />
-            <span style={{ fontSize: '0.74rem', color: '#8C733E', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 650, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-              [solis solar &amp; clean energy estimator]
+            <span style={{ width: '1.5px', height: '24px', backgroundColor: 'rgba(194, 159, 83, 0.55)', display: 'inline-block' }} />
+            <span style={{ fontSize: '0.76rem', color: '#8C733E', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+              [SOLIS SOLAR &amp; CLEAN ENERGY ESTIMATOR]
             </span>
           </div>
           <h3 style={{ fontSize: 'clamp(1.8rem, 3.2vw, 2.5rem)', fontWeight: 400, color: '#111111', fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif', letterSpacing: '-0.02em', margin: 0 }}>

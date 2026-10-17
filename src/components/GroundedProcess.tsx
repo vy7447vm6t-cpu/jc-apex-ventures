@@ -9,6 +9,7 @@ import {
   SpecularButton,
   SpotlightCard,
   MicroSlats,
+  ElectricBorder,
 } from '@/components/react-bits';
 import type { ScrollStackCard } from '@/components/react-bits';
 
@@ -22,6 +23,9 @@ interface ProcessStep {
   actionLabel: string;
   actionHref: string;
   schematicNode: string;
+  slaBadge: string;
+  statutoryRef: string;
+  divisions: { name: string; logo: string }[];
 }
 
 const STEPS: ProcessStep[] = [
@@ -40,6 +44,13 @@ const STEPS: ProcessStep[] = [
     actionLabel: 'Schedule Site Audit',
     actionHref: '#calculators',
     schematicNode: 'NODE 01 · SITE & METER AUDIT',
+    slaBadge: '48 to 72 Hours Turnaround',
+    statutoryRef: 'IS 3043 / MERC Tariff Audit',
+    divisions: [
+      { name: 'Sanyog', logo: '/images/logos/sanyog-official.png' },
+      { name: 'Solis', logo: '/images/logos/solis-official.png' },
+      { name: 'Tvasta', logo: '/images/logos/tvasta-dark.png' },
+    ],
   },
   {
     id: 'step-02',
@@ -56,6 +67,13 @@ const STEPS: ProcessStep[] = [
     actionLabel: 'Explore Disciplines',
     actionHref: '#divisions',
     schematicNode: 'NODE 02 · SLD & STATUTORY FILING',
+    slaBadge: '7 to 21 Business Days',
+    statutoryRef: 'CEA Safety Regulations 2023',
+    divisions: [
+      { name: 'Sanyog', logo: '/images/logos/sanyog-official.png' },
+      { name: 'Grid Apex', logo: '/images/logos/grid-apex-official.png' },
+      { name: 'Agrim', logo: '/images/logos/agrim-dark.png' },
+    ],
   },
   {
     id: 'step-03',
@@ -70,8 +88,15 @@ const STEPS: ProcessStep[] = [
       'As-built CAD drawings, warranty certificates, and compliance handover',
     ],
     actionLabel: 'Contact Engineering Desk',
-    actionHref: 'tel:+917021112664',
+    actionHref: '#contact',
     schematicNode: 'NODE 03 · GRID SYNCHRONIZATION',
+    slaBadge: 'Zero-Defect Energization',
+    statutoryRef: 'PWD CEI Charging Permission',
+    divisions: [
+      { name: 'Solis', logo: '/images/logos/solis-official.png' },
+      { name: 'Grid Apex', logo: '/images/logos/grid-apex-official.png' },
+      { name: 'Tvasta', logo: '/images/logos/tvasta-dark.png' },
+    ],
   },
 ];
 
@@ -87,6 +112,8 @@ export default function GroundedProcess() {
     badge: step.schematicNode,
     specs: step.checklist,
   }));
+
+  const currentStepData = STEPS[activeStep] || STEPS[0];
 
   return (
     <section
@@ -122,7 +149,7 @@ export default function GroundedProcess() {
         </div>
 
         {/* Section Headline */}
-        <div style={{ maxWidth: '980px', marginBottom: '48px' }}>
+        <div style={{ maxWidth: '980px', marginBottom: '40px' }}>
           <h2
             style={{
               fontSize: 'clamp(2.2rem, 4vw, 3.4rem)',
@@ -155,14 +182,14 @@ export default function GroundedProcess() {
           className="hidden md:block"
           style={{
             backgroundColor: '#FFFFFF',
-            borderRadius: '18px',
-            border: '1px solid rgba(194, 159, 83, 0.32)',
-            padding: '20px 28px',
+            borderRadius: '20px',
+            border: '1px solid rgba(194, 159, 83, 0.35)',
+            padding: '22px 28px',
             marginBottom: '36px',
-            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.03)',
+            boxShadow: '0 12px 32px rgba(0, 0, 0, 0.04)',
           }}
         >
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', flexWrap: 'wrap', gap: '12px' }}>
             {STEPS.map((step, idx) => {
               const isActive = activeStep === idx;
               return (
@@ -174,11 +201,11 @@ export default function GroundedProcess() {
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '8px',
-                    background: isActive ? 'rgba(194, 159, 83, 0.12)' : 'transparent',
-                    border: isActive ? '1px solid rgba(194, 159, 83, 0.4)' : '1px solid transparent',
+                    gap: '10px',
+                    background: isActive ? '#111111' : 'rgba(244, 241, 234, 0.85)',
+                    border: isActive ? '1px solid rgba(194, 159, 83, 0.65)' : '1px solid rgba(0, 0, 0, 0.08)',
                     borderRadius: '9999px',
-                    padding: '6px 14px',
+                    padding: '8px 16px',
                     cursor: 'pointer',
                     transition: 'all 0.25s ease',
                   }}
@@ -189,18 +216,18 @@ export default function GroundedProcess() {
                       width: '8px',
                       height: '8px',
                       borderRadius: '9999px',
-                      backgroundColor: isActive ? '#C29F53' : '#AAAAAA',
-                      boxShadow: isActive ? '0 0 10px rgba(194, 159, 83, 0.9)' : 'none',
+                      backgroundColor: isActive ? '#C29F53' : '#999999',
+                      boxShadow: isActive ? '0 0 10px rgba(194, 159, 83, 0.95)' : 'none',
                       transition: 'all 0.25s ease',
                     }}
                   />
                   <span
                     style={{
                       fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                      fontSize: '0.72rem',
-                      fontWeight: isActive ? 700 : 550,
+                      fontSize: '0.73rem',
+                      fontWeight: isActive ? 700 : 600,
                       letterSpacing: '0.06em',
-                      color: isActive ? '#8C733E' : '#555555',
+                      color: isActive ? '#FFFFFF' : '#444444',
                       transition: 'color 0.25s ease',
                     }}
                   >
@@ -220,7 +247,7 @@ export default function GroundedProcess() {
             >
               <path
                 d="M 10 20 L 380 20 L 395 8 L 410 32 L 425 20 L 770 20 L 785 8 L 800 32 L 815 20 L 1190 20"
-                stroke="rgba(194, 159, 83, 0.2)"
+                stroke="rgba(194, 159, 83, 0.22)"
                 strokeWidth={2}
                 fill="none"
                 strokeDasharray="4 4"
@@ -239,14 +266,54 @@ export default function GroundedProcess() {
               height={40}
               viewBox="0 0 1200 40"
               strokeColor="#C29F53"
-              strokeWidth={2.4}
+              strokeWidth={2.6}
               duration={1800}
               className="w-full h-10 relative z-10"
             />
           </div>
+
+          {/* Live Telemetry Readout Bar inside Schematic */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              gap: '12px',
+              marginTop: '10px',
+              paddingTop: '12px',
+              borderTop: '1px solid rgba(0, 0, 0, 0.06)',
+              fontFamily: 'var(--font-sans, Inter, sans-serif)',
+              fontSize: '0.74rem',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <span style={{ color: '#8C733E', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                Active Stage Telemetry:
+              </span>
+              <span style={{ color: '#111111', fontWeight: 600 }}>
+                {currentStepData.num} {currentStepData.title} · {currentStepData.statutoryRef}
+              </span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <span
+                style={{
+                  backgroundColor: '#F4F1EA',
+                  color: '#8C733E',
+                  fontWeight: 700,
+                  padding: '3px 10px',
+                  borderRadius: '9999px',
+                  border: '1px solid rgba(194, 159, 83, 0.3)',
+                  fontSize: '0.68rem',
+                }}
+              >
+                {currentStepData.slaBadge}
+              </span>
+            </div>
+          </div>
         </div>
 
-        {/* 3-Column Editorial Protocol Cards on Desktop */}
+        {/* 3-Column Editorial Protocol Cards on Desktop with ElectricBorder & Official Division Logos */}
         <div
           className="hidden lg:grid"
           style={{
@@ -261,182 +328,252 @@ export default function GroundedProcess() {
                 key={step.num}
                 onClick={() => setActiveStep(idx)}
                 onMouseEnter={() => setActiveStep(idx)}
-                style={{ height: '100%' }}
+                style={{
+                  height: '100%',
+                  transform: isActive ? 'translateY(-6px)' : 'none',
+                  transition: 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
+                }}
               >
-                <SpotlightCard
-                  theme="light"
-                  spotlightColor={isActive ? 'rgba(194, 159, 83, 0.22)' : 'rgba(194, 159, 83, 0.08)'}
-                  borderColor={isActive ? 'rgba(194, 159, 83, 0.65)' : 'rgba(0, 0, 0, 0.08)'}
-                  style={{
-                    backgroundColor: isActive ? 'rgba(255, 255, 255, 0.98)' : '#FFFFFF',
-                    backdropFilter: 'blur(20px)',
-                    WebkitBackdropFilter: 'blur(20px)',
-                    borderRadius: '20px',
-                    border: isActive ? '1.5px solid rgba(194, 159, 83, 0.65)' : '1px solid rgba(0, 0, 0, 0.08)',
-                    boxShadow: isActive
-                      ? '0 20px 48px -12px rgba(194, 159, 83, 0.22), 0 4px 14px rgba(0, 0, 0, 0.04), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.95)'
-                      : '0 4px 16px rgba(0, 0, 0, 0.03)',
-                    transform: isActive ? 'translateY(-6px)' : 'none',
-                    transition: 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease',
-                    cursor: 'pointer',
-                  }}
-                  contentStyle={{
-                    justifyContent: 'space-between',
-                    height: '100%',
-                  }}
+                <ElectricBorder
+                  active={isActive}
+                  color="#C29F53"
+                  borderRadius="22px"
+                  innerBg="#FFFFFF"
+                  className="h-full"
                 >
-                  <div>
-                    {/* Header row */}
-                    <div
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        paddingBottom: '18px',
-                        borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
-                        marginBottom: '18px',
-                      }}
-                    >
-                      <span
+                  <SpotlightCard
+                    theme="light"
+                    spotlightColor={isActive ? 'rgba(194, 159, 83, 0.22)' : 'rgba(194, 159, 83, 0.08)'}
+                    borderColor={isActive ? 'rgba(194, 159, 83, 0.65)' : 'rgba(0, 0, 0, 0.08)'}
+                    style={{
+                      backgroundColor: '#FFFFFF',
+                      borderRadius: '20px',
+                      border: isActive ? 'none' : '1px solid rgba(0, 0, 0, 0.08)',
+                      boxShadow: isActive
+                        ? '0 20px 48px -12px rgba(194, 159, 83, 0.2), 0 4px 14px rgba(0, 0, 0, 0.04)'
+                        : '0 4px 16px rgba(0, 0, 0, 0.03)',
+                      cursor: 'pointer',
+                      height: '100%',
+                    }}
+                    contentStyle={{
+                      justifyContent: 'space-between',
+                      height: '100%',
+                    }}
+                  >
+                    <div>
+                      {/* Header row */}
+                      <div
                         style={{
-                          fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
-                          fontSize: '1.8rem',
-                          fontWeight: 400,
-                          color: '#8C733E',
-                          lineHeight: 1,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          paddingBottom: '16px',
+                          borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
+                          marginBottom: '16px',
                         }}
                       >
-                        <TechText text={step.num} scrambleSpeed={24} maxScrambles={5} triggerOnHover={true} />
-                      </span>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        {isActive && (
+                        <span
+                          style={{
+                            fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+                            fontSize: '1.9rem',
+                            fontWeight: 400,
+                            color: '#8C733E',
+                            lineHeight: 1,
+                          }}
+                        >
+                          <TechText text={step.num} scrambleSpeed={24} maxScrambles={5} triggerOnHover={true} />
+                        </span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          {isActive && (
+                            <span
+                              style={{
+                                fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                                fontSize: '0.62rem',
+                                fontWeight: 700,
+                                letterSpacing: '0.06em',
+                                textTransform: 'uppercase',
+                                color: '#FFFFFF',
+                                backgroundColor: '#111111',
+                                padding: '3px 9px',
+                                borderRadius: '9999px',
+                              }}
+                            >
+                              ✦ ACTIVE STAGE
+                            </span>
+                          )}
                           <span
                             style={{
                               fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                              fontSize: '0.62rem',
-                              fontWeight: 700,
+                              fontSize: '0.68rem',
+                              fontWeight: 650,
+                              letterSpacing: '0.06em',
+                              textTransform: 'uppercase',
+                              color: isActive ? '#8C733E' : '#666666',
+                              backgroundColor: isActive ? '#F4F1EA' : '#F9F9F9',
+                              padding: '4px 10px',
+                              borderRadius: '9999px',
+                              border: isActive ? '1px solid rgba(194, 159, 83, 0.35)' : '1px solid rgba(0, 0, 0, 0.08)',
+                            }}
+                          >
+                            {step.subtitle}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Title & Summary */}
+                      <h3
+                        style={{
+                          fontSize: '1.65rem',
+                          lineHeight: 1.2,
+                          fontWeight: 400,
+                          letterSpacing: '-0.015em',
+                          color: '#111111',
+                          margin: '0 0 10px 0',
+                          fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+                        }}
+                      >
+                        {step.title}
+                      </h3>
+                      <p
+                        style={{
+                          fontSize: '0.91rem',
+                          color: '#555555',
+                          lineHeight: 1.62,
+                          margin: '0 0 18px 0',
+                          fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                        }}
+                      >
+                        {step.summary}
+                      </p>
+
+                      {/* Coordinating Division Logos Strip */}
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          padding: '8px 12px',
+                          borderRadius: '12px',
+                          backgroundColor: '#F8F6F0',
+                          border: '1px solid rgba(194, 159, 83, 0.22)',
+                          marginBottom: '18px',
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontSize: '0.64rem',
+                            fontWeight: 700,
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.07em',
+                            color: '#777777',
+                            fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                          }}
+                        >
+                          Practice Desks
+                        </span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          {step.divisions.map((div, dIdx) => (
+                            <img
+                              key={dIdx}
+                              src={div.logo}
+                              alt={div.name}
+                              style={{
+                                height: '18px',
+                                width: 'auto',
+                                maxWidth: '58px',
+                                objectFit: 'contain',
+                                display: 'block',
+                              }}
+                            />
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Checklist */}
+                      <div
+                        style={{
+                          borderTop: '1px solid rgba(0, 0, 0, 0.06)',
+                          paddingTop: '16px',
+                          marginBottom: '22px',
+                        }}
+                      >
+                        <div
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            marginBottom: '12px',
+                          }}
+                        >
+                          <span
+                            style={{
+                              fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                              fontSize: '0.7rem',
+                              fontWeight: 650,
                               letterSpacing: '0.06em',
                               textTransform: 'uppercase',
                               color: '#8C733E',
-                              backgroundColor: 'rgba(194, 159, 83, 0.16)',
-                              padding: '3px 8px',
-                              borderRadius: '9999px',
                             }}
                           >
-                            ✦ ACTIVE
+                            Deliverable Checklist
                           </span>
-                        )}
-                        <span
+                          <span
+                            style={{
+                              fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                              fontSize: '0.66rem',
+                              fontWeight: 600,
+                              color: '#666666',
+                            }}
+                          >
+                            {step.slaBadge}
+                          </span>
+                        </div>
+                        <ul
                           style={{
-                            fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                            fontSize: '0.68rem',
-                            fontWeight: 650,
-                            letterSpacing: '0.06em',
-                            textTransform: 'uppercase',
-                            color: isActive ? '#8C733E' : '#666666',
-                            backgroundColor: isActive ? '#F4F1EA' : '#F9F9F9',
-                            padding: '4px 10px',
-                            borderRadius: '9999px',
-                            border: isActive ? '1px solid rgba(194, 159, 83, 0.35)' : '1px solid rgba(0, 0, 0, 0.08)',
+                            listStyle: 'none',
+                            padding: 0,
+                            margin: 0,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '10px',
                           }}
                         >
-                          {step.subtitle}
-                        </span>
+                          {step.checklist.map((item, cIdx) => (
+                            <li
+                              key={cIdx}
+                              style={{
+                                display: 'flex',
+                                alignItems: 'flex-start',
+                                gap: '10px',
+                                fontSize: '0.85rem',
+                                lineHeight: 1.5,
+                                color: '#333333',
+                                fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                              }}
+                            >
+                              <CheckCircle2
+                                size={15}
+                                color="#C29F53"
+                                style={{ flexShrink: 0, marginTop: '3px' }}
+                              />
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                     </div>
 
-                    {/* Title & Summary */}
-                    <h3
-                      style={{
-                        fontSize: '1.65rem',
-                        lineHeight: 1.2,
-                        fontWeight: 400,
-                        letterSpacing: '-0.015em',
-                        color: '#111111',
-                        margin: '0 0 12px 0',
-                        fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
-                      }}
+                    {/* SpecularButton Trigger */}
+                    <SpecularButton
+                      href={step.actionHref}
+                      variant={isActive ? 'gold' : 'dark'}
+                      icon={<ArrowUpRight size={14} />}
+                      className="w-full justify-between !py-2.5 !px-4 !text-[0.76rem]"
                     >
-                      {step.title}
-                    </h3>
-                    <p
-                      style={{
-                        fontSize: '0.92rem',
-                        color: '#555555',
-                        lineHeight: 1.65,
-                        margin: '0 0 22px 0',
-                        fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                      }}
-                    >
-                      {step.summary}
-                    </p>
-
-                    {/* Checklist */}
-                    <div
-                      style={{
-                        borderTop: '1px solid rgba(0, 0, 0, 0.06)',
-                        paddingTop: '18px',
-                        marginBottom: '24px',
-                      }}
-                    >
-                      <div
-                        style={{
-                          fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                          fontSize: '0.7rem',
-                          fontWeight: 650,
-                          letterSpacing: '0.06em',
-                          textTransform: 'uppercase',
-                          color: '#8C733E',
-                          marginBottom: '12px',
-                        }}
-                      >
-                        Deliverable Checklist
-                      </div>
-                      <ul
-                        style={{
-                          listStyle: 'none',
-                          padding: 0,
-                          margin: 0,
-                          display: 'flex',
-                          flexDirection: 'column',
-                          gap: '10px',
-                        }}
-                      >
-                        {step.checklist.map((item, cIdx) => (
-                          <li
-                            key={cIdx}
-                            style={{
-                              display: 'flex',
-                              alignItems: 'flex-start',
-                              gap: '10px',
-                              fontSize: '0.86rem',
-                              lineHeight: 1.5,
-                              color: '#333333',
-                              fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                            }}
-                          >
-                            <CheckCircle2
-                              size={15}
-                              color="#C29F53"
-                              style={{ flexShrink: 0, marginTop: '3px' }}
-                            />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-
-                  {/* SpecularButton Trigger */}
-                  <SpecularButton
-                    href={step.actionHref}
-                    variant={isActive ? 'gold' : 'dark'}
-                    icon={<ArrowUpRight size={14} />}
-                    className="w-full justify-between !py-2.5 !px-4 !text-[0.76rem]"
-                  >
-                    {step.actionLabel}
-                  </SpecularButton>
-                </SpotlightCard>
+                      {step.actionLabel}
+                    </SpecularButton>
+                  </SpotlightCard>
+                </ElectricBorder>
               </div>
             );
           })}

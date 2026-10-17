@@ -30,18 +30,48 @@ export default function MicroSlats({
         aria-hidden="true"
         style={{ zIndex }}
       >
-        <div className="flex h-full w-full flex-col justify-between">
-          {slats.map((i) => (
-            <div
-              key={i}
-              className="w-full transition-opacity duration-700"
-              style={{
-                height: i % 4 === 0 ? '1.5px' : '1px',
-                backgroundColor: color,
-                opacity: i % 4 === 0 ? opacity * 1.45 : opacity,
-              }}
-            />
-          ))}
+        <div className="flex h-full w-full flex-col justify-between py-4">
+          {slats.map((i) => {
+            const isMajor = i % 4 === 0;
+            return (
+              <div
+                key={i}
+                className="relative w-full transition-opacity duration-700"
+                style={{
+                  height: isMajor ? '1.5px' : '1px',
+                  backgroundColor: color,
+                  opacity: isMajor ? opacity * 1.45 : opacity,
+                }}
+              >
+                {isMajor && showTicks && (
+                  <>
+                    <span
+                      style={{
+                        position: 'absolute',
+                        left: '18%',
+                        top: '-3px',
+                        height: '7px',
+                        width: '1px',
+                        backgroundColor: color,
+                        opacity: Math.min(1, opacity * 2.2),
+                      }}
+                    />
+                    <span
+                      style={{
+                        position: 'absolute',
+                        right: '22%',
+                        top: '-3px',
+                        height: '7px',
+                        width: '1px',
+                        backgroundColor: color,
+                        opacity: Math.min(1, opacity * 2.2),
+                      }}
+                    />
+                  </>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     );
@@ -66,7 +96,7 @@ export default function MicroSlats({
                 opacity: isMajor ? opacity * 1.45 : opacity,
               }}
             >
-              {isMajor && (
+              {isMajor && showTicks && (
                 <>
                   <span
                     style={{

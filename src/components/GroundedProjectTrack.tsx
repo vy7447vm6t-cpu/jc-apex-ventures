@@ -98,12 +98,68 @@ const CASE_STUDIES: CaseStudy[] = [
     actionLabel: 'Request Solis Pergola Assessment',
   },
   {
-    id: 'substation-switchgear',
+    id: 'sanyog-cgrf-tariff',
     num: '(02)',
+    divisionName: 'SANYOG',
+    logoLight: '/images/logos/sanyog-official.png',
+    isElectric: true,
+    title: 'Commercial-to-Residential Tariff Re-Categorization & 250 kVA Sanction',
+    location: 'Nariman Point & Suburban Mumbai',
+    category: 'Statutory Utility Liaison / Sanyog',
+    statusTag: 'Engineering Feasibility Study & MERC Regulatory Dossier',
+    metric: '250 kVA Sanction Regularization · MERC & CGRF Representation',
+    primaryImage: '/images/sanyog_utility_infra.jpg',
+    galleryItems: [
+      {
+        id: 'san-1',
+        title: 'HT/LT Metering Cubicle & Tariff Audit',
+        tag: 'METERING AUDIT',
+        image: '/images/sanyog_utility_infra.jpg',
+        description: 'Forensic verification of CT/PT ratios, billing multipliers, and sanction load records.',
+      },
+      {
+        id: 'san-2',
+        title: 'Multi-Utility Liaison Across 4 Mumbai Licensees',
+        tag: 'DISCOM SANCTIONS',
+        image: '/images/utility-metering-liaison.jpg',
+        description: 'Direct coordination with BEST, Adani Electricity, Tata Power, and MSEDCL nodal cells.',
+      },
+      {
+        id: 'san-3',
+        title: 'Evidentiary Petition Assembly & Forum Pleadings',
+        tag: 'CGRF ADVOCACY',
+        image: '/images/utility-grievance-legal.jpg',
+        description: 'Formulation of formal regulatory claims under Section 42(5) of the Electricity Act 2003.',
+      },
+    ],
+    client: 'Commercial Premises & Housing Society Consortium',
+    leadAssociate: 'Jitendra Chavan (36+ Years Direct Utility Engineering Practice)',
+    challenge:
+      'Premises across Mumbai frequently suffer from erroneous commercial tariff classification, retrospective billing assessments, low power factor penalties, or stalled load enhancement applications due to fragmented utility documentation.',
+    solution:
+      'Sanyog conducts a forensic audit of past billing ledgers, load profiles, and MERC tariff orders, preparing formal technical submissions for distribution licensees and statutory representation before the Consumer Grievance Redressal Forum (CGRF) and Ombudsman.',
+    outcomes: [
+      'Formal re-categorization from commercial tariff to residential common-amenity tariff',
+      'Successful 250 kVA load enhancement sanction without network augmentation delays',
+      'Elimination of recurring low power factor billing penalties',
+      'Statutory representation conducted under Electricity Act 2003 guidelines',
+    ],
+    specs: [
+      { label: 'Sanction Load', value: '250 kVA Regularization' },
+      { label: 'Statutory Forum', value: 'CGRF & Electricity Ombudsman' },
+      { label: 'Jurisdiction', value: 'BEST, Adani, Tata Power, MSEDCL' },
+      { label: 'Initial Review', value: '₹50 Statutory Case Evaluation' },
+    ],
+    actionHref: '/sanyog',
+    actionLabel: 'Open Sanyog Regulatory Dossier',
+  },
+  {
+    id: 'substation-switchgear',
+    num: '(03)',
     divisionName: 'GRID APEX',
     logoLight: '/images/logos/grid-apex-official.png',
     isElectric: true,
-    title: '33kV Substation Switchgear & HT Sanction',
+    title: '33kV/11kV Outdoor Substation & 1600 kVA VCB Switchgear Bay',
     location: 'Thane Industrial Belt, MMR',
     category: 'Industrial Electrical / Grid Apex',
     statusTag: 'In-Design Technical Schematic & PWD Proposal',
@@ -154,62 +210,13 @@ const CASE_STUDIES: CaseStudy[] = [
     actionLabel: 'Consult on HT/LT Substation Scope',
   },
   {
-    id: 'sanyog-cgrf-tariff',
-    num: '(03)',
-    divisionName: 'SANYOG',
-    logoLight: '/images/logos/sanyog-official.png',
-    isElectric: true,
-    title: 'MERC Tariff Re-Categorization & Load Regularization',
-    location: 'Nariman Point & Suburban Mumbai',
-    category: 'Statutory Utility Liaison / Sanyog',
-    statusTag: 'Statutory Representation & MERC Regulatory Dossier',
-    metric: 'Electricity Act 2003 Sec 42(5) · CGRF & Ombudsman Practice',
-    primaryImage: '/images/sanyog_utility_infra.jpg',
-    galleryItems: [
-      {
-        id: 'san-1',
-        title: 'HT/LT Metering Cubicle & Tariff Audit',
-        tag: 'METERING AUDIT',
-        image: '/images/sanyog_utility_infra.jpg',
-        description: 'Forensic verification of CT/PT ratios, billing multipliers, and sanction load records.',
-      },
-      {
-        id: 'san-2',
-        title: 'Multi-Utility Liaison Across 4 Mumbai Licensees',
-        tag: 'DISCOM SANCTIONS',
-        image: '/images/utility-metering-liaison.jpg',
-        description: 'Direct coordination with BEST, Adani Electricity, Tata Power, and MSEDCL nodal cells.',
-      },
-    ],
-    client: 'Commercial Premises & Cooperative Housing Societies',
-    leadAssociate: 'Jitendra Chavan (Former Utility Engineering Leadership)',
-    challenge:
-      'Premises across Mumbai frequently suffer from erroneous commercial tariff classification, retrospective billing assessments, or stalled load enhancement applications due to fragmented utility documentation.',
-    solution:
-      'Sanyog conducts a forensic audit of past billing ledgers, load profiles, and MERC tariff orders, preparing formal technical submissions for distribution licensees and statutory representation before the Consumer Grievance Redressal Forum (CGRF).',
-    outcomes: [
-      'Structured resolution under MERC Consumer Grievance Regulations',
-      'Accurate commercial-to-residential or industrial tariff alignment',
-      'Expedited additional load sanctioning and meter shifting approvals',
-      'Direct technical representation backed by 36+ years of utility practice',
-    ],
-    specs: [
-      { label: 'Statutory Forum', value: 'CGRF & Electricity Ombudsman' },
-      { label: 'Jurisdiction', value: 'BEST, Adani, Tata Power, MSEDCL' },
-      { label: 'Regulatory Code', value: 'Electricity Act 2003 / MERC' },
-      { label: 'Initial Review', value: '₹50 Statutory Case Evaluation' },
-    ],
-    actionHref: '/sanyog',
-    actionLabel: 'Open Sanyog Regulatory Dossier',
-  },
-  {
     id: 'one-international-centre',
     num: '(04)',
     divisionName: 'TVASTA',
     logoLight: '/images/logos/tvasta-dark.png',
     isElectric: false,
-    title: 'One International Centre Corporate Fit-out',
-    location: 'Senapati Bapat Marg, Lower Parel, Mumbai',
+    title: 'Corporate Headquarters Fit-Out & Acoustic Zoning',
+    location: 'One International Centre, Senapati Bapat Marg, Mumbai',
     category: 'Turnkey Spatial Planning / Tvasta',
     statusTag: 'Proposal Framework & 3D CAD Space Schematic',
     metric: '4,800 sq.ft. Executive Floor · STC 48 Acoustic Isolation Zoning',
@@ -264,7 +271,7 @@ const CASE_STUDIES: CaseStudy[] = [
     divisionName: 'eMUDRAN',
     logoLight: '/images/logos/emudran-official.png',
     isElectric: false,
-    title: 'Luxury Rigid Packaging & Corporate Identity',
+    title: 'Thermal Foil-Stamped Rigid Presentation Packaging & Corporate Signage',
     location: 'Mumbai Corporate Production Portfolio',
     category: 'Visual Media & Production / eMudran',
     statusTag: 'Technical Production Framework & Press Specification',
@@ -294,7 +301,7 @@ const CASE_STUDIES: CaseStudy[] = [
       },
     ],
     client: 'Corporate & Luxury Retail Portfolio',
-    leadAssociate: 'Manish Ajgaonkar (Creative Director) & Hemangi Patil (22+ Yrs Production)',
+    leadAssociate: 'Manish Ajgaonkar (Creative Director) & Hemangi Patil (22+ Yrs Print Production)',
     challenge:
       'High-volume presentation packaging and corporate publications require exact Pantone color consistency, crisp 90-degree V-grooved rigid box corners, and registered metallic foil stamping without batch variance.',
     solution:
@@ -315,60 +322,60 @@ const CASE_STUDIES: CaseStudy[] = [
     actionLabel: 'Request eMudran Packaging Proof',
   },
   {
-    id: 'agrim-solid-waste',
+    id: 'ev-network-dpr',
     num: '(06)',
     divisionName: 'AGRIM',
     logoLight: '/images/logos/agrim-dark.png',
     isElectric: false,
-    title: 'Patented Zero-Power Waste Tech & Project Economics DPR',
-    location: 'Maharashtra Municipal & Industrial Corridors',
-    category: 'Infrastructure Advisory & DPR / Agrim',
+    title: '3,900 EV Charging Station Network CAPEX & 10-Year Bank Syndication DPR',
+    location: 'Maharashtra Municipal & Highway Corridors',
+    category: 'Clean Tech Advisory & DPR / Agrim',
     statusTag: 'Engineering Feasibility Study & Bankable DPR',
-    metric: '350°C Zero-Electricity Decomposition · 10-Yr CAPEX/NPV Model',
-    primaryImage: '/images/waste-management-tech.jpg',
+    metric: '3,900 EV Charge Points · 10-Yr CAPEX / Debt Syndication DPR',
+    primaryImage: '/images/banking-sanction-dossier.jpg',
     galleryItems: [
       {
         id: 'agr-1',
-        title: 'Patented 350°C Thermal Magnetic Decomposition Unit',
-        tag: 'MPCB CERTIFIED TECH',
-        image: '/images/waste-management-tech.jpg',
-        description: 'Operates with zero external electricity or diesel fuel after initial ignition.',
-      },
-      {
-        id: 'agr-2',
         title: '10-Year CAPEX, DSCR & NPV Sensitivity Schedule',
         tag: 'BANKABLE DPR',
         image: '/images/site_capex_npv_v2.png',
         description: 'Institutional project finance modeling prepared for scheduled bank credit appraisal.',
       },
       {
-        id: 'agr-3',
-        title: 'IRR & Payback Trajectory for Municipal Infrastructure',
+        id: 'agr-2',
+        title: 'IRR & Payback Trajectory for EV Infrastructure',
         tag: 'FINANCIAL MODELING',
         image: '/images/site_payback_irr_v2.png',
-        description: 'Purely administrative & technical dossier preparation (explicitly non-NBFC / non-lender).',
+        description: 'Detailed debt service coverage ratio (DSCR) sensitivity across 3,900 planned charging bays.',
+      },
+      {
+        id: 'agr-3',
+        title: 'DISCOM Power Substation & Grid Interconnection Model',
+        tag: 'POWER INFRASTRUCTURE',
+        image: '/images/solar-ev-charging.jpg',
+        description: 'Purely advisory & technical preparation (explicitly non-lender / non-NBFC).',
       },
     ],
-    client: 'Industrial Estates & Municipal Infrastructure Sponsors',
-    leadAssociate: 'Dr. Manoj Chavan, Mahendra Kabnurkar & Agrim Advisory Desk',
+    client: 'Municipal Clean Mobility Infrastructure Consortium',
+    leadAssociate: 'Agrim Financial Modeling & DPR Desk (Non-NBFC Advisory)',
     challenge:
-      'Decentralized solid waste processing is burdened by high diesel/electricity operating costs in conventional incinerators, while infrastructure sponsors struggle to compile bank-compliant Detailed Project Reports (DPRs).',
+      'Scaling a regional EV charging hub network across 3,900 points required comprehensive financial sensitivity analysis, power load feasibility, and bank-grade documentation to secure commercial debt syndication.',
     solution:
-      'Agrim and Grid Apex pair a Central Government patented, MPCB-certified zero-power thermal decomposition system (reducing waste volume by 96% into sterile ash) with comprehensive 10-year CAPEX, DSCR, and NPV financial dossiers for bank appraisal.',
+      'Agrim formulated a bank-grade Detailed Project Report (DPR) detailing 10-year capital expenditures, revenue assumptions across AC and 60kW DC chargers, debt service coverage ratios (DSCR), and grid interconnection costs.',
     outcomes: [
-      'Zero ongoing electricity or fuel consumption during continuous operation',
-      '96% volume reduction yielding 4% inert mineral ash for paver blocks',
-      'Central Government Patent granted and MPCB emission norms certified',
-      'Complete bankable DPR and CMA data preparation (strictly non-lender advisory)',
+      'Bank-grade DPR covering 3,900 EV charging points across commercial and municipal nodes',
+      'Detailed 10-year capital expenditure (CAPEX), IRR, and NPV sensitivity matrix',
+      'Structured credit appraisal submission package aligned with commercial bank lending criteria',
+      'Strict non-lender compliance adhering purely to technical and financial engineering advisory',
     ],
     specs: [
-      { label: 'Operating Temp', value: '350°C Controlled Decomposition' },
-      { label: 'External Energy', value: 'Zero Electricity / Zero Fuel' },
-      { label: 'Certification', value: 'Central Govt Patent & MPCB' },
-      { label: 'Advisory Scope', value: 'DPR & CAPEX Modeling (Non-NBFC)' },
+      { label: 'Scope', value: '3,900 EV Charging Station Network' },
+      { label: 'Financial Horizon', value: '10-Year CAPEX & Cashflow Model' },
+      { label: 'Documentation', value: 'Bankable DPR & Syndication Pack' },
+      { label: 'Advisory Status', value: 'Pure Technical Advisory (Non-NBFC)' },
     ],
     actionHref: '/agrim',
-    actionLabel: 'Review Agrim DPR & Feasibility Scope',
+    actionLabel: 'Explore Agrim Infrastructure Advisory',
   },
 ];
 
@@ -732,9 +739,10 @@ export default function GroundedProjectTrack() {
             </span>
             <span
               style={{
-                fontFamily: 'var(--font-mono, monospace)',
+                fontFamily: 'var(--font-sans, Inter, sans-serif)',
                 fontSize: '0.7rem',
                 color: '#666666',
+                fontVariantNumeric: 'tabular-nums',
               }}
             >
               MMR Track
@@ -772,7 +780,7 @@ export default function GroundedProjectTrack() {
                   </span>
                 </div>
                 <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between">
-                  <span className="text-[11px] text-[#C29F53] font-mono font-medium">
+                  <span className="text-[11px] text-[#C29F53] font-sans font-medium">
                     {study.location}
                   </span>
                   <span className="text-[11px] text-white/90 font-medium">

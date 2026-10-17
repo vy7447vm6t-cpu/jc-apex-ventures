@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 
 export interface LineSidebarItem {
   id: string;
@@ -21,16 +21,56 @@ export default function LineSidebar({
   onSelect,
   className = '',
 }: LineSidebarProps) {
+  const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const [indicatorTop, setIndicatorTop] = useState(20);
+  const [indicatorHeight, setIndicatorHeight] = useState(24);
+
+  useEffect(() => {
+    const updateIndicator = () => {
+      const activeIdx = items.findIndex((item) => item.id === activeId);
+      if (activeIdx >= 0 && buttonRefs.current[activeIdx]) {
+        const btn = buttonRefs.current[activeIdx]!;
+        setIndicatorTop(btn.offsetTop + 8);
+        setIndicatorHeight(btn.offsetHeight - 16);
+      }
+    };
+
+    updateIndicator();
+    window.addEventListener('resize', updateIndicator);
+    return () => window.removeEventListener('resize', updateIndicator);
+  }, [activeId, items]);
+
   return (
     <div className={`relative flex flex-col gap-1.5 py-2 font-sans ${className}`}>
       {/* Background tracking line */}
       <div className="absolute left-[19px] top-5 bottom-5 w-[1.5px] bg-black/10" />
 
-      {items.map((item) => {
+      {/* Animated gold progress indicator tracking active item */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          left: '18px',
+          top: `${indicatorTop}px`,
+          height: `${indicatorHeight}px`,
+          width: '3.5px',
+          borderRadius: '9999px',
+          backgroundColor: '#C29F53',
+          boxShadow: '0 0 10px rgba(194, 159, 83, 0.75)',
+          transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
+          pointerEvents: 'none',
+          zIndex: 5,
+        }}
+      />
+
+      {items.map((item, idx) => {
         const isActive = item.id === activeId;
         return (
           <button
             key={item.id}
+            ref={(el) => {
+              buttonRefs.current[idx] = el;
+            }}
             type="button"
             onClick={() => onSelect(item.id)}
             className={`relative flex items-center gap-3.5 py-2.5 px-2 rounded-xl text-left cursor-pointer group transition-all duration-200 ${
@@ -55,6 +95,9 @@ export default function LineSidebar({
             {/* Label */}
             <div className="flex flex-col">
               <span
+                style={{
+                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                }}
                 className={`text-xs tracking-[0.06em] uppercase transition-colors duration-200 ${
                   isActive
                     ? 'font-bold text-[#111111]'
@@ -64,7 +107,12 @@ export default function LineSidebar({
                 {item.label}
               </span>
               {item.tag && (
-                <span className="text-[11px] text-[#777777] font-normal mt-0.5">
+                <span
+                  style={{
+                    fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                  }}
+                  className="text-[11px] text-[#777777] font-normal mt-0.5"
+                >
                   {item.tag}
                 </span>
               )}

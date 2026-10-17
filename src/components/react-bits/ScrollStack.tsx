@@ -21,16 +21,24 @@ export default function ScrollStack({
   cards,
   className = '',
 }: ScrollStackProps) {
+  const total = cards.length;
+
   return (
     <div className={`relative flex flex-col gap-8 w-full max-w-4xl mx-auto py-12 ${className}`}>
       {cards.map((card, idx) => {
+        const topOffset = `calc(104px + ${idx * 20}px)`;
+        const depthScale = 1 - (total - 1 - idx) * 0.02;
+
         return (
           <div
             key={card.id}
-            className="sticky top-28 w-full rounded-3xl border border-black/10 bg-[#FFFFFF] p-8 md:p-10 shadow-[0_12px_40px_rgba(0,0,0,0.06)] transition-all duration-300"
+            className="sticky w-full rounded-3xl border border-black/10 bg-[#FFFFFF] p-8 md:p-10 shadow-[0_12px_40px_rgba(0,0,0,0.06)] transition-all duration-300"
             style={{
+              top: topOffset,
               zIndex: idx + 1,
-              marginTop: idx > 0 ? '-16px' : '0',
+              transform: `scale(${depthScale})`,
+              transformOrigin: 'top center',
+              marginTop: idx > 0 ? '-8px' : '0',
             }}
           >
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-black/8">

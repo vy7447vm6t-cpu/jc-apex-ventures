@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { animate } from 'animejs';
 
 interface SvgPathAnimatorProps {
@@ -26,35 +26,67 @@ export default function SvgPathAnimator({
   fill = "none",
   className = "",
 }: SvgPathAnimatorProps) {
+  const svgRef = useRef<SVGSVGElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
+  const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
+    const svgEl = svgRef.current;
     const path = pathRef.current;
-    if (!path) return;
+    if (!svgEl || !path) return;
 
-    try {
-      const length = path.getTotalLength();
-      path.style.strokeDasharray = `${length}`;
-      path.style.strokeDashoffset = `${length}`;
+    let anim: any = null;
 
-      const anim = animate(path, {
-        strokeDashoffset: 0,
-        duration,
-        ease: 'inOutCubic',
-      });
+    const startAnimation = () => {
+      try {
+        const length = path.getTotalLength();
+        path.style.strokeDasharray = `${length}`;
+        path.style.strokeDashoffset = `${length}`;
 
+        anim = animate(path, {
+          strokeDashoffset: 0,
+          duration,
+          ease: 'inOutCubic',
+        });
+        setHasAnimated(true);
+      } catch {
+        // Graceful fallback for environments where getTotalLength is not available
+      }
+    };
+
+    if (typeof window !== 'undefined' && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && !hasAnimated) {
+              startAnimation();
+              observer.disconnect();
+            }
+          });
+        },
+        { threshold: 0.25 }
+      );
+      observer.observe(svgEl);
+
+      return () => {
+        observer.disconnect();
+        if (anim && typeof anim.pause === 'function') {
+          anim.pause();
+        }
+      };
+    } else {
+      startAnimation();
       return () => {
         if (anim && typeof anim.pause === 'function') {
           anim.pause();
         }
       };
-    } catch {
-      // Graceful fallback for environments where getTotalLength is not available
     }
-  }, [d, duration]);
+  }, [d, duration, hasAnimated]);
 
   return (
     <svg
+      ref={svgRef}
       width={width}
       height={height}
       viewBox={viewBox}

@@ -63,7 +63,7 @@ export default function CashflowPaybackSchedule({
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-6">
         <div>
           <span className="text-[11px] uppercase tracking-[0.14em] font-semibold text-[#8C6D23]">
-            [BKLIT DATAVIZ / FINANCIAL ENGINEERING]
+            [SOLIS TELEMETRY / CASHFLOW LIFECYCLE]
           </span>
           <h4
             className="text-2xl font-normal text-[#111111] mt-1 tracking-tight"
@@ -155,9 +155,9 @@ export default function CashflowPaybackSchedule({
           })}
         </svg>
 
-        {/* Hover / Selected year badge */}
-        <div className="mt-3 flex items-center justify-between px-3 py-2 rounded-xl bg-[#F4F1EA] text-xs font-sans tabular-nums">
-          <span className="text-[#666666]">
+        {/* Locked-height hover / Selected year badge (prevents layout shift) */}
+        <div className="mt-3 min-h-[44px] flex items-center justify-between px-3.5 py-2 rounded-xl bg-[#F4F1EA] text-xs font-sans tabular-nums border border-black/5">
+          <span className="text-[#666666] font-medium">
             {hoveredYear !== null ? `Year ${hoveredYear} Net Cashflow:` : '25-Year Cumulative Lifetime Return:'}
           </span>
           <span className="font-bold text-[#111111]">

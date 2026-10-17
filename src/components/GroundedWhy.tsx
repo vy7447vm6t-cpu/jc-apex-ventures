@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { animate } from 'animejs';
 import { MicroSlats, TechText, SpotlightCard } from '@/components/react-bits';
+import AuthorityLogo from './AuthorityLogos';
 
 interface StatMetric {
   id: string;
@@ -11,6 +12,7 @@ interface StatMetric {
   suffix: string;
   title: string;
   description: string;
+  footerNode: React.ReactNode;
 }
 
 const STAT_METRICS: StatMetric[] = [
@@ -22,6 +24,38 @@ const STAT_METRICS: StatMetric[] = [
     title: '36+ Years Direct Utility Practice',
     description:
       'Direct utility engineering and regulatory leadership under Director Jitendra Chavan across BEST, Adani Electricity, Tata Power, and MSEDCL.',
+    footerNode: (
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '8px',
+          paddingTop: '14px',
+          marginTop: '16px',
+          borderTop: '1px solid rgba(0, 0, 0, 0.07)',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <AuthorityLogo id="best" size={22} />
+          <AuthorityLogo id="adani" size={22} />
+          <AuthorityLogo id="tata" size={22} />
+          <AuthorityLogo id="msedcl" size={22} />
+        </div>
+        <span
+          style={{
+            fontFamily: 'var(--font-sans, Inter, sans-serif)',
+            fontSize: '0.66rem',
+            fontWeight: 700,
+            letterSpacing: '0.06em',
+            textTransform: 'uppercase',
+            color: '#8C733E',
+          }}
+        >
+          Dir. Jitendra Chavan
+        </span>
+      </div>
+    ),
   },
   {
     id: 'stat-sanctions',
@@ -31,6 +65,37 @@ const STAT_METRICS: StatMetric[] = [
     title: '140+ Sanction & Liaison Engagements',
     description:
       'Statutory load sanctions, CGRF electricity grievance settlements, and turnkey commercial fit-out engineering delivered across Mumbai networks.',
+    footerNode: (
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '6px',
+          paddingTop: '14px',
+          marginTop: '16px',
+          borderTop: '1px solid rgba(0, 0, 0, 0.07)',
+        }}
+      >
+        {['MERC CGRF', 'PWD CEI', '11kV/33kV', 'Net-Metering'].map((tag) => (
+          <span
+            key={tag}
+            style={{
+              fontFamily: 'var(--font-sans, Inter, sans-serif)',
+              fontSize: '0.65rem',
+              fontWeight: 650,
+              color: '#333333',
+              backgroundColor: '#F4F1EA',
+              border: '1px solid rgba(194, 159, 83, 0.28)',
+              padding: '3px 8px',
+              borderRadius: '6px',
+            }}
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+    ),
   },
   {
     id: 'stat-disciplines',
@@ -40,11 +105,47 @@ const STAT_METRICS: StatMetric[] = [
     title: '6 Integrated Practice Disciplines',
     description:
       'Utility liaisoning (Sanyog), solar EPC (Solis), substation engineering (Grid Apex), architecture (Tvasta), packaging (eMudran), and project advisory (Agrim).',
+    footerNode: (
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '8px',
+          paddingTop: '14px',
+          marginTop: '16px',
+          borderTop: '1px solid rgba(0, 0, 0, 0.07)',
+        }}
+      >
+        {[
+          { name: 'Solis', src: '/images/logos/solis-official.png' },
+          { name: 'Sanyog', src: '/images/logos/sanyog-official.png' },
+          { name: 'Grid Apex', src: '/images/logos/grid-apex-official.png' },
+          { name: 'Tvasta', src: '/images/logos/tvasta-dark.png' },
+          { name: 'eMudran', src: '/images/logos/emudran-official.png' },
+          { name: 'Agrim', src: '/images/logos/agrim-dark.png' },
+        ].map((div) => (
+          <img
+            key={div.name}
+            src={div.src}
+            alt={div.name}
+            style={{
+              height: '16px',
+              width: 'auto',
+              maxWidth: '48px',
+              objectFit: 'contain',
+              display: 'block',
+            }}
+          />
+        ))}
+      </div>
+    ),
   },
 ];
 
 function AnimeCounter({ target, suffix = '' }: { target: number; suffix?: string }) {
-  const [val, setVal] = useState(0);
+  const [val, setVal] = useState(target);
   const elementRef = useRef<HTMLSpanElement>(null);
   const hasAnimated = useRef(false);
 
@@ -58,13 +159,16 @@ function AnimeCounter({ target, suffix = '' }: { target: number; suffix?: string
       (entries) => {
         if (entries[0].isIntersecting && !hasAnimated.current) {
           hasAnimated.current = true;
-          const obj = { count: 0 };
+          const obj = { count: Math.max(1, Math.floor(target * 0.65)) };
           animate(obj, {
             count: target,
-            duration: 1600,
+            duration: 650,
             ease: 'outExpo',
             onUpdate: () => {
               setVal(Math.round(obj.count));
+            },
+            onComplete: () => {
+              setVal(target);
             },
           });
         }
@@ -177,10 +281,10 @@ export default function GroundedWhy() {
               key={item.id}
               theme="light"
               className="why-stat-card text-left"
-              spotlightColor="rgba(194, 159, 83, 0.12)"
-              borderColor="rgba(194, 159, 83, 0.35)"
+              spotlightColor="rgba(194, 159, 83, 0.14)"
+              borderColor="rgba(194, 159, 83, 0.42)"
               style={{ textAlign: 'left' }}
-              contentStyle={{ justifyContent: 'space-between', textAlign: 'left' }}
+              contentStyle={{ justifyContent: 'space-between', textAlign: 'left', height: '100%' }}
             >
               {/* Card Top Gold Hairline Accent */}
               <div
@@ -264,6 +368,7 @@ export default function GroundedWhy() {
                 >
                   {item.description}
                 </p>
+                {item.footerNode}
               </div>
             </SpotlightCard>
           ))}

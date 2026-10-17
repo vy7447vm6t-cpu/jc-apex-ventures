@@ -152,9 +152,9 @@ export default function GroundedRecognition() {
         </div>
 
         {/* Interactive Layout: LineSidebar + Ledger Table / Mobile Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start w-full max-w-full overflow-hidden">
           {/* Left Rail: LineSidebar Jurisdiction Filter */}
-          <div className="lg:col-span-3 rounded-2xl bg-[#F4F1EA] p-4 border border-black/8">
+          <div className="lg:col-span-3 rounded-2xl bg-[#F4F1EA] p-4 border border-black/8 w-full max-w-full overflow-hidden">
             <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#666666] mb-2 px-2">
               Jurisdiction Index
             </div>
@@ -166,7 +166,7 @@ export default function GroundedRecognition() {
           </div>
 
           {/* Right Viewport: Desktop 4-Column Hairline Table + Mobile Stacked Cards */}
-          <div className="lg:col-span-9">
+          <div className="lg:col-span-9 w-full max-w-full overflow-hidden">
             {/* Desktop & Tablet Table */}
             <div
               className="hidden md:block"
@@ -262,25 +262,34 @@ export default function GroundedRecognition() {
               </table>
             </div>
 
-            {/* Mobile (<768px) Zero-Scroll Hairline Cards */}
-            <div className="flex flex-col gap-3 md:hidden">
+            {/* Mobile (<768px) Responsive Stacked Grounded Cards */}
+            <div className="flex flex-col gap-3 md:hidden w-full max-w-full overflow-hidden">
               {filteredRows.map((row) => (
                 <div
                   key={row.parameter}
-                  className="rounded-2xl border border-black/8 bg-[#F4F1EA]/50 p-4 font-sans"
+                  className="rounded-2xl border border-black/8 bg-[#F8F6F0] p-4 font-sans shadow-xs w-full max-w-full box-border overflow-hidden"
                 >
-                  <div className="flex items-center justify-between gap-2 mb-1.5">
+                  <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                     <span className="text-xs font-bold uppercase tracking-wider text-[#8C6D23]">
                       {row.authority}
                     </span>
-                    <span className="text-[11px] font-semibold text-[#555555] bg-white px-2.5 py-0.5 rounded-full border border-black/8">
+                    <span className="text-[10px] font-semibold text-[#555555] bg-white px-2.5 py-0.5 rounded-full border border-black/8 max-w-full truncate">
                       {row.framework}
                     </span>
                   </div>
-                  <h4 className="text-base font-semibold text-[#111111] mb-1">
+                  <h4
+                    style={{
+                      fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+                      fontSize: '1.25rem',
+                      fontWeight: 400,
+                      color: '#111111',
+                      margin: '0 0 6px 0',
+                      lineHeight: 1.2,
+                    }}
+                  >
                     {row.parameter}
                   </h4>
-                  <p className="text-xs text-[#4A4A46] leading-relaxed m-0">
+                  <p className="text-xs text-[#4A4A46] leading-relaxed m-0 break-words">
                     {row.deliverable}
                   </p>
                 </div>

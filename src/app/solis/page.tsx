@@ -214,7 +214,7 @@ export default function SolisPage() {
 
       {/* Page Hero */}
       <PageHero
-        title="Solis Solar EPC"
+        title="Solar EPC & Elevated Terrace Pergolas"
         tagline="Turnkey Solar EPC, Elevated Terrace Pergolas, BIPV Architectural Glass and EV Charging Hubs in Mumbai."
         breadcrumb="Solis Solar & Clean Energy"
         statPill="Save up to 90% Power Bills"
@@ -224,7 +224,7 @@ export default function SolisPage() {
           <img
             src="/images/logos/solis-official.png"
             alt="Official Solis Brand Logo"
-            style={{ height: '48px', width: 'auto', objectFit: 'contain', display: 'block' }}
+            style={{ height: '56px', width: 'auto', objectFit: 'contain', display: 'block' }}
           />
         }
       />

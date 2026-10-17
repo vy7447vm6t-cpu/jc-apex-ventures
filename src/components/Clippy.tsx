@@ -263,7 +263,8 @@ export default function Clippy() {
                     fontSize: '0.72rem',
                     color: '#C29F53',
                     fontWeight: 600,
-                    fontFamily: 'var(--font-mono, monospace)',
+                    fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                    fontVariantNumeric: 'tabular-nums',
                   }}
                 >
                   [direct visitor desk]
@@ -349,7 +350,8 @@ export default function Clippy() {
                   style={{
                     fontSize: '0.72rem',
                     color: '#777777',
-                    fontFamily: 'var(--font-mono, monospace)',
+                    fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                    fontVariantNumeric: 'tabular-nums',
                     textTransform: 'uppercase',
                     display: 'block',
                     marginBottom: '6px',

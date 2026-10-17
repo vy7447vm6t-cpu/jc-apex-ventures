@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 
 export interface BentoCardData {
   id: string;
@@ -23,25 +23,37 @@ export default function MagicBento({
   cards,
   className = '',
 }: MagicBentoProps) {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    setMousePos({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
+  const handleContainerMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    cardRefs.current.forEach((cardEl) => {
+      if (!cardEl) return;
+      const rect = cardEl.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      cardEl.style.setProperty('--mouse-x', `${x}px`);
+      cardEl.style.setProperty('--mouse-y', `${y}px`);
     });
+  };
+
+  const handleCardMouseMove = (idx: number, e: React.MouseEvent<HTMLDivElement>) => {
+    const cardEl = cardRefs.current[idx];
+    if (!cardEl) return;
+    const rect = cardEl.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    cardEl.style.setProperty('--mouse-x', `${x}px`);
+    cardEl.style.setProperty('--mouse-y', `${y}px`);
   };
 
   return (
     <div
       ref={containerRef}
-      onMouseMove={handleMouseMove}
+      onMouseMove={handleContainerMouseMove}
       className={`relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full ${className}`}
     >
-      {cards.map((card) => {
+      {cards.map((card, idx) => {
         const colClass =
           card.colSpan === 3
             ? 'lg:col-span-3 md:col-span-2'
@@ -54,17 +66,42 @@ export default function MagicBento({
         return (
           <div
             key={card.id}
+            ref={(el) => {
+              cardRefs.current[idx] = el;
+            }}
+            onMouseMove={(e) => handleCardMouseMove(idx, e)}
             className={`group relative rounded-3xl border border-black/8 bg-white/80 p-8 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.04)] transition-all duration-300 hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)] hover:-translate-y-1 overflow-hidden flex flex-col justify-between ${colClass} ${rowClass}`}
+            style={{
+              // Fallback initial center coordinates
+              ['--mouse-x' as string]: '50%',
+              ['--mouse-y' as string]: '50%',
+            }}
           >
+            {/* Proximity border illumination */}
+            <div
+              className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+              style={{
+                border: '1.5px solid transparent',
+                background:
+                  'radial-gradient(380px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(194, 159, 83, 0.45), transparent 75%) border-box',
+                WebkitMask:
+                  'linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)',
+                WebkitMaskComposite: 'xor',
+                mask: 'linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)',
+                maskComposite: 'exclude',
+              }}
+            />
+
             {/* Dynamic mouse spotlight reflection */}
             <div
               className="pointer-events-none absolute -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-300"
               style={{
-                background: `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, rgba(194, 159, 83, 0.12), transparent 80%)`,
+                background:
+                  'radial-gradient(420px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(194, 159, 83, 0.14), transparent 80%)',
               }}
             />
 
-            <div>
+            <div className="relative z-10">
               {/* Header */}
               <div className="flex items-center justify-between gap-4 mb-4">
                 {card.badge && (
@@ -128,7 +165,7 @@ export default function MagicBento({
                   color: '#666666',
                   fontWeight: 500,
                 }}
-                className="mt-6 pt-4 border-t border-black/8"
+                className="relative z-10 mt-6 pt-4 border-t border-black/8"
               >
                 {card.footer}
               </div>

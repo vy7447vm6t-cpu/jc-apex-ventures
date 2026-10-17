@@ -97,7 +97,7 @@ export default function TargetCursor({
         />
         {/* Coordinates readout */}
         <div
-          className="absolute top-5 left-5 text-[9px] font-mono tracking-tighter whitespace-nowrap px-1 py-0.5 rounded bg-black/80 text-white"
+          className="absolute top-5 left-5 text-[9px] font-sans tabular-nums tracking-tight whitespace-nowrap px-1 py-0.5 rounded bg-black/80 text-white"
         >
           X:{Math.round(pos.x)} Y:{Math.round(pos.y)}
         </div>

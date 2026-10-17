@@ -35,7 +35,7 @@ export default function FaultyTerminal({
 
   return (
     <div
-      className={`rounded-2xl border border-black/15 bg-[#0D1117] text-[#C9D1D9] font-mono text-xs overflow-hidden shadow-2xl transition-opacity duration-75 ${
+      className={`rounded-2xl border border-black/15 bg-[#0D1117] text-[#C9D1D9] font-sans tabular-nums text-xs overflow-hidden shadow-2xl transition-opacity duration-75 ${
         flicker ? 'opacity-90' : 'opacity-100'
       } ${className}`}
     >

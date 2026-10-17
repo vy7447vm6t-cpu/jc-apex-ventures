@@ -33,14 +33,13 @@ export default function DepthCarousel({
 
   return (
     <div className={`relative flex flex-col items-center justify-center w-full py-8 ${className}`}>
-      {/* 3D Stage */}
+      {/* Responsive 3D Stage */}
       <div
-        className="relative h-[380px] w-full max-w-[640px] flex items-center justify-center"
+        className="relative h-[380px] w-full max-w-[640px] flex items-center justify-center overflow-visible"
         style={{ perspective: '1200px' }}
       >
         {items.map((item, idx) => {
           const offset = idx - activeIndex;
-          const absOffset = Math.abs(offset);
           const isCurrent = idx === activeIndex;
 
           let transform = '';
@@ -52,11 +51,13 @@ export default function DepthCarousel({
             opacity = 1;
             zIndex = 20;
           } else if (offset === -1 || (idx === items.length - 1 && activeIndex === 0)) {
-            transform = 'translateX(-160px) translateZ(-60px) rotateY(18deg) scale(0.85)';
+            transform =
+              'translateX(calc(-1 * clamp(64px, 26vw, 160px))) translateZ(-60px) rotateY(18deg) scale(0.85)';
             opacity = 0.65;
             zIndex = 10;
           } else if (offset === 1 || (idx === 0 && activeIndex === items.length - 1)) {
-            transform = 'translateX(160px) translateZ(-60px) rotateY(-18deg) scale(0.85)';
+            transform =
+              'translateX(clamp(64px, 26vw, 160px)) translateZ(-60px) rotateY(-18deg) scale(0.85)';
             opacity = 0.65;
             zIndex = 10;
           } else {
@@ -69,7 +70,7 @@ export default function DepthCarousel({
             <div
               key={item.id}
               onClick={() => setActiveIndex(idx)}
-              className="absolute w-[320px] md:w-[420px] h-[300px] rounded-2xl overflow-hidden cursor-pointer transition-all duration-700 ease-out shadow-2xl border border-black/10"
+              className="absolute w-[min(300px,calc(100vw-64px))] sm:w-[340px] md:w-[420px] h-[300px] rounded-2xl overflow-hidden cursor-pointer transition-all duration-700 ease-out shadow-2xl border border-black/10"
               style={{
                 transform,
                 opacity,
@@ -84,16 +85,36 @@ export default function DepthCarousel({
                   fill
                   className="object-cover"
                 />
-                <span className="absolute top-3 left-3 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider rounded-full bg-white/90 backdrop-blur-md text-[#111111]">
+                <span
+                  style={{
+                    fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                  }}
+                  className="absolute top-3 left-3 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider rounded-full bg-white/90 backdrop-blur-md text-[#111111]"
+                >
                   {item.tag}
                 </span>
               </div>
               <div className="p-4 bg-white flex flex-col justify-between h-[120px]">
                 <div>
-                  <h4 className="text-base font-serif font-bold text-[#111111] line-clamp-1">
+                  <h4
+                    style={{
+                      fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+                      fontWeight: 400,
+                      fontSize: '1.25rem',
+                      lineHeight: 1.25,
+                      margin: 0,
+                      color: '#111111',
+                    }}
+                    className="line-clamp-1"
+                  >
                     {item.title}
                   </h4>
-                  <p className="text-xs text-[#666666] line-clamp-2 mt-1">
+                  <p
+                    style={{
+                      fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                    }}
+                    className="text-xs text-[#666666] line-clamp-2 mt-1.5"
+                  >
                     {item.description}
                   </p>
                 </div>
@@ -113,7 +134,13 @@ export default function DepthCarousel({
         >
           <ChevronLeft size={18} color="#111111" />
         </button>
-        <span className="text-xs font-mono text-[#666666]">
+        <span
+          style={{
+            fontFamily: 'var(--font-sans, Inter, sans-serif)',
+            fontVariantNumeric: 'tabular-nums',
+          }}
+          className="text-xs font-medium text-[#666666]"
+        >
           {activeIndex + 1} / {items.length}
         </span>
         <button

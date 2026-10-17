@@ -9,8 +9,8 @@ import {
   SpecularButton,
   ShapeWaves,
   InfiniteSpiral,
-  TargetCursor,
   LogoLoop,
+  ElectricBorder,
 } from '@/components/react-bits';
 
 interface HeroZone {
@@ -19,6 +19,8 @@ interface HeroZone {
   label: string;
   category: string;
   image: string;
+  division?: string;
+  isElectric?: boolean;
 }
 
 const HERO_ZONES: HeroZone[] = [
@@ -28,6 +30,8 @@ const HERO_ZONES: HeroZone[] = [
     label: 'Utility Distribution Grid',
     category: 'MERC Sanctions & Tariff Regularization',
     image: '/images/utility-metering-liaison.jpg',
+    division: 'sanyog',
+    isElectric: true,
   },
   {
     id: 'zone-02',
@@ -35,6 +39,8 @@ const HERO_ZONES: HeroZone[] = [
     label: 'Walkable Solar Pergola',
     category: '100% Usable Terrace Rooftop EPC',
     image: '/images/solar-pergola-rooftop.jpg',
+    division: 'solis',
+    isElectric: true,
   },
   {
     id: 'zone-03',
@@ -42,6 +48,8 @@ const HERO_ZONES: HeroZone[] = [
     label: '33kV Substation Panels',
     category: 'Industrial Switchgear & PWD Sanctions',
     image: '/images/electrical-substation.jpg',
+    division: 'grid-apex',
+    isElectric: true,
   },
   {
     id: 'zone-04',
@@ -49,6 +57,8 @@ const HERO_ZONES: HeroZone[] = [
     label: 'Turnkey Corporate Fit-out',
     category: 'Commercial Space Planning & Execution',
     image: '/images/commercial_office_fitout.jpg',
+    division: 'tvasta',
+    isElectric: false,
   },
   {
     id: 'zone-05',
@@ -56,6 +66,17 @@ const HERO_ZONES: HeroZone[] = [
     label: 'Precision Packaging & Print',
     category: 'Rigid Boxes, Foil Branding & Signage',
     image: '/images/luxury-print-packaging.jpg',
+    division: 'emudran',
+    isElectric: false,
+  },
+  {
+    id: 'zone-06',
+    num: '_06',
+    label: 'Project Finance & DPRs',
+    category: 'CAPEX Feasibility & Debt Syndication',
+    image: '/images/banking-sanction-dossier.jpg',
+    division: 'agrim',
+    isElectric: false,
   },
 ];
 
@@ -122,7 +143,11 @@ const REGULATORY_AUTHORITIES = [
   },
 ];
 
-export default function GroundedHero() {
+export interface GroundedHeroProps {
+  onOpenConsultation?: (division?: string) => void;
+}
+
+export default function GroundedHero({ onOpenConsultation }: GroundedHeroProps = {}) {
   const [activeZone, setActiveZone] = useState<number | null>(null);
   const heroRef = useRef<HTMLElement>(null);
 
@@ -141,9 +166,6 @@ export default function GroundedHero() {
         justifyContent: 'space-between',
       }}
     >
-      {/* Precision Architectural CAD Crosshair Cursor (strictly desktop viewports) */}
-      <TargetCursor containerRef={heroRef} color="#C29F53" />
-
       {/* MicroSlats Architectural Louver Rhythm with CAD Datum Ticks */}
       <MicroSlats count={24} color="#FFFFFF" opacity={0.10} zIndex={12} showTicks={true} />
 
@@ -218,14 +240,14 @@ export default function GroundedHero() {
         <ShapeWaves color="#C29F53" height={95} waveCount={3} />
       </div>
 
-      {/* 5 Invisible Hover Columns Triggering Image Crossfade (Desktop hover only) */}
+      {/* 6 Invisible Hover Columns Triggering Image Crossfade (Desktop hover only) */}
       <div
         className="hidden md:grid"
         style={{
           position: 'absolute',
           inset: 0,
           zIndex: 15,
-          gridTemplateColumns: 'repeat(5, 1fr)',
+          gridTemplateColumns: 'repeat(6, 1fr)',
           pointerEvents: 'auto',
         }}
         onMouseLeave={() => setActiveZone(null)}
@@ -304,7 +326,7 @@ export default function GroundedHero() {
           Consultancy, statutory liaisoning, and execution across Mumbai utility grids, renewable infrastructure, and commercial spaces.
         </p>
 
-        {/* Grounded Action Buttons */}
+        {/* Grounded Action Buttons with Apple KokonutUI Specular Liquid Glass */}
         <div
           className="hero-cta-group"
           style={{
@@ -325,9 +347,16 @@ export default function GroundedHero() {
             Explore Divisions
           </SpecularButton>
           <SpecularButton
-            href="#contact"
+            href={onOpenConsultation ? undefined : "#contact"}
+            onClick={
+              onOpenConsultation
+                ? () => {
+                    onOpenConsultation(activeZone !== null ? HERO_ZONES[activeZone].division : undefined);
+                  }
+                : undefined
+            }
             variant="dark"
-            className="hero-cta-btn-dark"
+            className="hero-cta-btn-dark cursor-pointer"
           >
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
               <span>Initiate Consultation</span>
@@ -350,16 +379,25 @@ export default function GroundedHero() {
           pointerEvents: 'none',
         }}
       >
-        {/* Desktop View: 5-Column Architectural Grid */}
-        <div className="hero-indicators-grid hidden md:grid" style={{ pointerEvents: 'auto' }}>
+        {/* Desktop View: 6-Column Architectural Grid */}
+        <div
+          className="hero-indicators-grid hidden md:grid"
+          style={{
+            pointerEvents: 'auto',
+            gridTemplateColumns: 'repeat(6, 1fr)',
+          }}
+        >
           {HERO_ZONES.map((zone, idx) => {
             const isHovered = activeZone === idx;
             const isFaded = activeZone !== null && !isHovered;
             return (
-              <div
+              <ElectricBorder
                 key={`indicator-${zone.id}`}
-                onClick={() => setActiveZone(activeZone === idx ? null : idx)}
-                onMouseEnter={() => setActiveZone(idx)}
+                division={zone.division}
+                active={isHovered}
+                borderRadius={8}
+                glowColor="#C29F53"
+                className="rounded-lg"
                 style={{
                   transition: 'opacity 0.3s ease, transform 0.3s ease',
                   opacity: isFaded ? 0.45 : 1,
@@ -368,44 +406,50 @@ export default function GroundedHero() {
                   pointerEvents: 'auto',
                 }}
               >
-                {/* Active state indicator line */}
                 <div
-                  style={{
-                    height: '2px',
-                    width: '100%',
-                    backgroundColor: isHovered ? '#C29F53' : 'rgba(255, 255, 255, 0.22)',
-                    boxShadow: isHovered ? '0 0 10px rgba(194, 159, 83, 0.65)' : 'none',
-                    marginBottom: '10px',
-                    transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-                    borderRadius: '1px',
-                  }}
-                />
-                <div
-                  style={{
-                    fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                    fontSize: '0.78rem',
-                    color: isHovered ? '#C29F53' : 'rgba(255, 255, 255, 0.85)',
-                    letterSpacing: '0.04em',
-                    marginBottom: '4px',
-                    fontWeight: 650,
-                    fontVariantNumeric: 'tabular-nums',
-                  }}
+                  onClick={() => setActiveZone(activeZone === idx ? null : idx)}
+                  onMouseEnter={() => setActiveZone(idx)}
+                  className="p-1"
                 >
-                  <TechText text={zone.num} />
+                  {/* Active state indicator line */}
+                  <div
+                    style={{
+                      height: '2px',
+                      width: '100%',
+                      backgroundColor: isHovered ? '#C29F53' : 'rgba(255, 255, 255, 0.22)',
+                      boxShadow: isHovered ? '0 0 10px rgba(194, 159, 83, 0.65)' : 'none',
+                      marginBottom: '10px',
+                      transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                      borderRadius: '1px',
+                    }}
+                  />
+                  <div
+                    style={{
+                      fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                      fontSize: '0.78rem',
+                      color: isHovered ? '#C29F53' : 'rgba(255, 255, 255, 0.85)',
+                      letterSpacing: '0.04em',
+                      marginBottom: '4px',
+                      fontWeight: 650,
+                      fontVariantNumeric: 'tabular-nums',
+                    }}
+                  >
+                    <TechText text={zone.num} />
+                  </div>
+                  <div
+                    style={{
+                      fontSize: '0.88rem',
+                      color: '#FFFFFF',
+                      fontWeight: isHovered ? 600 : 450,
+                      lineHeight: 1.3,
+                      fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                      letterSpacing: '-0.01em',
+                    }}
+                  >
+                    {zone.label}
+                  </div>
                 </div>
-                <div
-                  style={{
-                    fontSize: '0.88rem',
-                    color: '#FFFFFF',
-                    fontWeight: isHovered ? 600 : 450,
-                    lineHeight: 1.3,
-                    fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                    letterSpacing: '-0.01em',
-                  }}
-                >
-                  {zone.label}
-                </div>
-              </div>
+              </ElectricBorder>
             );
           })}
         </div>
@@ -484,7 +528,7 @@ export default function GroundedHero() {
                   textOverflow: 'ellipsis',
                 }}
               >
-                {activeZone !== null ? HERO_ZONES[activeZone].category : 'One International Centre · Tap _01 to _05'}
+                {activeZone !== null ? HERO_ZONES[activeZone].category : 'One International Centre · Tap _01 to _06'}
               </div>
             </div>
 

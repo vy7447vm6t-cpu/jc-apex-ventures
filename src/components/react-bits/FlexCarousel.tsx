@@ -53,11 +53,45 @@ export default function FlexCarousel({
     scrollToIndex(prevIdx);
   };
 
+  // Passive onScroll listener to synchronize snap index and pagination in real-time
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (!container) return;
+          const scrollLeft = container.scrollLeft;
+          const children = Array.from(container.children) as HTMLElement[];
+          if (children.length === 0) return;
+
+          let closestIdx = 0;
+          let minDiff = Infinity;
+          children.forEach((child, idx) => {
+            const diff = Math.abs(child.offsetLeft - container.offsetLeft - scrollLeft);
+            if (diff < minDiff) {
+              minDiff = diff;
+              closestIdx = idx;
+            }
+          });
+          setCurrentIndex(closestIdx);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    container.addEventListener('scroll', handleScroll, { passive: true });
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, [items.length]);
+
   useEffect(() => {
     if (!autoPlay) return;
     const timer = setInterval(handleNext, interval);
     return () => clearInterval(timer);
-  }, [currentIndex, autoPlay, interval]);
+  }, [currentIndex, autoPlay, interval, items.length]);
 
   return (
     <div className={`relative w-full ${className}`}>
@@ -72,7 +106,7 @@ export default function FlexCarousel({
           msOverflowStyle: 'none',
         }}
       >
-        {items.map((item, idx) => (
+        {items.map((item) => (
           <div
             key={item.id}
             className={`flex-shrink-0 transition-all duration-300 ${itemClassName}`}

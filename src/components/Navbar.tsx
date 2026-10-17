@@ -52,22 +52,29 @@ export default function Navbar() {
       const currentScrollY = window.scrollY;
       setScrolled(currentScrollY > 20);
 
-      // At or near top: always reveal
+      // Footer auto-retract awareness: hide navbar near bottom of page
+      // so it never obstructs the monument sticky JC APEX VENTURES wordmark in Footer
+      const scrollHeight = document.documentElement.scrollHeight;
+      const clientHeight = window.innerHeight;
+      const distanceFromBottom = scrollHeight - (currentScrollY + clientHeight);
+      if (distanceFromBottom < 480) {
+        setHidden(true);
+        lastScrollY.current = currentScrollY;
+        return;
+      }
+
       if (currentScrollY < 60) {
         setHidden(false);
         lastScrollY.current = currentScrollY;
         return;
       }
 
-      // Ignore micro-jitter
       const diff = currentScrollY - lastScrollY.current;
       if (Math.abs(diff) < 8) return;
 
       if (diff > 0 && currentScrollY > 100) {
-        // Scrolling down: hide navbar so it never sits across section headers or reading content
         setHidden(true);
       } else if (diff < 0) {
-        // Scrolling up: reveal navbar cleanly
         setHidden(false);
       }
 
@@ -173,7 +180,7 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ===== GROUNDED FLOATING ISLAND NAVIGATION ===== */}
+      {/* ===== APPLE KOKONUTUI FLOATING LIQUID GLASS NAVIGATION ===== */}
       <div
         className="nav-menu-fixed-wrapper z-50"
         style={{
@@ -189,19 +196,19 @@ export default function Navbar() {
         }}
       >
         <header
-          className="ios-glass ios-liquid-glass kokonut-nav-pill backdrop-blur-2xl"
+          className="kokonut-nav-pill specular-sheen ios-glass backdrop-blur-md"
           style={{
             pointerEvents: 'auto',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            padding: '8px 16px',
+            padding: '8px 18px',
             borderRadius: '9999px',
-            backgroundColor: 'rgba(255, 255, 255, 0.90)',
-            backdropFilter: 'blur(28px) saturate(180%)',
-            WebkitBackdropFilter: 'blur(28px) saturate(180%)',
-            border: '1px solid rgba(255, 255, 255, 0.75)',
-            boxShadow: '0 12px 36px -4px rgba(0, 0, 0, 0.12), 0 2px 6px -1px rgba(0, 0, 0, 0.05), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.04)',
+            background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.72) 0%, rgba(246, 244, 238, 0.52) 100%)',
+            backdropFilter: 'blur(32px) saturate(210%)',
+            WebkitBackdropFilter: 'blur(32px) saturate(210%)',
+            border: '1px solid rgba(255, 255, 255, 0.85)',
+            boxShadow: '0 16px 40px -6px rgba(0, 0, 0, 0.12), 0 2px 6px -1px rgba(0, 0, 0, 0.04), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.05)',
             width: '100%',
           }}
         >
@@ -235,7 +242,8 @@ export default function Navbar() {
               </span>
               <span
                 style={{
-                  fontFamily: 'var(--font-mono, monospace)',
+                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                  fontVariantNumeric: 'tabular-nums',
                   fontSize: '0.72rem',
                   color: '#666666',
                   letterSpacing: '0.05em',
@@ -284,11 +292,11 @@ export default function Navbar() {
                 <div
                   className="absolute left-1/2 -translate-x-1/2 top-full mt-3 w-[460px] p-3 rounded-2xl shadow-2xl z-50 pointer-events-auto"
                   style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                    backdropFilter: 'blur(28px) saturate(180%)',
-                    WebkitBackdropFilter: 'blur(28px) saturate(180%)',
-                    border: '1px solid rgba(255, 255, 255, 0.85)',
-                    boxShadow: '0 20px 48px -8px rgba(0, 0, 0, 0.16), inset 0 1px 1px rgba(255, 255, 255, 0.9)',
+                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.88) 0%, rgba(246, 244, 238, 0.78) 100%)',
+                    backdropFilter: 'blur(32px) saturate(210%)',
+                    WebkitBackdropFilter: 'blur(32px) saturate(210%)',
+                    border: '1px solid rgba(255, 255, 255, 0.90)',
+                    boxShadow: '0 24px 50px -10px rgba(0, 0, 0, 0.18), inset 0 1.5px 1px rgba(255, 255, 255, 0.95)',
                   }}
                 >
                   <div className="grid grid-cols-2 gap-2">
@@ -351,20 +359,24 @@ export default function Navbar() {
 
           {/* Right: Live Mumbai Clock, Phone Action, Menu Trigger & CTA */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
-            {/* Live Mumbai Clock with isolated pill container */}
+            {/* Live Mumbai Clock in KokonutUI Liquid Glass Pill */}
             <div
               className="mumbai-clock hidden xl:flex"
               style={{
                 alignItems: 'center',
                 gap: '6px',
-                padding: '5px 11px',
+                padding: '5px 12px',
                 borderRadius: '9999px',
-                backgroundColor: 'rgba(0, 0, 0, 0.04)',
-                border: '1px solid rgba(0, 0, 0, 0.06)',
-                fontFamily: 'var(--font-mono, monospace)',
+                background: 'rgba(255, 255, 255, 0.65)',
+                backdropFilter: 'blur(20px) saturate(180%)',
+                WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+                border: '1px solid rgba(255, 255, 255, 0.75)',
+                boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.8), 0 2px 6px rgba(0, 0, 0, 0.04)',
+                fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                fontVariantNumeric: 'tabular-nums',
                 fontSize: '0.68rem',
                 letterSpacing: '0.04em',
-                color: '#333333',
+                color: '#222222',
                 whiteSpace: 'nowrap',
               }}
             >
@@ -374,6 +386,7 @@ export default function Navbar() {
                   height: '6px',
                   borderRadius: '50%',
                   backgroundColor: '#16A34A',
+                  boxShadow: '0 0 6px rgba(22, 163, 74, 0.6)',
                   display: 'inline-block',
                 }}
               />
@@ -393,10 +406,13 @@ export default function Navbar() {
                 fontWeight: 500,
                 color: '#111111',
                 textDecoration: 'none',
-                padding: '6px 12px',
+                padding: '6px 14px',
                 borderRadius: '9999px',
-                backgroundColor: 'rgba(0, 0, 0, 0.05)',
-                border: '1px solid rgba(0, 0, 0, 0.08)',
+                background: 'rgba(255, 255, 255, 0.65)',
+                backdropFilter: 'blur(20px) saturate(180%)',
+                WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+                border: '1px solid rgba(255, 255, 255, 0.75)',
+                boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.8), 0 2px 6px rgba(0, 0, 0, 0.04)',
                 whiteSpace: 'nowrap',
                 transition: 'all 0.2s ease',
               }}
@@ -405,15 +421,15 @@ export default function Navbar() {
               <span>+91 70211 12664</span>
             </a>
 
-            {/* Consultation Action Button */}
+            {/* Consultation Action Button with KokonutUI Liquid Glass */}
             <a
               href="#contact"
               aria-label="Consultation Enquiry"
-              className="hidden md:inline-flex"
+              className="hidden md:inline-flex specular-sheen"
               style={{
                 alignItems: 'center',
                 gap: '6px',
-                padding: '7px 16px',
+                padding: '7px 18px',
                 fontSize: '0.78rem',
                 fontFamily: 'var(--font-sans, Inter, sans-serif)',
                 fontWeight: 600,
@@ -421,17 +437,17 @@ export default function Navbar() {
                 color: '#FFFFFF',
                 borderRadius: '9999px',
                 textDecoration: 'none',
-                border: '1px solid rgba(255, 255, 255, 0.2)',
-                boxShadow: '0 4px 14px rgba(0, 0, 0, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.35)',
+                border: '1px solid rgba(255, 255, 255, 0.28)',
+                boxShadow: '0 6px 18px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.4)',
                 whiteSpace: 'nowrap',
                 transition: 'all 0.2s ease',
               }}
             >
               <ScrambleText text="Consultation" />
-              <ArrowUpRight size={14} />
+              <ArrowUpRight size={14} color="#C29F53" />
             </a>
 
-            {/* Grounded 3-Dots Menu Trigger Button (Mobile only) */}
+            {/* Mobile Menu Trigger Button */}
             <button
               type="button"
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -441,8 +457,9 @@ export default function Navbar() {
                 width: '36px',
                 height: '36px',
                 borderRadius: '50%',
-                border: '1px solid rgba(0, 0, 0, 0.1)',
-                backgroundColor: 'rgba(255, 255, 255, 0.85)',
+                border: '1px solid rgba(255, 255, 255, 0.75)',
+                backgroundColor: 'rgba(255, 255, 255, 0.75)',
+                backdropFilter: 'blur(20px)',
                 cursor: 'pointer',
                 color: '#111111',
                 transition: 'all 0.2s ease',
@@ -490,7 +507,8 @@ export default function Navbar() {
           <div>
             <div
               style={{
-                fontFamily: 'var(--font-mono, monospace)',
+                fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                fontVariantNumeric: 'tabular-nums',
                 fontSize: '0.8rem',
                 letterSpacing: '0.08em',
                 color: '#888888',
@@ -521,7 +539,8 @@ export default function Navbar() {
               >
                 <div
                   style={{
-                    fontFamily: 'var(--font-mono, monospace)',
+                    fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                  fontVariantNumeric: 'tabular-nums',
                     fontSize: '0.74rem',
                     color: '#C29F53',
                     marginBottom: '4px',
@@ -557,7 +576,8 @@ export default function Navbar() {
                   <div>
                     <div
                       style={{
-                        fontFamily: 'var(--font-mono, monospace)',
+                        fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                  fontVariantNumeric: 'tabular-nums',
                         fontSize: '0.74rem',
                         color: '#C29F53',
                         marginBottom: '4px',
@@ -615,7 +635,8 @@ export default function Navbar() {
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
-                  fontFamily: 'var(--font-mono, monospace)',
+                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                  fontVariantNumeric: 'tabular-nums',
                   fontSize: '0.76rem',
                   color: '#C29F53',
                   textDecoration: 'none',
@@ -636,7 +657,8 @@ export default function Navbar() {
                 href="tel:+917021112664"
                 style={{
                   color: '#FFFFFF',
-                  fontFamily: 'var(--font-mono, monospace)',
+                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                  fontVariantNumeric: 'tabular-nums',
                   fontSize: '0.85rem',
                   textDecoration: 'none',
                 }}

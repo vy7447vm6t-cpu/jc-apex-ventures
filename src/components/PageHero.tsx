@@ -92,43 +92,52 @@ export default function PageHero({
           }}
         >
           <div>
-            {/* Header row with official logo and title inline */}
+            {/* Header row with transparent official logo and discipline title inline */}
             <div
               className="animate-fade-in-up"
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '16px',
+                gap: '20px',
                 flexWrap: 'wrap',
-                marginBottom: '18px',
+                marginBottom: '22px',
               }}
             >
               {logo && (
-                <div
-                  className="ios-glass-light"
-                  style={{
-                    padding: '8px 16px',
-                    borderRadius: '16px',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    backgroundColor: '#FFFFFF',
-                    border: '1px solid rgba(0, 0, 0, 0.08)',
-                    boxShadow: '0 6px 20px rgba(0, 0, 0, 0.04)',
-                    flexShrink: 0,
-                  }}
-                >
-                  {logo}
-                </div>
+                <>
+                  <div
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      backgroundColor: 'transparent',
+                      flexShrink: 0,
+                    }}
+                  >
+                    {logo}
+                  </div>
+                  <span
+                    aria-hidden="true"
+                    style={{
+                      width: '1.5px',
+                      height: '44px',
+                      backgroundColor: 'rgba(194, 159, 83, 0.55)',
+                      display: 'inline-block',
+                      flexShrink: 0,
+                    }}
+                  />
+                </>
               )}
 
               <h1
                 style={{
-                  fontSize: 'clamp(2.2rem, 4vw, 3.4rem)',
+                  flex: 1,
+                  minWidth: '220px',
+                  fontSize: 'clamp(2rem, 3.4vw, 2.95rem)',
                   margin: 0,
                   fontWeight: 400,
                   color: '#111111',
-                  lineHeight: 1.1,
+                  lineHeight: 1.12,
                   letterSpacing: '-0.025em',
                   fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
                 }}

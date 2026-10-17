@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { ChevronRight } from 'lucide-react';
 
 export interface AccordionGalleryItem {
   id: string;
@@ -12,6 +11,8 @@ export interface AccordionGalleryItem {
   description: string;
   image: string;
   specs: string[];
+  logo?: string;
+  division?: string;
 }
 
 interface AccordionGalleryProps {
@@ -63,27 +64,64 @@ export default function AccordionGallery({
 
             {/* Content overlay */}
             <div className="absolute inset-0 p-6 flex flex-col justify-end text-white z-10">
-              {item.badge && (
-                <span className="inline-block w-fit mb-2 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider rounded-full bg-[#C29F53]/90 text-black">
-                  {item.badge}
-                </span>
-              )}
-              <h3 className="text-xl md:text-2xl font-serif text-white mb-1">
+              <div className="flex items-center gap-2 mb-2">
+                {item.logo && (
+                  <div className="h-6 w-6 rounded-md bg-white/90 p-0.5 flex items-center justify-center shrink-0">
+                    <img
+                      src={item.logo}
+                      alt={item.title}
+                      className="max-h-5 max-w-5 object-contain"
+                    />
+                  </div>
+                )}
+                {item.badge && (
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                    }}
+                    className="inline-block w-fit px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider rounded-full bg-[#C29F53] text-black"
+                  >
+                    {item.badge}
+                  </span>
+                )}
+              </div>
+
+              <h3
+                style={{
+                  fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+                  fontWeight: 400,
+                  lineHeight: 1.2,
+                }}
+                className="text-xl md:text-2xl text-white mb-1"
+              >
                 {item.title}
               </h3>
-              <p className="text-xs text-white/80 font-mono tracking-wide mb-3">
+              <p
+                style={{
+                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                }}
+                className="text-xs text-white/80 tracking-wide mb-3"
+              >
                 {item.subtitle}
               </p>
 
               {isActive && (
                 <div className="mt-2 pt-3 border-t border-white/20 transition-all duration-300">
-                  <p className="text-sm text-white/90 line-clamp-2 mb-3">
+                  <p
+                    style={{
+                      fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                    }}
+                    className="text-sm text-white/90 line-clamp-2 mb-3"
+                  >
                     {item.description}
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {item.specs.map((spec, idx) => (
                       <span
                         key={idx}
+                        style={{
+                          fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                        }}
                         className="text-[11px] px-2.5 py-1 rounded-md bg-white/15 backdrop-blur-md text-white/90"
                       >
                         {spec}

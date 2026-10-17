@@ -58,12 +58,12 @@ function SectionHeading({ title, intro }: { title: string; intro?: string }) {
 }
 
 const OFFICIAL_DIVISION_LOGOS: Record<string, { src: string; alt: string; height?: number }> = {
-  solis: { src: '/images/logos/solis-official.png', alt: 'Solis Official Logo', height: 44 },
-  sanyog: { src: '/images/logos/sanyog-official.png', alt: 'Sanyog Official Logo', height: 44 },
-  'grid-apex': { src: '/images/logos/grid-apex-official.png', alt: 'Grid Apex Official Logo', height: 42 },
-  tvasta: { src: '/images/logos/tvasta-dark.png', alt: 'Tvasta Official Logo', height: 46 },
-  emudran: { src: '/images/logos/emudran-official.png', alt: 'eMudran Official Logo', height: 42 },
-  agrim: { src: '/images/logos/agrim-dark.png', alt: 'Agrim Official Logo', height: 44 },
+  solis: { src: '/images/logos/solis-official.png', alt: 'Solis Official Logo', height: 56 },
+  sanyog: { src: '/images/logos/sanyog-official.png', alt: 'Sanyog Official Logo', height: 56 },
+  'grid-apex': { src: '/images/logos/grid-apex-official.png', alt: 'Grid Apex Official Logo', height: 54 },
+  tvasta: { src: '/images/logos/tvasta-dark.png', alt: 'Tvasta Official Logo', height: 56 },
+  emudran: { src: '/images/logos/emudran-official.png', alt: 'eMudran Official Logo', height: 54 },
+  agrim: { src: '/images/logos/agrim-dark.png', alt: 'Agrim Official Logo', height: 56 },
 };
 
 export default function DivisionPage({
@@ -84,7 +84,7 @@ export default function DivisionPage({
       <Clippy />
 
       <PageHero
-        title={data.name}
+        title={data.laypersonBadge || data.name}
         tagline={data.tagline}
         breadcrumb={data.name}
         statPill={data.statPill}
@@ -96,7 +96,7 @@ export default function DivisionPage({
               src={defaultLogo?.src || '/images/logos/solis-official.png'}
               alt={defaultLogo?.alt || data.name}
               style={{
-                height: `${defaultLogo?.height || 44}px`,
+                height: `${defaultLogo?.height || 56}px`,
                 width: 'auto',
                 objectFit: 'contain',
                 display: 'block',
@@ -123,7 +123,7 @@ export default function DivisionPage({
                 fontWeight: 600,
                 textTransform: 'uppercase',
                 letterSpacing: '0.08em',
-                fontFamily: 'var(--font-mono, monospace)',
+                fontFamily: 'var(--font-sans, Inter, sans-serif)',
                 border: '1px solid var(--color-border-accent-light)',
               }}
             >

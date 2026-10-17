@@ -408,7 +408,7 @@ export default function Footer() {
         >
           <ParticleText
             text="JC APEX VENTURES · MUMBAI"
-            fontSize={34}
+            fontSize={48}
             particleColor="#C29F53"
           />
         </div>
@@ -459,7 +459,7 @@ export default function Footer() {
 
         <div className="w-full">
           <svg
-            viewBox="0 0 1340 180"
+            viewBox="0 0 1050 140"
             width="100%"
             height="100%"
             fill="none"
@@ -467,7 +467,7 @@ export default function Footer() {
             className="w-full h-auto max-h-[160px] sm:max-h-[200px] drop-shadow-2xl"
           >
             {/* Master JC Apex Umbrella Emblem */}
-            <g transform="translate(20, 10)">
+            <g transform="translate(15, 6)">
               <circle cx="50" cy="18" r="10" fill="#D4AF37" />
               <path
                 d="M15 55 Q 50 15 85 55"
@@ -496,13 +496,14 @@ export default function Footer() {
 
             {/* Grand Architectural Instrument Serif Wordmark */}
             <text
-              x="160"
-              y="115"
+              x="135"
+              y="114"
+              textLength="895"
+              lengthAdjust="spacing"
               fill="#FFFFFF"
               fontFamily="var(--font-serif-display), 'Instrument Serif', Georgia, serif"
-              fontSize="140"
+              fontSize="132"
               fontWeight="400"
-              letterSpacing="-0.02em"
             >
               JC APEX VENTURES
             </text>

@@ -24,7 +24,7 @@ export default function CrtWarp({
     >
       {/* Content wrapper */}
       <div
-        className="relative z-10 p-6 font-mono text-sm"
+        className="relative z-10 p-6 font-sans text-sm tabular-nums"
         style={{
           transform: enableCurvature ? 'perspective(600px) rotateX(1deg)' : 'none',
         }}

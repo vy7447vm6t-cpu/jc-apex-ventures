@@ -10,6 +10,7 @@ interface ElectricBorderProps {
   borderRadius?: number | string;
   duration?: number;
   active?: boolean;
+  division?: string;
   innerBg?: string;
   style?: React.CSSProperties;
 }
@@ -22,6 +23,7 @@ export default function ElectricBorder({
   borderRadius = 20,
   duration = 3.6,
   active = true,
+  division,
   innerBg = 'transparent',
   style = {},
 }: ElectricBorderProps) {
@@ -31,27 +33,43 @@ export default function ElectricBorder({
       ? borderRadius
       : parseInt(String(borderRadius), 10) || 20;
 
+  // Reserved strictly for electrical divisions (Solis, Sanyog, Grid Apex)
+  const isElectrical =
+    !division ||
+    ['solis', 'sanyog', 'grid-apex', 'gridapex'].includes(division.toLowerCase());
+  const isActuallyActive = active && isElectrical;
+
   return (
     <div
       className={`relative overflow-hidden group ${className}`}
       style={{
-        padding: active ? '2px' : '1px',
         borderRadius: `${radiusNum}px`,
-        backgroundColor: active ? 'rgba(194, 159, 83, 0.22)' : 'rgba(0, 0, 0, 0.08)',
-        boxShadow: active ? `0 0 22px -4px rgba(194, 159, 83, 0.35)` : 'none',
-        transition: 'box-shadow 0.35s ease, background-color 0.35s ease',
+        boxShadow: isActuallyActive ? '0 0 22px -4px rgba(194, 159, 83, 0.35)' : 'none',
+        transition: 'box-shadow 0.35s ease',
         ...style,
       }}
     >
-      {/* Animated dual-arc spinning conical gradient */}
-      {active && (
+      {/* 1.5px Traveling Laser Perimeter Ring via CSS Mask Exclusion */}
+      {isActuallyActive && (
         <div
-          className="absolute inset-[-150%] pointer-events-none"
+          className="absolute inset-0 pointer-events-none overflow-hidden"
           style={{
-            background: `conic-gradient(from 45deg at 50% 50%, transparent 0deg, ${effectiveGlow} 55deg, #F5D78E 75deg, transparent 105deg, transparent 180deg, ${effectiveGlow} 235deg, #F5D78E 255deg, transparent 285deg, transparent 360deg)`,
-            animation: `electricSpin ${duration}s linear infinite`,
+            padding: '1.5px',
+            borderRadius: `${radiusNum}px`,
+            WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+            WebkitMaskComposite: 'xor',
+            mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+            maskComposite: 'exclude',
           }}
-        />
+        >
+          <div
+            className="absolute inset-[-150%]"
+            style={{
+              background: `conic-gradient(from 45deg at 50% 50%, transparent 0deg, ${effectiveGlow} 55deg, #F5D78E 75deg, transparent 105deg, transparent 180deg, ${effectiveGlow} 235deg, #F5D78E 255deg, transparent 285deg, transparent 360deg)`,
+              animation: `electricSpin ${duration}s linear infinite`,
+            }}
+          />
+        </div>
       )}
 
       {/* Inner surface */}
@@ -64,17 +82,6 @@ export default function ElectricBorder({
       >
         {children}
       </div>
-
-      <style jsx global>{`
-        @keyframes electricSpin {
-          0% {
-            transform: rotate(0deg);
-          }
-          100% {
-            transform: rotate(360deg);
-          }
-        }
-      `}</style>
     </div>
   );
 }

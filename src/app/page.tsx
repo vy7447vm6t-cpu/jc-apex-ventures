@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import GroundedHero from '@/components/GroundedHero';
@@ -12,6 +12,7 @@ import GroundedProcess from '@/components/GroundedProcess';
 import GroundedRecognition from '@/components/GroundedRecognition';
 import GroundedCalculators from '@/components/GroundedCalculators';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
+import ConsultationModal from '@/components/ConsultationModal';
 import { Phone, Mail } from 'lucide-react';
 import {
   ScrollExpand,
@@ -22,6 +23,14 @@ import {
 } from '@/components/react-bits';
 
 export default function Home() {
+  const [isConsultationOpen, setIsConsultationOpen] = useState(false);
+  const [consultationDivision, setConsultationDivision] = useState<string>('solis');
+
+  const handleOpenConsultation = (division?: string) => {
+    if (division) setConsultationDivision(division);
+    setIsConsultationOpen(true);
+  };
+
   return (
     <main className="grounded-canvas">
       {/* ✦ Multi-Disciplinary Engineering & Design Consortium | One International Centre, Mumbai */}
@@ -33,7 +42,7 @@ export default function Home() {
       <Navbar />
 
       {/* 2. Grounded Full-Bleed Multi-Zone Interactive Hero */}
-      <GroundedHero />
+      <GroundedHero onOpenConsultation={handleOpenConsultation} />
 
       {/* 3. Section 2: "Our Why" Section (section_layout60) with Engineering Manifesto & Stat Counters */}
       <GroundedWhy />
@@ -53,6 +62,7 @@ export default function Home() {
       {/* 8. Section 7: Interactive Terrace Comparison wrapped in ScrollExpand */}
       <ScrollExpand initialScale={0.96} finalScale={1.0}>
         <section
+          id="comparison"
           className="section"
           style={{
             backgroundColor: '#F4F1EA',
@@ -124,6 +134,7 @@ export default function Home() {
 
       {/* 11. Section 10: Grounded Architectural Consultation CTA Section */}
       <section
+        id="contact"
         className="section"
         style={{
           backgroundColor: '#F4F1EA',
@@ -195,7 +206,7 @@ export default function Home() {
                   fontSize: '1.04rem',
                   color: 'rgba(255, 255, 255, 0.82)',
                   maxWidth: '640px',
-                  margin: '0 auto 36px auto',
+                  margin: '0 auto 32px auto',
                   lineHeight: 1.65,
                   fontFamily: 'var(--font-sans, Inter, sans-serif)',
                   fontWeight: 400,
@@ -203,6 +214,46 @@ export default function Home() {
               >
                 Call our engineering desk directly at One International Centre or send us an enquiry. We review your site parameters, verify statutory feasibility across BEST, Adani, Tata Power, or MSEDCL, and provide verified next steps.
               </p>
+
+              {/* Six Division Pills for immediate consultation routing */}
+              <div
+                style={{
+                  display: 'flex',
+                  gap: '8px',
+                  justifyContent: 'center',
+                  flexWrap: 'wrap',
+                  marginBottom: '32px',
+                }}
+              >
+                {[
+                  { id: 'solis', label: 'Solis · Solar & Pergolas' },
+                  { id: 'sanyog', label: 'Sanyog · Tariff & CGRF' },
+                  { id: 'grid-apex', label: 'Grid Apex · Substations' },
+                  { id: 'tvasta', label: 'Tvasta · Interiors' },
+                  { id: 'emudran', label: 'eMudran · Packaging' },
+                  { id: 'agrim', label: 'Agrim · EV & DPR' },
+                ].map((div) => (
+                  <button
+                    key={div.id}
+                    type="button"
+                    onClick={() => handleOpenConsultation(div.id)}
+                    style={{
+                      padding: '7px 14px',
+                      borderRadius: '9999px',
+                      fontSize: '0.8rem',
+                      fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                      backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                      border: '1px solid rgba(255, 255, 255, 0.16)',
+                      color: 'rgba(255, 255, 255, 0.9)',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease',
+                    }}
+                    className="hover:bg-white/20 hover:border-white/30"
+                  >
+                    {div.label}
+                  </button>
+                ))}
+              </div>
 
               <div
                 className="items-center"
@@ -214,9 +265,17 @@ export default function Home() {
                   alignItems: 'center',
                 }}
               >
-                <SpecularButton href="tel:+917021112664" variant="gold">
+                <SpecularButton
+                  onClick={() => handleOpenConsultation()}
+                  variant="gold"
+                >
                   <Phone size={15} />
-                  <span>Call +91 70211 12664</span>
+                  <span>Initiate Engineering Consultation</span>
+                </SpecularButton>
+
+                <SpecularButton href="tel:+917021112664" variant="glass">
+                  <Phone size={15} />
+                  <span>Direct Desk +91 70211 12664</span>
                 </SpecularButton>
 
                 <SpecularButton href="mailto:admin@jcapexv.com" variant="glass">
@@ -228,6 +287,13 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Consultation Modal */}
+      <ConsultationModal
+        isOpen={isConsultationOpen}
+        onClose={() => setIsConsultationOpen(false)}
+        initialDivision={consultationDivision}
+      />
 
       {/* 12. Grounded Architectural Footer */}
       <Footer />
