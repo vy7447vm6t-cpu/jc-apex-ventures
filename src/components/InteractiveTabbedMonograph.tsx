@@ -244,7 +244,7 @@ export default function InteractiveTabbedMonograph() {
                     />
                     <span
                       style={{
-                        fontFamily: 'var(--font-mono, monospace)',
+                        fontFamily: 'var(--font-sans, Inter, sans-serif)',
                         fontSize: '0.72rem',
                         color: isCurrent ? '#C29F53' : '#888888',
                         letterSpacing: '0.04em',
@@ -329,7 +329,7 @@ export default function InteractiveTabbedMonograph() {
                   backgroundColor: 'rgba(17, 17, 17, 0.8)',
                   backdropFilter: 'blur(12px)',
                   border: '1px solid rgba(255, 255, 255, 0.2)',
-                  fontFamily: 'var(--font-mono, monospace)',
+                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
                 }}
               >
                 <Sparkles size={12} color="#C29F53" />
@@ -389,7 +389,7 @@ export default function InteractiveTabbedMonograph() {
                       color: '#E8E4DA',
                       fontWeight: 500,
                       letterSpacing: '0.04em',
-                      fontFamily: 'var(--font-mono, monospace)',
+                      fontFamily: 'var(--font-sans, Inter, sans-serif)',
                     }}
                   >
                     Strategic Practice Discipline of JC Apex
@@ -450,7 +450,7 @@ export default function InteractiveTabbedMonograph() {
                 >
                   <div
                     style={{
-                      fontFamily: 'var(--font-mono, monospace)',
+                      fontFamily: 'var(--font-sans, Inter, sans-serif)',
                       fontSize: '0.72rem',
                       color: '#777777',
                       textTransform: 'uppercase',
@@ -479,7 +479,7 @@ export default function InteractiveTabbedMonograph() {
             <div>
               <div
                 style={{
-                  fontFamily: 'var(--font-mono, monospace)',
+                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
                   fontSize: '0.76rem',
                   color: '#888888',
                   fontWeight: 600,
@@ -539,7 +539,7 @@ export default function InteractiveTabbedMonograph() {
                 <ShieldCheck size={16} color="#C29F53" />
                 <span
                   style={{
-                    fontFamily: 'var(--font-mono, monospace)',
+                    fontFamily: 'var(--font-sans, Inter, sans-serif)',
                     fontSize: '0.74rem',
                     color: '#777777',
                     fontWeight: 500,

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from 'react';
+import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import AuthorityLogo from './AuthorityLogos';
 import {
@@ -11,6 +12,7 @@ import {
   InfiniteSpiral,
   LogoLoop,
   ElectricBorder,
+  TargetCursor,
 } from '@/components/react-bits';
 
 interface HeroZone {
@@ -19,7 +21,9 @@ interface HeroZone {
   label: string;
   category: string;
   image: string;
-  division?: string;
+  division: string;
+  href: string;
+  logoSrc: string;
   isElectric?: boolean;
 }
 
@@ -31,6 +35,8 @@ const HERO_ZONES: HeroZone[] = [
     category: 'MERC Sanctions & Tariff Regularization',
     image: '/images/utility-metering-liaison.jpg',
     division: 'sanyog',
+    href: '/sanyog',
+    logoSrc: '/images/logos/sanyog-official.png',
     isElectric: true,
   },
   {
@@ -40,6 +46,8 @@ const HERO_ZONES: HeroZone[] = [
     category: '100% Usable Terrace Rooftop EPC',
     image: '/images/solar-pergola-rooftop.jpg',
     division: 'solis',
+    href: '/solis',
+    logoSrc: '/images/logos/solis-logo-white.png',
     isElectric: true,
   },
   {
@@ -49,6 +57,8 @@ const HERO_ZONES: HeroZone[] = [
     category: 'Industrial Switchgear & PWD Sanctions',
     image: '/images/electrical-substation.jpg',
     division: 'grid-apex',
+    href: '/grid-apex',
+    logoSrc: '/images/logos/grid-apex-white.png',
     isElectric: true,
   },
   {
@@ -58,6 +68,8 @@ const HERO_ZONES: HeroZone[] = [
     category: 'Commercial Space Planning & Execution',
     image: '/images/commercial_office_fitout.jpg',
     division: 'tvasta',
+    href: '/tvasta',
+    logoSrc: '/images/logos/tvasta-official.png',
     isElectric: false,
   },
   {
@@ -67,6 +79,8 @@ const HERO_ZONES: HeroZone[] = [
     category: 'Rigid Boxes, Foil Branding & Signage',
     image: '/images/luxury-print-packaging.jpg',
     division: 'emudran',
+    href: '/emudran',
+    logoSrc: '/images/logos/emudran-white.png',
     isElectric: false,
   },
   {
@@ -76,6 +90,8 @@ const HERO_ZONES: HeroZone[] = [
     category: 'CAPEX Feasibility & Debt Syndication',
     image: '/images/banking-sanction-dossier.jpg',
     division: 'agrim',
+    href: '/agrim',
+    logoSrc: '/images/logos/agrim-official.png',
     isElectric: false,
   },
 ];
@@ -154,6 +170,7 @@ export default function GroundedHero({ onOpenConsultation }: GroundedHeroProps =
   return (
     <section
       ref={heroRef}
+      onMouseLeave={() => setActiveZone(null)}
       className="hero-sticky-container"
       style={{
         position: 'relative',
@@ -166,6 +183,9 @@ export default function GroundedHero({ onOpenConsultation }: GroundedHeroProps =
         justifyContent: 'space-between',
       }}
     >
+      {/* Magnetic Target-Snapping CAD Reticle Cursor (Desktop >= 1024px) */}
+      <TargetCursor containerRef={heroRef} color="#C29F53" />
+
       {/* MicroSlats Architectural Louver Rhythm with CAD Datum Ticks */}
       <MicroSlats count={24} color="#FFFFFF" opacity={0.10} zIndex={12} showTicks={true} />
 
@@ -202,7 +222,7 @@ export default function GroundedHero({ onOpenConsultation }: GroundedHeroProps =
           }}
         />
 
-        {/* 5 Hover/Tap Trigger Images */}
+        {/* 6 Hover/Tap Trigger Images */}
         {HERO_ZONES.map((zone, idx) => (
           <img
             key={zone.id}
@@ -250,7 +270,6 @@ export default function GroundedHero({ onOpenConsultation }: GroundedHeroProps =
           gridTemplateColumns: 'repeat(6, 1fr)',
           pointerEvents: 'auto',
         }}
-        onMouseLeave={() => setActiveZone(null)}
       >
         {HERO_ZONES.map((zone, idx) => (
           <div
@@ -341,7 +360,7 @@ export default function GroundedHero({ onOpenConsultation }: GroundedHeroProps =
           <SpecularButton
             href="#divisions"
             variant="light"
-            className="hero-cta-btn-light"
+            className="hero-cta-btn-light cursor-target"
             icon={<ArrowUpRight size={16} />}
           >
             Explore Divisions
@@ -356,7 +375,7 @@ export default function GroundedHero({ onOpenConsultation }: GroundedHeroProps =
                 : undefined
             }
             variant="dark"
-            className="hero-cta-btn-dark cursor-pointer"
+            className="hero-cta-btn-dark cursor-pointer cursor-target"
           >
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
               <span>Initiate Consultation</span>
@@ -379,6 +398,81 @@ export default function GroundedHero({ onOpenConsultation }: GroundedHeroProps =
           pointerEvents: 'none',
         }}
       >
+        {/* Active Division Liquid Glass Telemetry Strip (Desktop) */}
+        {activeZone !== null && (
+          <div
+            className="hidden md:flex items-center justify-between gap-4 mb-4 px-5 py-2.5 rounded-2xl pointer-events-auto transition-all duration-300"
+            style={{
+              backgroundColor: 'rgba(17, 17, 17, 0.78)',
+              backdropFilter: 'blur(24px) saturate(180%)',
+              WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+              border: '1px solid rgba(194, 159, 83, 0.45)',
+              boxShadow: '0 12px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.14)',
+            }}
+          >
+            <div className="flex items-center gap-4 min-w-0">
+              <img
+                src={HERO_ZONES[activeZone].logoSrc}
+                alt={HERO_ZONES[activeZone].label}
+                style={{
+                  height: '28px',
+                  maxWidth: '120px',
+                  width: 'auto',
+                  objectFit: 'contain',
+                  display: 'block',
+                  filter: HERO_ZONES[activeZone].division === 'sanyog' ? 'brightness(0) invert(1)' : 'none',
+                }}
+              />
+              <span
+                aria-hidden="true"
+                style={{
+                  width: '1px',
+                  height: '22px',
+                  backgroundColor: 'rgba(194, 159, 83, 0.45)',
+                }}
+              />
+              <div className="min-w-0">
+                <span
+                  style={{
+                    fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                    fontSize: '0.82rem',
+                    fontWeight: 600,
+                    color: '#FFFFFF',
+                    marginRight: '10px',
+                  }}
+                >
+                  {HERO_ZONES[activeZone].label}
+                </span>
+                <span
+                  style={{
+                    fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                    fontSize: '0.76rem',
+                    color: '#C29F53',
+                    fontWeight: 500,
+                  }}
+                >
+                  · {HERO_ZONES[activeZone].category}
+                </span>
+              </div>
+            </div>
+            <Link
+              href={HERO_ZONES[activeZone].href}
+              className="cursor-target inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all"
+              style={{
+                backgroundColor: 'rgba(194, 159, 83, 0.18)',
+                color: '#F4F1EA',
+                border: '1px solid rgba(194, 159, 83, 0.45)',
+                textDecoration: 'none',
+                fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              <span>Open Dossier</span>
+              <ArrowUpRight size={13} color="#C29F53" />
+            </Link>
+          </div>
+        )}
+
         {/* Desktop View: 6-Column Architectural Grid */}
         <div
           className="hero-indicators-grid hidden md:grid"
@@ -397,7 +491,7 @@ export default function GroundedHero({ onOpenConsultation }: GroundedHeroProps =
                 active={isHovered}
                 borderRadius={8}
                 glowColor="#C29F53"
-                className="rounded-lg"
+                className="rounded-lg cursor-target"
                 style={{
                   transition: 'opacity 0.3s ease, transform 0.3s ease',
                   opacity: isFaded ? 0.45 : 1,
@@ -407,9 +501,10 @@ export default function GroundedHero({ onOpenConsultation }: GroundedHeroProps =
                 }}
               >
                 <div
+                  data-cursor-target="true"
                   onClick={() => setActiveZone(activeZone === idx ? null : idx)}
                   onMouseEnter={() => setActiveZone(idx)}
-                  className="p-1"
+                  className="p-2"
                 >
                   {/* Active state indicator line */}
                   <div
@@ -425,16 +520,37 @@ export default function GroundedHero({ onOpenConsultation }: GroundedHeroProps =
                   />
                   <div
                     style={{
-                      fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                      fontSize: '0.78rem',
-                      color: isHovered ? '#C29F53' : 'rgba(255, 255, 255, 0.85)',
-                      letterSpacing: '0.04em',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
                       marginBottom: '4px',
-                      fontWeight: 650,
-                      fontVariantNumeric: 'tabular-nums',
                     }}
                   >
-                    <TechText text={zone.num} />
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                        fontSize: '0.78rem',
+                        color: isHovered ? '#C29F53' : 'rgba(255, 255, 255, 0.85)',
+                        letterSpacing: '0.04em',
+                        fontWeight: 650,
+                        fontVariantNumeric: 'tabular-nums',
+                      }}
+                    >
+                      <TechText text={zone.num} />
+                    </span>
+                    <img
+                      src={zone.logoSrc}
+                      alt={zone.division}
+                      style={{
+                        height: zone.division === 'sanyog' ? '24px' : '17px',
+                        maxWidth: '68px',
+                        width: 'auto',
+                        objectFit: 'contain',
+                        opacity: isHovered ? 1 : 0.85,
+                        filter: zone.division === 'sanyog' ? 'brightness(0) invert(1)' : 'none',
+                        transition: 'opacity 0.25s ease',
+                      }}
+                    />
                   </div>
                   <div
                     style={{

@@ -9,6 +9,7 @@ import {
   TechText,
   SpecularButton,
   MicroSlats,
+  OptionWheel,
 } from '@/components/react-bits';
 
 interface CaseStudy {
@@ -381,6 +382,7 @@ const CASE_STUDIES: CaseStudy[] = [
 
 export default function GroundedProjectTrack() {
   const [selectedStudy, setSelectedStudy] = useState<CaseStudy | null>(null);
+  const [viewMode, setViewMode] = useState<'track' | 'depth'>('track');
 
   const openDossier = (study: CaseStudy) => {
     setSelectedStudy(study);
@@ -412,7 +414,7 @@ export default function GroundedProjectTrack() {
   const carouselItems = CASE_STUDIES.map((study) => ({
     id: study.id,
     content: (
-      <div style={{ width: 'clamp(315px, 38vw, 470px)', height: '100%' }}>
+      <div style={{ width: 'clamp(315px, 28vw, 380px)', height: '100%' }}>
         <ElectricBorder
           active={study.isElectric}
           borderRadius={22}
@@ -479,11 +481,11 @@ export default function GroundedProjectTrack() {
                     gap: '8px',
                     padding: '5px 12px',
                     borderRadius: '10px',
-                    backgroundColor: 'rgba(255, 255, 255, 0.94)',
+                    backgroundColor: 'rgba(17, 17, 17, 0.76)',
                     backdropFilter: 'blur(16px)',
                     WebkitBackdropFilter: 'blur(16px)',
-                    border: '1px solid rgba(255, 255, 255, 0.85)',
-                    boxShadow: '0 4px 14px rgba(0, 0, 0, 0.12)',
+                    border: '1px solid rgba(255, 255, 255, 0.18)',
+                    boxShadow: '0 4px 14px rgba(0, 0, 0, 0.25)',
                     height: '38px',
                   }}
                 >
@@ -496,6 +498,7 @@ export default function GroundedProjectTrack() {
                       width: 'auto',
                       height: 'auto',
                       objectFit: 'contain',
+                      filter: 'brightness(0) invert(1)',
                     }}
                   />
                 </div>
@@ -669,57 +672,99 @@ export default function GroundedProjectTrack() {
       <MicroSlats count={24} color="#8C733E" opacity={0.08} zIndex={1} showTicks={true} />
 
       <div style={{ maxWidth: '1240px', margin: '0 auto', position: 'relative', zIndex: 2 }}>
-        {/* Section Header */}
-        <div style={{ maxWidth: '980px', marginBottom: '44px', textAlign: 'left' }}>
-          <div className="eye-brow-container" style={{ marginBottom: '18px' }}>
-            <span
-              className="text-eye-brow"
+        {/* Section Header & View Mode Switcher */}
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            alignItems: 'flex-end',
+            justifyContent: 'space-between',
+            gap: '24px',
+            marginBottom: '44px',
+            textAlign: 'left',
+          }}
+        >
+          <div style={{ maxWidth: '820px' }}>
+            <div className="eye-brow-container" style={{ marginBottom: '18px' }}>
+              <span
+                className="text-eye-brow"
+                style={{
+                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                  fontSize: '0.74rem',
+                  fontWeight: 650,
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                  color: '#8C733E',
+                  display: 'inline-block',
+                }}
+              >
+                [<TechText text="04 / SELECTED BUILDS & SANCTIONS" scrambleSpeed={26} maxScrambles={5} triggerOnHover={true} />]
+              </span>
+            </div>
+
+            <h2
               style={{
-                fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                fontSize: '0.74rem',
-                fontWeight: 650,
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-                color: '#8C733E',
-                display: 'inline-block',
+                fontSize: 'clamp(2.2rem, 4.2vw, 3.6rem)',
+                color: '#111111',
+                fontWeight: 400,
+                letterSpacing: '-0.025em',
+                margin: '0 0 18px 0',
+                fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+                lineHeight: 1.14,
               }}
             >
-              [<TechText text="04 / SELECTED BUILDS & SANCTIONS" scrambleSpeed={26} maxScrambles={5} triggerOnHover={true} />]
-            </span>
+              Engineering Feasibility Studies &amp; Field Schematics.
+            </h2>
+
+            <p
+              style={{
+                color: '#555555',
+                fontSize: 'clamp(1rem, 1.3vw, 1.14rem)',
+                lineHeight: 1.65,
+                margin: 0,
+                fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                fontWeight: 350,
+              }}
+            >
+              Select any technical dossier below to inspect 3D spatial schematics, single-line substation specifications, and regulatory compliance outcomes across our six consortium divisions.
+            </p>
           </div>
 
-          <h2
-            style={{
-              fontSize: 'clamp(2.2rem, 4.2vw, 3.6rem)',
-              color: '#111111',
-              fontWeight: 400,
-              letterSpacing: '-0.025em',
-              margin: '0 0 18px 0',
-              fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
-              lineHeight: 1.14,
-            }}
-          >
-            Engineering Feasibility Studies &amp; Field Schematics.
-          </h2>
-
-          <p
-            style={{
-              color: '#555555',
-              fontSize: 'clamp(1rem, 1.3vw, 1.14rem)',
-              lineHeight: 1.65,
-              margin: 0,
-              maxWidth: '820px',
-              fontFamily: 'var(--font-sans, Inter, sans-serif)',
-              fontWeight: 350,
-            }}
-          >
-            Select any technical dossier below to inspect 3D spatial schematics, single-line substation specifications, and regulatory compliance outcomes across our six consortium divisions.
-          </p>
+          {/* Desktop View Switcher */}
+          <div className="hidden md:block">
+            <OptionWheel
+              options={[
+                { label: '01 / Gallery Track', value: 'track' },
+                { label: '02 / 3D Depth Deck', value: 'depth' },
+              ]}
+              selectedValue={viewMode}
+              onChange={(val) => setViewMode(val as 'track' | 'depth')}
+            />
+          </div>
         </div>
 
-        {/* Desktop View: Horizontal FlexCarousel Track */}
+        {/* Desktop View: Horizontal FlexCarousel Track OR 3D Depth Deck */}
         <div className="hidden md:block">
-          <FlexCarousel items={carouselItems} gap={24} />
+          {viewMode === 'track' ? (
+            <FlexCarousel items={carouselItems} gap={24} />
+          ) : (
+            <div className="py-6 px-4 rounded-3xl bg-white/70 border border-black/8 shadow-sm">
+              <DepthCarousel
+                items={CASE_STUDIES.map((s) => ({
+                  id: s.id,
+                  title: s.title,
+                  tag: `${s.num} · ${s.divisionName}`,
+                  image: s.primaryImage,
+                  description: s.metric,
+                }))}
+              />
+              <div className="text-center mt-3">
+                <p className="text-xs text-[#666666] font-sans">
+                  Click any card to inspect full technical CAD schematics and statutory outcomes.
+                </p>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Mobile View: Modern Touch Card Stack */}
@@ -772,8 +817,12 @@ export default function GroundedProjectTrack() {
                   }}
                 />
                 <div className="absolute top-3 left-3 flex items-center gap-2">
-                  <div className="bg-white/95 backdrop-blur-md px-2 py-1 rounded-lg border border-black/10 flex items-center justify-center">
-                    <img src={study.logoLight} alt={study.divisionName} className="h-4 w-auto object-contain" />
+                  <div className="bg-black/75 backdrop-blur-md px-2.5 py-1 rounded-lg border border-white/20 shadow-md flex items-center justify-center">
+                    <img
+                      src={study.logoLight}
+                      alt={study.divisionName}
+                      className="h-4 w-auto object-contain brightness-0 invert"
+                    />
                   </div>
                   <span className="text-[11px] font-bold text-white bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/20">
                     {study.num}

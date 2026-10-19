@@ -60,7 +60,7 @@ export default function SpacePlanningPage() {
                     {[
                       "Comprehensive space audits before planning",
                       "Vastu-compliant layouts (upon request)",
-                      "Seamless integration of civil and electrical works",
+                      "Turnkey integration of civil and electrical works",
                       "Material selection matching your exact budget tier",
                       "Strict adherence to municipal structural guidelines"
                     ].map((item, i) => (

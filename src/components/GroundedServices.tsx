@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowUpRight, ChevronDown } from 'lucide-react';
-import { TechText, SpecularButton, ElectricBorder, MicroSlats } from '@/components/react-bits';
+import { TechText, SpecularButton, ElectricBorder, MicroSlats, AccordionGallery, OptionWheel } from '@/components/react-bits';
 
 interface PracticeDiscipline {
   id: string;
@@ -124,7 +124,21 @@ const DISCIPLINES: PracticeDiscipline[] = [
 export default function GroundedServices() {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [mobileExpanded, setMobileExpanded] = useState<number | null>(0);
+  const [viewMode, setViewMode] = useState<'split' | 'gallery'>('split');
   const activeDiscipline = DISCIPLINES[activeIndex];
+
+  const galleryItems = DISCIPLINES.map((d) => ({
+    id: d.id,
+    title: d.name,
+    subtitle: d.discipline,
+    badge: d.badge,
+    description: d.scope,
+    image: d.image,
+    specs: d.statutoryMetric.split(' · '),
+    logo: d.logoDark,
+    division: d.id,
+    href: d.href,
+  }));
 
   return (
     <section
@@ -165,38 +179,71 @@ export default function GroundedServices() {
           </span>
         </div>
 
-        {/* Section Heading & Lead-in */}
-        <div style={{ maxWidth: '1080px', marginBottom: '64px', textAlign: 'left' }}>
-          <h2
-            style={{
-              fontSize: 'clamp(2.2rem, 4.2vw, 3.6rem)',
-              lineHeight: 1.14,
-              fontWeight: 400,
-              letterSpacing: '-0.025em',
-              color: '#111111',
-              margin: '0 0 24px 0',
-              fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
-            }}
-          >
-            Structured engineering across statutory, renewable, and spatial infrastructure.
-          </h2>
-          <p
-            style={{
-              fontSize: 'clamp(1.02rem, 1.35vw, 1.18rem)',
-              color: '#555555',
-              lineHeight: 1.68,
-              maxWidth: '860px',
-              margin: 0,
-              fontFamily: 'var(--font-sans, Inter, sans-serif)',
-              fontWeight: 350,
-            }}
-          >
-            We coordinate technical filing, utility sanctioning, and physical execution through six dedicated consortium divisions. Each operating unit addresses a discrete regulatory or spatial bottleneck in the Mumbai Metropolitan Region.
-          </p>
+        {/* Section Heading & Lead-in + View Switcher */}
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            alignItems: 'flex-end',
+            justifyContent: 'space-between',
+            gap: '24px',
+            marginBottom: '56px',
+            textAlign: 'left',
+          }}
+        >
+          <div style={{ maxWidth: '840px' }}>
+            <h2
+              style={{
+                fontSize: 'clamp(2.2rem, 4.2vw, 3.6rem)',
+                lineHeight: 1.14,
+                fontWeight: 400,
+                letterSpacing: '-0.025em',
+                color: '#111111',
+                margin: '0 0 20px 0',
+                fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+              }}
+            >
+              Structured engineering across statutory, renewable, and spatial infrastructure.
+            </h2>
+            <p
+              style={{
+                fontSize: 'clamp(1.02rem, 1.35vw, 1.18rem)',
+                color: '#555555',
+                lineHeight: 1.68,
+                margin: 0,
+                fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                fontWeight: 350,
+              }}
+            >
+              We coordinate technical filing, utility sanctioning, and physical execution through six dedicated consortium divisions. Each operating unit addresses a discrete regulatory or spatial bottleneck in the Mumbai Metropolitan Region.
+            </p>
+          </div>
+
+          {/* Desktop View Mode Switcher (Split Ledger vs AccordionGallery Panorama) */}
+          <div className="hidden md:block">
+            <OptionWheel
+              options={[
+                { label: '01 / Split Ledger View', value: 'split' },
+                { label: '02 / Panorama Gallery', value: 'gallery' },
+              ]}
+              selectedValue={viewMode}
+              onChange={(val) => setViewMode(val as 'split' | 'gallery')}
+            />
+          </div>
         </div>
 
+        {/* Desktop Panorama AccordionGallery Mode */}
+        {viewMode === 'gallery' && (
+          <div className="hidden md:block mb-6">
+            <AccordionGallery items={galleryItems} />
+          </div>
+        )}
+
         {/* Desktop View: Grounded 2-Column Split (List Left, Sticky Viewport Right) */}
-        <div className="hidden md:grid services-grid" style={{ alignItems: 'start', gap: '48px' }}>
+        <div
+          className={viewMode === 'split' ? 'hidden md:grid services-grid' : 'hidden'}
+          style={{ alignItems: 'start', gap: '48px' }}
+        >
           {/* Left Column: Interactive Discipline List */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {DISCIPLINES.map((item, idx) => {
@@ -213,7 +260,7 @@ export default function GroundedServices() {
                   style={{
                     transform: isActive ? 'translateX(4px)' : 'none',
                     transition: 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease',
-                    opacity: isActive ? 1 : 0.65,
+                    opacity: isActive ? 1 : 0.92,
                   }}
                 >
                   <div
@@ -225,6 +272,7 @@ export default function GroundedServices() {
                       cursor: 'pointer',
                       padding: '22px 26px',
                       borderRadius: '14px',
+                      border: showElectricRow ? 'none' : isActive ? '1px solid rgba(194, 159, 83, 0.35)' : '1px solid rgba(17, 17, 17, 0.08)',
                     }}
                   >
                     {/* Header Row */}
@@ -244,7 +292,7 @@ export default function GroundedServices() {
                             fontFamily: 'var(--font-sans, Inter, sans-serif)',
                             fontSize: '0.82rem',
                             fontWeight: 650,
-                            color: isActive ? '#8C733E' : '#888888',
+                            color: isActive ? '#8C733E' : '#777777',
                             letterSpacing: '0.04em',
                           }}
                         >
@@ -255,7 +303,7 @@ export default function GroundedServices() {
                           style={{
                             display: 'flex',
                             alignItems: 'center',
-                            height: '38px',
+                            height: '42px',
                             padding: '2px 0',
                           }}
                         >
@@ -263,12 +311,12 @@ export default function GroundedServices() {
                             src={item.logoLight}
                             alt={item.name}
                             style={{
-                              maxHeight: '36px',
-                              maxWidth: item.id === 'tvasta' ? '150px' : item.id === 'emudran' ? '135px' : item.id === 'grid-apex' ? '140px' : '120px',
+                              maxHeight: item.id === 'sanyog' ? '42px' : '36px',
+                              maxWidth: item.id === 'tvasta' ? '150px' : item.id === 'emudran' ? '135px' : item.id === 'grid-apex' ? '140px' : '125px',
                               width: 'auto',
                               height: 'auto',
                               objectFit: 'contain',
-                              filter: isActive ? 'none' : 'grayscale(15%) opacity(0.85)',
+                              filter: isActive ? 'none' : 'opacity(0.92)',
                               transition: 'all 0.3s ease',
                             }}
                           />
@@ -407,49 +455,47 @@ export default function GroundedServices() {
                   }}
                 />
 
-                {/* Top-Right Electric Status Badge when active division is electrical */}
-                {activeDiscipline.isElectric && (
-                  <div
+                {/* Top-Right Dynamic Status Badge */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: '16px',
+                    right: '16px',
+                    zIndex: 10,
+                    padding: '6px 12px',
+                    borderRadius: '9999px',
+                    backgroundColor: 'rgba(17, 17, 17, 0.78)',
+                    backdropFilter: 'blur(16px)',
+                    border: '1px solid rgba(194, 159, 83, 0.5)',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '7px',
+                  }}
+                >
+                  <span
                     style={{
-                      position: 'absolute',
-                      top: '16px',
-                      right: '16px',
-                      zIndex: 10,
-                      padding: '6px 12px',
+                      width: '6px',
+                      height: '6px',
                       borderRadius: '9999px',
-                      backgroundColor: 'rgba(17, 17, 17, 0.78)',
-                      backdropFilter: 'blur(16px)',
-                      border: '1px solid rgba(194, 159, 83, 0.5)',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '7px',
+                      backgroundColor: '#C29F53',
+                      boxShadow: '0 0 8px #C29F53',
+                    }}
+                  />
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                      fontSize: '0.66rem',
+                      fontWeight: 650,
+                      letterSpacing: '0.06em',
+                      color: '#F4F1EA',
+                      textTransform: 'uppercase',
                     }}
                   >
-                    <span
-                      style={{
-                        width: '6px',
-                        height: '6px',
-                        borderRadius: '9999px',
-                        backgroundColor: '#C29F53',
-                        boxShadow: '0 0 8px #C29F53',
-                      }}
-                    />
-                    <span
-                      style={{
-                        fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                        fontSize: '0.66rem',
-                        fontWeight: 650,
-                        letterSpacing: '0.06em',
-                        color: '#F4F1EA',
-                        textTransform: 'uppercase',
-                      }}
-                    >
-                      HT/LT Grid & Statutory Division
-                    </span>
-                  </div>
-                )}
+                    <TechText text={activeDiscipline.badge} scrambleSpeed={20} maxScrambles={4} />
+                  </span>
+                </div>
 
-                {/* KokonutUI Apple Liquid Glass Floating Spec Capsule */}
+                {/* KokonutUI Apple Liquid Glass Floating Spec Capsule (Transparent Logo + Inline Discipline) */}
                 <div
                   style={{
                     position: 'absolute',
@@ -471,62 +517,57 @@ export default function GroundedServices() {
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', minWidth: 0, flex: 1 }}>
-                      <div
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '14px', minWidth: 0, flex: 1 }}>
+                      <img
+                        src={activeDiscipline.logoLight}
+                        alt={`${activeDiscipline.name} Official Logo`}
                         style={{
-                          height: '42px',
-                          padding: '3px 8px',
-                          borderRadius: '10px',
-                          backgroundColor: '#FFFFFF',
-                          border: '1px solid rgba(0, 0, 0, 0.08)',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
+                          height: '36px',
+                          maxWidth: activeDiscipline.id === 'tvasta' ? '130px' : activeDiscipline.id === 'emudran' ? '115px' : '105px',
+                          width: 'auto',
+                          objectFit: 'contain',
                           flexShrink: 0,
-                          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+                          display: 'block',
                         }}
-                      >
-                        <img
-                          src={activeDiscipline.logoLight}
-                          alt={`${activeDiscipline.name} Official Logo`}
-                          style={{
-                            maxHeight: '30px',
-                            maxWidth: activeDiscipline.id === 'tvasta' ? '110px' : activeDiscipline.id === 'emudran' ? '100px' : '85px',
-                            width: 'auto',
-                            height: 'auto',
-                            objectFit: 'contain',
-                          }}
-                        />
-                      </div>
+                      />
+                      <span
+                        aria-hidden="true"
+                        style={{
+                          width: '1.5px',
+                          height: '28px',
+                          backgroundColor: 'rgba(194, 159, 83, 0.45)',
+                          flexShrink: 0,
+                        }}
+                      />
                       <div style={{ minWidth: 0, flex: 1 }}>
                         <h4
                           style={{
                             fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
-                            fontSize: '1.3rem',
+                            fontSize: '1.22rem',
                             fontWeight: 400,
                             margin: 0,
                             color: '#111111',
-                            lineHeight: 1.1,
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          }}
-                        >
-                          {activeDiscipline.name}
-                        </h4>
-                        <span
-                          style={{
-                            fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                            fontSize: '0.72rem',
-                            color: '#666666',
-                            fontWeight: 500,
-                            display: 'block',
+                            lineHeight: 1.15,
                             whiteSpace: 'nowrap',
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
                           }}
                         >
                           {activeDiscipline.discipline}
+                        </h4>
+                        <span
+                          style={{
+                            fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                            fontSize: '0.68rem',
+                            color: '#8C733E',
+                            fontWeight: 650,
+                            letterSpacing: '0.04em',
+                            textTransform: 'uppercase',
+                            display: 'block',
+                            marginTop: '2px',
+                          }}
+                        >
+                          {activeDiscipline.badge}
                         </span>
                       </div>
                     </div>
@@ -609,7 +650,7 @@ export default function GroundedServices() {
                     boxShadow: isExpanded ? '0 8px 24px rgba(0, 0, 0, 0.06)' : 'none',
                   }}
                 >
-                {/* Accordion Header Row */}
+                {/* Accordion Header Row (Transparent Logo + Inline Discipline Subtitle) */}
                 <button
                   type="button"
                   onClick={() => setMobileExpanded(isExpanded ? null : idx)}
@@ -626,69 +667,53 @@ export default function GroundedServices() {
                   }}
                   aria-expanded={isExpanded}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <div
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', minWidth: 0, flex: 1 }}>
+                    <span
                       style={{
-                        minWidth: '56px',
-                        height: '36px',
-                        padding: '4px 8px',
-                        borderRadius: '8px',
-                        backgroundColor: '#FFFFFF',
-                        border: '1px solid rgba(0, 0, 0, 0.08)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
+                        fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                        fontSize: '0.72rem',
+                        fontWeight: 650,
+                        color: '#8C733E',
                         flexShrink: 0,
-                        boxShadow: '0 2px 6px rgba(0, 0, 0, 0.04)',
                       }}
                     >
-                      <img
-                        src={item.logoLight}
-                        alt={`${item.name} Official Brand Mark`}
-                        style={{
-                          maxHeight: '26px',
-                          maxWidth: '70px',
-                          objectFit: 'contain',
-                          display: 'block',
-                        }}
-                      />
-                    </div>
-                    <div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <span
-                          style={{
-                            fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                            fontSize: '0.72rem',
-                            fontWeight: 650,
-                            color: '#8C733E',
-                          }}
-                        >
-                          {item.num}
-                        </span>
-                        <h3
-                          style={{
-                            fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
-                            fontSize: '1.35rem',
-                            fontWeight: 400,
-                            margin: 0,
-                            color: '#111111',
-                          }}
-                        >
-                          {item.name}
-                        </h3>
-                      </div>
-                      <span
-                        style={{
-                          fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                          fontSize: '0.74rem',
-                          color: '#666666',
-                          fontWeight: 450,
-                          display: 'block',
-                        }}
-                      >
-                        {item.discipline}
-                      </span>
-                    </div>
+                      {item.num}
+                    </span>
+                    <img
+                      src={item.logoLight}
+                      alt={`${item.name} Official Brand Mark`}
+                      style={{
+                        height: '30px',
+                        maxWidth: '96px',
+                        width: 'auto',
+                        objectFit: 'contain',
+                        display: 'block',
+                        flexShrink: 0,
+                      }}
+                    />
+                    <span
+                      aria-hidden="true"
+                      style={{
+                        width: '1px',
+                        height: '22px',
+                        backgroundColor: 'rgba(194, 159, 83, 0.45)',
+                        flexShrink: 0,
+                      }}
+                    />
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                        fontSize: '0.76rem',
+                        color: '#333333',
+                        fontWeight: 550,
+                        lineHeight: 1.25,
+                        display: 'block',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                      }}
+                    >
+                      {item.discipline}
+                    </span>
                   </div>
                   <ChevronDown
                     size={18}

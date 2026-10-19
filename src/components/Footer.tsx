@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Logo from './Logo';
 import { Phone, Mail, MapPin, ArrowUpRight } from 'lucide-react';
-import { ParticleText, SpecularButton } from '@/components/react-bits';
+import { SpecularButton } from '@/components/react-bits';
 
 const DIVISION_FOOTER_LOGOS = [
   {
@@ -170,6 +170,9 @@ export default function Footer() {
                   <img
                     src={div.logo}
                     alt={`${div.name} official logo`}
+                    style={{
+                      filter: div.name === 'Sanyog' ? 'brightness(0) invert(1)' : 'none',
+                    }}
                     className="max-h-7 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>
@@ -395,22 +398,6 @@ export default function Footer() {
               36+ Years Direct Utility Practice
             </div>
           </div>
-        </div>
-
-        {/* ParticleText Architectural Watermark */}
-        <div
-          style={{
-            borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-            paddingTop: '20px',
-            marginBottom: '12px',
-            opacity: 0.55,
-          }}
-        >
-          <ParticleText
-            text="JC APEX VENTURES · MUMBAI"
-            fontSize={48}
-            particleColor="#C29F53"
-          />
         </div>
 
         {/* Bottom Statutory Row */}

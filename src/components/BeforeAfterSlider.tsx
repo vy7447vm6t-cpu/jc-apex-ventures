@@ -128,7 +128,7 @@ export default function BeforeAfterSlider({
         <div
           style={{
             padding: '8px 14px',
-            borderRadius: '9999px',
+            borderRadius: '14px',
             backgroundColor: '#FFFFFF',
             border: '1px solid rgba(194, 159, 83, 0.35)',
             boxShadow: '0 4px 14px rgba(0, 0, 0, 0.04)',
@@ -138,9 +138,8 @@ export default function BeforeAfterSlider({
             letterSpacing: '0.04em',
             color: '#8C733E',
             maxWidth: '100%',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
+            lineHeight: 1.4,
+            whiteSpace: 'normal',
           }}
         >
           <TechText text={telemetryString} scrambleSpeed={14} maxScrambles={3} />
@@ -278,24 +277,29 @@ export default function BeforeAfterSlider({
             transform: 'translateX(-50%)',
             zIndex: 8,
             pointerEvents: 'none',
+            width: 'max-content',
+            maxWidth: 'calc(100% - 24px)',
+            textAlign: 'center',
           }}
         >
           <span
             style={{
-              backgroundColor: 'rgba(17, 17, 17, 0.78)',
+              display: 'inline-block',
+              backgroundColor: 'rgba(17, 17, 17, 0.82)',
               backdropFilter: 'blur(12px)',
               color: '#FFFFFF',
-              fontSize: '0.7rem',
+              fontSize: '0.68rem',
               fontWeight: 600,
-              padding: '6px 16px',
+              padding: '6px 14px',
               borderRadius: '9999px',
               fontFamily: 'var(--font-sans, Inter, sans-serif)',
               letterSpacing: '0.05em',
               textTransform: 'uppercase',
-              border: '1px solid rgba(255, 255, 255, 0.14)',
+              border: '1px solid rgba(255, 255, 255, 0.16)',
+              whiteSpace: 'nowrap',
             }}
           >
-            Drag divider left or right to compare terrace usability
+            Drag divider to compare terrace usability
           </span>
         </div>
       </div>
@@ -383,7 +387,7 @@ export default function BeforeAfterSlider({
           }}
         >
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px', marginBottom: '8px' }}>
               <span
                 style={{
                   fontFamily: 'var(--font-sans, Inter, sans-serif)',
@@ -399,7 +403,7 @@ export default function BeforeAfterSlider({
               <img
                 src="/images/logos/solis-official.png"
                 alt="Solis Official Logo"
-                style={{ height: '24px', width: 'auto', objectFit: 'contain' }}
+                style={{ height: '22px', width: 'auto', objectFit: 'contain' }}
               />
             </div>
             <h4

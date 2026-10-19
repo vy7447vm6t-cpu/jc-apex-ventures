@@ -97,6 +97,48 @@ async function waitForServer(url, maxRetries = 40) {
           await el.screenshot({
             path: path.join(ARTIFACT_DIR, `desktop-sec-${sec.id}.png`),
           });
+
+          // Special capture: Hero hover with TargetCursor magnetic snap + Liquid Glass Division Strip
+          if (sec.id === 'hero') {
+            const zoneCards = await page.$$('.hero-indicators-grid [data-cursor-target="true"]');
+            if (zoneCards.length > 1) {
+              const box = await zoneCards[1].boundingBox();
+              if (box) {
+                await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2, { steps: 12 });
+                await new Promise((r) => setTimeout(r, 450));
+                await el.screenshot({
+                  path: path.join(ARTIFACT_DIR, 'desktop-sec-hero-hover.png'),
+                });
+                console.log('Captured desktop Hero hover state (TargetCursor + Telemetry Strip)');
+              }
+            }
+          }
+
+          // Special capture: Section 3 Panorama AccordionGallery mode
+          if (sec.id === 'services') {
+            const galleryBtn = await page.evaluateHandle(() => {
+              const buttons = Array.from(document.querySelectorAll('#services button'));
+              return buttons.find((b) => b.textContent && b.textContent.includes('Panorama Gallery'));
+            });
+            if (galleryBtn && galleryBtn.asElement()) {
+              await galleryBtn.asElement().click();
+              await new Promise((r) => setTimeout(r, 450));
+              await el.screenshot({
+                path: path.join(ARTIFACT_DIR, 'desktop-sec-services-gallery.png'),
+              });
+              console.log('Captured desktop Section 3 Panorama AccordionGallery state');
+              // Switch back to Split Ledger View
+              const splitBtn = await page.evaluateHandle(() => {
+                const buttons = Array.from(document.querySelectorAll('#services button'));
+                return buttons.find((b) => b.textContent && b.textContent.includes('Split Ledger'));
+              });
+              if (splitBtn && splitBtn.asElement()) {
+                await splitBtn.asElement().click();
+                await new Promise((r) => setTimeout(r, 300));
+              }
+            }
+          }
+
           await page.evaluate(() => {
             const hdr = document.querySelector('.nav-menu-fixed-wrapper');
             if (hdr) hdr.style.visibility = 'visible';
@@ -175,7 +217,7 @@ async function waitForServer(url, maxRetries = 40) {
       } catch (e) {}
     }
 
-    // 3. SUBPAGES AUDIT (Solis, Sanyog, Grid Apex, Tvasta, eMudran, Agrim, Studio)
+      // 3. SUBPAGES AUDIT (Solis, Sanyog, Grid Apex, Tvasta, eMudran, Agrim, Studio)
     const subpages = ['/solis', '/sanyog', '/grid-apex', '/tvasta', '/emudran', '/agrim', '/studio'];
     for (const sp of subpages) {
       await page.setViewport({ width: 1440, height: 900, deviceScaleFactor: 1.5 });
@@ -186,6 +228,14 @@ async function waitForServer(url, maxRetries = 40) {
       const slug = sp.replace('/', '');
       await page.screenshot({
         path: path.join(ARTIFACT_DIR, `subpage-${slug}-desktop.png`),
+        fullPage: false,
+      });
+
+      // Scroll down to capture the interactive React Bits body sections on desktop
+      await page.evaluate(() => window.scrollBy(0, 950));
+      await new Promise((r) => setTimeout(r, 450));
+      await page.screenshot({
+        path: path.join(ARTIFACT_DIR, `subpage-${slug}-body.png`),
         fullPage: false,
       });
 

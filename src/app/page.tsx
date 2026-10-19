@@ -13,6 +13,7 @@ import GroundedRecognition from '@/components/GroundedRecognition';
 import GroundedCalculators from '@/components/GroundedCalculators';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 import ConsultationModal from '@/components/ConsultationModal';
+import Clippy from '@/components/Clippy';
 import { Phone, Mail } from 'lucide-react';
 import {
   ScrollExpand,
@@ -40,6 +41,7 @@ export default function Home() {
 
       {/* 1. Grounded Fixed Minimalist Island Navigation with Live Mumbai Clock */}
       <Navbar />
+      <Clippy />
 
       {/* 2. Grounded Full-Bleed Multi-Zone Interactive Hero */}
       <GroundedHero onOpenConsultation={handleOpenConsultation} />
@@ -215,42 +217,60 @@ export default function Home() {
                 Call our engineering desk directly at One International Centre or send us an enquiry. We review your site parameters, verify statutory feasibility across BEST, Adani, Tata Power, or MSEDCL, and provide verified next steps.
               </p>
 
-              {/* Six Division Pills for immediate consultation routing */}
+              {/* Six Division Pills with Official Transparent Brand Marks for immediate consultation routing */}
               <div
                 style={{
                   display: 'flex',
-                  gap: '8px',
+                  gap: '10px',
                   justifyContent: 'center',
                   flexWrap: 'wrap',
-                  marginBottom: '32px',
+                  marginBottom: '34px',
                 }}
               >
                 {[
-                  { id: 'solis', label: 'Solis · Solar & Pergolas' },
-                  { id: 'sanyog', label: 'Sanyog · Tariff & CGRF' },
-                  { id: 'grid-apex', label: 'Grid Apex · Substations' },
-                  { id: 'tvasta', label: 'Tvasta · Interiors' },
-                  { id: 'emudran', label: 'eMudran · Packaging' },
-                  { id: 'agrim', label: 'Agrim · EV & DPR' },
+                  { id: 'solis', label: 'Solar & Pergolas', logo: '/images/logos/solis-logo-white.png' },
+                  { id: 'sanyog', label: 'Tariff & CGRF', logo: '/images/logos/sanyog-official.png' },
+                  { id: 'grid-apex', label: 'Substations', logo: '/images/logos/grid-apex-white.png' },
+                  { id: 'tvasta', label: 'Interiors', logo: '/images/logos/tvasta-official.png' },
+                  { id: 'emudran', label: 'Packaging', logo: '/images/logos/emudran-white.png' },
+                  { id: 'agrim', label: 'EV & DPR', logo: '/images/logos/agrim-official.png' },
                 ].map((div) => (
                   <button
                     key={div.id}
                     type="button"
                     onClick={() => handleOpenConsultation(div.id)}
                     style={{
-                      padding: '7px 14px',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '8px 15px',
                       borderRadius: '9999px',
-                      fontSize: '0.8rem',
+                      fontSize: '0.78rem',
                       fontFamily: 'var(--font-sans, Inter, sans-serif)',
                       backgroundColor: 'rgba(255, 255, 255, 0.08)',
                       border: '1px solid rgba(255, 255, 255, 0.16)',
-                      color: 'rgba(255, 255, 255, 0.9)',
+                      color: 'rgba(255, 255, 255, 0.92)',
                       cursor: 'pointer',
                       transition: 'all 0.2s ease',
                     }}
                     className="hover:bg-white/20 hover:border-white/30"
                   >
-                    {div.label}
+                    <img
+                      src={div.logo}
+                      alt={div.id}
+                      style={{
+                        height: '16px',
+                        maxWidth: '64px',
+                        width: 'auto',
+                        objectFit: 'contain',
+                        filter: div.id === 'sanyog' ? 'brightness(0) invert(1)' : 'none',
+                      }}
+                    />
+                    <span
+                      aria-hidden="true"
+                      style={{ width: '1px', height: '12px', backgroundColor: 'rgba(255, 255, 255, 0.25)' }}
+                    />
+                    <span>{div.label}</span>
                   </button>
                 ))}
               </div>

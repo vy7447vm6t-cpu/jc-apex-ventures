@@ -398,10 +398,10 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
                   onChange={(e) => setBillAmount(Number(e.target.value))}
                   style={{ width: '100%', accentColor: '#111111', cursor: 'pointer' }}
                 />
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: '#666666', marginTop: '6px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                  <span>Rs 3,000 / mo</span>
-                  <span>Rs 1,00,000 / mo</span>
-                  <span>Rs 2,50,000+ / mo</span>
+                <div style={{ display: 'flex', justifyContent: 'space-between', gap: '8px', fontSize: '0.72rem', color: '#666666', marginTop: '6px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+                  <span style={{ whiteSpace: 'nowrap' }}>Rs 3,000 / mo</span>
+                  <span style={{ whiteSpace: 'nowrap' }}>Rs 1,00,000 / mo</span>
+                  <span style={{ whiteSpace: 'nowrap' }}>Rs 2,50,000+ / mo</span>
                 </div>
               </>
             ) : (
@@ -455,10 +455,10 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
                   onChange={(e) => setAreaAmount(Number(e.target.value))}
                   style={{ width: '100%', accentColor: '#111111', cursor: 'pointer' }}
                 />
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: '#666666', marginTop: '6px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                  <span>200 sq ft</span>
-                  <span>5,000 sq ft</span>
-                  <span>20,000+ sq ft</span>
+                <div style={{ display: 'flex', justifyContent: 'space-between', gap: '8px', fontSize: '0.72rem', color: '#666666', marginTop: '6px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+                  <span style={{ whiteSpace: 'nowrap' }}>200 sq ft</span>
+                  <span style={{ whiteSpace: 'nowrap' }}>5,000 sq ft</span>
+                  <span style={{ whiteSpace: 'nowrap' }}>20,000+ sq ft</span>
                 </div>
               </>
             )}
@@ -484,11 +484,11 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
                   boxShadow: structureType === 'pergola' ? '0 4px 12px rgba(0,0,0,0.06)' : 'none',
                 }}
               >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '6px 8px', marginBottom: '6px' }}>
                   <div style={{ fontWeight: 600, fontSize: '0.92rem', color: '#111111', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                     Elevated Pergola
                   </div>
-                  <span style={{ fontSize: '0.72rem', padding: '2px 8px', borderRadius: '100px', background: '#111111', color: '#FFFFFF', fontWeight: 600, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+                  <span style={{ fontSize: '0.68rem', padding: '2px 8px', borderRadius: '100px', background: '#111111', color: '#FFFFFF', fontWeight: 600, fontFamily: 'var(--font-sans, Inter, sans-serif)', flexShrink: 0 }}>
                     Recommended
                   </span>
                 </div>

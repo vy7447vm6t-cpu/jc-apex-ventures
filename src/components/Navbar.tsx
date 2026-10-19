@@ -335,7 +335,11 @@ export default function Navbar() {
             <Link
               href="/solis"
               aria-label="Solis Solar Division"
-              style={{ color: '#111111', fontWeight: 650, textDecoration: 'none' }}
+              style={{
+                color: pathname === '/solis' ? '#8C733E' : '#222222',
+                fontWeight: pathname === '/solis' ? 650 : 500,
+                textDecoration: 'none',
+              }}
             >
               <ScrambleText text="Solis" />
             </Link>
@@ -351,7 +355,11 @@ export default function Navbar() {
             <Link
               href="/studio"
               aria-label="Practice, Leadership and Studio"
-              style={{ color: '#222222', textDecoration: 'none' }}
+              style={{
+                color: pathname === '/studio' ? '#8C733E' : '#222222',
+                fontWeight: pathname === '/studio' ? 650 : 500,
+                textDecoration: 'none',
+              }}
             >
               <ScrambleText text="Studio" />
             </Link>

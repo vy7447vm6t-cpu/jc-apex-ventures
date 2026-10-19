@@ -1268,7 +1268,7 @@ export default function SolisPage() {
                   <div>
                     <span
                       style={{
-                        fontFamily: 'var(--font-mono, monospace)',
+                        fontFamily: 'var(--font-sans, Inter, sans-serif)',
                         fontSize: '0.78rem',
                         color: '#C29F53',
                         textTransform: 'uppercase',
@@ -1390,7 +1390,7 @@ export default function SolisPage() {
                           style={{
                             fontSize: '0.72rem',
                             color: '#777777',
-                            fontFamily: 'var(--font-mono, monospace)',
+                            fontFamily: 'var(--font-sans, Inter, sans-serif)',
                             textTransform: 'uppercase',
                             display: 'block',
                           }}
@@ -1423,7 +1423,7 @@ export default function SolisPage() {
                       <span
                         style={{
                           fontSize: '0.74rem',
-                          fontFamily: 'var(--font-mono, monospace)',
+                          fontFamily: 'var(--font-sans, Inter, sans-serif)',
                           color: '#888888',
                           textTransform: 'uppercase',
                           fontWeight: 600,
@@ -1449,7 +1449,7 @@ export default function SolisPage() {
                       <span
                         style={{
                           fontSize: '0.74rem',
-                          fontFamily: 'var(--font-mono, monospace)',
+                          fontFamily: 'var(--font-sans, Inter, sans-serif)',
                           color: '#C29F53',
                           textTransform: 'uppercase',
                           fontWeight: 600,
@@ -1477,7 +1477,7 @@ export default function SolisPage() {
                     <span
                       style={{
                         fontSize: '0.74rem',
-                        fontFamily: 'var(--font-mono, monospace)',
+                        fontFamily: 'var(--font-sans, Inter, sans-serif)',
                         color: '#111111',
                         textTransform: 'uppercase',
                         fontWeight: 600,

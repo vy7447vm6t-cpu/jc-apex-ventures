@@ -29,7 +29,7 @@ export default function TechText({
   preserveSpaces = true,
   style,
 }: TechTextProps) {
-  const effectiveSpeed = scrambleSpeed ?? speed ?? 28;
+  const effectiveSpeed = Math.min(scrambleSpeed ?? speed ?? 16, 18);
   const [displayText, setDisplayText] = useState(text);
   const isScramblingRef = useRef(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -38,48 +38,59 @@ export default function TechText({
     if (isScramblingRef.current) return;
     isScramblingRef.current = true;
 
-    let iteration = 0;
+    let step = 0;
+    const totalSteps = 8;
     const originalText = text;
 
     if (intervalRef.current) clearInterval(intervalRef.current);
 
     intervalRef.current = setInterval(() => {
-      setDisplayText(() => {
-        return originalText
+      step += 1;
+      const progress = step / totalSteps;
+      const revealCount = Math.floor(progress * originalText.length);
+
+      if (step >= totalSteps) {
+        if (intervalRef.current) clearInterval(intervalRef.current);
+        isScramblingRef.current = false;
+        setDisplayText(originalText);
+        return;
+      }
+
+      setDisplayText(
+        originalText
           .split('')
           .map((char, index) => {
-            if (preserveSpaces && char === ' ') return ' ';
-            if (index < iteration) {
+            if (preserveSpaces && (char === ' ' || char === '·' || char === '/')) return char;
+            if (index <= revealCount) {
               return originalText[index];
             }
             return CHARACTERS[Math.floor(Math.random() * CHARACTERS.length)];
           })
-          .join('');
-      });
-
-      if (iteration >= originalText.length) {
-        if (intervalRef.current) clearInterval(intervalRef.current);
-        isScramblingRef.current = false;
-        setDisplayText(originalText);
-      }
-
-      iteration += 1 / (maxScrambles / 3);
+          .join('')
+      );
     }, effectiveSpeed);
   };
 
   useEffect(() => {
-    startScramble();
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    isScramblingRef.current = false;
+    setDisplayText(text);
+    if (trigger === 'mount') {
+      startScramble();
+    }
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
       isScramblingRef.current = false;
     };
-  }, [text]);
+  }, [text, trigger]);
 
   useEffect(() => {
     if (active) {
       startScramble();
+    } else {
+      setDisplayText(text);
     }
-  }, [active]);
+  }, [active, text]);
 
   const hasCustomFont = Boolean(style?.fontFamily) || /font-(serif|sans)|tracking-/.test(className);
   const fontClasses = hasCustomFont ? '' : 'font-sans tracking-wider';
@@ -89,6 +100,11 @@ export default function TechText({
       className={`inline-block transition-colors duration-200 ${fontClasses} ${className}`}
       style={style}
       onMouseEnter={triggerOnHover || trigger === 'hover' ? startScramble : undefined}
+      onMouseLeave={() => {
+        if (intervalRef.current) clearInterval(intervalRef.current);
+        isScramblingRef.current = false;
+        setDisplayText(text);
+      }}
     >
       {displayText}
     </span>

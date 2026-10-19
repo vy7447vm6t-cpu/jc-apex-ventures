@@ -98,7 +98,7 @@ const FEASIBILITY_ITEMS = [
         <div>
           <span
             style={{
-              fontFamily: 'var(--font-mono, monospace)',
+              fontFamily: 'var(--font-sans, Inter, sans-serif)',
               fontSize: '0.72rem',
               fontWeight: 600,
               letterSpacing: '0.08em',
@@ -147,7 +147,7 @@ const FEASIBILITY_ITEMS = [
             style={{
               fontSize: '0.78rem',
               color: '#777777',
-              fontFamily: 'var(--font-mono, monospace)',
+              fontFamily: 'var(--font-sans, Inter, sans-serif)',
             }}
           >
             Status: Feasibility Study
@@ -157,7 +157,7 @@ const FEASIBILITY_ITEMS = [
               fontSize: '0.75rem',
               color: '#C29F53',
               fontWeight: 600,
-              fontFamily: 'var(--font-mono, monospace)',
+              fontFamily: 'var(--font-sans, Inter, sans-serif)',
             }}
           >
             55.55 kWp
@@ -176,7 +176,7 @@ const FEASIBILITY_ITEMS = [
         <div>
           <span
             style={{
-              fontFamily: 'var(--font-mono, monospace)',
+              fontFamily: 'var(--font-sans, Inter, sans-serif)',
               fontSize: '0.72rem',
               fontWeight: 600,
               letterSpacing: '0.08em',
@@ -225,7 +225,7 @@ const FEASIBILITY_ITEMS = [
             style={{
               fontSize: '0.78rem',
               color: '#777777',
-              fontFamily: 'var(--font-mono, monospace)',
+              fontFamily: 'var(--font-sans, Inter, sans-serif)',
             }}
           >
             Status: In-Design Schematic
@@ -235,7 +235,7 @@ const FEASIBILITY_ITEMS = [
               fontSize: '0.75rem',
               color: '#C29F53',
               fontWeight: 600,
-              fontFamily: 'var(--font-mono, monospace)',
+              fontFamily: 'var(--font-sans, Inter, sans-serif)',
             }}
           >
             1600 kVA
@@ -254,7 +254,7 @@ const FEASIBILITY_ITEMS = [
         <div>
           <span
             style={{
-              fontFamily: 'var(--font-mono, monospace)',
+              fontFamily: 'var(--font-sans, Inter, sans-serif)',
               fontSize: '0.72rem',
               fontWeight: 600,
               letterSpacing: '0.08em',
@@ -303,7 +303,7 @@ const FEASIBILITY_ITEMS = [
             style={{
               fontSize: '0.78rem',
               color: '#777777',
-              fontFamily: 'var(--font-mono, monospace)',
+              fontFamily: 'var(--font-sans, Inter, sans-serif)',
             }}
           >
             Status: Structural Specimen
@@ -313,7 +313,7 @@ const FEASIBILITY_ITEMS = [
               fontSize: '0.75rem',
               color: '#C29F53',
               fontWeight: 600,
-              fontFamily: 'var(--font-mono, monospace)',
+              fontFamily: 'var(--font-sans, Inter, sans-serif)',
             }}
           >
             1200 GSM
@@ -332,7 +332,7 @@ const FEASIBILITY_ITEMS = [
         <div>
           <span
             style={{
-              fontFamily: 'var(--font-mono, monospace)',
+              fontFamily: 'var(--font-sans, Inter, sans-serif)',
               fontSize: '0.72rem',
               fontWeight: 600,
               letterSpacing: '0.08em',
@@ -381,7 +381,7 @@ const FEASIBILITY_ITEMS = [
             style={{
               fontSize: '0.78rem',
               color: '#777777',
-              fontFamily: 'var(--font-mono, monospace)',
+              fontFamily: 'var(--font-sans, Inter, sans-serif)',
             }}
           >
             Status: Project Economics
@@ -391,7 +391,7 @@ const FEASIBILITY_ITEMS = [
               fontSize: '0.75rem',
               color: '#C29F53',
               fontWeight: 600,
-              fontFamily: 'var(--font-mono, monospace)',
+              fontFamily: 'var(--font-sans, Inter, sans-serif)',
             }}
           >
             25-Yr CAPEX
@@ -441,7 +441,7 @@ export default function StudioPage() {
           <div className="eye-brow-container" style={{ marginBottom: '20px' }}>
             <span
               style={{
-                fontFamily: 'var(--font-mono, monospace)',
+                fontFamily: 'var(--font-sans, Inter, sans-serif)',
                 fontSize: '0.82rem',
                 letterSpacing: '0.08em',
                 textTransform: 'uppercase',
@@ -583,7 +583,7 @@ export default function StudioPage() {
                     <div
                       style={{
                         marginTop: '12px',
-                        fontFamily: 'var(--font-mono, monospace)',
+                        fontFamily: 'var(--font-sans, Inter, sans-serif)',
                         fontSize: '0.8rem',
                         color: '#C29F53',
                       }}
@@ -647,14 +647,14 @@ export default function StudioPage() {
                 }}
               >
                 <div>
-                  <div style={{ fontSize: '0.82rem', fontFamily: 'var(--font-mono, monospace)', color: '#C29F53' }}>
+                  <div style={{ fontSize: '0.82rem', fontFamily: 'var(--font-sans, Inter, sans-serif)', color: '#C29F53' }}>
                     [STUDIO DESK]
                   </div>
                   <div style={{ fontSize: '0.92rem', fontWeight: 500 }}>
                     Consultation by Appointment
                   </div>
                 </div>
-                <span style={{ fontSize: '0.78rem', color: '#CCCCCC', fontFamily: 'var(--font-mono, monospace)' }}>
+                <span style={{ fontSize: '0.78rem', color: '#CCCCCC', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                   Mon - Sat 10:00 - 18:30 IST
                 </span>
               </div>
@@ -768,7 +768,7 @@ export default function StudioPage() {
             >
               <div
                 style={{
-                  fontFamily: 'var(--font-mono, monospace)',
+                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
                   fontSize: '0.78rem',
                   color: '#C29F53',
                   textTransform: 'uppercase',
@@ -791,7 +791,7 @@ export default function StudioPage() {
               <div
                 style={{
                   fontSize: '0.86rem',
-                  fontFamily: 'var(--font-mono, monospace)',
+                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
                   color: '#777777',
                   marginBottom: '16px',
                 }}
@@ -828,7 +828,7 @@ export default function StudioPage() {
             >
               <div
                 style={{
-                  fontFamily: 'var(--font-mono, monospace)',
+                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
                   fontSize: '0.78rem',
                   color: '#C29F53',
                   textTransform: 'uppercase',
@@ -851,7 +851,7 @@ export default function StudioPage() {
               <div
                 style={{
                   fontSize: '0.86rem',
-                  fontFamily: 'var(--font-mono, monospace)',
+                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
                   color: '#777777',
                   marginBottom: '16px',
                 }}
@@ -888,7 +888,7 @@ export default function StudioPage() {
             >
               <div
                 style={{
-                  fontFamily: 'var(--font-mono, monospace)',
+                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
                   fontSize: '0.78rem',
                   color: '#C29F53',
                   textTransform: 'uppercase',
@@ -911,7 +911,7 @@ export default function StudioPage() {
               <div
                 style={{
                   fontSize: '0.86rem',
-                  fontFamily: 'var(--font-mono, monospace)',
+                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
                   color: '#777777',
                   marginBottom: '16px',
                 }}
@@ -1007,7 +1007,7 @@ export default function StudioPage() {
 
           <div
             style={{
-              fontFamily: 'var(--font-mono, monospace)',
+              fontFamily: 'var(--font-sans, Inter, sans-serif)',
               fontSize: '0.88rem',
               color: '#C29F53',
               letterSpacing: '0.06em',
@@ -1023,7 +1023,7 @@ export default function StudioPage() {
 
       <style jsx global>{`
         .badge-tag {
-          font-family: var(--font-mono, monospace);
+          font-family: var(--font-sans, Inter, sans-serif);
           font-size: 0.72rem;
           padding: 4px 10px;
           border-radius: 9999px;

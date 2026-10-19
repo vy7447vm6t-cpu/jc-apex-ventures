@@ -26,12 +26,16 @@ export default function OptionWheel({
   const containerRef = useRef<HTMLDivElement>(null);
   const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const [indicatorStyle, setIndicatorStyle] = useState<{
+    top: number;
     left: number;
     width: number;
+    height: number;
     opacity: number;
   }>({
+    top: 0,
     left: 0,
     width: 0,
+    height: 0,
     opacity: 0,
   });
 
@@ -41,43 +45,49 @@ export default function OptionWheel({
       if (activeIdx >= 0 && buttonRefs.current[activeIdx]) {
         const btn = buttonRefs.current[activeIdx]!;
         setIndicatorStyle({
+          top: btn.offsetTop,
           left: btn.offsetLeft,
           width: btn.offsetWidth,
+          height: btn.offsetHeight,
           opacity: 1,
         });
       }
     };
 
     updateIndicator();
+    const timer = setTimeout(updateIndicator, 60);
     window.addEventListener('resize', updateIndicator);
-    return () => window.removeEventListener('resize', updateIndicator);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', updateIndicator);
+    };
   }, [selectedValue, options]);
 
   return (
-    <div className={`relative flex items-center justify-center p-1.5 ${className}`}>
+    <div className={`relative flex items-center justify-start p-1 max-w-full ${className}`}>
       {/* Tactile Apple iOS liquid glass segmented well */}
       <div
         ref={containerRef}
         style={{
           position: 'relative',
-          backgroundColor: 'rgba(255, 255, 255, 0.82)',
+          backgroundColor: 'rgba(255, 255, 255, 0.86)',
           backdropFilter: 'blur(24px) saturate(190%)',
           WebkitBackdropFilter: 'blur(24px) saturate(190%)',
           border: '1px solid rgba(0, 0, 0, 0.08)',
           boxShadow:
             '0 8px 24px rgba(0, 0, 0, 0.05), inset 0 1px 1px rgba(255, 255, 255, 0.9)',
         }}
-        className="relative flex items-center gap-1.5 overflow-x-auto py-1.5 px-2 rounded-full no-scrollbar max-w-full"
+        className="relative flex flex-wrap items-center gap-1.5 py-1.5 px-2 rounded-2xl sm:rounded-full max-w-full"
       >
-        {/* Sliding magnetic spring indicator pill with specular rim lighting */}
+        {/* Sliding 2D magnetic spring indicator pill with specular rim lighting */}
         <div
           aria-hidden="true"
           style={{
             position: 'absolute',
-            top: '6px',
-            bottom: '6px',
+            top: `${indicatorStyle.top}px`,
             left: `${indicatorStyle.left}px`,
             width: `${indicatorStyle.width}px`,
+            height: `${indicatorStyle.height}px`,
             opacity: indicatorStyle.opacity,
             borderRadius: '9999px',
             backgroundColor: '#111111',
@@ -91,6 +101,7 @@ export default function OptionWheel({
 
         {options.map((opt, idx) => {
           const isSelected = opt.value === selectedValue;
+          const isSanyog = Boolean(opt.logoSrc && opt.logoSrc.includes('sanyog'));
           return (
             <button
               key={String(opt.value)}
@@ -103,16 +114,16 @@ export default function OptionWheel({
                 position: 'relative',
                 zIndex: 2,
                 fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                fontSize: '0.8rem',
+                fontSize: '0.78rem',
                 fontWeight: isSelected ? 600 : 500,
-                letterSpacing: '0.015em',
+                letterSpacing: '0.01em',
                 color: isSelected ? '#FFFFFF' : '#333333',
                 background: 'transparent',
                 border: 'none',
                 outline: 'none',
                 transition: 'color 0.25s ease',
               }}
-              className="relative inline-flex items-center gap-2.5 px-4 py-2.5 rounded-full whitespace-nowrap cursor-pointer hover:text-[#111111]"
+              className="relative inline-flex items-center gap-2 px-3.5 py-2 rounded-full whitespace-nowrap cursor-pointer hover:text-[#111111]"
             >
               {opt.logoSrc && (
                 <span
@@ -121,7 +132,7 @@ export default function OptionWheel({
                     alignItems: 'center',
                     justifyContent: 'center',
                     backgroundColor: 'transparent',
-                    height: '26px',
+                    height: '22px',
                     paddingRight: '6px',
                     borderRight: isSelected
                       ? '1px solid rgba(194, 159, 83, 0.45)'
@@ -133,19 +144,24 @@ export default function OptionWheel({
                     src={isSelected && opt.logoDark ? opt.logoDark : opt.logoSrc}
                     alt={opt.subtext || opt.label}
                     style={{
-                      height: '22px',
+                      height: isSanyog ? '22px' : '18px',
                       width: 'auto',
-                      maxWidth: '78px',
+                      maxWidth: '68px',
                       objectFit: 'contain',
                       display: 'block',
-                      filter: isSelected && opt.logoDark === opt.logoSrc ? 'brightness(1.15)' : 'none',
+                      filter:
+                        isSelected && isSanyog
+                          ? 'brightness(0) invert(1)'
+                          : isSelected && opt.logoDark === opt.logoSrc
+                          ? 'brightness(1.15)'
+                          : 'none',
                     }}
                   />
                 </span>
               )}
               <span>{opt.label}</span>
               {opt.subtext && !opt.logoSrc && (
-                <span style={{ opacity: 0.72, fontSize: '0.7rem' }}>
+                <span style={{ opacity: 0.72, fontSize: '0.68rem' }}>
                   ({opt.subtext})
                 </span>
               )}
