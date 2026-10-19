@@ -144,55 +144,7 @@ export default function DivisionPage({
         }
       />
 
-      {/* Grounded Operational Mandate Dossier Banner with MicroSlats */}
-      <section
-        style={{
-          padding: '24px 0',
-          borderBottom: '1px solid var(--color-border)',
-          background: 'var(--color-bg-alt)',
-          position: 'relative',
-          overflow: 'hidden',
-        }}
-      >
-        <MicroSlats count={16} color="#8C733E" opacity={0.05} zIndex={1} showTicks={true} />
-        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '18px', flexWrap: 'wrap' }}>
-            <span
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
-                padding: '6px 14px',
-                borderRadius: '100px',
-                background: 'var(--color-accent-pale)',
-                color: 'var(--color-accent)',
-                fontSize: '0.74rem',
-                fontWeight: 600,
-                textTransform: 'uppercase',
-                letterSpacing: '0.08em',
-                fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                border: '1px solid var(--color-border-accent-light)',
-              }}
-            >
-              [<TechText text="OPERATIONAL MANDATE" scrambleSpeed={20} maxScrambles={4} triggerOnHover={true} />]
-            </span>
-            <p
-              style={{
-                margin: 0,
-                fontSize: '0.98rem',
-                fontWeight: 400,
-                color: 'var(--color-text-secondary)',
-                flex: 1,
-                minWidth: '280px',
-                lineHeight: 1.6,
-                fontFamily: 'var(--font-sans, Inter, sans-serif)',
-              }}
-            >
-              {data.plainTakeaway}
-            </p>
-          </div>
-        </div>
-      </section>
+
 
       {/* Visual Photo Cards Showcase with OptionWheel + AccordionGallery Switcher */}
       {data.visualCards && data.visualCards.length > 0 && (

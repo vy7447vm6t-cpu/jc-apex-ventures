@@ -8,8 +8,6 @@ import {
   MicroSlats,
   TechText,
   SpecularButton,
-  ShapeWaves,
-  InfiniteSpiral,
   LogoLoop,
   ElectricBorder,
   TargetCursor,
@@ -101,61 +99,61 @@ const REGULATORY_AUTHORITIES = [
     id: 'reg-best',
     name: 'BEST Undertaking',
     category: 'Island City HT/LT Power Clearances',
-    icon: <AuthorityLogo id="best" size={20} />,
+    icon: <AuthorityLogo id="best" size={26} />,
   },
   {
     id: 'reg-adani',
     name: 'Adani Electricity (AEML)',
     category: 'Suburban Distribution & Net Metering',
-    icon: <AuthorityLogo id="adani" size={20} />,
+    icon: <AuthorityLogo id="adani" size={26} />,
   },
   {
     id: 'reg-tata',
     name: 'Tata Power (TPCL)',
     category: 'MMR Grid Interconnection Protocols',
-    icon: <AuthorityLogo id="tata" size={20} />,
+    icon: <AuthorityLogo id="tata" size={26} />,
   },
   {
     id: 'reg-msedcl',
     name: 'MSEDCL Mahavitaran',
     category: 'Industrial HT Feeder Clearances',
-    icon: <AuthorityLogo id="msedcl" size={20} />,
+    icon: <AuthorityLogo id="msedcl" size={26} />,
   },
   {
     id: 'reg-pwd',
     name: 'PWD Electrical Inspectorate',
     category: 'CEI Statutory Safety Certification',
-    icon: <AuthorityLogo id="pwd" size={20} />,
+    icon: <AuthorityLogo id="pwd" size={26} />,
   },
   {
     id: 'reg-mpcb',
     name: 'Pollution Control Board (MPCB)',
     category: 'CTE / CTO Environmental Consents',
-    icon: <AuthorityLogo id="mpcb" size={20} />,
+    icon: <AuthorityLogo id="mpcb" size={26} />,
   },
   {
     id: 'reg-mnre',
     name: 'PM Surya Ghar National Portal',
     category: 'National Solar Subsidy Verification',
-    icon: <AuthorityLogo id="pmsuryaghar" size={20} />,
+    icon: <AuthorityLogo id="pmsuryaghar" size={26} />,
   },
   {
     id: 'reg-bee',
     name: 'Bureau of Energy Efficiency (BEE)',
     category: 'ECBC & PAT Scheme Statutory Compliance',
-    icon: <AuthorityLogo id="bee" size={20} />,
+    icon: <AuthorityLogo id="bee" size={26} />,
   },
   {
     id: 'reg-mca',
     name: 'Ministry of Corporate Affairs (MCA)',
     category: 'Consortium Corporate Entity Verification',
-    icon: <AuthorityLogo id="mca" size={20} />,
+    icon: <AuthorityLogo id="mca" size={26} />,
   },
   {
     id: 'reg-merc',
     name: 'MERC Sanctions',
     category: 'Maharashtra Electricity Regulatory Commission',
-    icon: <AuthorityLogo id="merc" size={20} />,
+    icon: <AuthorityLogo id="merc" size={26} />,
   },
 ];
 
@@ -188,14 +186,6 @@ export default function GroundedHero({ onOpenConsultation }: GroundedHeroProps =
 
       {/* MicroSlats Architectural Louver Rhythm with CAD Datum Ticks */}
       <MicroSlats count={24} color="#FFFFFF" opacity={0.10} zIndex={12} showTicks={true} />
-
-      {/* Engineering Geometric Resonance Spiral */}
-      <div
-        className="pointer-events-none absolute top-24 right-10 z-[12] opacity-35 hidden lg:block"
-        aria-hidden="true"
-      >
-        <InfiniteSpiral size={310} color="#C29F53" speed={0.004} />
-      </div>
 
       {/* Background Images Layer with Crossfade */}
       <div
@@ -250,14 +240,6 @@ export default function GroundedHero({ onOpenConsultation }: GroundedHeroProps =
               'linear-gradient(to bottom, rgba(17,17,17,0.52) 0%, rgba(17,17,17,0.22) 42%, rgba(17,17,17,0.88) 100%)',
           }}
         />
-      </div>
-
-      {/* Bottom Horizon Wave Resonance */}
-      <div
-        className="pointer-events-none absolute bottom-24 left-0 w-full z-[12] opacity-35 overflow-hidden"
-        aria-hidden="true"
-      >
-        <ShapeWaves color="#C29F53" height={95} waveCount={3} />
       </div>
 
       {/* 6 Invisible Hover Columns Triggering Image Crossfade (Desktop hover only) */}

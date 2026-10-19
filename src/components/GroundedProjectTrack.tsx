@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ArrowUpRight, X, CheckCircle2, MapPin } from 'lucide-react';
 import {
   FlexCarousel,
@@ -383,6 +383,19 @@ const CASE_STUDIES: CaseStudy[] = [
 export default function GroundedProjectTrack() {
   const [selectedStudy, setSelectedStudy] = useState<CaseStudy | null>(null);
   const [viewMode, setViewMode] = useState<'track' | 'depth'>('track');
+  const [mobileIdx, setMobileIdx] = useState<number>(0);
+  const mobileScrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollMobileTo = (idx: number) => {
+    if (!mobileScrollRef.current) return;
+    const targetIdx = Math.max(0, Math.min(idx, CASE_STUDIES.length - 1));
+    const cardWidth = mobileScrollRef.current.clientWidth * 0.84;
+    mobileScrollRef.current.scrollTo({
+      left: targetIdx * (cardWidth + 14),
+      behavior: 'smooth',
+    });
+    setMobileIdx(targetIdx);
+  };
 
   const openDossier = (study: CaseStudy) => {
     setSelectedStudy(study);
@@ -767,9 +780,9 @@ export default function GroundedProjectTrack() {
           )}
         </div>
 
-        {/* Mobile View: Modern Touch Card Stack */}
-        <div className="md:hidden flex flex-col gap-4">
-          <div className="flex items-center justify-between px-1 mb-1">
+        {/* Mobile View: High-End Touch Swipe Carousel Deck */}
+        <div className="md:hidden">
+          <div className="flex items-center justify-between px-1 mb-2.5">
             <span
               style={{
                 fontFamily: 'var(--font-sans, Inter, sans-serif)',
@@ -780,105 +793,177 @@ export default function GroundedProjectTrack() {
                 color: '#8C733E',
               }}
             >
-              [6 Active Case Studies · Tap to Inspect]
+              [Swipeable Project Dossiers]
             </span>
-            <span
-              style={{
-                fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                fontSize: '0.7rem',
-                color: '#666666',
-                fontVariantNumeric: 'tabular-nums',
-              }}
-            >
-              MMR Track
-            </span>
+            <div className="flex items-center gap-2">
+              <span
+                style={{
+                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                  fontSize: '0.7rem',
+                  fontWeight: 650,
+                  color: '#8C733E',
+                  backgroundColor: 'rgba(194, 159, 83, 0.14)',
+                  padding: '2px 8px',
+                  borderRadius: '9999px',
+                  border: '1px solid rgba(194, 159, 83, 0.3)',
+                  fontVariantNumeric: 'tabular-nums',
+                }}
+              >
+                0{mobileIdx + 1} / 0{CASE_STUDIES.length}
+              </span>
+            </div>
           </div>
 
-          {CASE_STUDIES.map((study) => (
-            <div
-              key={`mob-${study.id}`}
-              onClick={() => openDossier(study)}
-              className="group cursor-pointer rounded-2xl overflow-hidden border border-black/10 bg-white shadow-sm transition-all duration-300 hover:shadow-md"
-              style={{
-                backgroundColor: '#FFFFFF',
-              }}
-            >
-              {/* Photo with division badge */}
-              <div className="relative h-44 w-full overflow-hidden bg-[#111111]">
-                <img
-                  src={study.primaryImage}
-                  alt={study.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background: 'linear-gradient(to top, rgba(17, 17, 17, 0.85) 0%, transparent 60%)',
-                  }}
-                />
-                <div className="absolute top-3 left-3 flex items-center gap-2">
-                  <div className="bg-black/75 backdrop-blur-md px-2.5 py-1 rounded-lg border border-white/20 shadow-md flex items-center justify-center">
-                    <img
-                      src={study.logoLight}
-                      alt={study.divisionName}
-                      className="h-4 w-auto object-contain brightness-0 invert"
-                    />
+          {/* Swipe Track with Snap */}
+          <div
+            ref={mobileScrollRef}
+            onScroll={(e) => {
+              const el = e.currentTarget;
+              const cardWidth = el.clientWidth * 0.84;
+              const newIdx = Math.round(el.scrollLeft / (cardWidth + 14));
+              if (newIdx !== mobileIdx && newIdx >= 0 && newIdx < CASE_STUDIES.length) {
+                setMobileIdx(newIdx);
+              }
+            }}
+            className="flex overflow-x-auto snap-x snap-mandatory gap-3.5 pb-3 -mx-4 px-4 scrollbar-none"
+            style={{
+              scrollSnapType: 'x mandatory',
+              WebkitOverflowScrolling: 'touch',
+            }}
+          >
+            {CASE_STUDIES.map((study, idx) => (
+              <div
+                key={`mob-${study.id}`}
+                onClick={() => openDossier(study)}
+                className="group cursor-pointer rounded-2xl overflow-hidden border border-black/10 bg-white shadow-md transition-all duration-300 hover:shadow-lg flex-shrink-0 snap-center"
+                style={{
+                  width: 'calc(85vw - 20px)',
+                  maxWidth: '330px',
+                  backgroundColor: '#FFFFFF',
+                }}
+              >
+                {/* Photo with division badge */}
+                <div className="relative h-48 w-full overflow-hidden bg-[#111111]">
+                  <img
+                    src={study.primaryImage}
+                    alt={study.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background: 'linear-gradient(to top, rgba(17, 17, 17, 0.85) 0%, transparent 60%)',
+                    }}
+                  />
+                  <div className="absolute top-3 left-3 flex items-center gap-2">
+                    <div className="bg-black/75 backdrop-blur-md px-2.5 py-1 rounded-lg border border-white/20 shadow-md flex items-center justify-center">
+                      <img
+                        src={study.logoLight}
+                        alt={study.divisionName}
+                        className="h-4 w-auto object-contain brightness-0 invert"
+                      />
+                    </div>
+                    <span className="text-[11px] font-bold text-white bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/20">
+                      {study.num}
+                    </span>
                   </div>
-                  <span className="text-[11px] font-bold text-white bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/20">
-                    {study.num}
-                  </span>
+                  <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between">
+                    <span className="text-[11px] text-[#C29F53] font-sans font-medium">
+                      {study.location}
+                    </span>
+                    <span className="text-[11px] text-white/90 font-medium">
+                      {study.category.split('/')[0].trim()}
+                    </span>
+                  </div>
                 </div>
-                <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between">
-                  <span className="text-[11px] text-[#C29F53] font-sans font-medium">
-                    {study.location}
-                  </span>
-                  <span className="text-[11px] text-white/90 font-medium">
-                    {study.category.split('/')[0].trim()}
-                  </span>
-                </div>
-              </div>
 
-              {/* Content */}
-              <div className="p-4">
-                <h3
-                  style={{
-                    fontSize: '1.25rem',
-                    lineHeight: 1.2,
-                    fontWeight: 400,
-                    color: '#111111',
-                    margin: '0 0 8px 0',
-                    fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
-                  }}
-                >
-                  {study.title}
-                </h3>
-                <div
-                  style={{
-                    fontSize: '0.74rem',
-                    color: '#8C733E',
-                    fontWeight: 600,
-                    backgroundColor: '#F8F6F0',
-                    padding: '6px 10px',
-                    borderRadius: '8px',
-                    border: '1px solid rgba(194, 159, 83, 0.22)',
-                    marginBottom: '12px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                  }}
-                >
-                  <TechText text={study.metric} scrambleSpeed={18} maxScrambles={4} />
-                </div>
-                <div className="flex items-center justify-between pt-2 border-t border-black/8 text-[12px] text-[#666666]">
-                  <span>Client: {study.client.split('(')[0].trim()}</span>
-                  <span className="inline-flex items-center gap-1 text-[#8C733E] font-semibold">
-                    <span>Inspect CAD Dossier</span>
-                    <ArrowUpRight size={13} />
-                  </span>
+                {/* Content */}
+                <div className="p-4">
+                  <h3
+                    style={{
+                      fontSize: '1.2rem',
+                      lineHeight: 1.2,
+                      fontWeight: 400,
+                      color: '#111111',
+                      margin: '0 0 8px 0',
+                      fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+                    }}
+                  >
+                    {study.title}
+                  </h3>
+                  <div
+                    style={{
+                      fontSize: '0.74rem',
+                      color: '#8C733E',
+                      fontWeight: 600,
+                      backgroundColor: '#F8F6F0',
+                      padding: '6px 10px',
+                      borderRadius: '8px',
+                      border: '1px solid rgba(194, 159, 83, 0.22)',
+                      marginBottom: '12px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                    }}
+                  >
+                    <TechText text={study.metric} scrambleSpeed={18} maxScrambles={4} />
+                  </div>
+                  <div className="flex items-center justify-between pt-2 border-t border-black/8 text-[12px] text-[#666666]">
+                    <span>Client: {study.client.split('(')[0].trim()}</span>
+                    <span className="inline-flex items-center gap-1 text-[#8C733E] font-semibold">
+                      <span>Inspect Dossier</span>
+                      <ArrowUpRight size={13} />
+                    </span>
+                  </div>
                 </div>
               </div>
+            ))}
+          </div>
+
+          {/* Navigation Dots and Quick Jump Buttons */}
+          <div className="flex items-center justify-between pt-1">
+            <div className="flex items-center gap-1.5">
+              {CASE_STUDIES.map((_, i) => (
+                <button
+                  key={`dot-${i}`}
+                  type="button"
+                  onClick={() => scrollMobileTo(i)}
+                  aria-label={`Go to case study ${i + 1}`}
+                  style={{
+                    width: mobileIdx === i ? '20px' : '6px',
+                    height: '6px',
+                    borderRadius: '3px',
+                    backgroundColor: mobileIdx === i ? '#C29F53' : 'rgba(0, 0, 0, 0.2)',
+                    transition: 'all 0.3s ease',
+                    border: 'none',
+                    padding: 0,
+                    cursor: 'pointer',
+                  }}
+                />
+              ))}
             </div>
-          ))}
+
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => scrollMobileTo(mobileIdx - 1)}
+                disabled={mobileIdx === 0}
+                className="w-8 h-8 rounded-full border border-black/10 bg-white flex items-center justify-center text-xs font-bold text-[#111111] disabled:opacity-30 shadow-sm"
+                aria-label="Previous Project"
+              >
+                ←
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollMobileTo(mobileIdx + 1)}
+                disabled={mobileIdx === CASE_STUDIES.length - 1}
+                className="w-8 h-8 rounded-full border border-black/10 bg-white flex items-center justify-center text-xs font-bold text-[#111111] disabled:opacity-30 shadow-sm"
+                aria-label="Next Project"
+              >
+                →
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 

@@ -52,12 +52,32 @@ const DIVISION_FOOTER_LOGOS = [
 ];
 
 export default function Footer() {
+  const footerRef = React.useRef<HTMLElement>(null);
+  const [revealProgress, setRevealProgress] = React.useState(0);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      if (!footerRef.current) return;
+      const rect = footerRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      // Distance remaining to reach the bottom of the footer
+      const remaining = rect.bottom - windowHeight;
+      const revealZone = 380;
+      const progress = Math.max(0, Math.min(1, 1 - remaining / revealZone));
+      setRevealProgress(progress);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <footer
-      id="contact"
+      id="footer"
+      ref={footerRef}
       style={{
         position: 'relative',
-        zIndex: 10,
         fontFamily: 'var(--font-sans, Inter, sans-serif)',
         scrollMarginTop: '104px',
         overflow: 'visible',
@@ -428,7 +448,7 @@ export default function Footer() {
 
     {/* 2. Sticky Bottom Big Logo Reveal (Amplitude Effect, z-0) */}
     <div
-      className="sticky bottom-0 z-0 bg-[#07090C] text-white flex flex-col justify-center items-center h-[260px] sm:h-[320px] lg:h-[390px] left-0 right-0 px-5 pb-10 pt-6 overflow-hidden select-none border-t border-white/5"
+      className="sticky bottom-0 z-0 bg-[#07090C] text-white flex flex-col justify-center items-center h-[280px] sm:h-[340px] lg:h-[420px] left-0 right-0 px-5 pb-12 pt-8 overflow-hidden select-none border-t border-white/5"
     >
       {/* Subtle background CAD grid */}
       <div
@@ -439,7 +459,15 @@ export default function Footer() {
         }}
       />
 
-      <div className="relative z-10 w-full max-w-[1340px] mx-auto flex flex-col items-center">
+      <div
+        className="relative z-10 w-full max-w-[1340px] mx-auto flex flex-col items-center"
+        style={{
+          transform: `scale(${0.80 + revealProgress * 0.20}) translateY(${(1 - revealProgress) * 20}px)`,
+          opacity: 0.25 + revealProgress * 0.75,
+          transition: 'transform 0.12s ease-out, opacity 0.12s ease-out',
+          transformOrigin: 'center center',
+        }}
+      >
         <div className="text-[10px] sm:text-[11px] font-bold tracking-[0.24em] uppercase text-[#C29F53] mb-3 sm:mb-4">
           [ MULTI-DISCIPLINARY ENGINEERING CONSORTIUM · MUMBAI ]
         </div>
@@ -451,11 +479,20 @@ export default function Footer() {
             height="100%"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-full h-auto max-h-[160px] sm:max-h-[200px] drop-shadow-2xl"
+            className="w-full h-auto max-h-[160px] sm:max-h-[220px] drop-shadow-2xl"
           >
             {/* Master JC Apex Umbrella Emblem */}
             <g transform="translate(15, 6)">
-              <circle cx="50" cy="18" r="10" fill="#D4AF37" />
+              <circle
+                cx="50"
+                cy="18"
+                r="10"
+                fill="#D4AF37"
+                style={{
+                  filter: revealProgress > 0.6 ? 'drop-shadow(0 0 12px rgba(212, 175, 55, 0.8))' : 'none',
+                  transition: 'filter 0.3s ease',
+                }}
+              />
               <path
                 d="M15 55 Q 50 15 85 55"
                 stroke="#FFFFFF"

@@ -234,13 +234,6 @@ export default function SolisPage() {
         <div className="container">
           <div className="grid-split" style={{ alignItems: 'center' }}>
             <ScrollReveal>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
-                <span className="label">
-                  <span className="label-dot" />
-                  Clean Energy & Mobility Hub
-                </span>
-              </div>
-
               <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', marginBottom: '20px', fontWeight: 400, fontFamily: 'var(--font-serif-display), Instrument Serif, Georgia, serif', letterSpacing: '-0.02em', color: 'var(--color-text-primary)' }}>
                 High-efficiency rooftop solar built for Mumbai housing societies and businesses.
               </h2>

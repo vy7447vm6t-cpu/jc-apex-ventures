@@ -97,7 +97,7 @@ export const sanyog: DivisionContent = {
   heroImage: '/images/utility-metering-liaison.jpg',
   heroImageTag: 'Commercial Utility Metering & Sanction Specimen',
   statPill: '36+ Years Inside Mumbai Utilities',
-  laypersonBadge: 'Statutory Utility Liaison & Redressal',
+  laypersonBadge: 'Utility Liaisoning & CGRF Representation',
   plainTakeaway:
     'Direct statutory representation before BEST Undertaking, Adani Electricity (AEML), Tata Power (TPCL), MSEDCL, the Electricity Ombudsman, and the PWD Electrical Inspectorate.',
   visualTags: ['BEST / AEML / Tata / MSEDCL', 'Bill Dispute Resolution', 'CGRF Filing', 'PWD Licences'],
@@ -282,7 +282,7 @@ export const gridApex: DivisionContent = {
   heroImage: '/images/electrical-substation.jpg',
   heroImageTag: 'HT Substation & Transformer Setup',
   statPill: 'PWD Licenced Electrical Contracting',
-  laypersonBadge: 'Heavy Electrical & Clean Waste Tech',
+  laypersonBadge: 'HT/LT Engineering & Substation Switchgear',
   plainTakeaway:
     'Engineered high-voltage transformer installations, low-tension distribution boards, and Central Government patented zero-electricity solid waste treatment units.',
   visualTags: ['HT/LT Substations', 'Transformers', 'Distribution Boards', 'Zero-Energy Solid Waste Tech'],
@@ -466,7 +466,7 @@ export const tvasta: DivisionContent = {
   heroImage: '/images/architectural-interior.jpg',
   heroImageTag: 'Architectural Fit-out Specimen',
   statPill: 'Architect-Led Execution',
-  laypersonBadge: 'Turnkey Space Transformation',
+  laypersonBadge: 'Turnkey Fit-Outs & Space Planning',
   plainTakeaway:
     'Coordinated architectural layouts, itemized material schedules, and single-source civil and electrical contracting across Standard, Premium, and Luxury tiers.',
   visualTags: ['Space Planning', 'Turnkey Interiors', '3D Visualization', 'Custom Fit-outs'],
@@ -653,7 +653,7 @@ export const emudran: DivisionContent = {
   heroImage: '/images/luxury-print-packaging.jpg',
   heroImageTag: 'Embossed Corporate Stationery & Packaging Specimen',
   statPill: 'Direct Press Supervision',
-  laypersonBadge: 'Prestige Branding & Production',
+  laypersonBadge: 'Packaging Design & Print Management',
   plainTakeaway:
     'Single-desk art direction, Pantone-calibrated offset production, micro-embossed corporate stationery, and weatherproof LED architectural signage.',
   visualTags: ['Luxury Embossing', 'Corporate Stationery', 'Custom Packaging', '3D Signage'],
@@ -808,7 +808,7 @@ export const agrim: DivisionContent = {
   heroImage: '/images/project-finance-binder.jpg',
   heroImageTag: 'Project Finance Feasibility Binder',
   statPill: 'Bank-Ready Institutional Dossiers',
-  laypersonBadge: 'Institutional Project Documentation',
+  laypersonBadge: 'Project Finance DPR & Loan Documentation',
   plainTakeaway:
     'We compile institutional-grade project reports, CAPEX vs NPV financial models, and statutory clearance binders for clean technology and infrastructure investments, ensuring bank credit committees can evaluate projects without delays.',
   visualTags: ['DPR & Feasibility', 'CAPEX vs NPV Modeling', 'Payback & IRR Schedules', 'Patented Waste Tech Economics'],
@@ -965,7 +965,7 @@ export const solisDivision: DivisionContent = {
   heroImage: '/images/solis_canopy_page1.jpg',
   heroImageTag: 'Elevated Solar Pergola Canopy',
   statPill: 'Save up to 90% on electricity bills',
-  laypersonBadge: 'Walkable Terrace Architecture',
+  laypersonBadge: 'Rooftop Solar EPC & Walkable Pergolas',
   plainTakeaway:
     'Get clean rooftop solar without losing your terrace: our elevated pergolas generate power overhead while keeping walking and gathering space completely open.',
   visualTags: ['Elevated Pergolas', 'Zero Terrace Loss', 'BIPV Glass', 'EV Charging', 'Net-Metering'],
