@@ -10,6 +10,9 @@ import type { DivisionContent, IconKey } from '@/content/divisions';
 import { ImageWithLightbox } from '@/components/ImageLightbox';
 import PrintCalculator from '@/components/PrintCalculator';
 import InteriorCalculator from '@/components/InteriorCalculator';
+import GridApexSubstationCalculator from '@/components/GridApexSubstationCalculator';
+import SanyogTariffAuditCalculator from '@/components/SanyogTariffAuditCalculator';
+import AgrimDprSimulator from '@/components/AgrimDprSimulator';
 import {
   MicroSlats,
   TechText,
@@ -119,12 +122,12 @@ const DIVISION_CONFIGS: Record<string, DivisionThemeConfig> = {
   tvasta: {
     canvasClass: 'tvasta-canvas',
     heroBg: '#F8F9FA',
-    heroBorder: '1px solid rgba(215, 42, 27, 0.16)',
+    heroBorder: '1px solid rgba(215, 42, 27, 0.22)',
     dividerColor: '#D72A1B',
     badgeDotColor: '#FFCB72',
     accentColor: '#D72A1B',
     maskGradient:
-      'radial-gradient(ellipse 95% 85% at 50% 25%, rgba(248, 249, 250, 0.65) 0%, rgba(248, 249, 250, 0.85) 60%, rgba(248, 249, 250, 0.98) 100%)',
+      'radial-gradient(ellipse 90% 80% at 50% 25%, rgba(248, 249, 250, 0.12) 0%, rgba(248, 249, 250, 0.42) 60%, rgba(248, 249, 250, 0.78) 100%)',
     renderBackground: () => (
       <MicroSlats
         preset="signal"
@@ -132,27 +135,27 @@ const DIVISION_CONFIGS: Record<string, DivisionThemeConfig> = {
         glintColor="#FFCB72"
         backgroundColor="#F8F9FA"
         interactive={true}
-        speed={0.4}
+        speed={0.65}
       />
     ),
   },
   'grid-apex': {
     canvasClass: 'grid-apex-canvas',
     heroBg: '#F0F7FF',
-    heroBorder: '1px solid rgba(2, 132, 199, 0.18)',
+    heroBorder: '1px solid rgba(2, 132, 199, 0.24)',
     dividerColor: '#F59E0B',
     badgeDotColor: '#F59E0B',
     accentColor: '#0284C7',
     maskGradient:
-      'radial-gradient(ellipse 95% 85% at 50% 25%, rgba(240, 247, 255, 0.65) 0%, rgba(240, 247, 255, 0.85) 60%, rgba(240, 247, 255, 0.98) 100%)',
+      'radial-gradient(ellipse 90% 80% at 50% 25%, rgba(240, 247, 255, 0.10) 0%, rgba(240, 247, 255, 0.40) 60%, rgba(240, 247, 255, 0.76) 100%)',
     renderBackground: () => (
       <FluxLines
-        colors={['#0284C7', '#38BDF8', '#F59E0B', '#0EA5E9']}
+        colors={['#0284C7', '#38BDF8', '#F59E0B', '#0EA5E9', '#2563EB']}
         flowDirection="down"
-        speed={0.4}
-        scale={1.8}
-        turbulence={0.8}
-        opacity={0.75}
+        speed={0.7}
+        scale={1.6}
+        turbulence={0.95}
+        opacity={0.95}
         lightMode={true}
         transparent={true}
         backgroundColor="#F0F7FF"
@@ -162,21 +165,24 @@ const DIVISION_CONFIGS: Record<string, DivisionThemeConfig> = {
   agrim: {
     canvasClass: 'agrim-canvas',
     heroBg: '#F7F9F5',
-    heroBorder: '1px solid rgba(4, 120, 87, 0.16)',
+    heroBorder: '1px solid rgba(4, 120, 87, 0.22)',
     dividerColor: '#D97706',
     badgeDotColor: '#D97706',
     accentColor: '#047857',
     maskGradient:
-      'radial-gradient(ellipse 95% 85% at 50% 25%, rgba(247, 249, 245, 0.65) 0%, rgba(247, 249, 245, 0.85) 60%, rgba(247, 249, 245, 0.98) 100%)',
+      'radial-gradient(ellipse 90% 80% at 50% 25%, rgba(247, 249, 245, 0.10) 0%, rgba(247, 249, 245, 0.38) 60%, rgba(247, 249, 245, 0.76) 100%)',
     renderBackground: () => (
       <PatternWaves
         preset="pond"
         wave="ripple"
         color="#047857"
         backgroundColor="#F7F9F5"
-        opacity={0.65}
-        spacing={11}
-        markSize={0.85}
+        opacity={0.92}
+        spacing={9}
+        markSize={0.92}
+        depth={0.75}
+        shine={1.5}
+        speed={0.65}
         interactive={true}
       />
     ),
@@ -184,22 +190,24 @@ const DIVISION_CONFIGS: Record<string, DivisionThemeConfig> = {
   sanyog: {
     canvasClass: 'sanyog-canvas',
     heroBg: '#F4F6FC',
-    heroBorder: '1px solid rgba(44, 94, 212, 0.16)',
+    heroBorder: '1px solid rgba(44, 94, 212, 0.22)',
     dividerColor: '#F59E0B',
     badgeDotColor: '#2C5ED4',
     accentColor: '#2C5ED4',
     maskGradient:
-      'radial-gradient(ellipse 95% 85% at 50% 25%, rgba(244, 246, 252, 0.65) 0%, rgba(244, 246, 252, 0.85) 60%, rgba(244, 246, 252, 0.98) 100%)',
+      'radial-gradient(ellipse 90% 80% at 50% 25%, rgba(244, 246, 252, 0.10) 0%, rgba(244, 246, 252, 0.40) 60%, rgba(244, 246, 252, 0.78) 100%)',
     renderBackground: () => (
       <PatternWaves
         preset="lines"
         color="#2C5ED4"
         backgroundColor="#F4F6FC"
-        opacity={0.55}
-        spacing={12}
-        markSize={0.4}
+        opacity={0.90}
+        spacing={10}
+        markSize={0.55}
         direction={25}
-        speed={0.3}
+        speed={0.65}
+        depth={0.95}
+        shine={1.3}
         interactive={true}
       />
     ),
@@ -207,40 +215,40 @@ const DIVISION_CONFIGS: Record<string, DivisionThemeConfig> = {
   emudran: {
     canvasClass: 'emudran-canvas',
     heroBg: '#F5F6FA',
-    heroBorder: '1px solid rgba(0, 22, 58, 0.16)',
+    heroBorder: '1px solid rgba(0, 22, 58, 0.22)',
     dividerColor: '#4338CA',
     badgeDotColor: '#4338CA',
     accentColor: '#00163A',
     maskGradient:
-      'radial-gradient(ellipse 95% 85% at 50% 25%, rgba(245, 246, 250, 0.65) 0%, rgba(245, 246, 250, 0.85) 60%, rgba(245, 246, 250, 0.98) 100%)',
+      'radial-gradient(ellipse 90% 80% at 50% 25%, rgba(245, 246, 250, 0.10) 0%, rgba(245, 246, 250, 0.38) 60%, rgba(245, 246, 250, 0.76) 100%)',
     renderBackground: () => (
       <CRTWarp
         color="#4338CA"
         backgroundColor="#F5F6FA"
         lightMode={true}
-        curvature={0.15}
-        scanlineStrength={0.25}
-        persistence={0.3}
-        speed={0.35}
+        curvature={0.18}
+        scanlineStrength={0.45}
+        persistence={0.45}
+        speed={0.65}
       />
     ),
   },
   solis: {
     canvasClass: 'solis-canvas',
     heroBg: '#F6F8FF',
-    heroBorder: '1px solid rgba(30, 63, 216, 0.14)',
+    heroBorder: '1px solid rgba(30, 63, 216, 0.20)',
     dividerColor: '#F59E0B',
     badgeDotColor: '#F59E0B',
     accentColor: '#1E3FD8',
     maskGradient:
-      'radial-gradient(ellipse 95% 85% at 50% 25%, rgba(246, 248, 255, 0.65) 0%, rgba(246, 248, 255, 0.82) 60%, rgba(246, 248, 255, 0.98) 100%)',
+      'radial-gradient(ellipse 90% 80% at 50% 25%, rgba(246, 248, 255, 0.10) 0%, rgba(246, 248, 255, 0.36) 60%, rgba(246, 248, 255, 0.74) 100%)',
     renderBackground: () => (
       <GradientASCII
-        colors={['#1e3fd8', '#f6f8ff', '#a5d8ff', '#38bdf8']}
+        colors={['#1e3fd8', '#2563eb', '#38bdf8', '#fbbf24', '#f59e0b']}
         shape="horizon"
         characters=" =+xX0S8#@"
-        cellSize={18}
-        density={0.8}
+        cellSize={14}
+        density={0.95}
       />
     ),
   },
@@ -249,14 +257,14 @@ const DIVISION_CONFIGS: Record<string, DivisionThemeConfig> = {
 const DEFAULT_CONFIG: DivisionThemeConfig = {
   canvasClass: 'grounded-canvas',
   heroBg: '#F4F1EA',
-  heroBorder: '1px solid rgba(0, 0, 0, 0.08)',
+  heroBorder: '1px solid rgba(0, 0, 0, 0.10)',
   dividerColor: '#C29F53',
   badgeDotColor: '#C29F53',
   accentColor: '#C29F53',
   maskGradient:
-    'radial-gradient(ellipse 95% 85% at 50% 25%, rgba(244, 241, 234, 0.65) 0%, rgba(244, 241, 234, 0.85) 60%, rgba(244, 241, 234, 0.98) 100%)',
+    'radial-gradient(ellipse 90% 80% at 50% 25%, rgba(244, 241, 234, 0.15) 0%, rgba(244, 241, 234, 0.45) 60%, rgba(244, 241, 234, 0.80) 100%)',
   renderBackground: () => (
-    <MicroSlats count={12} opacity={0.09} color="rgba(17, 17, 17, 0.35)" showTicks={true} zIndex={1} />
+    <MicroSlats count={16} opacity={0.25} color="rgba(17, 17, 17, 0.55)" showTicks={true} zIndex={1} speed={0.6} />
   ),
 };
 
@@ -314,7 +322,7 @@ export default function DivisionPage({
         {/* WebGL Background Layer */}
         <div
           className="pointer-events-auto absolute inset-0 z-0 overflow-hidden"
-          style={{ opacity: 0.82 }}
+          style={{ opacity: 1 }}
           aria-hidden="true"
         >
           {customHeroBackground || themeConfig.renderBackground()}
@@ -363,7 +371,17 @@ export default function DivisionPage({
               alignItems: 'center',
             }}
           >
-            <div>
+            <div
+              style={{
+                borderRadius: '28px',
+                padding: '24px 28px',
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.45) 100%)',
+                backdropFilter: 'blur(24px) saturate(190%)',
+                WebkitBackdropFilter: 'blur(24px) saturate(190%)',
+                border: '1px solid rgba(255, 255, 255, 0.85)',
+                boxShadow: '0 20px 48px -12px rgba(0, 0, 0, 0.06), inset 0 1.5px 1px rgba(255, 255, 255, 0.95)',
+              }}
+            >
               {/* Header row with official division logo and discipline title */}
               <div
                 className="animate-fade-in-up"
@@ -1041,6 +1059,45 @@ export default function DivisionPage({
               intro="Select your apartment layout or commercial footprint to compute real-time cost benchmarks across Standard, Premium, and Luxury finishing tiers."
             />
             <InteriorCalculator />
+          </div>
+        </section>
+      )}
+
+      {/* Interactive HT Substation & Sizing Calculator for Grid Apex */}
+      {data.slug === 'grid-apex' && (
+        <section className="section" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
+          <div className="container">
+            <SectionHeading
+              title="Interactive HT Substation & APFC Sizing Engine"
+              intro="Simulate connected industrial demand, incomer voltage level, and uncorrected power factor to compute recommended transformer ratings, APFC capacitor bank sizing, and demand penalty reversals."
+            />
+            <GridApexSubstationCalculator />
+          </div>
+        </section>
+      )}
+
+      {/* Interactive Utility Tariff Audit & CGRF Claim Calculator for Sanyog */}
+      {data.slug === 'sanyog' && (
+        <section className="section" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
+          <div className="container">
+            <SectionHeading
+              title="Interactive Utility Tariff & Grievance Claim Estimator"
+              intro="Calculate monthly power factor surcharges, wrong tariff slab financial exposure, and compute 24-month retroactive refund claims recoverable before the Consumer Grievance Redressal Forum (CGRF)."
+            />
+            <SanyogTariffAuditCalculator />
+          </div>
+        </section>
+      )}
+
+      {/* Interactive EV & Agro Infrastructure DPR Simulator for Agrim */}
+      {data.slug === 'agrim' && (
+        <section className="section" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
+          <div className="container">
+            <SectionHeading
+              title="Interactive Infrastructure CAPEX & DSCR Bankability Simulator"
+              intro="Assemble bankable techno-economic feasibility models for commercial EV charging plazas and agro-cold chain infrastructure. Test project cashflows, bank DSCR benchmarks, and statutory subsidies."
+            />
+            <AgrimDprSimulator />
           </div>
         </section>
       )}

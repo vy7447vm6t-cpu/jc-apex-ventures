@@ -227,15 +227,15 @@ export default function SolisPage() {
         {/* WebGL GradientASCII Background Layer */}
         <div
           className="pointer-events-auto absolute inset-0 z-0 overflow-hidden"
-          style={{ opacity: 0.82 }}
+          style={{ opacity: 1 }}
           aria-hidden="true"
         >
           <GradientASCII
-            colors={['#1e3fd8', '#f6f8ff', '#a5d8ff', '#38bdf8']}
+            colors={['#1e3fd8', '#2563eb', '#38bdf8', '#fbbf24', '#f59e0b']}
             shape="horizon"
             characters=" =+xX0S8#@"
-            cellSize={18}
-            density={0.8}
+            cellSize={14}
+            density={0.95}
           />
           {/* Subtle Crystalline Glass Mask for Perfect Readability */}
           <div
@@ -243,7 +243,7 @@ export default function SolisPage() {
               position: 'absolute',
               inset: 0,
               background:
-                'radial-gradient(ellipse 95% 85% at 50% 25%, rgba(246, 248, 255, 0.65) 0%, rgba(246, 248, 255, 0.82) 60%, rgba(246, 248, 255, 0.98) 100%)',
+                'radial-gradient(ellipse 90% 80% at 50% 25%, rgba(246, 248, 255, 0.10) 0%, rgba(246, 248, 255, 0.36) 60%, rgba(246, 248, 255, 0.74) 100%)',
               pointerEvents: 'none',
             }}
           />

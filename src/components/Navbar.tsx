@@ -131,50 +131,74 @@ export default function Navbar() {
     {
       href: '/solis',
       label: 'Solis',
-      tag: 'Solar & Pergolas',
+      domainTag: 'Bespoke Solar & Elevated Pergolas',
+      keyMetric: 'PM Surya Ghar | 0 to 500 kWp',
+      summary: 'Turnkey rooftop PV arrays, walkable terrace pergolas, and net-metering liaisoning.',
       logo: '/images/logos/solis-official.png',
       logoDark: '/images/logos/solis-logo-white.png',
       bg: '#FFFFFF',
+      accent: '#1E3FD8',
+      tag: 'Solar & Pergolas',
     },
     {
       href: '/sanyog',
       label: 'Sanyog',
-      tag: 'Utility & CGRF',
+      domainTag: 'HT/LT Regulatory Liaisoning',
+      keyMetric: '36+ Years Utility Authority',
+      summary: 'MERC regulatory appeals, sanctioned load upgrades, and statutory electricity grievance resolution.',
       logo: '/images/logos/sanyog-official.png',
       logoDark: '/images/logos/sanyog-official.png',
       bg: '#FFFFFF',
+      accent: '#2C5ED4',
+      tag: 'Utility & CGRF',
     },
     {
       href: '/grid-apex',
       label: 'Grid Apex',
-      tag: 'HT/LT & Substations',
+      domainTag: 'High-Tension Substations & Grid',
+      keyMetric: '11kV/33kV | MPCB & CEA',
+      summary: 'Turnkey 11kV/33kV substation bays, switchgear panels, and Central Govt patented thermal cleantech.',
       logo: '/images/logos/grid-apex-official.png',
       logoDark: '/images/logos/grid-apex-white.png',
       bg: 'rgba(255, 255, 255, 0.08)',
+      accent: '#0284C7',
+      tag: 'HT/LT & Substations',
     },
     {
       href: '/tvasta',
       label: 'Tvasta',
-      tag: 'Turnkey Interiors',
+      domainTag: 'Turnkey Architecture & Space Planning',
+      keyMetric: 'STC 52 | Rs 1,850 to Rs 4,600/sq.ft',
+      summary: 'Turnkey interior fit-outs, 3D space planning, modular joinery, and STC acoustic partitioning.',
       logo: '/images/logos/tvasta-dark.png',
       logoDark: '/images/logos/tvasta-official.png',
       bg: 'rgba(255, 255, 255, 0.08)',
+      accent: '#D72A1B',
+      tag: 'Turnkey Interiors',
     },
     {
       href: '/emudran',
       label: 'eMudran',
-      tag: 'Branding & Print',
+      domainTag: 'CMYK & Digital Stamping',
+      keyMetric: 'Heidelberg Offset | 1200 GSM',
+      summary: 'Luxury rigid presentation boxes, micro-foil thermal stamping, and architectural corporate signage.',
       logo: '/images/logos/emudran-official.png',
       logoDark: '/images/logos/emudran-white.png',
       bg: 'rgba(255, 255, 255, 0.08)',
+      accent: '#4338CA',
+      tag: 'Branding & Print',
     },
     {
       href: '/agrim',
       label: 'Agrim',
-      tag: 'Project Advisory',
+      domainTag: 'Agro-Infrastructure & Project Advisory',
+      keyMetric: 'Bankable DPRs | DSCR Modeling',
+      summary: 'Bankable DPR file assembly, financial feasibility modeling, and agro-infrastructure advisory.',
       logo: '/images/logos/agrim-dark.png',
       logoDark: '/images/logos/agrim-official.png',
       bg: 'rgba(255, 255, 255, 0.08)',
+      accent: '#047857',
+      tag: 'Project Advisory',
     },
   ];
 
@@ -284,49 +308,158 @@ export default function Navbar() {
               <Link
                 href="/#divisions"
                 aria-label="View Specialized Divisions"
-                style={{ color: '#222222', textDecoration: 'none' }}
+                style={{
+                  color: divisionsHover || ['/solis', '/sanyog', '/grid-apex', '/tvasta', '/emudran', '/agrim'].includes(pathname) ? '#8C733E' : '#222222',
+                  textDecoration: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '5px',
+                  fontWeight: divisionsHover || ['/solis', '/sanyog', '/grid-apex', '/tvasta', '/emudran', '/agrim'].includes(pathname) ? 650 : 500,
+                }}
               >
                 <ScrambleText text="Divisions" />
+                <span
+                  style={{
+                    fontSize: '0.62rem',
+                    padding: '1px 5px',
+                    borderRadius: '9999px',
+                    background: 'rgba(194, 159, 83, 0.18)',
+                    color: '#8C733E',
+                    border: '1px solid rgba(194, 159, 83, 0.35)',
+                    fontWeight: 700,
+                  }}
+                >
+                  6
+                </span>
+                <svg
+                  width="9"
+                  height="9"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  style={{
+                    transform: divisionsHover ? 'rotate(180deg)' : 'rotate(0deg)',
+                    transition: 'transform 0.2s ease',
+                  }}
+                >
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
               </Link>
               {divisionsHover && (
                 <div
-                  className="absolute left-1/2 -translate-x-1/2 top-full mt-3 w-[460px] p-3 rounded-2xl shadow-2xl z-50 pointer-events-auto"
+                  className="absolute left-1/2 -translate-x-1/2 top-full mt-3 w-[660px] p-4 rounded-3xl shadow-2xl z-50 pointer-events-auto"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.88) 0%, rgba(246, 244, 238, 0.78) 100%)',
-                    backdropFilter: 'blur(32px) saturate(210%)',
-                    WebkitBackdropFilter: 'blur(32px) saturate(210%)',
-                    border: '1px solid rgba(255, 255, 255, 0.90)',
-                    boxShadow: '0 24px 50px -10px rgba(0, 0, 0, 0.18), inset 0 1.5px 1px rgba(255, 255, 255, 0.95)',
+                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(246, 244, 238, 0.92) 100%)',
+                    backdropFilter: 'blur(36px) saturate(220%)',
+                    WebkitBackdropFilter: 'blur(36px) saturate(220%)',
+                    border: '1px solid rgba(255, 255, 255, 0.95)',
+                    boxShadow: '0 28px 60px -12px rgba(0, 0, 0, 0.20), 0 2px 8px rgba(0, 0, 0, 0.04), inset 0 1.5px 1px rgba(255, 255, 255, 0.98)',
                   }}
                 >
-                  <div className="grid grid-cols-2 gap-2">
-                    {divisions.map((div) => (
-                      <Link
-                        key={div.href}
-                        href={div.href}
-                        className="flex items-center gap-2.5 p-2 rounded-xl hover:bg-black/5 transition-colors no-underline group"
-                      >
-                        <div
-                          className="w-9 h-9 rounded-lg flex items-center justify-center p-1 shrink-0 overflow-hidden"
+                  {/* Popover Header */}
+                  <div className="flex items-center justify-between pb-3 mb-3 border-b border-black/8 px-1">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-[#16A34A]" />
+                      <span className="text-[10.5px] font-bold tracking-wider uppercase text-[#111111]">
+                        Consortium Operating Divisions
+                      </span>
+                    </div>
+                    <span className="text-[10.5px] text-[#666666] font-medium">
+                      Direct Access to 6 Specialized Engineering Practices
+                    </span>
+                  </div>
+
+                  {/* 2-Column Grid of Elevated Division Cards */}
+                  <div className="grid grid-cols-2 gap-2.5">
+                    {divisions.map((div) => {
+                      const isActive = pathname === div.href;
+                      return (
+                        <Link
+                          key={div.href}
+                          href={div.href}
+                          onClick={() => setDivisionsHover(false)}
+                          className="flex items-start gap-3 p-3 rounded-2xl transition-all duration-200 no-underline group relative overflow-hidden"
                           style={{
-                            backgroundColor: div.href === '/grid-apex' ? '#111111' : '#FFFFFF',
-                            border: '1px solid rgba(0, 0, 0, 0.08)',
+                            background: isActive
+                              ? 'rgba(194, 159, 83, 0.12)'
+                              : 'rgba(255, 255, 255, 0.70)',
+                            border: isActive
+                              ? '1px solid rgba(194, 159, 83, 0.45)'
+                              : '1px solid rgba(0, 0, 0, 0.07)',
+                            boxShadow: '0 2px 6px rgba(0, 0, 0, 0.02)',
                           }}
                         >
-                          <img
-                            src={div.logo}
-                            alt={`${div.label} official logo`}
-                            className="max-h-5 max-w-full object-contain"
-                          />
-                        </div>
-                        <div>
-                          <div className="text-xs font-semibold text-[#111111] group-hover:text-[#C29F53] transition-colors">
-                            {div.label}
+                          {/* Authentic Brand Emblem */}
+                          <div
+                            className="w-11 h-11 rounded-xl flex items-center justify-center p-1.5 shrink-0 overflow-hidden shadow-sm transition-transform duration-200 group-hover:scale-105"
+                            style={{
+                              backgroundColor: div.href === '/grid-apex' ? '#111111' : '#FFFFFF',
+                              border: '1px solid rgba(0, 0, 0, 0.10)',
+                            }}
+                          >
+                            <img
+                              src={div.logo}
+                              alt={`${div.label} official brand emblem`}
+                              className="max-h-7 max-w-full object-contain"
+                            />
                           </div>
-                          <div className="text-[10px] text-[#666666] leading-tight">{div.tag}</div>
-                        </div>
-                      </Link>
-                    ))}
+
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center justify-between gap-1.5">
+                              <span className="text-xs font-bold text-[#111111] group-hover:text-[#C29F53] transition-colors">
+                                {div.label}
+                              </span>
+                              <span
+                                className="text-[9px] font-semibold px-1.5 py-0.5 rounded-md"
+                                style={{
+                                  backgroundColor: 'rgba(0, 0, 0, 0.05)',
+                                  color: '#555555',
+                                  whiteSpace: 'nowrap',
+                                }}
+                              >
+                                {div.keyMetric}
+                              </span>
+                            </div>
+
+                            <div className="text-[10.5px] font-medium text-[#222222] mt-0.5 leading-snug truncate">
+                              {div.domainTag}
+                            </div>
+
+                            <div className="text-[9.5px] text-[#666666] mt-1 line-clamp-1 leading-normal">
+                              {div.summary}
+                            </div>
+                          </div>
+
+                          <ArrowUpRight
+                            size={12}
+                            className="text-[#999999] opacity-0 group-hover:opacity-100 group-hover:text-[#C29F53] transition-all shrink-0 mt-0.5"
+                          />
+                        </Link>
+                      );
+                    })}
+                  </div>
+
+                  {/* Popover Footer */}
+                  <div className="flex items-center justify-between pt-3 mt-3 border-t border-black/8 px-1">
+                    <Link
+                      href="/#calculators"
+                      onClick={() => setDivisionsHover(false)}
+                      className="text-[11px] font-semibold text-[#555555] hover:text-[#111111] flex items-center gap-1 no-underline"
+                    >
+                      <span>Interactive Field Calculators</span>
+                      <ArrowUpRight size={11} />
+                    </Link>
+                    <Link
+                      href="/studio"
+                      onClick={() => setDivisionsHover(false)}
+                      className="text-[11px] font-semibold text-[#8C733E] hover:underline flex items-center gap-1 no-underline"
+                    >
+                      <span>Studio &amp; Practice Leadership</span>
+                      <ArrowUpRight size={11} />
+                    </Link>
                   </div>
                 </div>
               )}
@@ -548,7 +681,7 @@ export default function Navbar() {
                 <div
                   style={{
                     fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                  fontVariantNumeric: 'tabular-nums',
+                    fontVariantNumeric: 'tabular-nums',
                     fontSize: '0.74rem',
                     color: '#C29F53',
                     marginBottom: '4px',
@@ -558,7 +691,7 @@ export default function Navbar() {
                 </div>
                 <div
                   style={{
-                    fontSize: '1.6rem',
+                    fontSize: '1.4rem',
                     fontWeight: 500,
                     fontFamily: 'var(--font-sans, Inter, sans-serif)',
                   }}
@@ -579,36 +712,73 @@ export default function Navbar() {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
+                    gap: '16px',
                   }}
                 >
-                  <div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
                     <div
                       style={{
-                        fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                  fontVariantNumeric: 'tabular-nums',
-                        fontSize: '0.74rem',
-                        color: '#C29F53',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
                         marginBottom: '4px',
+                        flexWrap: 'wrap',
                       }}
                     >
-                      {div.tag}
+                      <span
+                        style={{
+                          fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                          fontSize: '0.72rem',
+                          color: '#C29F53',
+                          fontWeight: 600,
+                          letterSpacing: '0.04em',
+                          textTransform: 'uppercase',
+                        }}
+                      >
+                        {div.domainTag}
+                      </span>
+                      <span
+                        style={{
+                          fontSize: '0.68rem',
+                          padding: '2px 8px',
+                          borderRadius: '9999px',
+                          backgroundColor: 'rgba(255, 255, 255, 0.10)',
+                          color: '#DDDDDD',
+                          fontVariantNumeric: 'tabular-nums',
+                        }}
+                      >
+                        {div.keyMetric}
+                      </span>
                     </div>
                     <div
                       style={{
-                        fontSize: '1.6rem',
-                        fontWeight: 500,
+                        fontSize: '1.45rem',
+                        fontWeight: 600,
                         fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                        color: '#FFFFFF',
                       }}
                     >
                       {div.label}
                     </div>
+                    <div
+                      style={{
+                        fontSize: '0.82rem',
+                        color: '#999999',
+                        marginTop: '4px',
+                        lineHeight: 1.4,
+                      }}
+                    >
+                      {div.summary}
+                    </div>
                   </div>
                   <div
                     style={{
-                      height: '40px',
-                      padding: '4px 10px',
-                      borderRadius: '8px',
-                      backgroundColor: div.bg,
+                      height: '46px',
+                      width: '64px',
+                      padding: '6px 10px',
+                      borderRadius: '10px',
+                      backgroundColor: div.href === '/grid-apex' ? '#1E1E1E' : '#FFFFFF',
+                      border: '1px solid rgba(255, 255, 255, 0.20)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -616,9 +786,9 @@ export default function Navbar() {
                     }}
                   >
                     <img
-                      src={div.logoDark || div.logo}
+                      src={div.logo}
                       alt={`${div.label} official logo`}
-                      style={{ maxHeight: '28px', maxWidth: '80px', objectFit: 'contain' }}
+                      style={{ maxHeight: '28px', maxWidth: '52px', objectFit: 'contain' }}
                     />
                   </div>
                 </Link>
