@@ -27,7 +27,11 @@ export default function ElectricBorder({
   innerBg = 'transparent',
   style = {},
 }: ElectricBorderProps) {
-  const effectiveGlow = glowColor || color || '#C29F53';
+  const effectiveGlow = glowColor || color || 'var(--color-accent)';
+  const secondaryHighlight =
+    glowColor || color
+      ? 'rgba(255, 255, 255, 0.9)'
+      : '#F5D78E';
   const radiusNum =
     typeof borderRadius === 'number'
       ? borderRadius
@@ -44,7 +48,7 @@ export default function ElectricBorder({
       className={`relative overflow-hidden group ${className}`}
       style={{
         borderRadius: `${radiusNum}px`,
-        boxShadow: isActuallyActive ? '0 0 22px -4px rgba(194, 159, 83, 0.35)' : 'none',
+        boxShadow: isActuallyActive ? `0 0 22px -4px ${effectiveGlow}` : 'none',
         transition: 'box-shadow 0.35s ease',
         ...style,
       }}
@@ -65,7 +69,7 @@ export default function ElectricBorder({
           <div
             className="absolute inset-[-150%]"
             style={{
-              background: `conic-gradient(from 45deg at 50% 50%, transparent 0deg, ${effectiveGlow} 55deg, #F5D78E 75deg, transparent 105deg, transparent 180deg, ${effectiveGlow} 235deg, #F5D78E 255deg, transparent 285deg, transparent 360deg)`,
+              background: `conic-gradient(from 45deg at 50% 50%, transparent 0deg, ${effectiveGlow} 55deg, ${secondaryHighlight} 75deg, transparent 105deg, transparent 180deg, ${effectiveGlow} 235deg, ${secondaryHighlight} 255deg, transparent 285deg, transparent 360deg)`,
               animation: `electricSpin ${duration}s linear infinite`,
             }}
           />

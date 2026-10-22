@@ -1,4 +1,4 @@
-// @ts-nocheck — verbatim third-party component from reactbits.dev
+// @ts-nocheck - verbatim third-party component from reactbits.dev
 'use client';
 
 import { useEffect, useMemo, useRef } from 'react';

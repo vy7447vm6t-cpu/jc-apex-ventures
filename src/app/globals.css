@@ -1209,6 +1209,594 @@ section[id] {
   box-shadow: 0 0 0 3px rgba(30, 63, 216, 0.15);
 }
 
+/* ========= Tvasta Architectural & Spatial Execution Dedicated Theme ========= */
+.tvasta-canvas {
+  --color-bg: #F8F9FA;
+  --color-bg-alt: #FFFFFF;
+  --color-bg-elevated: #F1F3F5;
+  --color-surface: rgba(255, 255, 255, 0.94);
+  --color-surface-translucent: rgba(248, 249, 250, 0.90);
+  --color-surface-hover: #FFFFFF;
+  --color-border: rgba(215, 42, 27, 0.15);
+  --color-border-subtle: rgba(215, 42, 27, 0.08);
+  --color-border-accent: rgba(215, 42, 27, 0.45);
+  --color-border-accent-light: rgba(255, 203, 114, 0.40);
+  --color-text-primary: #111315;
+  --color-text-secondary: #343A40;
+  --color-text-muted: #6C757D;
+  --color-accent: #D72A1B;
+  --color-accent-hover: #B52014;
+  --color-accent-light: #FFCB72;
+  --color-accent-pale: rgba(215, 42, 27, 0.08);
+  --shadow-sm: 0 2px 8px rgba(215, 42, 27, 0.04);
+  --shadow-md: 0 8px 24px rgba(215, 42, 27, 0.06);
+  --shadow-lg: 0 14px 36px rgba(215, 42, 27, 0.08);
+  --shadow-xl: 0 22px 54px rgba(215, 42, 27, 0.10);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-grounded-sans);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: clip;
+}
+
+.tvasta-canvas .ios-glass-card,
+.tvasta-canvas .glass-panel {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(215, 42, 27, 0.14);
+  color: #111315;
+  box-shadow: 0 10px 30px rgba(215, 42, 27, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.tvasta-canvas .metric-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: #FFFFFF;
+  border: 1px solid rgba(215, 42, 27, 0.2);
+  color: #D72A1B;
+  font-size: 0.78rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(215, 42, 27, 0.04);
+}
+
+.tvasta-canvas .btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #D72A1B 0%, #111315 100%) !important;
+  color: #FFFFFF !important;
+  font-weight: 600;
+  font-size: 0.88rem;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 8px 24px -4px rgba(215, 42, 27, 0.35) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.tvasta-canvas .btn-primary:hover {
+  background: linear-gradient(135deg, #B52014 0%, #000000 100%) !important;
+  box-shadow: 0 12px 30px -4px rgba(215, 42, 27, 0.5) !important;
+  transform: translateY(-2px);
+}
+
+.tvasta-canvas .btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 9999px;
+  background: #FFFFFF !important;
+  color: #D72A1B !important;
+  font-weight: 600;
+  font-size: 0.88rem;
+  border: 1.5px solid rgba(215, 42, 27, 0.25) !important;
+  box-shadow: 0 4px 14px rgba(215, 42, 27, 0.05) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.tvasta-canvas .btn-outline:hover {
+  background: #FDF2F1 !important;
+  border-color: #D72A1B !important;
+  transform: translateY(-2px);
+}
+
+.tvasta-canvas .form-input,
+.tvasta-canvas .form-select,
+.tvasta-canvas .form-textarea {
+  background: #FFFFFF;
+  color: #111315;
+  border: 1px solid rgba(215, 42, 27, 0.18);
+  box-shadow: 0 2px 6px rgba(215, 42, 27, 0.03);
+}
+
+.tvasta-canvas .form-input:focus,
+.tvasta-canvas .form-select:focus,
+.tvasta-canvas .form-textarea:focus {
+  border-color: #D72A1B;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(215, 42, 27, 0.15);
+}
+
+/* ========= Grid Apex High-Tension & Cleantech Infrastructure Dedicated Theme ========= */
+.grid-apex-canvas {
+  --color-bg: #F0F7FF;
+  --color-bg-alt: #FFFFFF;
+  --color-bg-elevated: #E1EFFF;
+  --color-surface: rgba(255, 255, 255, 0.94);
+  --color-surface-translucent: rgba(240, 247, 255, 0.90);
+  --color-surface-hover: #FFFFFF;
+  --color-border: rgba(2, 132, 199, 0.16);
+  --color-border-subtle: rgba(2, 132, 199, 0.08);
+  --color-border-accent: rgba(2, 132, 199, 0.45);
+  --color-border-accent-light: rgba(245, 158, 11, 0.40);
+  --color-text-primary: #061224;
+  --color-text-secondary: #1E293B;
+  --color-text-muted: #475569;
+  --color-accent: #0284C7;
+  --color-accent-hover: #0369A1;
+  --color-accent-light: #F59E0B;
+  --color-accent-pale: rgba(2, 132, 199, 0.08);
+  --shadow-sm: 0 2px 8px rgba(2, 132, 199, 0.04);
+  --shadow-md: 0 8px 24px rgba(2, 132, 199, 0.06);
+  --shadow-lg: 0 14px 36px rgba(2, 132, 199, 0.08);
+  --shadow-xl: 0 22px 54px rgba(2, 132, 199, 0.10);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-grounded-sans);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: clip;
+}
+
+.grid-apex-canvas .ios-glass-card,
+.grid-apex-canvas .glass-panel {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(2, 132, 199, 0.16);
+  color: #061224;
+  box-shadow: 0 10px 30px rgba(2, 132, 199, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.grid-apex-canvas .metric-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: #FFFFFF;
+  border: 1px solid rgba(2, 132, 199, 0.2);
+  color: #0284C7;
+  font-size: 0.78rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.04);
+}
+
+.grid-apex-canvas .btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #0284C7 0%, #061224 100%) !important;
+  color: #FFFFFF !important;
+  font-weight: 600;
+  font-size: 0.88rem;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 8px 24px -4px rgba(2, 132, 199, 0.35) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.grid-apex-canvas .btn-primary:hover {
+  background: linear-gradient(135deg, #0369A1 0%, #020914 100%) !important;
+  box-shadow: 0 12px 30px -4px rgba(2, 132, 199, 0.5) !important;
+  transform: translateY(-2px);
+}
+
+.grid-apex-canvas .btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 9999px;
+  background: #FFFFFF !important;
+  color: #0284C7 !important;
+  font-weight: 600;
+  font-size: 0.88rem;
+  border: 1.5px solid rgba(2, 132, 199, 0.25) !important;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.05) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.grid-apex-canvas .btn-outline:hover {
+  background: #E1EFFF !important;
+  border-color: #0284C7 !important;
+  transform: translateY(-2px);
+}
+
+.grid-apex-canvas .form-input,
+.grid-apex-canvas .form-select,
+.grid-apex-canvas .form-textarea {
+  background: #FFFFFF;
+  color: #061224;
+  border: 1px solid rgba(2, 132, 199, 0.18);
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.03);
+}
+
+.grid-apex-canvas .form-input:focus,
+.grid-apex-canvas .form-select:focus,
+.grid-apex-canvas .form-textarea:focus {
+  border-color: #0284C7;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+}
+
+/* ========= Agrim Agricultural Produce & DPR Assembly Dedicated Theme ========= */
+.agrim-canvas {
+  --color-bg: #F7F9F5;
+  --color-bg-alt: #FFFFFF;
+  --color-bg-elevated: #EEF4EC;
+  --color-surface: rgba(255, 255, 255, 0.94);
+  --color-surface-translucent: rgba(247, 249, 245, 0.90);
+  --color-surface-hover: #FFFFFF;
+  --color-border: rgba(4, 120, 87, 0.16);
+  --color-border-subtle: rgba(4, 120, 87, 0.08);
+  --color-border-accent: rgba(4, 120, 87, 0.45);
+  --color-border-accent-light: rgba(217, 119, 6, 0.35);
+  --color-text-primary: #06281E;
+  --color-text-secondary: #264639;
+  --color-text-muted: #527364;
+  --color-accent: #047857;
+  --color-accent-hover: #065F46;
+  --color-accent-light: #D97706;
+  --color-accent-pale: rgba(4, 120, 87, 0.08);
+  --shadow-sm: 0 2px 8px rgba(4, 120, 87, 0.04);
+  --shadow-md: 0 8px 24px rgba(4, 120, 87, 0.06);
+  --shadow-lg: 0 14px 36px rgba(4, 120, 87, 0.08);
+  --shadow-xl: 0 22px 54px rgba(4, 120, 87, 0.10);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-grounded-sans);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: clip;
+}
+
+.agrim-canvas .ios-glass-card,
+.agrim-canvas .glass-panel {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(4, 120, 87, 0.16);
+  color: #06281E;
+  box-shadow: 0 10px 30px rgba(4, 120, 87, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.agrim-canvas .metric-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: #FFFFFF;
+  border: 1px solid rgba(4, 120, 87, 0.2);
+  color: #047857;
+  font-size: 0.78rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(4, 120, 87, 0.04);
+}
+
+.agrim-canvas .btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #047857 0%, #065F46 100%) !important;
+  color: #FFFFFF !important;
+  font-weight: 600;
+  font-size: 0.88rem;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 8px 24px -4px rgba(4, 120, 87, 0.35) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.agrim-canvas .btn-primary:hover {
+  background: linear-gradient(135deg, #065F46 0%, #033929 100%) !important;
+  box-shadow: 0 12px 30px -4px rgba(4, 120, 87, 0.5) !important;
+  transform: translateY(-2px);
+}
+
+.agrim-canvas .btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 9999px;
+  background: #FFFFFF !important;
+  color: #047857 !important;
+  font-weight: 600;
+  font-size: 0.88rem;
+  border: 1.5px solid rgba(4, 120, 87, 0.25) !important;
+  box-shadow: 0 4px 14px rgba(4, 120, 87, 0.05) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.agrim-canvas .btn-outline:hover {
+  background: #EEF4EC !important;
+  border-color: #047857 !important;
+  transform: translateY(-2px);
+}
+
+.agrim-canvas .form-input,
+.agrim-canvas .form-select,
+.agrim-canvas .form-textarea {
+  background: #FFFFFF;
+  color: #06281E;
+  border: 1px solid rgba(4, 120, 87, 0.18);
+  box-shadow: 0 2px 6px rgba(4, 120, 87, 0.03);
+}
+
+.agrim-canvas .form-input:focus,
+.agrim-canvas .form-select:focus,
+.agrim-canvas .form-textarea:focus {
+  border-color: #047857;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.15);
+}
+
+/* ========= Sanyog Utility Liaisoning & CGRF Legal Dedicated Theme ========= */
+.sanyog-canvas {
+  --color-bg: #F4F6FC;
+  --color-bg-alt: #FFFFFF;
+  --color-bg-elevated: #E9EDF8;
+  --color-surface: rgba(255, 255, 255, 0.94);
+  --color-surface-translucent: rgba(244, 246, 252, 0.90);
+  --color-surface-hover: #FFFFFF;
+  --color-border: rgba(44, 94, 212, 0.16);
+  --color-border-subtle: rgba(44, 94, 212, 0.08);
+  --color-border-accent: rgba(44, 94, 212, 0.45);
+  --color-border-accent-light: rgba(245, 158, 11, 0.35);
+  --color-text-primary: #0B132B;
+  --color-text-secondary: #243356;
+  --color-text-muted: #516285;
+  --color-accent: #2C5ED4;
+  --color-accent-hover: #1D46B0;
+  --color-accent-light: #60A5FA;
+  --color-accent-pale: rgba(44, 94, 212, 0.08);
+  --shadow-sm: 0 2px 8px rgba(44, 94, 212, 0.04);
+  --shadow-md: 0 8px 24px rgba(44, 94, 212, 0.06);
+  --shadow-lg: 0 14px 36px rgba(44, 94, 212, 0.08);
+  --shadow-xl: 0 22px 54px rgba(44, 94, 212, 0.10);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-grounded-sans);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: clip;
+}
+
+.sanyog-canvas .ios-glass-card,
+.sanyog-canvas .glass-panel {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(44, 94, 212, 0.16);
+  color: #0B132B;
+  box-shadow: 0 10px 30px rgba(44, 94, 212, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.sanyog-canvas .metric-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: #FFFFFF;
+  border: 1px solid rgba(44, 94, 212, 0.2);
+  color: #2C5ED4;
+  font-size: 0.78rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(44, 94, 212, 0.04);
+}
+
+.sanyog-canvas .btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #2C5ED4 0%, #1D46B0 100%) !important;
+  color: #FFFFFF !important;
+  font-weight: 600;
+  font-size: 0.88rem;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 8px 24px -4px rgba(44, 94, 212, 0.35) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.sanyog-canvas .btn-primary:hover {
+  background: linear-gradient(135deg, #1D46B0 0%, #0F2A7A 100%) !important;
+  box-shadow: 0 12px 30px -4px rgba(44, 94, 212, 0.5) !important;
+  transform: translateY(-2px);
+}
+
+.sanyog-canvas .btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 9999px;
+  background: #FFFFFF !important;
+  color: #2C5ED4 !important;
+  font-weight: 600;
+  font-size: 0.88rem;
+  border: 1.5px solid rgba(44, 94, 212, 0.25) !important;
+  box-shadow: 0 4px 14px rgba(44, 94, 212, 0.05) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.sanyog-canvas .btn-outline:hover {
+  background: #E9EDF8 !important;
+  border-color: #2C5ED4 !important;
+  transform: translateY(-2px);
+}
+
+.sanyog-canvas .form-input,
+.sanyog-canvas .form-select,
+.sanyog-canvas .form-textarea {
+  background: #FFFFFF;
+  color: #0B132B;
+  border: 1px solid rgba(44, 94, 212, 0.18);
+  box-shadow: 0 2px 6px rgba(44, 94, 212, 0.03);
+}
+
+.sanyog-canvas .form-input:focus,
+.sanyog-canvas .form-select:focus,
+.sanyog-canvas .form-textarea:focus {
+  border-color: #2C5ED4;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(44, 94, 212, 0.15);
+}
+
+/* ========= eMudran Digital Stamping & High-Security Print Dedicated Theme ========= */
+.emudran-canvas {
+  --color-bg: #F5F6FA;
+  --color-bg-alt: #FFFFFF;
+  --color-bg-elevated: #ECEEF6;
+  --color-surface: rgba(255, 255, 255, 0.94);
+  --color-surface-translucent: rgba(245, 246, 250, 0.90);
+  --color-surface-hover: #FFFFFF;
+  --color-border: rgba(0, 22, 58, 0.16);
+  --color-border-subtle: rgba(0, 22, 58, 0.08);
+  --color-border-accent: rgba(0, 22, 58, 0.45);
+  --color-border-accent-light: rgba(67, 56, 202, 0.35);
+  --color-text-primary: #00163A;
+  --color-text-secondary: #1E293B;
+  --color-text-muted: #50617D;
+  --color-accent: #00163A;
+  --color-accent-hover: #0F2C59;
+  --color-accent-light: #4338CA;
+  --color-accent-pale: rgba(0, 22, 58, 0.08);
+  --shadow-sm: 0 2px 8px rgba(0, 22, 58, 0.04);
+  --shadow-md: 0 8px 24px rgba(0, 22, 58, 0.06);
+  --shadow-lg: 0 14px 36px rgba(0, 22, 58, 0.08);
+  --shadow-xl: 0 22px 54px rgba(0, 22, 58, 0.10);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-grounded-sans);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: clip;
+}
+
+.emudran-canvas .ios-glass-card,
+.emudran-canvas .glass-panel {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(0, 22, 58, 0.16);
+  color: #00163A;
+  box-shadow: 0 10px 30px rgba(0, 22, 58, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.emudran-canvas .metric-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 22, 58, 0.2);
+  color: #00163A;
+  font-size: 0.78rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 22, 58, 0.04);
+}
+
+.emudran-canvas .btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #00163A 0%, #4338CA 100%) !important;
+  color: #FFFFFF !important;
+  font-weight: 600;
+  font-size: 0.88rem;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 8px 24px -4px rgba(0, 22, 58, 0.35) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.emudran-canvas .btn-primary:hover {
+  background: linear-gradient(135deg, #0A2558 0%, #3730A3 100%) !important;
+  box-shadow: 0 12px 30px -4px rgba(0, 22, 58, 0.5) !important;
+  transform: translateY(-2px);
+}
+
+.emudran-canvas .btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 9999px;
+  background: #FFFFFF !important;
+  color: #00163A !important;
+  font-weight: 600;
+  font-size: 0.88rem;
+  border: 1.5px solid rgba(0, 22, 58, 0.25) !important;
+  box-shadow: 0 4px 14px rgba(0, 22, 58, 0.05) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.emudran-canvas .btn-outline:hover {
+  background: #ECEEF6 !important;
+  border-color: #00163A !important;
+  transform: translateY(-2px);
+}
+
+.emudran-canvas .form-input,
+.emudran-canvas .form-select,
+.emudran-canvas .form-textarea {
+  background: #FFFFFF;
+  color: #00163A;
+  border: 1px solid rgba(0, 22, 58, 0.18);
+  box-shadow: 0 2px 6px rgba(0, 22, 58, 0.03);
+}
+
+.emudran-canvas .form-input:focus,
+.emudran-canvas .form-select:focus,
+.emudran-canvas .form-textarea:focus {
+  border-color: #00163A;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 22, 58, 0.15);
+}
+
+/* Page Hero Grid Responsive Utility */
+@media (max-width: 900px) {
+  .page-hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+}
+
 /* Grounded Eyebrows & Labels */
 .text-eye-brow {
   font-family: var(--font-grounded-mono);

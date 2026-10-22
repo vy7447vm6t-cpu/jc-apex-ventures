@@ -62,13 +62,13 @@ export default function SanyogPage() {
               lineHeight: 1.15,
               fontWeight: 400,
               letterSpacing: '-0.02em',
-              color: '#111111',
+              color: 'var(--color-text-primary)',
               fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
             }}
           >
             DISCOM Protocol &amp; Regulatory Representation Framework.
           </h3>
-          <p className="text-sm text-[#4A4A46] mt-3 max-w-2xl mx-auto leading-relaxed font-sans">
+          <p className="text-sm text-[var(--color-text-secondary)] mt-3 max-w-2xl mx-auto leading-relaxed font-sans">
             Supervised under 36 years of direct utility distribution experience inside BEST Undertaking, Adani Electricity (AEML), Tata Power (TPCL), and MSEDCL.
           </p>
         </div>
@@ -79,7 +79,7 @@ export default function SanyogPage() {
             <ElectricBorder
               key={idx}
               active={idx < 2}
-              color="#C29F53"
+              color="#2C5ED4"
               borderRadius="20px"
               innerBg="#FFFFFF"
               className="shadow-sm"
@@ -87,10 +87,10 @@ export default function SanyogPage() {
               <div className="p-6 flex flex-col justify-between h-full bg-white rounded-[18px]">
                 <div>
                   <div className="flex items-center justify-between gap-3 mb-3">
-                    <span className="text-[10px] uppercase tracking-[0.1em] text-[#8C6D23] font-bold bg-[#C29F53]/15 px-2.5 py-1 rounded-md border border-[#C29F53]/25">
+                    <span className="text-[10px] uppercase tracking-[0.1em] text-[#2C5ED4] font-bold bg-[#2C5ED4]/10 px-2.5 py-1 rounded-md border border-[#2C5ED4]/20">
                       {proto.status}
                     </span>
-                    <span className="text-xs font-bold text-[#777777] tabular-nums">
+                    <span className="text-xs font-bold text-[var(--color-text-muted)] tabular-nums">
                       0{idx + 1}
                     </span>
                   </div>
@@ -100,7 +100,7 @@ export default function SanyogPage() {
                       fontSize: '1.45rem',
                       fontWeight: 400,
                       lineHeight: 1.2,
-                      color: '#111111',
+                      color: 'var(--color-text-primary)',
                       marginBottom: '6px',
                       fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
                     }}
@@ -108,18 +108,18 @@ export default function SanyogPage() {
                     {proto.authority}
                   </h4>
 
-                  <div className="text-xs font-semibold text-[#8C6D23] mb-3">
+                  <div className="text-xs font-semibold text-[#2C5ED4] mb-3">
                     {proto.section}
                   </div>
 
-                  <p className="text-xs text-[#4A4A46] leading-relaxed mb-4 font-sans">
+                  <p className="text-xs text-[var(--color-text-secondary)] leading-relaxed mb-4 font-sans">
                     {proto.action}
                   </p>
                 </div>
 
-                <div className="pt-3 border-t border-black/8 flex items-center justify-between text-xs font-semibold text-[#666666]">
+                <div className="pt-3 border-t border-[var(--color-border)] flex items-center justify-between text-xs font-semibold text-[var(--color-text-muted)]">
                   <span>Statutory Horizon:</span>
-                  <span className="text-[#111111]">{proto.leadTime}</span>
+                  <span className="text-[var(--color-text-primary)]">{proto.leadTime}</span>
                 </div>
               </div>
             </ElectricBorder>
@@ -127,23 +127,23 @@ export default function SanyogPage() {
         </div>
 
         {/* Direct Statutory Consultation Callout */}
-        <div className="mt-8 p-6 rounded-2xl bg-white border border-black/8 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="mt-8 p-6 rounded-2xl bg-white border border-[var(--color-border)] shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3.5">
-            <div className="p-3 rounded-xl bg-[#C29F53]/15 text-[#8C6D23]">
+            <div className="p-3 rounded-xl bg-[var(--color-accent-pale)] text-[var(--color-accent)]">
               <Scale size={20} />
             </div>
             <div>
-              <div className="text-sm font-bold text-[#111111]">
+              <div className="text-sm font-bold text-[var(--color-text-primary)]">
                 Contested Billing or Sanction Rejection?
               </div>
-              <div className="text-xs text-[#555555]">
+              <div className="text-xs text-[var(--color-text-secondary)]">
                 We review DISCOM notices, verify statutory merits, and draft formal representations.
               </div>
             </div>
           </div>
           <Link
             href="/electricity-grievances"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#111111] text-white text-xs font-semibold hover:bg-[#222222] transition-colors whitespace-nowrap"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[var(--color-accent)] text-white text-xs font-semibold hover:bg-[var(--color-accent-hover)] transition-colors whitespace-nowrap"
           >
             <span>Electricity Grievance Dossier</span>
             <ArrowUpRight size={14} />

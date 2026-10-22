@@ -29,7 +29,7 @@ export default function TvastaTierGallery({ tiers }: TvastaTierGalleryProps) {
     <div className="max-w-5xl mx-auto w-full font-sans">
       {/* Section Header */}
       <div className="text-center mb-10">
-        <div className="inline-block px-3.5 py-1 rounded-full bg-[#C29F53]/15 text-[#8C6D23] text-[11px] uppercase tracking-[0.12em] font-bold border border-[#C29F53]/30 mb-3">
+        <div className="inline-block px-3.5 py-1 rounded-full bg-[var(--color-accent-pale)] text-[var(--color-accent)] text-[11px] uppercase tracking-[0.12em] font-bold border border-[var(--color-border)] mb-3">
           [ARCHITECTURAL FIT-OUT HORIZONS]
         </div>
         <h3
@@ -38,13 +38,13 @@ export default function TvastaTierGallery({ tiers }: TvastaTierGalleryProps) {
             lineHeight: 1.15,
             fontWeight: 400,
             letterSpacing: '-0.02em',
-            color: '#111111',
+            color: 'var(--color-text-primary)',
             fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
           }}
         >
           Interactive Three-Tier Execution &amp; Material Palette.
         </h3>
-        <p className="text-sm text-[#4A4A46] mt-3 max-w-2xl mx-auto leading-relaxed font-sans">
+        <p className="text-sm text-[var(--color-text-secondary)] mt-3 max-w-2xl mx-auto leading-relaxed font-sans">
           Select any tier below to review authentic photography, material finishes, acoustic isolation ratings, and delivery schedules.
         </p>
 
@@ -59,9 +59,9 @@ export default function TvastaTierGallery({ tiers }: TvastaTierGalleryProps) {
                 onClick={() => setSelectedTier(tier.id)}
                 className="px-5 py-2.5 rounded-full text-xs transition-all duration-200 cursor-pointer"
                 style={{
-                  backgroundColor: isSelected ? '#111111' : '#FFFFFF',
-                  color: isSelected ? '#FFFFFF' : '#4A4A46',
-                  border: isSelected ? '1px solid #111111' : '1px solid rgba(0, 0, 0, 0.12)',
+                  backgroundColor: isSelected ? 'var(--color-accent)' : '#FFFFFF',
+                  color: isSelected ? '#FFFFFF' : 'var(--color-text-secondary)',
+                  border: isSelected ? '1px solid var(--color-accent)' : '1px solid var(--color-border)',
                   fontWeight: isSelected ? 700 : 600,
                 }}
               >
@@ -74,7 +74,7 @@ export default function TvastaTierGallery({ tiers }: TvastaTierGalleryProps) {
 
       {/* Selected Tier Editorial Showcase */}
       <div
-        className="rounded-3xl border border-black/8 bg-white overflow-hidden shadow-lg"
+        className="rounded-3xl border border-[var(--color-border)] bg-white overflow-hidden shadow-lg"
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
           {/* Image Column */}
@@ -89,7 +89,7 @@ export default function TvastaTierGallery({ tiers }: TvastaTierGalleryProps) {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
             <div className="absolute bottom-6 left-6 right-6">
-              <span className="inline-block px-3 py-1 rounded-full bg-[#C29F53] text-[#111111] text-[10px] font-bold uppercase tracking-wider mb-2">
+              <span className="inline-block px-3 py-1 rounded-full bg-[var(--color-accent)] text-white text-[10px] font-bold uppercase tracking-wider mb-2">
                 {activeTier.badge}
               </span>
               <div className="text-white text-xs font-semibold">
@@ -102,10 +102,10 @@ export default function TvastaTierGallery({ tiers }: TvastaTierGalleryProps) {
           <div className="lg:col-span-7 p-8 md:p-10 flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between gap-4 mb-3">
-                <span className="text-xs uppercase tracking-wider text-[#8C6D23] font-bold">
+                <span className="text-xs uppercase tracking-wider text-[var(--color-accent)] font-bold">
                   {activeTier.subtitle}
                 </span>
-                <span className="text-xs font-bold text-[#111111] bg-[#F4F1EA] border border-black/8 px-3 py-1 rounded-full tabular-nums">
+                <span className="text-xs font-bold text-[var(--color-text-primary)] bg-[var(--color-bg-elevated)] border border-[var(--color-border)] px-3 py-1 rounded-full tabular-nums">
                   Base: {activeTier.rate}
                 </span>
               </div>
@@ -115,7 +115,7 @@ export default function TvastaTierGallery({ tiers }: TvastaTierGalleryProps) {
                   fontSize: '1.65rem',
                   lineHeight: 1.2,
                   fontWeight: 400,
-                  color: '#111111',
+                  color: 'var(--color-text-primary)',
                   marginBottom: '14px',
                   fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
                 }}
@@ -123,18 +123,18 @@ export default function TvastaTierGallery({ tiers }: TvastaTierGalleryProps) {
                 {activeTier.title}
               </h4>
 
-              <p className="text-sm text-[#4A4A46] leading-relaxed mb-6 font-sans">
+              <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-6 font-sans">
                 {activeTier.description}
               </p>
 
-              <div className="pt-4 border-t border-black/8 mb-6">
-                <div className="text-[11px] uppercase tracking-wider font-bold text-[#666666] mb-3">
+              <div className="pt-4 border-t border-[var(--color-border)] mb-6">
+                <div className="text-[11px] uppercase tracking-wider font-bold text-[var(--color-text-muted)] mb-3">
                   Finishing Schedule &amp; Specifications
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   {activeTier.specs.map((spec, sIdx) => (
-                    <div key={sIdx} className="flex items-center gap-2 text-xs text-[#222222] font-medium font-sans">
-                      <CheckCircle2 size={14} color="#C29F53" className="flex-shrink-0" />
+                    <div key={sIdx} className="flex items-center gap-2 text-xs text-[var(--color-text-primary)] font-medium font-sans">
+                      <CheckCircle2 size={14} color="var(--color-accent)" className="flex-shrink-0" />
                       <span>{spec}</span>
                     </div>
                   ))}
@@ -142,13 +142,13 @@ export default function TvastaTierGallery({ tiers }: TvastaTierGalleryProps) {
               </div>
             </div>
 
-            <div className="pt-4 border-t border-black/8 flex flex-wrap items-center justify-between gap-4">
-              <div className="text-xs font-semibold text-[#666666]">
+            <div className="pt-4 border-t border-[var(--color-border)] flex flex-wrap items-center justify-between gap-4">
+              <div className="text-xs font-semibold text-[var(--color-text-muted)]">
                 Dedicated Architect on-site daily
               </div>
               <Link
                 href="/space-planning"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#111111] text-white text-xs font-semibold hover:bg-[#222222] transition-colors"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[var(--color-accent)] text-white text-xs font-semibold hover:bg-[var(--color-accent-hover)] transition-colors"
               >
                 <span>Explore 3-Tier Space Estimator</span>
                 <ArrowRight size={14} />

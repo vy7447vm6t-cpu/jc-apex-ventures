@@ -82,7 +82,7 @@ export default function PrintCalculator({ onLiveChange }: PrintCalculatorProps =
             style={{
               fontSize: '0.72rem',
               fontWeight: 700,
-              color: '#8C6D23',
+              color: 'var(--color-accent)',
               textTransform: 'uppercase',
               letterSpacing: '0.12em',
               fontFamily: 'var(--font-sans, Inter, sans-serif)',
@@ -156,7 +156,7 @@ export default function PrintCalculator({ onLiveChange }: PrintCalculatorProps =
                       boxShadow: isSel ? '0 4px 14px rgba(0, 0, 0, 0.15)' : 'none',
                     }}
                   >
-                    <Icon size={18} color={isSel ? '#C29F53' : '#666666'} />
+                    <Icon size={18} color={isSel ? 'var(--color-accent)' : '#666666'} />
                     <span style={{ textAlign: 'center' }}>{t.label}</span>
                   </button>
                 );
@@ -168,10 +168,10 @@ export default function PrintCalculator({ onLiveChange }: PrintCalculatorProps =
           {jobType === 'signage' ? (
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                <label style={{ fontSize: '0.84rem', fontWeight: 600, color: '#111111', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+                <label style={{ fontSize: '0.84rem', fontWeight: 600, color: 'var(--color-text-primary)', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                   Total Signage Area:
                 </label>
-                <span style={{ fontSize: '0.86rem', fontWeight: 700, color: '#C29F53', fontFamily: 'var(--font-sans, Inter, sans-serif)', fontVariantNumeric: 'tabular-nums' }}>
+                <span style={{ fontSize: '0.86rem', fontWeight: 700, color: 'var(--color-accent)', fontFamily: 'var(--font-sans, Inter, sans-serif)', fontVariantNumeric: 'tabular-nums' }}>
                   {sqft} sq.ft.
                 </span>
               </div>
@@ -182,16 +182,16 @@ export default function PrintCalculator({ onLiveChange }: PrintCalculatorProps =
                 step="10"
                 value={sqft}
                 onChange={(e) => setSqft(Number(e.target.value))}
-                style={{ width: '100%', accentColor: '#C29F53' }}
+                style={{ width: '100%', accentColor: 'var(--color-accent)' }}
               />
             </div>
           ) : (
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                <label style={{ fontSize: '0.84rem', fontWeight: 600, color: '#111111', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+                <label style={{ fontSize: '0.84rem', fontWeight: 600, color: 'var(--color-text-primary)', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                   Order Volume:
                 </label>
-                <span style={{ fontSize: '0.86rem', fontWeight: 700, color: '#C29F53', fontFamily: 'var(--font-sans, Inter, sans-serif)', fontVariantNumeric: 'tabular-nums' }}>
+                <span style={{ fontSize: '0.86rem', fontWeight: 700, color: 'var(--color-accent)', fontFamily: 'var(--font-sans, Inter, sans-serif)', fontVariantNumeric: 'tabular-nums' }}>
                   {quantity} units
                 </span>
               </div>
@@ -202,7 +202,7 @@ export default function PrintCalculator({ onLiveChange }: PrintCalculatorProps =
                 step="250"
                 value={quantity}
                 onChange={(e) => setQuantity(Number(e.target.value))}
-                style={{ width: '100%', accentColor: '#C29F53' }}
+                style={{ width: '100%', accentColor: 'var(--color-accent)' }}
               />
             </div>
           )}
@@ -254,8 +254,8 @@ export default function PrintCalculator({ onLiveChange }: PrintCalculatorProps =
           style={{
             padding: '30px',
             borderRadius: '20px',
-            background: '#FAF8F5',
-            border: '1px solid rgba(0, 0, 0, 0.08)',
+            background: 'var(--color-bg-elevated)',
+            border: '1px solid var(--color-border)',
             boxShadow: '0 8px 24px rgba(0, 0, 0, 0.03)',
             display: 'flex',
             flexDirection: 'column',
@@ -266,7 +266,7 @@ export default function PrintCalculator({ onLiveChange }: PrintCalculatorProps =
             <span
               style={{
                 fontSize: '0.74rem',
-                color: '#8C6D23',
+                color: 'var(--color-accent)',
                 fontWeight: 700,
                 textTransform: 'uppercase',
                 letterSpacing: '0.1em',
@@ -281,7 +281,7 @@ export default function PrintCalculator({ onLiveChange }: PrintCalculatorProps =
                 fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
                 fontSize: 'clamp(2.2rem, 3.5vw, 2.8rem)',
                 fontWeight: 400,
-                color: '#111111',
+                color: 'var(--color-text-primary)',
                 marginTop: '6px',
                 lineHeight: 1.1,
                 letterSpacing: '-0.02em',
@@ -289,23 +289,23 @@ export default function PrintCalculator({ onLiveChange }: PrintCalculatorProps =
             >
               Rs {estimate.total.toLocaleString('en-IN')}
             </div>
-            <div style={{ fontSize: '0.86rem', color: '#555555', marginTop: '6px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-              Unit cost: <strong style={{ color: '#111111' }}>{estimate.unitLabel}</strong> (indicative)
+            <div style={{ fontSize: '0.86rem', color: 'var(--color-text-secondary)', marginTop: '6px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+              Unit cost: <strong style={{ color: 'var(--color-text-primary)' }}>{estimate.unitLabel}</strong> (indicative)
             </div>
 
-            <div style={{ width: '100%', height: '1px', background: 'rgba(0, 0, 0, 0.08)', margin: '20px 0' }} />
+            <div style={{ width: '100%', height: '1px', background: 'var(--color-border)', margin: '20px 0' }} />
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.86rem', color: '#444444', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                <CheckCircle2 size={16} color="#C29F53" />
-                <span>Production Turnaround: <strong style={{ color: '#111111' }}>{estimate.turnaround}</strong></span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.86rem', color: 'var(--color-text-secondary)', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+                <CheckCircle2 size={16} color="var(--color-accent)" />
+                <span>Production Turnaround: <strong style={{ color: 'var(--color-text-primary)' }}>{estimate.turnaround}</strong></span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.86rem', color: '#444444', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                <CheckCircle2 size={16} color="#C29F53" />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.86rem', color: 'var(--color-text-secondary)', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+                <CheckCircle2 size={16} color="var(--color-accent)" />
                 <span>Direct press-pass color calibration included</span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.86rem', color: '#444444', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                <CheckCircle2 size={16} color="#C29F53" />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.86rem', color: 'var(--color-text-secondary)', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+                <CheckCircle2 size={16} color="var(--color-accent)" />
                 <span>Creative Direction by Manish Ajgaonkar</span>
               </div>
             </div>
@@ -325,7 +325,7 @@ export default function PrintCalculator({ onLiveChange }: PrintCalculatorProps =
               gap: '8px',
               fontSize: '0.88rem',
               fontWeight: 600,
-              backgroundColor: '#111111',
+              backgroundColor: 'var(--color-accent)',
               color: '#FFFFFF',
               boxShadow: '0 4px 14px rgba(0, 0, 0, 0.12)',
               transition: 'background 0.2s ease',

@@ -5,7 +5,6 @@ import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Clippy from '@/components/Clippy';
-import PageHero from '@/components/PageHero';
 import ScrollReveal from '@/components/ScrollReveal';
 import type { DivisionContent, IconKey } from '@/content/divisions';
 import { ImageWithLightbox } from '@/components/ImageLightbox';
@@ -20,8 +19,24 @@ import {
   ElectricBorder,
   SvgPathAnimator,
   SpecularButton,
+  PatternWaves,
+  FluxLines,
+  GradientASCII,
+  CRTWarp,
 } from '@/components/react-bits';
-import { Plug, Sun, Layout, Printer, Landmark, Zap, ArrowRight, AlertTriangle, CheckCircle2, User } from 'lucide-react';
+import {
+  Plug,
+  Sun,
+  Layout,
+  Printer,
+  Landmark,
+  Zap,
+  ArrowRight,
+  AlertTriangle,
+  CheckCircle2,
+  User,
+  ChevronRight,
+} from 'lucide-react';
 
 export const divisionIcons: Record<IconKey, React.ComponentType<{ size?: number; color?: string }>> = {
   plug: Plug,
@@ -89,13 +104,173 @@ const OFFICIAL_DIVISION_LOGOS: Record<string, { src: string; darkSrc: string; al
   agrim: { src: '/images/logos/agrim-dark.png', darkSrc: '/images/logos/agrim-official.png', alt: 'Agrim Official Logo', height: 56 },
 };
 
+interface DivisionThemeConfig {
+  canvasClass: string;
+  heroBg: string;
+  heroBorder: string;
+  dividerColor: string;
+  badgeDotColor: string;
+  accentColor: string;
+  maskGradient: string;
+  renderBackground: () => React.ReactNode;
+}
+
+const DIVISION_CONFIGS: Record<string, DivisionThemeConfig> = {
+  tvasta: {
+    canvasClass: 'tvasta-canvas',
+    heroBg: '#F8F9FA',
+    heroBorder: '1px solid rgba(215, 42, 27, 0.16)',
+    dividerColor: '#D72A1B',
+    badgeDotColor: '#FFCB72',
+    accentColor: '#D72A1B',
+    maskGradient:
+      'radial-gradient(ellipse 95% 85% at 50% 25%, rgba(248, 249, 250, 0.65) 0%, rgba(248, 249, 250, 0.85) 60%, rgba(248, 249, 250, 0.98) 100%)',
+    renderBackground: () => (
+      <MicroSlats
+        preset="signal"
+        color="#D72A1B"
+        glintColor="#FFCB72"
+        backgroundColor="#F8F9FA"
+        interactive={true}
+        speed={0.4}
+      />
+    ),
+  },
+  'grid-apex': {
+    canvasClass: 'grid-apex-canvas',
+    heroBg: '#F0F7FF',
+    heroBorder: '1px solid rgba(2, 132, 199, 0.18)',
+    dividerColor: '#F59E0B',
+    badgeDotColor: '#F59E0B',
+    accentColor: '#0284C7',
+    maskGradient:
+      'radial-gradient(ellipse 95% 85% at 50% 25%, rgba(240, 247, 255, 0.65) 0%, rgba(240, 247, 255, 0.85) 60%, rgba(240, 247, 255, 0.98) 100%)',
+    renderBackground: () => (
+      <FluxLines
+        colors={['#0284C7', '#38BDF8', '#F59E0B', '#0EA5E9']}
+        flowDirection="down"
+        speed={0.4}
+        scale={1.8}
+        turbulence={0.8}
+        opacity={0.75}
+        lightMode={true}
+        transparent={true}
+        backgroundColor="#F0F7FF"
+      />
+    ),
+  },
+  agrim: {
+    canvasClass: 'agrim-canvas',
+    heroBg: '#F7F9F5',
+    heroBorder: '1px solid rgba(4, 120, 87, 0.16)',
+    dividerColor: '#D97706',
+    badgeDotColor: '#D97706',
+    accentColor: '#047857',
+    maskGradient:
+      'radial-gradient(ellipse 95% 85% at 50% 25%, rgba(247, 249, 245, 0.65) 0%, rgba(247, 249, 245, 0.85) 60%, rgba(247, 249, 245, 0.98) 100%)',
+    renderBackground: () => (
+      <PatternWaves
+        preset="pond"
+        wave="ripple"
+        color="#047857"
+        backgroundColor="#F7F9F5"
+        opacity={0.65}
+        spacing={11}
+        markSize={0.85}
+        interactive={true}
+      />
+    ),
+  },
+  sanyog: {
+    canvasClass: 'sanyog-canvas',
+    heroBg: '#F4F6FC',
+    heroBorder: '1px solid rgba(44, 94, 212, 0.16)',
+    dividerColor: '#F59E0B',
+    badgeDotColor: '#2C5ED4',
+    accentColor: '#2C5ED4',
+    maskGradient:
+      'radial-gradient(ellipse 95% 85% at 50% 25%, rgba(244, 246, 252, 0.65) 0%, rgba(244, 246, 252, 0.85) 60%, rgba(244, 246, 252, 0.98) 100%)',
+    renderBackground: () => (
+      <PatternWaves
+        preset="lines"
+        color="#2C5ED4"
+        backgroundColor="#F4F6FC"
+        opacity={0.55}
+        spacing={12}
+        markSize={0.4}
+        direction={25}
+        speed={0.3}
+        interactive={true}
+      />
+    ),
+  },
+  emudran: {
+    canvasClass: 'emudran-canvas',
+    heroBg: '#F5F6FA',
+    heroBorder: '1px solid rgba(0, 22, 58, 0.16)',
+    dividerColor: '#4338CA',
+    badgeDotColor: '#4338CA',
+    accentColor: '#00163A',
+    maskGradient:
+      'radial-gradient(ellipse 95% 85% at 50% 25%, rgba(245, 246, 250, 0.65) 0%, rgba(245, 246, 250, 0.85) 60%, rgba(245, 246, 250, 0.98) 100%)',
+    renderBackground: () => (
+      <CRTWarp
+        color="#4338CA"
+        backgroundColor="#F5F6FA"
+        lightMode={true}
+        curvature={0.15}
+        scanlineStrength={0.25}
+        persistence={0.3}
+        speed={0.35}
+      />
+    ),
+  },
+  solis: {
+    canvasClass: 'solis-canvas',
+    heroBg: '#F6F8FF',
+    heroBorder: '1px solid rgba(30, 63, 216, 0.14)',
+    dividerColor: '#F59E0B',
+    badgeDotColor: '#F59E0B',
+    accentColor: '#1E3FD8',
+    maskGradient:
+      'radial-gradient(ellipse 95% 85% at 50% 25%, rgba(246, 248, 255, 0.65) 0%, rgba(246, 248, 255, 0.82) 60%, rgba(246, 248, 255, 0.98) 100%)',
+    renderBackground: () => (
+      <GradientASCII
+        colors={['#1e3fd8', '#f6f8ff', '#a5d8ff', '#38bdf8']}
+        shape="horizon"
+        characters=" =+xX0S8#@"
+        cellSize={18}
+        density={0.8}
+      />
+    ),
+  },
+};
+
+const DEFAULT_CONFIG: DivisionThemeConfig = {
+  canvasClass: 'grounded-canvas',
+  heroBg: '#F4F1EA',
+  heroBorder: '1px solid rgba(0, 0, 0, 0.08)',
+  dividerColor: '#C29F53',
+  badgeDotColor: '#C29F53',
+  accentColor: '#C29F53',
+  maskGradient:
+    'radial-gradient(ellipse 95% 85% at 50% 25%, rgba(244, 241, 234, 0.65) 0%, rgba(244, 241, 234, 0.85) 60%, rgba(244, 241, 234, 0.98) 100%)',
+  renderBackground: () => (
+    <MicroSlats count={12} opacity={0.09} color="rgba(17, 17, 17, 0.35)" showTicks={true} zIndex={1} />
+  ),
+};
+
 export default function DivisionPage({
   data,
   customHeroLogo,
+  canvasClassName,
+  customHeroBackground,
   children,
 }: {
   data: DivisionContent;
   customHeroLogo?: React.ReactNode;
+  canvasClassName?: string;
+  customHeroBackground?: React.ReactNode;
   children?: React.ReactNode;
 }) {
   const Icon = divisionIcons[data.icon];
@@ -103,6 +278,10 @@ export default function DivisionPage({
   const [specimenView, setSpecimenView] = useState<'grid' | 'panorama'>('grid');
   const [activeStep, setActiveStep] = useState<number>(0);
   const isElectricDivision = ['solis', 'sanyog', 'grid-apex'].includes(data.slug);
+
+  const themeConfig = DIVISION_CONFIGS[data.slug] || DEFAULT_CONFIG;
+  const canvasClass = canvasClassName || themeConfig.canvasClass;
+  const divisionAccent = themeConfig.accentColor;
 
   const accordionSpecimens = (data.visualCards || []).map((vc, idx) => ({
     id: `${data.slug}-spec-${idx}`,
@@ -117,32 +296,266 @@ export default function DivisionPage({
   }));
 
   return (
-    <main className="grounded-canvas" style={{ background: 'var(--color-bg)', minHeight: '100vh' }}>
+    <main className={canvasClass} style={{ background: 'var(--color-bg)', minHeight: '100vh' }}>
       <Navbar />
       <Clippy />
 
-      <PageHero
-        title={data.laypersonBadge || data.name}
-        tagline={data.tagline}
-        breadcrumb={data.name}
-        statPill={data.statPill}
-        heroImage={data.heroImage}
-        heroImageTag={data.heroImageTag}
-        logo={
-          customHeroLogo || (
-            <img
-              src={defaultLogo?.src || '/images/logos/solis-official.png'}
-              alt={defaultLogo?.alt || data.name}
-              style={{
-                height: `${defaultLogo?.height || 56}px`,
-                width: 'auto',
-                objectFit: 'contain',
-                display: 'block',
-              }}
-            />
-          )
-        }
-      />
+      {/* Division High-Tech Hero with Dedicated React Bits WebGL Background */}
+      <section
+        className="relative overflow-hidden"
+        style={{
+          paddingTop: '136px',
+          paddingBottom: '70px',
+          backgroundColor: themeConfig.heroBg,
+          borderBottom: themeConfig.heroBorder,
+          position: 'relative',
+        }}
+      >
+        {/* WebGL Background Layer */}
+        <div
+          className="pointer-events-auto absolute inset-0 z-0 overflow-hidden"
+          style={{ opacity: 0.82 }}
+          aria-hidden="true"
+        >
+          {customHeroBackground || themeConfig.renderBackground()}
+          {/* Subtle Crystalline Glass Mask for Perfect Readability */}
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              background: themeConfig.maskGradient,
+              pointerEvents: 'none',
+            }}
+          />
+        </div>
+
+        <div className="container" style={{ position: 'relative', zIndex: 5 }}>
+          {/* Breadcrumb */}
+          <div
+            className="animate-fade-in-up"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              marginBottom: '20px',
+              fontSize: '0.82rem',
+              color: 'var(--color-text-muted)',
+              fontFamily: 'var(--font-sans, Inter, sans-serif)',
+            }}
+          >
+            <Link href="/" style={{ color: 'var(--color-text-muted)', textDecoration: 'none' }}>
+              Home
+            </Link>
+            <ChevronRight size={13} color="var(--color-text-muted)" />
+            <Link href="/#divisions" style={{ color: 'var(--color-text-muted)', textDecoration: 'none' }}>
+              Divisions
+            </Link>
+            <ChevronRight size={13} color="var(--color-text-muted)" />
+            <span style={{ color: 'var(--color-accent)', fontWeight: 700 }}>{data.name}</span>
+          </div>
+
+          <div
+            className="page-hero-grid"
+            style={{
+              display: 'grid',
+              gridTemplateColumns: data.heroImage ? '1.15fr 0.85fr' : '1fr',
+              gap: '48px',
+              alignItems: 'center',
+            }}
+          >
+            <div>
+              {/* Header row with official division logo and discipline title */}
+              <div
+                className="animate-fade-in-up"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '20px',
+                  flexWrap: 'wrap',
+                  marginBottom: '22px',
+                }}
+              >
+                <div
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: 'transparent',
+                    flexShrink: 0,
+                  }}
+                >
+                  {customHeroLogo || (
+                    <img
+                      src={defaultLogo?.src || '/images/logos/solis-official.png'}
+                      alt={defaultLogo?.alt || data.name}
+                      style={{
+                        height: `${defaultLogo?.height || 56}px`,
+                        width: 'auto',
+                        objectFit: 'contain',
+                        display: 'block',
+                      }}
+                    />
+                  )}
+                </div>
+                <span
+                  aria-hidden="true"
+                  style={{
+                    width: '2px',
+                    height: '44px',
+                    backgroundColor: themeConfig.dividerColor,
+                    display: 'inline-block',
+                    flexShrink: 0,
+                    borderRadius: '2px',
+                  }}
+                />
+
+                <h1
+                  style={{
+                    flex: 1,
+                    minWidth: '220px',
+                    fontSize: 'clamp(2rem, 3.4vw, 2.95rem)',
+                    margin: 0,
+                    fontWeight: 400,
+                    color: 'var(--color-text-primary)',
+                    lineHeight: 1.12,
+                    letterSpacing: '-0.025em',
+                    fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+                  }}
+                >
+                  {data.laypersonBadge || data.name}
+                </h1>
+              </div>
+
+              <p
+                className="animate-fade-in-up delay-200"
+                style={{
+                  fontSize: 'clamp(1.02rem, 1.6vw, 1.18rem)',
+                  color: 'var(--color-text-secondary)',
+                  maxWidth: '680px',
+                  lineHeight: 1.68,
+                  marginBottom: '24px',
+                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                }}
+              >
+                {data.tagline}
+              </p>
+
+              {/* Stat badges & pills */}
+              <div
+                className="animate-fade-in-up delay-300"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  flexWrap: 'wrap',
+                }}
+              >
+                {data.statPill && (
+                  <span
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '8px 16px',
+                      borderRadius: '9999px',
+                      backgroundColor: '#FFFFFF',
+                      border: '1.5px solid var(--color-border-accent)',
+                      color: 'var(--color-accent)',
+                      fontSize: '0.82rem',
+                      fontWeight: 700,
+                      boxShadow: 'var(--shadow-sm)',
+                    }}
+                  >
+                    <span
+                      style={{
+                        width: '8px',
+                        height: '8px',
+                        borderRadius: '9999px',
+                        backgroundColor: themeConfig.badgeDotColor,
+                        boxShadow: `0 0 8px ${themeConfig.badgeDotColor}`,
+                      }}
+                    />
+                    {data.statPill}
+                  </span>
+                )}
+                {data.plainTakeaway && (
+                  <span
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '8px 16px',
+                      borderRadius: '9999px',
+                      backgroundColor: 'var(--color-accent-pale)',
+                      border: '1px solid var(--color-border)',
+                      color: 'var(--color-text-primary)',
+                      fontSize: '0.82rem',
+                      fontWeight: 650,
+                    }}
+                  >
+                    {data.plainTakeaway}
+                  </span>
+                )}
+              </div>
+            </div>
+
+            {/* Right Hero Image Card */}
+            {data.heroImage && (
+              <div className="animate-fade-in-up delay-400">
+                <div
+                  style={{
+                    position: 'relative',
+                    borderRadius: '24px',
+                    overflow: 'hidden',
+                    boxShadow: 'var(--shadow-xl), 0 0 0 1px var(--color-border)',
+                    backgroundColor: '#FFFFFF',
+                  }}
+                >
+                  <div style={{ position: 'relative', height: '360px', width: '100%' }}>
+                    <ImageWithLightbox
+                      src={data.heroImage}
+                      alt={data.name}
+                      title={`${data.name} : ${data.heroImageTag || data.laypersonBadge}`}
+                      style={{ width: '100%', height: '100%' }}
+                    />
+                  </div>
+                  {data.heroImageTag && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: '16px',
+                        left: '16px',
+                        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                        backdropFilter: 'blur(12px)',
+                        padding: '6px 14px',
+                        borderRadius: '9999px',
+                        fontSize: '0.72rem',
+                        fontWeight: 700,
+                        color: 'var(--color-text-primary)',
+                        border: '1px solid var(--color-border)',
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.06)',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                      }}
+                    >
+                      <span
+                        style={{
+                          width: '6px',
+                          height: '6px',
+                          borderRadius: '9999px',
+                          backgroundColor: themeConfig.badgeDotColor,
+                        }}
+                      />
+                      {data.heroImageTag.toUpperCase()}
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
 
 
 
@@ -190,7 +603,7 @@ export default function DivisionPage({
                     division={data.slug}
                     active={isElectricDivision && i === 0}
                     borderRadius={20}
-                    glowColor="#C29F53"
+                    glowColor={divisionAccent}
                   >
                     <div className="glass-panel" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                       <div style={{ position: 'relative', height: '220px', width: '100%', overflow: 'hidden' }}>
@@ -200,7 +613,7 @@ export default function DivisionPage({
                               width: '5px',
                               height: '5px',
                               borderRadius: '50%',
-                              backgroundColor: '#C29F53',
+                              backgroundColor: divisionAccent,
                               display: 'inline-block',
                               flexShrink: 0,
                             }}
@@ -400,7 +813,7 @@ export default function DivisionPage({
             className="hidden md:block mb-6 rounded-2xl p-4"
             style={{
               backgroundColor: '#FFFFFF',
-              border: '1px solid rgba(194, 159, 83, 0.3)',
+              border: '1px solid var(--color-border)',
               boxShadow: '0 4px 16px rgba(0, 0, 0, 0.03)',
             }}
           >
@@ -412,7 +825,7 @@ export default function DivisionPage({
                   fontWeight: 700,
                   letterSpacing: '0.1em',
                   textTransform: 'uppercase',
-                  color: '#8C733E',
+                  color: 'var(--color-accent)',
                 }}
               >
                 [EXECUTION SEQUENCE SCHEMATIC · {data.name.toUpperCase()}]
@@ -430,7 +843,7 @@ export default function DivisionPage({
             </div>
             <SvgPathAnimator
               viewBox="0 0 1000 36"
-              strokeColor="#C29F53"
+              strokeColor={divisionAccent}
               strokeWidth={2}
               duration={2000}
               className="w-full h-9"
@@ -447,7 +860,7 @@ export default function DivisionPage({
                     division={data.slug}
                     active={isElectricDivision && isSelected}
                     borderRadius={20}
-                    glowColor="#C29F53"
+                    glowColor={divisionAccent}
                   >
                     <div
                       onMouseEnter={() => setActiveStep(i)}
@@ -458,7 +871,7 @@ export default function DivisionPage({
                         height: '100%',
                         position: 'relative',
                         borderRadius: '20px',
-                        borderColor: isSelected ? 'rgba(194, 159, 83, 0.5)' : undefined,
+                        borderColor: isSelected ? 'var(--color-border-accent)' : undefined,
                       }}
                     >
                       <div
@@ -713,7 +1126,7 @@ export default function DivisionPage({
                 position: 'relative',
               }}
             >
-              <MicroSlats count={16} color="#8C733E" opacity={0.05} zIndex={1} showTicks={true} />
+              <MicroSlats count={16} color={divisionAccent} opacity={0.05} zIndex={1} showTicks={true} />
               <div style={{ position: 'relative', zIndex: 2 }}>
                 <CheckCircle2 size={32} color="var(--color-accent)" style={{ marginBottom: '18px', display: 'inline-block' }} />
                 <h2

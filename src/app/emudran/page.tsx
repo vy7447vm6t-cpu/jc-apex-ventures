@@ -61,7 +61,7 @@ export default function EmudranPage() {
       <div className="max-w-5xl mx-auto w-full flex flex-col gap-12 font-sans">
         {/* Section Header */}
         <div className="text-center">
-          <div className="inline-block px-3.5 py-1 rounded-full bg-[#C29F53]/15 text-[#8C6D23] text-[11px] uppercase tracking-[0.12em] font-bold border border-[#C29F53]/30 mb-3">
+          <div className="inline-block px-3.5 py-1 rounded-full bg-[var(--color-accent-pale)] text-[var(--color-accent)] text-[11px] uppercase tracking-[0.12em] font-bold border border-[var(--color-border)] mb-3">
             [ART DIRECTION &amp; PRESS ENGINEERING]
           </div>
           <h3
@@ -70,13 +70,13 @@ export default function EmudranPage() {
               lineHeight: 1.15,
               fontWeight: 400,
               letterSpacing: '-0.02em',
-              color: '#111111',
+              color: 'var(--color-text-primary)',
               fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
             }}
           >
             Tactile Packaging Specimens &amp; Production Benchmarks.
           </h3>
-          <p className="text-sm text-[#4A4A46] mt-3 max-w-2xl mx-auto leading-relaxed font-sans">
+          <p className="text-sm text-[var(--color-text-secondary)] mt-3 max-w-2xl mx-auto leading-relaxed font-sans">
             Led by veteran FMCG Art Director Manish Ajgaonkar. Explore structural greyboard rigidity, precision thermal stamping, and high-volume offset economics.
           </p>
         </div>
@@ -86,7 +86,7 @@ export default function EmudranPage() {
           {PACKAGING_SPECIMENS.map((specimen) => (
             <div
               key={specimen.id}
-              className="rounded-2xl border border-black/8 bg-white overflow-hidden flex flex-col justify-between shadow-sm"
+              className="rounded-2xl border border-[var(--color-border)] bg-white overflow-hidden flex flex-col justify-between shadow-sm"
             >
               <div>
                 <div className="relative h-52 w-full overflow-hidden">
@@ -97,7 +97,7 @@ export default function EmudranPage() {
                     className="transition-transform duration-500 hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent pointer-events-none" />
-                  <span className="absolute top-3 left-3 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-full bg-[#C29F53] text-[#111111]">
+                  <span className="absolute top-3 left-3 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-full bg-[var(--color-accent)] text-white">
                     {specimen.tag}
                   </span>
                 </div>
@@ -108,25 +108,25 @@ export default function EmudranPage() {
                       fontSize: '1.45rem',
                       lineHeight: 1.2,
                       fontWeight: 400,
-                      color: '#111111',
+                      color: 'var(--color-text-primary)',
                       marginBottom: '10px',
                       fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
                     }}
                   >
                     {specimen.title}
                   </h4>
-                  <p className="text-xs text-[#4A4A46] leading-relaxed mb-6 font-sans">
+                  <p className="text-xs text-[var(--color-text-secondary)] leading-relaxed mb-6 font-sans">
                     {specimen.description}
                   </p>
 
-                  <div className="pt-4 border-t border-black/8">
-                    <div className="text-[10px] uppercase tracking-wider font-bold text-[#777777] mb-2.5">
+                  <div className="pt-4 border-t border-[var(--color-border)]">
+                    <div className="text-[10px] uppercase tracking-wider font-bold text-[var(--color-text-muted)] mb-2.5">
                       Technical Substrates
                     </div>
                     <div className="flex flex-col gap-1.5">
                       {specimen.specs.map((s, sIdx) => (
-                        <div key={sIdx} className="flex items-center gap-2 text-[11px] text-[#222222] font-medium font-sans">
-                          <CheckCircle2 size={13} color="#C29F53" className="flex-shrink-0" />
+                        <div key={sIdx} className="flex items-center gap-2 text-[11px] text-[var(--color-text-primary)] font-medium font-sans">
+                          <CheckCircle2 size={13} color="var(--color-accent-light)" className="flex-shrink-0" />
                           <span>{s}</span>
                         </div>
                       ))}
@@ -138,10 +138,10 @@ export default function EmudranPage() {
               <div className="p-6 pt-0">
                 <Link
                   href="/print-management"
-                  className="w-full inline-flex items-center justify-between px-4 py-2.5 rounded-xl bg-[#F4F1EA] border border-black/8 text-[#111111] text-xs font-semibold hover:bg-[#EAE5D9] transition-colors"
+                  className="w-full inline-flex items-center justify-between px-4 py-2.5 rounded-xl bg-[var(--color-bg-elevated)] border border-[var(--color-border)] text-[var(--color-text-primary)] text-xs font-semibold hover:bg-[var(--color-accent-pale)] transition-colors"
                 >
                   <span>Calculate Volume Tier</span>
-                  <ArrowUpRight size={13} color="#8C6D23" />
+                  <ArrowUpRight size={13} color="var(--color-accent)" />
                 </Link>
               </div>
             </div>
@@ -149,22 +149,22 @@ export default function EmudranPage() {
         </div>
 
         {/* Volume Tier Curve Visual Module */}
-        <div className="rounded-3xl border border-black/8 bg-white p-8 shadow-md">
+        <div className="rounded-3xl border border-[var(--color-border)] bg-white p-8 shadow-md">
           <div className="mb-6">
-            <span className="text-[11px] uppercase tracking-wider font-bold text-[#8C6D23]">
+            <span className="text-[11px] uppercase tracking-wider font-bold text-[var(--color-accent)]">
               [ECONOMY OF SCALE PHYSICS]
             </span>
             <h4
               style={{
                 fontSize: '1.5rem',
-                color: '#111111',
+                color: 'var(--color-text-primary)',
                 marginTop: '4px',
                 fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
               }}
             >
               Volume Tier Unit Cost Optimization Curve
             </h4>
-            <p className="text-xs text-[#555555] mt-1 font-sans">
+            <p className="text-xs text-[var(--color-text-secondary)] mt-1 font-sans">
               Unit prices drop sharply beyond 1,000 units as cylinder setup, die-tooling, and plate amortization reach steady-state.
             </p>
           </div>

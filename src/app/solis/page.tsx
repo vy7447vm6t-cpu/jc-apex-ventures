@@ -414,7 +414,7 @@ export default function SolisPage() {
                   <ImageWithLightbox
                     src="/images/solis_canopy_page1.jpg"
                     alt="Elevated Solar Pergola Canopy"
-                    title="Elevated Solar Pergola Canopy — Walkable Terrace Rooftop"
+                    title="Elevated Solar Pergola Canopy : Walkable Terrace Rooftop"
                     style={{ width: '100%', height: '100%' }}
                   />
                 </div>

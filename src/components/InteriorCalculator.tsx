@@ -66,7 +66,7 @@ export default function InteriorCalculator() {
             style={{
               fontSize: '0.72rem',
               fontWeight: 700,
-              color: '#8C6D23',
+              color: 'var(--color-accent)',
               textTransform: 'uppercase',
               letterSpacing: '0.12em',
               fontFamily: 'var(--font-sans, Inter, sans-serif)',
@@ -149,10 +149,10 @@ export default function InteriorCalculator() {
           {/* Carpet Area Slider */}
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-              <label style={{ fontSize: '0.84rem', fontWeight: 600, color: '#111111', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+              <label style={{ fontSize: '0.84rem', fontWeight: 600, color: 'var(--color-text-primary)', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                 Usable Carpet Area:
               </label>
-              <span style={{ fontSize: '0.86rem', fontWeight: 700, color: '#C29F53', fontFamily: 'var(--font-sans, Inter, sans-serif)', fontVariantNumeric: 'tabular-nums' }}>
+              <span style={{ fontSize: '0.86rem', fontWeight: 700, color: 'var(--color-accent)', fontFamily: 'var(--font-sans, Inter, sans-serif)', fontVariantNumeric: 'tabular-nums' }}>
                 {area} sq.ft.
               </span>
             </div>
@@ -163,13 +163,13 @@ export default function InteriorCalculator() {
               step="50"
               value={area}
               onChange={(e) => setArea(Number(e.target.value))}
-              style={{ width: '100%', accentColor: '#C29F53' }}
+              style={{ width: '100%', accentColor: 'var(--color-accent)' }}
             />
           </div>
 
           {/* Three Tiers */}
           <div>
-            <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: 600, color: '#111111', marginBottom: '10px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+            <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: 600, color: 'var(--color-text-primary)', marginBottom: '10px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
               Select Finishing Tier:
             </label>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
@@ -187,22 +187,22 @@ export default function InteriorCalculator() {
                     style={{
                       padding: '14px 10px',
                       borderRadius: '14px',
-                      border: isSel ? '1.5px solid #111111' : '1px solid rgba(0, 0, 0, 0.1)',
-                      background: isSel ? '#111111' : '#FFFFFF',
-                      color: isSel ? '#FFFFFF' : '#333333',
+                      border: isSel ? '1.5px solid var(--color-accent)' : '1px solid var(--color-border)',
+                      background: isSel ? 'var(--color-accent)' : '#FFFFFF',
+                      color: isSel ? '#FFFFFF' : 'var(--color-text-secondary)',
                       cursor: 'pointer',
                       textAlign: 'center',
                       transition: 'all 0.2s ease',
                       boxShadow: isSel ? '0 4px 14px rgba(0, 0, 0, 0.15)' : 'none',
                     }}
                   >
-                    <div style={{ fontSize: '0.84rem', fontWeight: 700, color: isSel ? '#FFFFFF' : '#111111' }}>
+                    <div style={{ fontSize: '0.84rem', fontWeight: 700, color: isSel ? '#FFFFFF' : 'var(--color-text-primary)' }}>
                       {t.name}
                     </div>
-                    <div style={{ fontSize: '0.74rem', color: '#C29F53', fontWeight: 600, marginTop: '2px' }}>
+                    <div style={{ fontSize: '0.74rem', color: isSel ? '#FFFFFF' : 'var(--color-accent)', fontWeight: 600, marginTop: '2px' }}>
                       {t.rate}
                     </div>
-                    <div style={{ fontSize: '0.68rem', color: isSel ? 'rgba(255, 255, 255, 0.7)' : '#777777', marginTop: '2px' }}>
+                    <div style={{ fontSize: '0.68rem', color: isSel ? 'rgba(255, 255, 255, 0.8)' : 'var(--color-text-muted)', marginTop: '2px' }}>
                       {t.desc}
                     </div>
                   </button>
@@ -217,8 +217,8 @@ export default function InteriorCalculator() {
           style={{
             padding: '30px',
             borderRadius: '20px',
-            background: '#FAF8F5',
-            border: '1px solid rgba(0, 0, 0, 0.08)',
+            background: 'var(--color-bg-elevated)',
+            border: '1px solid var(--color-border)',
             boxShadow: '0 8px 24px rgba(0, 0, 0, 0.03)',
             display: 'flex',
             flexDirection: 'column',
@@ -229,7 +229,7 @@ export default function InteriorCalculator() {
             <span
               style={{
                 fontSize: '0.74rem',
-                color: '#8C6D23',
+                color: 'var(--color-accent)',
                 fontWeight: 700,
                 textTransform: 'uppercase',
                 letterSpacing: '0.1em',
@@ -244,7 +244,7 @@ export default function InteriorCalculator() {
                 fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
                 fontSize: 'clamp(2.2rem, 3.5vw, 2.8rem)',
                 fontWeight: 400,
-                color: '#111111',
+                color: 'var(--color-text-primary)',
                 marginTop: '6px',
                 lineHeight: 1.1,
                 letterSpacing: '-0.02em',
@@ -252,23 +252,23 @@ export default function InteriorCalculator() {
             >
               Rs {estimate.total.toLocaleString('en-IN')}
             </div>
-            <div style={{ fontSize: '0.86rem', color: '#555555', marginTop: '6px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-              Base rate: <strong style={{ color: '#111111' }}>Rs {estimate.ratePerSqft}/sq.ft.</strong> (all civil + MEP included)
+            <div style={{ fontSize: '0.86rem', color: 'var(--color-text-secondary)', marginTop: '6px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+              Base rate: <strong style={{ color: 'var(--color-text-primary)' }}>Rs {estimate.ratePerSqft}/sq.ft.</strong> (all civil + MEP included)
             </div>
 
-            <div style={{ width: '100%', height: '1px', background: 'rgba(0, 0, 0, 0.08)', margin: '20px 0' }} />
+            <div style={{ width: '100%', height: '1px', background: 'var(--color-border)', margin: '20px 0' }} />
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.86rem', color: '#444444', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                <Clock size={16} color="#C29F53" />
-                <span>Estimated Schedule: <strong style={{ color: '#111111' }}>{estimate.timeline}</strong></span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.86rem', color: 'var(--color-text-secondary)', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+                <Clock size={16} color="var(--color-accent)" />
+                <span>Estimated Schedule: <strong style={{ color: 'var(--color-text-primary)' }}>{estimate.timeline}</strong></span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.86rem', color: '#444444', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                <CheckCircle2 size={16} color="#C29F53" />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.86rem', color: 'var(--color-text-secondary)', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+                <CheckCircle2 size={16} color="var(--color-accent)" />
                 <span>Full architectural CAD blueprints and MEP plans</span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.86rem', color: '#444444', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                <CheckCircle2 size={16} color="#C29F53" />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.86rem', color: 'var(--color-text-secondary)', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+                <CheckCircle2 size={16} color="var(--color-accent)" />
                 <span>Dedicated site project manager on-site daily</span>
               </div>
             </div>
@@ -288,7 +288,7 @@ export default function InteriorCalculator() {
               gap: '8px',
               fontSize: '0.88rem',
               fontWeight: 600,
-              backgroundColor: '#111111',
+              backgroundColor: 'var(--color-accent)',
               color: '#FFFFFF',
               boxShadow: '0 4px 14px rgba(0, 0, 0, 0.12)',
               transition: 'background 0.2s ease',
