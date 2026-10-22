@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState, type CSSProperties } from 'react';
 
 type Box = { x1: number; y1: number; x2: number; y2: number };
 type Art = { image: HTMLCanvasElement; left: number; top: number };
-type Shape = { char: string; x: number; box: Box };
+type Shape = { char: string; x: number; baseline: number; box: Box };
 type Cell = { x: number; y: number; size: number; dx: number; dy: number; start: number; land: number };
 type Glyph = Shape & {
   offset: { x: number; y: number };
@@ -41,6 +41,7 @@ export interface TechTextProps {
   fontFamily?: string;
   fontWeight?: number;
   fontSize?: number;
+  lineHeight?: number;
   letterSpacing?: number;
   color?: string;
   accentColor?: string;
@@ -162,7 +163,7 @@ function ScrambleTechText({
         originalText
           .split('')
           .map((char, index) => {
-            if (preserveSpaces && (char === ' ' || char === '·' || char === '/')) return char;
+            if (preserveSpaces && (char === ' ' || char === '·' || char === '/' || char === '\n')) return char;
             if (index <= revealCount) {
               return originalText[index];
             }
@@ -218,6 +219,7 @@ function CanvasTechText({
   fontFamily = '',
   fontWeight = 600,
   fontSize = 150,
+  lineHeight = 1.2,
   letterSpacing = -0.05,
   color = 'currentColor',
   accentColor = 'currentColor',
@@ -254,6 +256,7 @@ function CanvasTechText({
       fontFamily,
       fontWeight,
       fontSize,
+      lineHeight: lineHeight ?? 1.2,
       letterSpacing,
       color,
       accentColor,
@@ -330,7 +333,40 @@ function CanvasTechText({
       refreshFonts();
     };
 
-    const family = (s: CanvasSettings) => s.fontFamily || getComputedStyle(container).fontFamily || 'sans-serif';
+    const resolveFontFamily = (raw: string) => {
+      if (!raw) return 'serif';
+      let resolved = raw;
+      if (resolved.includes('var(')) {
+        resolved = resolved.replace(/var\((--[^,\)]+)(?:,\s*([^\)]+))?\)/g, (_, varName, fallback) => {
+          let val = '';
+          if (typeof window !== 'undefined') {
+            if (container) {
+              val = getComputedStyle(container).getPropertyValue(varName).trim();
+            }
+            if (!val && document.documentElement) {
+              val = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+            }
+            if (!val && document.body) {
+              val = getComputedStyle(document.body).getPropertyValue(varName).trim();
+            }
+          }
+          return val || (fallback ? fallback.trim() : '');
+        });
+      }
+      return resolved.trim() || 'serif';
+    };
+
+    const family = (s: CanvasSettings) => {
+      if (s.fontFamily) {
+        return resolveFontFamily(s.fontFamily);
+      }
+      if (container) {
+        const computed = getComputedStyle(container).fontFamily;
+        if (computed) return resolveFontFamily(computed);
+      }
+      return 'sans-serif';
+    };
+
     const fontFor = (s: CanvasSettings, size: number) => `${s.fontWeight} ${size}px ${family(s)}`;
 
     const palette = (s: CanvasSettings) => {
@@ -341,7 +377,9 @@ function CanvasTechText({
 
     const setFont = (target: CanvasRenderingContext2D, s: CanvasSettings, size: number) => {
       target.font = fontFor(s, size);
-      if ('letterSpacing' in target) target.letterSpacing = `${s.letterSpacing * size}px`;
+      if ('letterSpacing' in target && typeof s.letterSpacing === 'number') {
+        (target as any).letterSpacing = `${s.letterSpacing * size}px`;
+      }
       target.textAlign = 'left';
       target.textBaseline = 'alphabetic';
     };
@@ -365,15 +403,15 @@ function CanvasTechText({
         c.lineCap = 'butt';
         c.strokeStyle = ink;
         if (s.lineStyle !== 'solid') c.setLineDash([Math.max(1, s.dashLength), Math.max(1, s.dashGap)]);
-        c.strokeText(glyph.char, glyph.x, view.baseline);
+        c.strokeText(glyph.char, glyph.x, glyph.baseline);
         c.setLineDash([]);
         c.globalCompositeOperation = 'destination-out';
         c.fillStyle = '#000000';
-        c.fillText(glyph.char, glyph.x, view.baseline);
+        c.fillText(glyph.char, glyph.x, glyph.baseline);
         c.globalCompositeOperation = 'source-over';
       } else {
         c.fillStyle = ink;
-        c.fillText(glyph.char, glyph.x, view.baseline);
+        c.fillText(glyph.char, glyph.x, glyph.baseline);
       }
       return { image, left, top };
     };
@@ -384,6 +422,7 @@ function CanvasTechText({
         family(s),
         s.fontWeight,
         s.fontSize,
+        s.lineHeight ?? 1.2,
         s.letterSpacing,
         s.align,
         ink,
@@ -400,120 +439,205 @@ function CanvasTechText({
       const wanted = fontFor(s, 64);
       if (document.fonts && wanted !== requestedFont) {
         requestedFont = wanted;
-        document.fonts.load(wanted, s.text).then(refreshFonts, refreshFonts);
+        document.fonts.load(wanted, s.text.replace(/\s+/g, ' ')).then(refreshFonts, refreshFonts);
       }
 
       const probe = scratchCtx;
-      setFont(probe, s, s.fontSize);
-      let m = probe.measureText(s.text);
-      const mLeft = m.actualBoundingBoxLeft ?? 0;
-      const mRight = m.actualBoundingBoxRight ?? m.width ?? 0;
-      const mAscent = m.actualBoundingBoxAscent ?? (s.fontSize * 0.75);
-      const mDescent = m.actualBoundingBoxDescent ?? (s.fontSize * 0.25);
-      const fit = Math.min(
-        1,
-        (width * 0.9) / Math.max(mLeft + mRight, 1),
-        (height * 0.66) / Math.max(mAscent + mDescent, 1)
-      );
-      const size = s.fontSize * fit;
-      setFont(probe, s, size);
-      m = probe.measureText(s.text);
-      const inkLeft = m.actualBoundingBoxLeft ?? 0;
-      const inkRight = m.actualBoundingBoxRight ?? m.width ?? 0;
-      const inkAscent = m.actualBoundingBoxAscent ?? (size * 0.75);
-      const inkDescent = m.actualBoundingBoxDescent ?? (size * 0.25);
-      const inkWidth = inkLeft + inkRight;
-      const inkHeight = inkAscent + inkDescent;
-      const margin = width * 0.05;
-      const start =
-        s.align === 'left' ? margin : s.align === 'right' ? width - margin - inkWidth : (width - inkWidth) / 2;
-      const x = start + inkLeft;
-      const baseline = (height - inkHeight) / 2 + inkAscent;
-      const xAscent = probe.measureText('x').actualBoundingBoxAscent ?? (size * 0.5);
-      const hAscent = probe.measureText('H').actualBoundingBoxAscent ?? (size * 0.7);
-      const dAscent = probe.measureText('d').actualBoundingBoxAscent ?? (size * 0.75);
-      const pDescent = probe.measureText('p').actualBoundingBoxDescent ?? (size * 0.25);
-      const xHeight = baseline - xAscent;
-      const capHeight = baseline - hAscent;
-      const ascender = baseline - dAscent;
-      const descender = baseline + pDescent;
-      const top = baseline - inkAscent;
-      const bottom = baseline + inkDescent;
-      const inkTop = Math.min(top, capHeight) - 2;
-      const inkBottom = Math.max(bottom, baseline) + 2;
-      const next: Word = {
-        size,
-        baseline,
-        left: x - inkLeft,
-        right: x + inkRight,
-        top,
-        bottom,
-        lines: [
-          { y: baseline, label: 'baseline' },
-          { y: xHeight, label: 'x-height' },
-          { y: capHeight, label: 'cap height' },
-          ...(capHeight - ascender > Math.max(11, size * 0.06) ? [{ y: ascender, label: 'ascender' }] : []),
-          { y: descender, label: 'descender' }
-        ],
-        bands: [
-          { y0: xHeight, y1: baseline, up: true, order: 0 },
-          { y0: capHeight, y1: xHeight, up: true, order: 1 },
-          { y0: inkTop, y1: capHeight, up: true, order: 2 },
-          { y0: baseline, y1: inkBottom, up: false, order: 1 }
-        ].filter(band => band.y1 - band.y0 > 0.5)
-      };
-      word = next;
+      const availW = Math.max(20, width * 0.94);
+      const availH = Math.max(20, height * 0.88);
+      const lHeightMult = s.lineHeight || 1.2;
 
-      const chars = Array.from(s.text);
+      const getWrappedLines = (candidateSize: number): string[] => {
+        setFont(probe, s, candidateSize);
+        const rawParas = s.text.split('\n');
+        const wrapped: string[] = [];
+
+        for (const para of rawParas) {
+          if (!para.trim()) {
+            wrapped.push('');
+            continue;
+          }
+          const words = para.split(' ');
+          let currentLine = '';
+          for (let i = 0; i < words.length; i++) {
+            const w = words[i];
+            if (!w) continue;
+            const testStr = currentLine ? `${currentLine} ${w}` : w;
+            const wMeasure = probe.measureText(testStr).width;
+            if (wMeasure <= availW || !currentLine) {
+              currentLine = testStr;
+            } else {
+              wrapped.push(currentLine);
+              currentLine = w;
+            }
+          }
+          if (currentLine) {
+            wrapped.push(currentLine);
+          }
+        }
+        return wrapped.length > 0 ? wrapped : [s.text];
+      };
+
+      const testFit = (candidateSize: number) => {
+        setFont(probe, s, candidateSize);
+        const wrapped = getWrappedLines(candidateSize);
+        let maxW = 1;
+        for (const line of wrapped) {
+          const m = probe.measureText(line);
+          const lineW = (m.actualBoundingBoxLeft ?? 0) + (m.actualBoundingBoxRight ?? m.width ?? 0);
+          if (lineW > maxW) maxW = lineW;
+        }
+        const totalH = (wrapped.length - 1) * (candidateSize * lHeightMult) + candidateSize;
+        return {
+          wrapped,
+          maxW,
+          totalH,
+          fits: maxW <= availW && totalH <= availH
+        };
+      };
+
+      let bestSize = Math.max(14, Math.min(s.fontSize, 180));
+      let bestLines: string[] = [];
+      const initialCheck = testFit(bestSize);
+
+      if (initialCheck.fits) {
+        bestLines = initialCheck.wrapped;
+      } else {
+        let low = 14;
+        let high = bestSize;
+        bestSize = low;
+        bestLines = initialCheck.wrapped;
+
+        for (let iter = 0; iter < 7; iter++) {
+          const mid = Math.floor((low + high) / 2);
+          const check = testFit(mid);
+          if (check.fits) {
+            bestSize = mid;
+            bestLines = check.wrapped;
+            low = mid + 1;
+          } else {
+            high = mid - 1;
+          }
+        }
+        if (bestLines.length === 0) {
+          bestSize = Math.max(14, low);
+          bestLines = getWrappedLines(bestSize);
+        }
+      }
+
+      const size = bestSize;
+      setFont(probe, s, size);
+
+      const numLines = bestLines.length;
+      const stepY = size * lHeightMult;
+      const totalTextH = (numLines - 1) * stepY + size;
+      const startY = Math.max(0, (height - totalTextH) / 2);
+      const mH = probe.measureText('H');
+      const capAscent = mH.actualBoundingBoxAscent ?? (size * 0.72);
+      const firstBaseline = startY + capAscent + (size * 0.08);
+
       const previous = glyphs;
       glyphs = [];
-      let prefix = '';
-      chars.forEach((char, i) => {
-        prefix += char;
-        const own = probe.measureText(char);
-        const gx = x + probe.measureText(prefix).width - own.width;
-        if (!char.trim()) return;
-        const charLeft = own.actualBoundingBoxLeft ?? 0;
-        const charRight = own.actualBoundingBoxRight ?? own.width;
-        const charAscent = own.actualBoundingBoxAscent ?? (size * 0.75);
-        const charDescent = own.actualBoundingBoxDescent ?? (size * 0.25);
-        const base = {
-          char,
-          x: gx,
-          box: {
-            x1: gx - charLeft,
-            y1: baseline - charAscent,
-            x2: gx + charRight,
-            y2: baseline + charDescent
+      let globalIndex = 0;
+
+      bestLines.forEach((lineText, lineIdx) => {
+        const lineBaseline = firstBaseline + lineIdx * stepY;
+        const lm = probe.measureText(lineText);
+        const lineLeft = lm.actualBoundingBoxLeft ?? 0;
+        const lineRight = lm.actualBoundingBoxRight ?? lm.width ?? 0;
+        const lineW = lineLeft + lineRight;
+        const margin = width * 0.04;
+        const lineStartX =
+          s.align === 'left'
+            ? margin + lineLeft
+            : s.align === 'right'
+              ? width - margin - lineW + lineLeft
+              : (width - lineW) / 2 + lineLeft;
+
+        let linePrefix = '';
+        Array.from(lineText).forEach(char => {
+          linePrefix += char;
+          const own = probe.measureText(char);
+          const gx = lineStartX + probe.measureText(linePrefix).width - own.width;
+          if (!char.trim()) {
+            globalIndex++;
+            return;
           }
-        };
-        const kept = previous[glyphs.length];
-        glyphs.push({
-          ...base,
-          offset: kept?.char === char ? kept.offset : { x: 0, y: 0 },
-          velocity: { x: 0, y: 0 },
-          outline: 0,
-          shown: 1,
-          cells: null,
-          assembled: 0,
-          index: i,
-          fill: sprite(s, next, base, false, ink),
-          dashes: sprite(s, next, base, true, ink)
+          const charLeft = own.actualBoundingBoxLeft ?? 0;
+          const charRight = own.actualBoundingBoxRight ?? own.width;
+          const charAscent = own.actualBoundingBoxAscent ?? (size * 0.75);
+          const charDescent = own.actualBoundingBoxDescent ?? (size * 0.25);
+          const base: Shape = {
+            char,
+            x: gx,
+            baseline: lineBaseline,
+            box: {
+              x1: gx - charLeft,
+              y1: lineBaseline - charAscent,
+              x2: gx + charRight,
+              y2: lineBaseline + charDescent
+            }
+          };
+          const kept = previous[glyphs.length];
+          glyphs.push({
+            ...base,
+            offset: kept?.char === char ? kept.offset : { x: 0, y: 0 },
+            velocity: { x: 0, y: 0 },
+            outline: 0,
+            shown: 1,
+            cells: null,
+            assembled: 0,
+            index: globalIndex++,
+            fill: sprite(s, { size } as Word, base, false, ink),
+            dashes: sprite(s, { size } as Word, base, true, ink)
+          });
         });
       });
+
+      const allX1 = glyphs.map(g => g.box.x1);
+      const allX2 = glyphs.map(g => g.box.x2);
+      const allY1 = glyphs.map(g => g.box.y1);
+      const allY2 = glyphs.map(g => g.box.y2);
+      const wordLeft = allX1.length ? Math.min(...allX1) : width * 0.05;
+      const wordRight = allX2.length ? Math.max(...allX2) : width * 0.95;
+      const wordTop = allY1.length ? Math.min(...allY1) : startY;
+      const wordBottom = allY2.length ? Math.max(...allY2) : startY + totalTextH;
+
+      const next: Word = {
+        size,
+        baseline: firstBaseline,
+        left: wordLeft,
+        right: wordRight,
+        top: wordTop,
+        bottom: wordBottom,
+        lines: bestLines.map((line, k) => ({
+          y: firstBaseline + k * stepY,
+          label: numLines > 1 ? `line ${k + 1}` : 'baseline'
+        })),
+        bands: [
+          { y0: wordTop, y1: firstBaseline, up: true, order: 0 },
+          { y0: firstBaseline, y1: wordBottom, up: false, order: 1 }
+        ].filter(b => b.y1 - b.y0 > 0.5)
+      };
+
+      word = next;
       dragging = -1;
       frame.index = -1;
       return next;
     };
 
     const glyphAt = (x: number, y: number) => {
-      if (!word || y < word.top - 24 || y > word.bottom + 24) return -1;
+      if (!word || y < word.top - 28 || y > word.bottom + 28) return -1;
       let best = -1;
       let bestDistance = Infinity;
       glyphs.forEach((glyph, i) => {
         const x1 = glyph.box.x1 + glyph.offset.x;
         const x2 = glyph.box.x2 + glyph.offset.x;
-        const d = x < x1 ? x1 - x : x > x2 ? x - x2 : 0;
+        const y1 = glyph.box.y1 + glyph.offset.y;
+        const y2 = glyph.box.y2 + glyph.offset.y;
+        const dx = x < x1 ? x1 - x : x > x2 ? x - x2 : 0;
+        const dy = y < y1 ? y1 - y : y > y2 ? y - y2 : 0;
+        const d = Math.hypot(dx, dy);
         if (d < bestDistance) {
           bestDistance = d;
           best = i;
@@ -1218,6 +1342,7 @@ export default function TechText(props: TechTextProps) {
     props.specks !== undefined ||
     props.clickKick !== undefined ||
     props.guides !== undefined ||
+    props.lineHeight !== undefined ||
     Boolean(props.style?.height && props.style.height !== 'auto');
 
   if (isCanvasMode) {

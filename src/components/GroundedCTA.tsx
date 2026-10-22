@@ -7,12 +7,18 @@ import { GridScan, TechText, SpecularButton } from '@/components/react-bits';
 interface GroundedCTAProps {
   onOpenConsultation?: (divisionId?: string) => void;
   brandText?: string;
+  headlineText?: string;
 }
 
 export default function GroundedCTA({
   onOpenConsultation,
-  brandText = 'JC APEX VENTURES',
+  brandText,
+  headlineText,
 }: GroundedCTAProps) {
+  const headline =
+    headlineText ||
+    (brandText && brandText !== 'JC APEX VENTURES' ? brandText : undefined) ||
+    'Have a utility sanction, solar EPC,\nor interior fit-out requirement?';
   return (
     <section
       id="contact"
@@ -81,21 +87,24 @@ export default function GroundedCTA({
               />
             </div>
 
-            {/* Focal TechText Interactive Wordmark with Dashed Vector Reveal and Tactile Click Kick */}
-            <div
+            {/* Focal TechText Interactive Headline in Instrument Serif with Dashed Vector Reveal and Tactile Click Kick */}
+            <h2
               className="pointer-events-auto"
               style={{
                 width: '100%',
-                height: 'clamp(85px, 11vw, 135px)',
-                maxWidth: '780px',
-                margin: '0 auto 6px auto',
+                maxWidth: '820px',
+                height: 'clamp(120px, 15vw, 165px)',
+                margin: '4px auto 20px auto',
                 position: 'relative',
               }}
             >
               <TechText
-                text={brandText}
-                fontWeight={600}
-                fontSize={150}
+                text={headline}
+                fontFamily='var(--font-serif-display), "Instrument Serif", Georgia, serif'
+                fontWeight={400}
+                fontSize={56}
+                lineHeight={1.22}
+                letterSpacing={-0.02}
                 reveal="letter"
                 dashLength={4}
                 dashGap={2}
@@ -107,25 +116,11 @@ export default function GroundedCTA({
                 labels={false}
                 color="#FFFFFF"
                 accentColor="#7dd3fc"
+                align="center"
               />
-            </div>
-
-            <h2
-              style={{
-                fontSize: 'clamp(1.9rem, 3.6vw, 3.1rem)',
-                lineHeight: 1.18,
-                fontWeight: 400,
-                color: '#FFFFFF',
-                letterSpacing: '-0.02em',
-                margin: '0 auto 18px auto',
-                maxWidth: '780px',
-                fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
-                pointerEvents: 'auto',
-                textWrap: 'balance',
-              }}
-            >
-              Have a utility sanction, solar EPC, or{' '}
-              <span style={{ whiteSpace: 'nowrap' }}>interior fit-out</span> requirement?
+              <span className="sr-only">
+                Have a utility sanction, solar EPC, or interior fit-out requirement?
+              </span>
             </h2>
 
             <p
