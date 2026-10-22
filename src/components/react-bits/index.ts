@@ -28,4 +28,5 @@ export { default as SvgPathAnimator } from './SvgPathAnimator';
 export { default as PatternWaves } from './PatternWaves';
 export { default as FluxLines } from './FluxLines';
 export { default as HoloCard } from './HoloCard';
+export { default as GradientASCII } from './GradientASCII';
 export { default as SpotlightCard } from '../SpotlightCard';

@@ -1,17 +1,17 @@
 "use client";
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Clippy from '@/components/Clippy';
-import PageHero from '@/components/PageHero';
 import ScrollReveal from '@/components/ScrollReveal';
 import SolarCalculator, { CalculationResult } from '@/components/SolarCalculator';
 import SpotlightCard from '@/components/SpotlightCard';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 import { ImageWithLightbox } from '@/components/ImageLightbox';
 import { SolarGenerationCurve, CashflowPaybackSchedule } from '@/components/bklit';
-import { SvgPathAnimator } from '@/components/react-bits';
+import { SvgPathAnimator, GradientASCII } from '@/components/react-bits';
 import {
   Sun,
   CheckCircle2,
@@ -21,6 +21,7 @@ import {
   FileCheck2,
   Shield,
   ArrowRight,
+  ChevronRight,
   Phone,
   Mail,
   MapPin,
@@ -208,26 +209,249 @@ export default function SolisPage() {
   };
 
   return (
-    <main className="grounded-canvas" style={{ background: 'var(--color-bg)', minHeight: '100vh' }}>
+    <main className="solis-canvas" style={{ background: 'var(--color-bg)', minHeight: '100vh' }}>
       <Navbar />
       <Clippy />
 
-      {/* Page Hero */}
-      <PageHero
-        title="Solar EPC & Elevated Terrace Pergolas"
-        tagline="Turnkey Solar EPC, Elevated Terrace Pergolas, BIPV Architectural Glass and EV Charging Hubs in Mumbai."
-        breadcrumb="Solis Solar & Clean Energy"
-        statPill="Save up to 90% Power Bills"
-        heroImage="/images/solis_canopy_page1.jpg"
-        heroImageTag="Elevated Solar Pergola Canopy"
-        logo={
-          <img
-            src="/images/logos/solis-official.png"
-            alt="Official Solis Brand Logo"
-            style={{ height: '56px', width: 'auto', objectFit: 'contain', display: 'block' }}
+      {/* Solis High-Tech Clean Energy Hero with WebGL GradientASCII Background */}
+      <section
+        className="relative overflow-hidden"
+        style={{
+          paddingTop: '136px',
+          paddingBottom: '70px',
+          backgroundColor: '#F6F8FF',
+          borderBottom: '1px solid rgba(30, 63, 216, 0.14)',
+          position: 'relative',
+        }}
+      >
+        {/* WebGL GradientASCII Background Layer */}
+        <div
+          className="pointer-events-auto absolute inset-0 z-0 overflow-hidden"
+          style={{ opacity: 0.82 }}
+          aria-hidden="true"
+        >
+          <GradientASCII
+            colors={['#1e3fd8', '#f6f8ff', '#a5d8ff', '#38bdf8']}
+            shape="horizon"
+            characters=" =+xX0S8#@"
+            cellSize={18}
+            density={0.8}
           />
-        }
-      />
+          {/* Subtle Crystalline Glass Mask for Perfect Readability */}
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              background:
+                'radial-gradient(ellipse 95% 85% at 50% 25%, rgba(246, 248, 255, 0.65) 0%, rgba(246, 248, 255, 0.82) 60%, rgba(246, 248, 255, 0.98) 100%)',
+              pointerEvents: 'none',
+            }}
+          />
+        </div>
+
+        <div className="container" style={{ position: 'relative', zIndex: 5 }}>
+          {/* Breadcrumb */}
+          <div
+            className="animate-fade-in-up"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              marginBottom: '20px',
+              fontSize: '0.82rem',
+              color: '#64748B',
+              fontFamily: 'var(--font-sans, Inter, sans-serif)',
+            }}
+          >
+            <Link href="/" style={{ color: '#64748B', textDecoration: 'none' }}>
+              Home
+            </Link>
+            <ChevronRight size={13} color="#94A3B8" />
+            <Link href="/#divisions" style={{ color: '#64748B', textDecoration: 'none' }}>
+              Divisions
+            </Link>
+            <ChevronRight size={13} color="#94A3B8" />
+            <span style={{ color: '#1E3FD8', fontWeight: 700 }}>Solis Solar &amp; Clean Energy</span>
+          </div>
+
+          <div
+            className="page-hero-grid"
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1.15fr 0.85fr',
+              gap: '48px',
+              alignItems: 'center',
+            }}
+          >
+            <div>
+              {/* Header row with Solis official logo and discipline title */}
+              <div
+                className="animate-fade-in-up"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '20px',
+                  flexWrap: 'wrap',
+                  marginBottom: '22px',
+                }}
+              >
+                <div
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: 'transparent',
+                    flexShrink: 0,
+                  }}
+                >
+                  <img
+                    src="/images/logos/solis-official.png"
+                    alt="Official Solis Brand Logo"
+                    style={{ height: '56px', width: 'auto', objectFit: 'contain', display: 'block' }}
+                  />
+                </div>
+                <span
+                  aria-hidden="true"
+                  style={{
+                    width: '2px',
+                    height: '44px',
+                    backgroundColor: '#F59E0B',
+                    display: 'inline-block',
+                    flexShrink: 0,
+                    borderRadius: '2px',
+                  }}
+                />
+
+                <h1
+                  style={{
+                    flex: 1,
+                    minWidth: '220px',
+                    fontSize: 'clamp(2rem, 3.4vw, 2.95rem)',
+                    margin: 0,
+                    fontWeight: 400,
+                    color: '#0A1128',
+                    lineHeight: 1.12,
+                    letterSpacing: '-0.025em',
+                    fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+                  }}
+                >
+                  Solar EPC &amp; Elevated Terrace Pergolas
+                </h1>
+              </div>
+
+              <p
+                className="animate-fade-in-up delay-200"
+                style={{
+                  fontSize: 'clamp(1.02rem, 1.6vw, 1.18rem)',
+                  color: '#334155',
+                  maxWidth: '680px',
+                  lineHeight: 1.68,
+                  marginBottom: '24px',
+                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                }}
+              >
+                Turnkey Solar EPC, Elevated Terrace Pergolas, BIPV Architectural Glass and EV Charging Hubs in Mumbai.
+              </p>
+
+              <div className="animate-fade-in-up delay-300" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                <span
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    padding: '8px 16px',
+                    borderRadius: '9999px',
+                    backgroundColor: '#FFFFFF',
+                    border: '1.5px solid rgba(30, 63, 216, 0.25)',
+                    color: '#1E3FD8',
+                    fontSize: '0.82rem',
+                    fontWeight: 700,
+                    boxShadow: '0 4px 14px rgba(30, 63, 216, 0.08)',
+                  }}
+                >
+                  <span
+                    style={{
+                      width: '8px',
+                      height: '8px',
+                      borderRadius: '9999px',
+                      backgroundColor: '#F59E0B',
+                      boxShadow: '0 0 8px #F59E0B',
+                    }}
+                  />
+                  Save up to 90% Power Bills
+                </span>
+                <span
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    padding: '8px 16px',
+                    borderRadius: '9999px',
+                    backgroundColor: 'rgba(30, 63, 216, 0.08)',
+                    border: '1px solid rgba(30, 63, 216, 0.2)',
+                    color: '#0A1128',
+                    fontSize: '0.82rem',
+                    fontWeight: 650,
+                  }}
+                >
+                  MNRE / PM Surya Ghar Approved
+                </span>
+              </div>
+            </div>
+
+            {/* Right Hero Image Card */}
+            <div className="animate-fade-in-up delay-400">
+              <div
+                style={{
+                  position: 'relative',
+                  borderRadius: '24px',
+                  overflow: 'hidden',
+                  boxShadow: '0 24px 60px -12px rgba(30, 63, 216, 0.2), 0 0 0 1px rgba(30, 63, 216, 0.2)',
+                  backgroundColor: '#FFFFFF',
+                }}
+              >
+                <div style={{ position: 'relative', height: '360px', width: '100%' }}>
+                  <ImageWithLightbox
+                    src="/images/solis_canopy_page1.jpg"
+                    alt="Elevated Solar Pergola Canopy"
+                    title="Elevated Solar Pergola Canopy — Walkable Terrace Rooftop"
+                    style={{ width: '100%', height: '100%' }}
+                  />
+                </div>
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: '16px',
+                    left: '16px',
+                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                    backdropFilter: 'blur(12px)',
+                    padding: '6px 14px',
+                    borderRadius: '9999px',
+                    fontSize: '0.72rem',
+                    fontWeight: 700,
+                    color: '#0A1128',
+                    border: '1px solid rgba(30, 63, 216, 0.2)',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.06)',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                  }}
+                >
+                  <span
+                    style={{
+                      width: '6px',
+                      height: '6px',
+                      borderRadius: '9999px',
+                      backgroundColor: '#F59E0B',
+                    }}
+                  />
+                  ELEVATED SOLAR PERGOLA CANOPY
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Overview Intro */}
       <section className="section" style={{ paddingBottom: '40px' }}>
@@ -1049,7 +1273,7 @@ export default function SolisPage() {
               width={64}
               height={64}
               viewBox="0 0 100 80"
-              strokeColor="#C29F53"
+              strokeColor="#1E3FD8"
               strokeWidth={2.5}
             />
           </div>
@@ -1237,14 +1461,14 @@ export default function SolisPage() {
                   position: 'relative',
                   width: '100%',
                   maxWidth: '880px',
-                  backgroundColor: '#FAF8F5',
+                  backgroundColor: '#FFFFFF',
                   borderRadius: '24px',
                   overflow: 'hidden',
                   boxShadow: '0 32px 80px rgba(0, 0, 0, 0.6)',
                   maxHeight: '90vh',
                   display: 'flex',
                   flexDirection: 'column',
-                  border: '1px solid rgba(0, 0, 0, 0.1)',
+                  border: '1px solid rgba(30, 63, 216, 0.16)',
                 }}
               >
                 {/* Modal Header */}
@@ -1263,7 +1487,7 @@ export default function SolisPage() {
                       style={{
                         fontFamily: 'var(--font-sans, Inter, sans-serif)',
                         fontSize: '0.78rem',
-                        color: '#C29F53',
+                        color: '#1E3FD8',
                         textTransform: 'uppercase',
                         letterSpacing: '0.08em',
                         fontWeight: 600,
@@ -1292,13 +1516,13 @@ export default function SolisPage() {
                       width: '38px',
                       height: '38px',
                       borderRadius: '50%',
-                      border: '1px solid rgba(0, 0, 0, 0.12)',
-                      backgroundColor: '#F4F1EA',
+                      border: '1px solid rgba(30, 63, 216, 0.16)',
+                      backgroundColor: '#EEF4FF',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       cursor: 'pointer',
-                      color: '#111111',
+                      color: '#0A1128',
                       transition: 'background-color 0.2s ease',
                       flexShrink: 0,
                     }}
@@ -1351,7 +1575,7 @@ export default function SolisPage() {
                               height: '52px',
                               borderRadius: '8px',
                               overflow: 'hidden',
-                              border: dossierPhotoIdx === idx ? '2px solid #C29F53' : '1px solid rgba(0,0,0,0.12)',
+                              border: dossierPhotoIdx === idx ? '2px solid #1E3FD8' : '1px solid rgba(30, 63, 216, 0.16)',
                               padding: 0,
                               cursor: 'pointer',
                               opacity: dossierPhotoIdx === idx ? 1 : 0.6,
@@ -1443,7 +1667,7 @@ export default function SolisPage() {
                         style={{
                           fontSize: '0.74rem',
                           fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                          color: '#C29F53',
+                          color: '#1E3FD8',
                           textTransform: 'uppercase',
                           fontWeight: 600,
                           display: 'block',
@@ -1483,7 +1707,7 @@ export default function SolisPage() {
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                       {selectedDossier.outcomes.map((outcome: string, i: number) => (
                         <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.88rem', color: '#333333' }}>
-                          <CheckCircle2 size={16} color="#C29F53" style={{ flexShrink: 0 }} />
+                          <CheckCircle2 size={16} color="#1E3FD8" style={{ flexShrink: 0 }} />
                           <span>{outcome}</span>
                         </div>
                       ))}

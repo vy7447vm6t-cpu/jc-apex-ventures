@@ -234,8 +234,8 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
               alt="Solis Official Logo"
               style={{ height: '36px', width: 'auto', objectFit: 'contain', display: 'block' }}
             />
-            <span style={{ width: '1.5px', height: '24px', backgroundColor: 'rgba(194, 159, 83, 0.55)', display: 'inline-block' }} />
-            <span style={{ fontSize: '0.76rem', color: '#8C733E', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+            <span style={{ width: '1.5px', height: '24px', backgroundColor: 'var(--color-solis-amber, #F59E0B)', display: 'inline-block' }} />
+            <span style={{ fontSize: '0.76rem', color: 'var(--color-accent, #1E3FD8)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
               [SOLIS SOLAR &amp; CLEAN ENERGY ESTIMATOR]
             </span>
           </div>
@@ -250,7 +250,7 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
         {/* Input Mode Toggle */}
         <div style={{
           display: 'flex',
-          background: '#F4F1EA',
+          background: 'var(--color-bg-elevated, #EEF4FF)',
           padding: '4px',
           borderRadius: '100px',
           border: '1px solid rgba(0, 0, 0, 0.08)',
@@ -346,7 +346,7 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
           </div>
 
           {/* 2. Bill or Area Slider */}
-          <div style={{ marginBottom: '28px', padding: '20px', borderRadius: '16px', background: 'var(--color-grounded-stone, #F4F1EA)', border: '1px solid rgba(0, 0, 0, 0.08)' }}>
+          <div style={{ marginBottom: '28px', padding: '20px', borderRadius: '16px', background: 'var(--color-bg-elevated, #EEF4FF)', border: '1px solid rgba(0, 0, 0, 0.08)' }}>
             {inputMode === 'bill' ? (
               <>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
@@ -495,7 +495,7 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
                 <p style={{ fontSize: '0.82rem', color: '#666666', lineHeight: 1.4, margin: 0, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                   Elevated 10 to 12 ft on galvanized columns. 100% usable terrace, walking space, and rain gutters.
                 </p>
-                <span style={{ display: 'inline-block', marginTop: '8px', fontSize: '0.74rem', color: '#C29F53', fontWeight: 600, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+                <span style={{ display: 'inline-block', marginTop: '8px', fontSize: '0.74rem', color: 'var(--color-accent, #1E3FD8)', fontWeight: 600, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                   +Rs 12/watt premium
                 </span>
               </button>
@@ -676,7 +676,7 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 14px', borderRadius: '10px', background: '#FFFFFF', border: '1.5px solid #111111' }}>
                   <span style={{ fontSize: '0.88rem', color: '#111111', fontWeight: 600, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>Expected Monthly Savings</span>
-                  <strong style={{ fontSize: '1.05rem', color: '#C29F53', fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif' }}>{formatCurrency(monthlySavingsRs)} / month</strong>
+                  <strong style={{ fontSize: '1.05rem', color: 'var(--color-accent, #1E3FD8)', fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif' }}>{formatCurrency(monthlySavingsRs)} / month</strong>
                 </div>
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 14px', borderRadius: '10px', background: '#FFFFFF', border: '1px solid rgba(0, 0, 0, 0.06)' }}>
@@ -788,35 +788,35 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
             {activeTab === 'technical' && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.84rem' }}>
                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
-                  <CheckCircle2 size={16} color="#C29F53" style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <CheckCircle2 size={16} color="var(--color-accent, #1E3FD8)" style={{ flexShrink: 0, marginTop: '2px' }} />
                   <div style={{ color: '#444444', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                     <strong style={{ color: '#111111' }}>Tier-1 540W to 590W Solar Modules:</strong> High-efficiency mono PERC or bifacial half-cut panels with 25-year performance warranty.
                   </div>
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
-                  <CheckCircle2 size={16} color="#C29F53" style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <CheckCircle2 size={16} color="var(--color-accent, #1E3FD8)" style={{ flexShrink: 0, marginTop: '2px' }} />
                   <div style={{ color: '#444444', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                     <strong style={{ color: '#111111' }}>On-Grid String Inverter:</strong> IP65 rated, multi-MPPT tracking, integrated Wi-Fi mobile monitoring.
                   </div>
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
-                  <CheckCircle2 size={16} color="#C29F53" style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <CheckCircle2 size={16} color="var(--color-accent, #1E3FD8)" style={{ flexShrink: 0, marginTop: '2px' }} />
                   <div style={{ color: '#444444', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                     <strong style={{ color: '#111111' }}>Mounting Structure:</strong> Hot-dip galvanized steel (minimum 80 microns) certified for wind speeds up to 150 km/h.
                   </div>
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
-                  <CheckCircle2 size={16} color="#C29F53" style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <CheckCircle2 size={16} color="var(--color-accent, #1E3FD8)" style={{ flexShrink: 0, marginTop: '2px' }} />
                   <div style={{ color: '#444444', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                     <strong style={{ color: '#111111' }}>Safety & Protection:</strong> Class II SPD lightning protection, dual chemical earthing pits for AC and DC circuits.
                   </div>
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
-                  <CheckCircle2 size={16} color="#C29F53" style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <CheckCircle2 size={16} color="var(--color-accent, #1E3FD8)" style={{ flexShrink: 0, marginTop: '2px' }} />
                   <div style={{ color: '#444444', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                     <strong style={{ color: '#111111' }}>DISCOM Liaisoning:</strong> Complete net-metering paperwork, inspection clearance with BEST, Adani, Tata Power, or MSEDCL.
                   </div>
@@ -856,7 +856,7 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
             {appliedNotice && (
               <div style={{
                 textAlign: 'center',
-                color: '#C29F53',
+                color: 'var(--color-accent, #1E3FD8)',
                 fontSize: '0.85rem',
                 marginTop: '10px',
                 fontWeight: 600,
