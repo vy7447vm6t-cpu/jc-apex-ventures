@@ -269,7 +269,7 @@ export const OFFICIAL_LOGOS = {
   },
   sanyog: {
     light: '/images/logos/sanyog-official.png',
-    dark: '/images/logos/sanyog-official.png',
+    dark: '/images/logos/sanyog-white.png',
   },
   'grid-apex': {
     light: '/images/logos/grid-apex-official.png',

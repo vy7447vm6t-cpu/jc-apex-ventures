@@ -97,7 +97,7 @@ function SectionHeading({ title, intro, rightSlot }: { title: string; intro?: st
 
 const OFFICIAL_DIVISION_LOGOS: Record<string, { src: string; darkSrc: string; alt: string; height?: number }> = {
   solis: { src: '/images/logos/solis-official.png', darkSrc: '/images/logos/solis-logo-white.png', alt: 'Solis Official Logo', height: 56 },
-  sanyog: { src: '/images/logos/sanyog-official.png', darkSrc: '/images/logos/sanyog-official.png', alt: 'Sanyog Official Logo', height: 56 },
+  sanyog: { src: '/images/logos/sanyog-official.png', darkSrc: '/images/logos/sanyog-white.png', alt: 'Sanyog Official Logo', height: 56 },
   'grid-apex': { src: '/images/logos/grid-apex-official.png', darkSrc: '/images/logos/grid-apex-white.png', alt: 'Grid Apex Official Logo', height: 54 },
   tvasta: { src: '/images/logos/tvasta-dark.png', darkSrc: '/images/logos/tvasta-official.png', alt: 'Tvasta Official Logo', height: 56 },
   emudran: { src: '/images/logos/emudran-official.png', darkSrc: '/images/logos/emudran-white.png', alt: 'eMudran Official Logo', height: 54 },

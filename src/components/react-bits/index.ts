@@ -19,6 +19,7 @@ export type { LineSidebarItem } from './LineSidebar';
 export { default as LogoLoop } from './LogoLoop';
 export { default as ElectricBorder } from './ElectricBorder';
 export { default as FaultyTerminal } from './FaultyTerminal';
+export type { FaultyTerminalProps, FaultyTerminalGlyphs, FaultyTerminalClickEffect } from './FaultyTerminal';
 export { default as TargetCursor } from './TargetCursor';
 export { default as ScrollStack } from './ScrollStack';
 export type { ScrollStackCard } from './ScrollStack';
