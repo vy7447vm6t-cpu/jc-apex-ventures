@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowUpRight, ChevronDown } from 'lucide-react';
-import { TechText, SpecularButton, ElectricBorder, MicroSlats, AccordionGallery, OptionWheel } from '@/components/react-bits';
+import { TechText, SpecularButton, ElectricBorder, MicroSlats, AccordionGallery, OptionWheel, CRTWarp } from '@/components/react-bits';
 
 interface PracticeDiscipline {
   id: string;
@@ -124,7 +124,7 @@ const DISCIPLINES: PracticeDiscipline[] = [
 export default function GroundedServices() {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [mobileExpanded, setMobileExpanded] = useState<number | null>(0);
-  const [viewMode, setViewMode] = useState<'split' | 'gallery'>('split');
+  const [viewMode, setViewMode] = useState<'split' | 'gallery'>('gallery');
   const activeDiscipline = DISCIPLINES[activeIndex];
 
   const galleryItems = DISCIPLINES.map((d) => ({
@@ -145,21 +145,45 @@ export default function GroundedServices() {
       id="services"
       className="services-section relative overflow-hidden"
       style={{
-        backgroundColor: '#FFFFFF',
-        color: '#111111',
+        backgroundColor: '#120f17',
+        color: '#FFFFFF',
         padding: 'clamp(100px, 13vh, 140px) 24px',
         position: 'relative',
         zIndex: 5,
         scrollMarginTop: '104px',
-        borderTop: '1px solid rgba(0, 0, 0, 0.08)',
-        borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
+        borderTop: '1px solid rgba(199, 85, 247, 0.18)',
+        borderBottom: '1px solid rgba(199, 85, 247, 0.18)',
       }}
     >
+      {/* Background WebGL CRTWarp Canvas Layer */}
+      <div
+        className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
+        style={{ opacity: 0.88 }}
+        aria-hidden="true"
+      >
+        <CRTWarp
+          color="#c755f7"
+          backgroundColor="#120f17"
+          mask="aperture"
+          curvature={0.25}
+          persistence={0.4}
+        />
+        {/* Soft Vignette Scrim to ensure crisp typography and high contrast */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background:
+              'radial-gradient(ellipse 95% 85% at 50% 25%, rgba(18, 15, 23, 0.72) 0%, rgba(18, 15, 23, 0.55) 55%, rgba(18, 15, 23, 0.88) 100%)',
+          }}
+        />
+      </div>
+
       {/* Anchor for backward compatibility with #divisions */}
       <div id="divisions" className="absolute -top-24 pointer-events-none" aria-hidden="true" />
 
       {/* Background Architectural MicroSlats CAD Louvers with Datum Ticks */}
-      <MicroSlats count={24} color="#8C733E" opacity={0.06} zIndex={1} showTicks={true} />
+      <MicroSlats count={24} color="#C29F53" opacity={0.08} zIndex={1} showTicks={true} />
       <div style={{ maxWidth: '1240px', margin: '0 auto', width: '100%', position: 'relative', zIndex: 2 }}>
         {/* Eyebrow Label */}
         <div className="eye-brow-container" style={{ marginBottom: '24px', textAlign: 'left' }}>
@@ -171,7 +195,7 @@ export default function GroundedServices() {
               fontWeight: 650,
               letterSpacing: '0.08em',
               textTransform: 'uppercase',
-              color: '#8C733E',
+              color: '#C29F53',
               display: 'inline-block',
             }}
           >
@@ -198,7 +222,7 @@ export default function GroundedServices() {
                 lineHeight: 1.14,
                 fontWeight: 400,
                 letterSpacing: '-0.025em',
-                color: '#111111',
+                color: '#FFFFFF',
                 margin: '0 0 20px 0',
                 fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
               }}
@@ -208,7 +232,7 @@ export default function GroundedServices() {
             <p
               style={{
                 fontSize: 'clamp(1.02rem, 1.35vw, 1.18rem)',
-                color: '#555555',
+                color: 'rgba(255, 255, 255, 0.82)',
                 lineHeight: 1.68,
                 margin: 0,
                 fontFamily: 'var(--font-sans, Inter, sans-serif)',

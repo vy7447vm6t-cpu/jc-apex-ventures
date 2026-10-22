@@ -2,11 +2,12 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { animate } from 'animejs';
-import { MicroSlats, TechText, SpotlightCard } from '@/components/react-bits';
+import { MicroSlats, TechText, SpotlightCard, PatternWaves } from '@/components/react-bits';
 import AuthorityLogo from './AuthorityLogos';
 
 interface StatMetric {
   id: string;
+  index: string;
   category: string;
   value: number;
   suffix: string;
@@ -18,6 +19,7 @@ interface StatMetric {
 const STAT_METRICS: StatMetric[] = [
   {
     id: 'stat-practice',
+    index: '01',
     category: 'Utility Practice',
     value: 36,
     suffix: '+',
@@ -31,9 +33,6 @@ const STAT_METRICS: StatMetric[] = [
           alignItems: 'center',
           justifyContent: 'space-between',
           gap: '8px',
-          paddingTop: '14px',
-          marginTop: '16px',
-          borderTop: '1px solid rgba(0, 0, 0, 0.07)',
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -59,6 +58,7 @@ const STAT_METRICS: StatMetric[] = [
   },
   {
     id: 'stat-sanctions',
+    index: '02',
     category: 'Statutory Clearances',
     value: 140,
     suffix: '+',
@@ -72,9 +72,6 @@ const STAT_METRICS: StatMetric[] = [
           alignItems: 'center',
           flexWrap: 'wrap',
           gap: '6px',
-          paddingTop: '14px',
-          marginTop: '16px',
-          borderTop: '1px solid rgba(0, 0, 0, 0.07)',
         }}
       >
         {['MERC CGRF', 'PWD CEI', '11kV/33kV', 'Net-Metering'].map((tag) => (
@@ -99,6 +96,7 @@ const STAT_METRICS: StatMetric[] = [
   },
   {
     id: 'stat-disciplines',
+    index: '03',
     category: 'Practice Disciplines',
     value: 6,
     suffix: '',
@@ -113,9 +111,6 @@ const STAT_METRICS: StatMetric[] = [
           justifyContent: 'space-between',
           flexWrap: 'wrap',
           gap: '8px',
-          paddingTop: '14px',
-          marginTop: '16px',
-          borderTop: '1px solid rgba(0, 0, 0, 0.07)',
         }}
       >
         {[
@@ -188,6 +183,187 @@ function AnimeCounter({ target, suffix = '' }: { target: number; suffix?: string
   );
 }
 
+/** Individual stat card with staggered scroll-entrance */
+function StatCard({ item, stagger }: { item: StatMetric; stagger: number }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = cardRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.18, rootMargin: '0px 0px -60px 0px' }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={cardRef}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : 'translateY(32px)',
+        transition: `opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${stagger}ms, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${stagger}ms`,
+        willChange: 'opacity, transform',
+      }}
+    >
+      <SpotlightCard
+        key={item.id}
+        theme="light"
+        className="why-stat-card text-left"
+        spotlightColor="rgba(194, 159, 83, 0.14)"
+        borderColor="rgba(194, 159, 83, 0.42)"
+        style={{ textAlign: 'left' }}
+        contentStyle={{ justifyContent: 'space-between', textAlign: 'left', height: '100%' }}
+      >
+        {/* Card Top Gold Hairline Accent */}
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            height: '2.5px',
+            background:
+              'linear-gradient(90deg, rgba(194, 159, 83, 0.95) 0%, rgba(194, 159, 83, 0.35) 70%, rgba(194, 159, 83, 0.05) 100%)',
+            borderRadius: '2px 2px 0 0',
+          }}
+        />
+
+        {/* Upper zone: index + category + number */}
+        <div style={{ marginBottom: '20px', textAlign: 'left' }}>
+          {/* Index badge + Category label row */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              marginBottom: '14px',
+              textAlign: 'left',
+            }}
+          >
+            <span
+              style={{
+                fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                fontSize: '0.6rem',
+                fontWeight: 700,
+                letterSpacing: '0.04em',
+                color: '#8C733E',
+                backgroundColor: 'rgba(194, 159, 83, 0.1)',
+                border: '1px solid rgba(194, 159, 83, 0.2)',
+                padding: '2px 7px',
+                borderRadius: '5px',
+                lineHeight: 1.6,
+              }}
+            >
+              {item.index}
+            </span>
+            <span
+              style={{
+                fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                fontSize: '0.72rem',
+                fontWeight: 650,
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                color: '#8C733E',
+                display: 'block',
+                textAlign: 'left',
+              }}
+            >
+              <TechText
+                text={item.category}
+                scrambleSpeed={28}
+                maxScrambles={6}
+                triggerOnHover={true}
+                style={{ fontFamily: 'inherit' }}
+              />
+            </span>
+          </div>
+
+          {/* Big number */}
+          <div
+            className="stat-counter"
+            style={{
+              fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+              fontSize: 'clamp(3.4rem, 5vw, 4.6rem)',
+              fontWeight: 400,
+              lineHeight: 0.95,
+              letterSpacing: '-0.03em',
+              color: '#111111',
+              margin: '0 0 4px 0',
+              fontVariantNumeric: 'tabular-nums',
+              textAlign: 'left',
+            }}
+          >
+            <AnimeCounter target={item.value} suffix={item.suffix} />
+          </div>
+        </div>
+
+        {/* Divider */}
+        <div
+          style={{
+            height: '1px',
+            background: 'linear-gradient(90deg, rgba(194, 159, 83, 0.3) 0%, rgba(0, 0, 0, 0.05) 100%)',
+            marginBottom: '18px',
+          }}
+        />
+
+        {/* Lower zone: title + description + footer */}
+        <div style={{ textAlign: 'left', flex: 1, display: 'flex', flexDirection: 'column' }}>
+          <h3
+            style={{
+              fontFamily: 'var(--font-sans, Inter, sans-serif)',
+              fontSize: '1.02rem',
+              fontWeight: 600,
+              letterSpacing: '-0.01em',
+              color: '#111111',
+              margin: '0 0 8px 0',
+              lineHeight: 1.35,
+              textAlign: 'left',
+            }}
+          >
+            {item.title}
+          </h3>
+          <p
+            style={{
+              fontFamily: 'var(--font-sans, Inter, sans-serif)',
+              fontSize: '0.9rem',
+              lineHeight: 1.6,
+              color: '#555555',
+              margin: 0,
+              fontWeight: 380,
+              textAlign: 'left',
+              flex: 1,
+            }}
+          >
+            {item.description}
+          </p>
+
+          {/* Footer */}
+          <div
+            style={{
+              paddingTop: '14px',
+              marginTop: '16px',
+              borderTop: '1px solid rgba(0, 0, 0, 0.07)',
+            }}
+          >
+            {item.footerNode}
+          </div>
+        </div>
+      </SpotlightCard>
+    </div>
+  );
+}
+
 export default function GroundedWhy() {
   return (
     <section
@@ -205,6 +381,32 @@ export default function GroundedWhy() {
         textAlign: 'left',
       }}
     >
+      {/* Background PatternWaves subtle texture */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          zIndex: 0,
+          pointerEvents: 'auto',
+        }}
+      >
+        <PatternWaves
+          preset="silk"
+          color="#8C733E"
+          backgroundColor="transparent"
+          opacity={0.08}
+          fade="edges"
+          fadeSize={0.6}
+          speed={0.15}
+          depth={0.7}
+          spacing={10}
+          interactive
+          cursorSize={60}
+          cursorStrength={0.4}
+          intro
+        />
+      </div>
+
       {/* Background Architectural MicroSlats Rhythm matching Hero 24-slat grid */}
       <MicroSlats count={24} color="#8C733E" opacity={0.11} zIndex={1} showTicks={true} />
 
@@ -276,101 +478,8 @@ export default function GroundedWhy() {
 
         {/* 3-Column Grounded Stat Item List in KokonutUI Liquid Glass Cards */}
         <div className="layout60_grid" style={{ textAlign: 'left' }}>
-          {STAT_METRICS.map((item) => (
-            <SpotlightCard
-              key={item.id}
-              theme="light"
-              className="why-stat-card text-left"
-              spotlightColor="rgba(194, 159, 83, 0.14)"
-              borderColor="rgba(194, 159, 83, 0.42)"
-              style={{ textAlign: 'left' }}
-              contentStyle={{ justifyContent: 'space-between', textAlign: 'left', height: '100%' }}
-            >
-              {/* Card Top Gold Hairline Accent */}
-              <div
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: '24px',
-                  right: '24px',
-                  height: '2px',
-                  background:
-                    'linear-gradient(90deg, rgba(194, 159, 83, 0.85) 0%, rgba(194, 159, 83, 0.15) 100%)',
-                  borderRadius: '2px',
-                }}
-              />
-
-              <div style={{ marginBottom: '18px', textAlign: 'left' }}>
-                <span
-                  style={{
-                    fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                    fontSize: '0.72rem',
-                    fontWeight: 650,
-                    letterSpacing: '0.08em',
-                    textTransform: 'uppercase',
-                    color: '#8C733E',
-                    display: 'block',
-                    marginBottom: '8px',
-                    textAlign: 'left',
-                  }}
-                >
-                  <TechText
-                    text={item.category}
-                    scrambleSpeed={28}
-                    maxScrambles={6}
-                    triggerOnHover={true}
-                    style={{ fontFamily: 'inherit' }}
-                  />
-                </span>
-                <div
-                  className="stat-counter"
-                  style={{
-                    fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
-                    fontSize: 'clamp(3.4rem, 5vw, 4.6rem)',
-                    fontWeight: 400,
-                    lineHeight: 0.95,
-                    letterSpacing: '-0.03em',
-                    color: '#111111',
-                    margin: '4px 0 8px 0',
-                    fontVariantNumeric: 'tabular-nums',
-                    textAlign: 'left',
-                  }}
-                >
-                  <AnimeCounter target={item.value} suffix={item.suffix} />
-                </div>
-              </div>
-
-              <div style={{ textAlign: 'left' }}>
-                <h3
-                  style={{
-                    fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                    fontSize: '1.02rem',
-                    fontWeight: 600,
-                    letterSpacing: '-0.01em',
-                    color: '#111111',
-                    margin: '0 0 8px 0',
-                    lineHeight: 1.35,
-                    textAlign: 'left',
-                  }}
-                >
-                  {item.title}
-                </h3>
-                <p
-                  style={{
-                    fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                    fontSize: '0.9rem',
-                    lineHeight: 1.6,
-                    color: '#555555',
-                    margin: 0,
-                    fontWeight: 380,
-                    textAlign: 'left',
-                  }}
-                >
-                  {item.description}
-                </p>
-                {item.footerNode}
-              </div>
-            </SpotlightCard>
+          {STAT_METRICS.map((item, i) => (
+            <StatCard key={item.id} item={item} stagger={i * 120} />
           ))}
         </div>
       </div>

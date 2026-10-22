@@ -1500,28 +1500,45 @@ section[id] {
 
 .why-stat-card {
   position: relative;
-  background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: linear-gradient(
+    168deg,
+    rgba(255, 255, 255, 0.92) 0%,
+    rgba(252, 250, 246, 0.86) 60%,
+    rgba(248, 246, 240, 0.82) 100%
+  );
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(194, 159, 83, 0.18);
   border-radius: 18px;
   padding: 34px 28px;
   box-shadow: 
-    0 8px 30px -4px rgba(0, 0, 0, 0.04),
+    0 1px 2px 0 rgba(0, 0, 0, 0.03),
+    0 6px 20px -4px rgba(0, 0, 0, 0.05),
+    0 16px 44px -8px rgba(0, 0, 0, 0.04),
     inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.95);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.35s ease;
   display: flex;
   flex-direction: column;
-  justifyContent: space-between;
   text-align: left;
 }
 
 .why-stat-card:hover {
-  transform: translateY(-3px);
-  border-color: rgba(194, 159, 83, 0.35);
-  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-5px);
+  border-color: rgba(194, 159, 83, 0.4);
+  background: linear-gradient(
+    168deg,
+    rgba(255, 255, 255, 0.98) 0%,
+    rgba(254, 252, 248, 0.95) 60%,
+    rgba(252, 250, 245, 0.92) 100%
+  );
   box-shadow: 
-    0 16px 36px -4px rgba(0, 0, 0, 0.08),
+    0 2px 4px 0 rgba(0, 0, 0, 0.03),
+    0 12px 32px -4px rgba(0, 0, 0, 0.08),
+    0 24px 56px -8px rgba(0, 0, 0, 0.06),
+    0 0 0 1px rgba(194, 159, 83, 0.08),
     inset 0 1.5px 1px 0 #FFFFFF;
 }
 

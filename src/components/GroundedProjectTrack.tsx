@@ -382,7 +382,7 @@ const CASE_STUDIES: CaseStudy[] = [
 
 export default function GroundedProjectTrack() {
   const [selectedStudy, setSelectedStudy] = useState<CaseStudy | null>(null);
-  const [viewMode, setViewMode] = useState<'track' | 'depth'>('track');
+  const [viewMode, setViewMode] = useState<'track' | 'depth'>('depth');
   const [mobileIdx, setMobileIdx] = useState<number>(0);
   const mobileScrollRef = useRef<HTMLDivElement>(null);
 
@@ -681,6 +681,32 @@ export default function GroundedProjectTrack() {
       }}
     >
       <div id="builds" className="absolute top-0 pointer-events-none" style={{ scrollMarginTop: '104px' }} aria-hidden="true" />
+
+      {/* Background WebGL MicroSlats Layer */}
+      <div
+        className="pointer-events-auto absolute inset-0 z-0 overflow-hidden"
+        style={{ opacity: 0.18 }}
+        aria-hidden="true"
+      >
+        <MicroSlats
+          preset="swell"
+          color="#A855F7"
+          glintColor="#ffffff"
+          backgroundColor="#000000"
+          slatWidth={10}
+          slatHeight={25}
+          gap={3}
+          roundness={0.75}
+          interactive
+          cursorStrength={1}
+          cursorSize={40}
+          swirl={0}
+          trail={1.4}
+          lean={0}
+          intro
+        />
+      </div>
+
       {/* Subtle Architectural Louver Rhythm */}
       <MicroSlats count={24} color="#8C733E" opacity={0.08} zIndex={1} showTicks={true} />
 
@@ -761,7 +787,7 @@ export default function GroundedProjectTrack() {
           {viewMode === 'track' ? (
             <FlexCarousel items={carouselItems} gap={24} />
           ) : (
-            <div className="py-6 px-4 rounded-3xl bg-white/70 border border-black/8 shadow-sm">
+            <div className="py-6 px-4 md:px-8 rounded-3xl bg-white/75 backdrop-blur-md border border-black/8 shadow-md">
               <DepthCarousel
                 items={CASE_STUDIES.map((s) => ({
                   id: s.id,
@@ -769,11 +795,19 @@ export default function GroundedProjectTrack() {
                   tag: `${s.num} · ${s.divisionName}`,
                   image: s.primaryImage,
                   description: s.metric,
+                  location: s.location,
+                  metric: s.metric,
+                  outcome: s.statusTag,
+                  onClick: () => setSelectedStudy(s),
                 }))}
+                onSelect={(item) => {
+                  const found = CASE_STUDIES.find((c) => c.id === item.id);
+                  if (found) setSelectedStudy(found);
+                }}
               />
               <div className="text-center mt-3">
                 <p className="text-xs text-[#666666] font-sans">
-                  Click any card to inspect full technical CAD schematics and statutory outcomes.
+                  Click the active card or &quot;Inspect CAD&quot; to open the full engineering dossier and single-line schematics.
                 </p>
               </div>
             </div>

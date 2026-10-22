@@ -2,8 +2,7 @@
 
 import React, { useState } from 'react';
 import AuthorityLogo from './AuthorityLogos';
-import { MagicBento, TechText } from '@/components/react-bits';
-import type { BentoCardData } from '@/components/react-bits/MagicBento';
+import { TechText, FluxLines, HoloCard, MicroSlats } from '@/components/react-bits';
 
 interface DivisionBadge {
   name: string;
@@ -189,115 +188,51 @@ export default function GroundedAffiliations() {
       ? AFFILIATIONS
       : AFFILIATIONS.filter((item) => item.category === activeFilter);
 
-  const bentoCards: BentoCardData[] = filteredAffiliations.map((item) => ({
-    id: item.id,
-    title: item.name,
-    subtitle: item.scope,
-    badge: `${item.num} · ${item.jurisdiction}`,
-    icon: item.icon,
-    content: (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '14px' }}>
-        {/* Deliverable Pills */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-          {item.deliverables.map((deliv, dIdx) => (
-            <span
-              key={dIdx}
-              style={{
-                fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                fontSize: '0.68rem',
-                fontWeight: 600,
-                color: '#333333',
-                backgroundColor: '#F4F1EA',
-                border: '1px solid rgba(0, 0, 0, 0.08)',
-                padding: '3px 9px',
-                borderRadius: '6px',
-              }}
-            >
-              {deliv}
-            </span>
-          ))}
-        </div>
-
-        {/* Coordinating JC Apex Division Transparent Logos Row */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: '10px',
-            padding: '8px 12px',
-            borderRadius: '12px',
-            backgroundColor: 'rgba(244, 241, 234, 0.65)',
-            border: '1px solid rgba(194, 159, 83, 0.22)',
-          }}
-        >
-          <span
-            style={{
-              fontFamily: 'var(--font-sans, Inter, sans-serif)',
-              fontSize: '0.64rem',
-              fontWeight: 700,
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              color: '#777777',
-            }}
-          >
-            Practice Desk
-          </span>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            {item.divisions.map((div, idx) => (
-              <img
-                key={idx}
-                src={div.logo}
-                alt={div.name}
-                style={{
-                  height: '20px',
-                  width: 'auto',
-                  maxWidth: '68px',
-                  objectFit: 'contain',
-                  display: 'block',
-                }}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-    ),
-    footer: (
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px' }}>
-        <span style={{ color: '#8C733E', fontWeight: 600, fontSize: '0.73rem' }}>
-          <TechText text={item.code} scrambleSpeed={20} maxScrambles={4} triggerOnHover={true} />
-        </span>
-        <span
-          style={{
-            color: '#111111',
-            fontSize: '0.66rem',
-            fontWeight: 700,
-            backgroundColor: 'rgba(194, 159, 83, 0.16)',
-            padding: '2px 8px',
-            borderRadius: '9999px',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          {item.sla}
-        </span>
-      </div>
-    ),
-  }));
-
   return (
     <section
       id="affiliations"
       className="section_logo6 relative overflow-hidden"
       style={{
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#F8F6F0',
         color: '#111111',
         padding: 'clamp(96px, 12vh, 136px) 24px',
         borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
         textAlign: 'left',
         scrollMarginTop: '104px',
+        position: 'relative',
       }}
     >
-      <div style={{ maxWidth: '1240px', margin: '0 auto', width: '100%' }}>
+      {/* Background WebGL FluxLines Canvas Layer */}
+      <div
+        className="pointer-events-auto absolute inset-0 z-0 overflow-hidden"
+        style={{ opacity: 0.65 }}
+        aria-hidden="true"
+      >
+        <FluxLines
+          colors={['#ffffff', '#ffffff', '#ffffff']}
+          glow={2}
+          rimWidth={0.2}
+          lineWidth={1}
+          flowDirection="down"
+          mouseInteraction
+          clickSwirl
+        />
+        {/* Soft radial scrim to ensure text and cards maintain clarity */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background:
+              'radial-gradient(ellipse 90% 80% at 50% 20%, rgba(248, 246, 240, 0.75) 0%, rgba(244, 241, 234, 0.85) 60%, rgba(244, 241, 234, 0.96) 100%)',
+            pointerEvents: 'none',
+          }}
+        />
+      </div>
+
+      {/* Subtle Architectural Louvers */}
+      <MicroSlats count={20} color="#8C733E" opacity={0.06} zIndex={1} showTicks={true} />
+
+      <div style={{ maxWidth: '1240px', margin: '0 auto', width: '100%', position: 'relative', zIndex: 2 }}>
         {/* Eyebrow Label & Header */}
         <div
           style={{
@@ -347,10 +282,11 @@ export default function GroundedAffiliations() {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '6px',
-              backgroundColor: '#F4F1EA',
+              backgroundColor: '#FFFFFF',
               padding: '5px',
               borderRadius: '9999px',
               border: '1px solid rgba(0, 0, 0, 0.08)',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
             }}
           >
             {[
@@ -393,10 +329,12 @@ export default function GroundedAffiliations() {
             flexWrap: 'wrap',
             gap: '16px',
             padding: '16px 24px',
-            marginBottom: '32px',
+            marginBottom: '36px',
             borderRadius: '20px',
-            backgroundColor: '#F8F6F0',
+            backgroundColor: 'rgba(255, 255, 255, 0.9)',
+            backdropFilter: 'blur(12px)',
             border: '1px solid rgba(194, 159, 83, 0.28)',
+            boxShadow: '0 4px 20px -2px rgba(0, 0, 0, 0.04)',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
@@ -444,8 +382,251 @@ export default function GroundedAffiliations() {
           </div>
         </div>
 
-        {/* 9-Box MagicBento Grid with Cursor-Tracking Radial Gold Luminescence */}
-        <MagicBento cards={bentoCards} />
+        {/* 9-Box Interactive HoloCard Grid with Prismatic Tilt & Foil Glints */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
+          {filteredAffiliations.map((item, idx) => {
+            const presets: Array<'bursts' | 'stars' | 'shards' | 'cosmos' | 'rainbow' | 'swirl' | 'glitter' | 'gold'> = [
+              'bursts',
+              'shards',
+              'stars',
+              'gold',
+              'cosmos',
+              'glitter',
+              'bursts',
+              'shards',
+              'gold',
+            ];
+            const preset = presets[idx % presets.length];
+
+            return (
+              <div key={item.id} className="w-full flex justify-center">
+                <HoloCard
+                  preset={preset}
+                  width="100%"
+                  radius={20}
+                  aspectRatio={0.78}
+                  intensity={0.65}
+                  glare={0.4}
+                  foilColor="#D4AF37"
+                  className="w-full"
+                >
+                  <div
+                    style={{
+                      padding: '24px',
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                      textAlign: 'left',
+                      background: 'rgba(255, 255, 255, 0.88)',
+                      backdropFilter: 'blur(16px)',
+                      WebkitBackdropFilter: 'blur(16px)',
+                      borderRadius: '18px',
+                      border: '1px solid rgba(194, 159, 83, 0.32)',
+                      boxShadow: 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.9)',
+                    }}
+                  >
+                    {/* Top Section */}
+                    <div>
+                      {/* Jurisdiction Pill + Authority Emblem */}
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          gap: '12px',
+                          marginBottom: '16px',
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                            fontSize: '0.68rem',
+                            fontWeight: 700,
+                            letterSpacing: '0.04em',
+                            color: '#8C733E',
+                            backgroundColor: '#F4F1EA',
+                            padding: '3px 8px',
+                            borderRadius: '6px',
+                            border: '1px solid rgba(194, 159, 83, 0.25)',
+                          }}
+                        >
+                          {item.num} · {item.jurisdiction}
+                        </span>
+                        <div
+                          style={{
+                            padding: '4px',
+                            borderRadius: '9999px',
+                            backgroundColor: '#FFFFFF',
+                            boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+                            border: '1px solid rgba(0,0,0,0.05)',
+                          }}
+                        >
+                          <AuthorityLogo id={item.id} size={30} />
+                        </div>
+                      </div>
+
+                      {/* Acronym & Title */}
+                      <div style={{ marginBottom: '10px' }}>
+                        <span
+                          style={{
+                            fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                            fontSize: '0.64rem',
+                            fontWeight: 700,
+                            letterSpacing: '0.08em',
+                            textTransform: 'uppercase',
+                            color: '#8C733E',
+                            display: 'block',
+                            marginBottom: '4px',
+                          }}
+                        >
+                          {item.acronym}
+                        </span>
+                        <h3
+                          style={{
+                            fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+                            fontSize: '1.45rem',
+                            lineHeight: 1.15,
+                            fontWeight: 400,
+                            color: '#111111',
+                            margin: 0,
+                          }}
+                        >
+                          {item.name}
+                        </h3>
+                      </div>
+
+                      {/* Scope text */}
+                      <p
+                        style={{
+                          fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                          fontSize: '0.84rem',
+                          lineHeight: 1.55,
+                          color: '#555555',
+                          margin: '0 0 14px 0',
+                          fontWeight: 380,
+                        }}
+                      >
+                        {item.scope}
+                      </p>
+
+                      {/* Deliverable Tags */}
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                        {item.deliverables.map((deliv, dIdx) => (
+                          <span
+                            key={dIdx}
+                            style={{
+                              fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                              fontSize: '0.66rem',
+                              fontWeight: 600,
+                              color: '#333333',
+                              backgroundColor: '#F4F1EA',
+                              border: '1px solid rgba(0, 0, 0, 0.08)',
+                              padding: '2px 8px',
+                              borderRadius: '6px',
+                            }}
+                          >
+                            {deliv}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Bottom Section */}
+                    <div
+                      style={{
+                        paddingTop: '14px',
+                        marginTop: '16px',
+                        borderTop: '1px solid rgba(0, 0, 0, 0.08)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '10px',
+                      }}
+                    >
+                      {/* Practice Desk Coordination */}
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          gap: '8px',
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                            fontSize: '0.62rem',
+                            fontWeight: 700,
+                            letterSpacing: '0.08em',
+                            textTransform: 'uppercase',
+                            color: '#888888',
+                          }}
+                        >
+                          Practice Desk
+                        </span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          {item.divisions.map((div, dIdx) => (
+                            <img
+                              key={dIdx}
+                              src={div.logo}
+                              alt={div.name}
+                              style={{
+                                height: '17px',
+                                width: 'auto',
+                                maxWidth: '54px',
+                                objectFit: 'contain',
+                                display: 'block',
+                              }}
+                            />
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Regulatory Code & SLA Pill */}
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          gap: '8px',
+                          paddingTop: '2px',
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                            fontSize: '0.7rem',
+                            fontWeight: 600,
+                            color: '#8C733E',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                          }}
+                        >
+                          <TechText text={item.code} scrambleSpeed={20} maxScrambles={4} triggerOnHover={true} />
+                        </span>
+                        <span
+                          style={{
+                            fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                            fontSize: '0.64rem',
+                            fontWeight: 700,
+                            color: '#111111',
+                            backgroundColor: 'rgba(194, 159, 83, 0.18)',
+                            padding: '2px 8px',
+                            borderRadius: '9999px',
+                            whiteSpace: 'nowrap',
+                          }}
+                        >
+                          {item.sla}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </HoloCard>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
