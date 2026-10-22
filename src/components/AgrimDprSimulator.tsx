@@ -394,6 +394,21 @@ export default function AgrimDprSimulator() {
               <ShieldCheck size={16} color="#047857" style={{ flexShrink: 0 }} />
               <span>Full compliance with SBI, BoB, Canara Bank TEV appraisal frameworks.</span>
             </div>
+
+            <div
+              style={{
+                marginTop: '12px',
+                padding: '8px 12px',
+                borderRadius: '8px',
+                backgroundColor: 'rgba(4, 120, 87, 0.06)',
+                border: '1px solid rgba(4, 120, 87, 0.15)',
+                fontSize: '0.70rem',
+                color: '#555555',
+                lineHeight: 1.4,
+              }}
+            >
+              <strong>Regulatory Advisory:</strong> Non-lending technical facilitation advisory under RBI guidelines. All disbursements handled directly through statutory scheduled commercial banks.
+            </div>
           </div>
 
           <div style={{ marginTop: '22px' }}>

@@ -127,15 +127,22 @@ const DIVISION_CONFIGS: Record<string, DivisionThemeConfig> = {
     badgeDotColor: '#FFCB72',
     accentColor: '#D72A1B',
     maskGradient:
-      'radial-gradient(ellipse 90% 80% at 50% 25%, rgba(248, 249, 250, 0.12) 0%, rgba(248, 249, 250, 0.42) 60%, rgba(248, 249, 250, 0.78) 100%)',
+      'radial-gradient(ellipse 95% 85% at 50% 30%, rgba(248, 249, 250, 0.0) 0%, rgba(248, 249, 250, 0.12) 55%, rgba(248, 249, 250, 0.38) 100%)',
     renderBackground: () => (
       <MicroSlats
         preset="signal"
         color="#D72A1B"
-        glintColor="#FFCB72"
-        backgroundColor="#F8F9FA"
+        glintColor="#FFD166"
+        backgroundColor="#FAF5F0"
         interactive={true}
-        speed={0.65}
+        speed={0.85}
+        glint={1.2}
+        contrast={1.6}
+        slatWidth={18}
+        slatHeight={64}
+        gap={4}
+        swirl={0.8}
+        trail={0.6}
       />
     ),
   },
@@ -147,15 +154,15 @@ const DIVISION_CONFIGS: Record<string, DivisionThemeConfig> = {
     badgeDotColor: '#F59E0B',
     accentColor: '#0284C7',
     maskGradient:
-      'radial-gradient(ellipse 90% 80% at 50% 25%, rgba(240, 247, 255, 0.10) 0%, rgba(240, 247, 255, 0.40) 60%, rgba(240, 247, 255, 0.76) 100%)',
+      'radial-gradient(ellipse 95% 85% at 50% 30%, rgba(240, 247, 255, 0.0) 0%, rgba(240, 247, 255, 0.12) 55%, rgba(240, 247, 255, 0.38) 100%)',
     renderBackground: () => (
       <FluxLines
-        colors={['#0284C7', '#38BDF8', '#F59E0B', '#0EA5E9', '#2563EB']}
+        colors={['#0284C7', '#0EA5E9', '#38BDF8', '#F59E0B', '#2563EB', '#60A5FA']}
         flowDirection="down"
-        speed={0.7}
-        scale={1.6}
-        turbulence={0.95}
-        opacity={0.95}
+        speed={1.05}
+        scale={1.4}
+        turbulence={1.15}
+        opacity={1.0}
         lightMode={true}
         transparent={true}
         backgroundColor="#F0F7FF"
@@ -170,19 +177,19 @@ const DIVISION_CONFIGS: Record<string, DivisionThemeConfig> = {
     badgeDotColor: '#D97706',
     accentColor: '#047857',
     maskGradient:
-      'radial-gradient(ellipse 90% 80% at 50% 25%, rgba(247, 249, 245, 0.10) 0%, rgba(247, 249, 245, 0.38) 60%, rgba(247, 249, 245, 0.76) 100%)',
+      'radial-gradient(ellipse 95% 85% at 50% 30%, rgba(247, 249, 245, 0.0) 0%, rgba(247, 249, 245, 0.12) 55%, rgba(247, 249, 245, 0.38) 100%)',
     renderBackground: () => (
       <PatternWaves
         preset="pond"
         wave="ripple"
         color="#047857"
         backgroundColor="#F7F9F5"
-        opacity={0.92}
-        spacing={9}
-        markSize={0.92}
-        depth={0.75}
-        shine={1.5}
-        speed={0.65}
+        opacity={1.0}
+        spacing={8}
+        markSize={1.05}
+        depth={1.15}
+        shine={2.2}
+        speed={0.85}
         interactive={true}
       />
     ),
@@ -195,19 +202,19 @@ const DIVISION_CONFIGS: Record<string, DivisionThemeConfig> = {
     badgeDotColor: '#2C5ED4',
     accentColor: '#2C5ED4',
     maskGradient:
-      'radial-gradient(ellipse 90% 80% at 50% 25%, rgba(244, 246, 252, 0.10) 0%, rgba(244, 246, 252, 0.40) 60%, rgba(244, 246, 252, 0.78) 100%)',
+      'radial-gradient(ellipse 95% 85% at 50% 30%, rgba(244, 246, 252, 0.0) 0%, rgba(244, 246, 252, 0.12) 55%, rgba(244, 246, 252, 0.40) 100%)',
     renderBackground: () => (
       <PatternWaves
         preset="lines"
-        color="#2C5ED4"
+        color="#2563EB"
         backgroundColor="#F4F6FC"
-        opacity={0.90}
-        spacing={10}
-        markSize={0.55}
-        direction={25}
-        speed={0.65}
-        depth={0.95}
-        shine={1.3}
+        opacity={1.0}
+        spacing={9}
+        markSize={0.75}
+        direction={30}
+        speed={0.85}
+        depth={1.2}
+        shine={2.0}
         interactive={true}
       />
     ),
@@ -220,16 +227,16 @@ const DIVISION_CONFIGS: Record<string, DivisionThemeConfig> = {
     badgeDotColor: '#4338CA',
     accentColor: '#00163A',
     maskGradient:
-      'radial-gradient(ellipse 90% 80% at 50% 25%, rgba(245, 246, 250, 0.10) 0%, rgba(245, 246, 250, 0.38) 60%, rgba(245, 246, 250, 0.76) 100%)',
+      'radial-gradient(ellipse 95% 85% at 50% 30%, rgba(245, 246, 250, 0.0) 0%, rgba(245, 246, 250, 0.12) 55%, rgba(245, 246, 250, 0.38) 100%)',
     renderBackground: () => (
       <CRTWarp
-        color="#4338CA"
+        color="#3730A3"
         backgroundColor="#F5F6FA"
         lightMode={true}
-        curvature={0.18}
-        scanlineStrength={0.45}
-        persistence={0.45}
-        speed={0.65}
+        curvature={0.24}
+        scanlineStrength={0.60}
+        persistence={0.55}
+        speed={0.85}
       />
     ),
   },
@@ -241,14 +248,14 @@ const DIVISION_CONFIGS: Record<string, DivisionThemeConfig> = {
     badgeDotColor: '#F59E0B',
     accentColor: '#1E3FD8',
     maskGradient:
-      'radial-gradient(ellipse 90% 80% at 50% 25%, rgba(246, 248, 255, 0.10) 0%, rgba(246, 248, 255, 0.36) 60%, rgba(246, 248, 255, 0.74) 100%)',
+      'radial-gradient(ellipse 95% 85% at 50% 30%, rgba(246, 248, 255, 0.0) 0%, rgba(246, 248, 255, 0.12) 55%, rgba(246, 248, 255, 0.36) 100%)',
     renderBackground: () => (
       <GradientASCII
-        colors={['#1e3fd8', '#2563eb', '#38bdf8', '#fbbf24', '#f59e0b']}
+        colors={['#1e3fd8', '#2563eb', '#0284c7', '#38bdf8', '#f59e0b', '#fbbf24']}
         shape="horizon"
         characters=" =+xX0S8#@"
-        cellSize={14}
-        density={0.95}
+        cellSize={13}
+        density={1.0}
       />
     ),
   },
@@ -262,9 +269,9 @@ const DEFAULT_CONFIG: DivisionThemeConfig = {
   badgeDotColor: '#C29F53',
   accentColor: '#C29F53',
   maskGradient:
-    'radial-gradient(ellipse 90% 80% at 50% 25%, rgba(244, 241, 234, 0.15) 0%, rgba(244, 241, 234, 0.45) 60%, rgba(244, 241, 234, 0.80) 100%)',
+    'radial-gradient(ellipse 95% 85% at 50% 30%, rgba(244, 241, 234, 0.0) 0%, rgba(244, 241, 234, 0.15) 55%, rgba(244, 241, 234, 0.42) 100%)',
   renderBackground: () => (
-    <MicroSlats count={16} opacity={0.25} color="rgba(17, 17, 17, 0.55)" showTicks={true} zIndex={1} speed={0.6} />
+    <MicroSlats count={20} opacity={0.35} color="rgba(17, 17, 17, 0.65)" showTicks={true} zIndex={1} speed={0.8} />
   ),
 };
 

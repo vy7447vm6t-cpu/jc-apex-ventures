@@ -43,9 +43,57 @@ export default function Navbar() {
   const [hidden, setHidden] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [divisionsHover, setDivisionsHover] = useState(false);
+  const [divisionsOpen, setDivisionsOpen] = useState(false);
   const [mumbaiTime, setMumbaiTime] = useState<string>('MUMBAI IST --:--:--');
   const pathname = usePathname();
   const lastScrollY = React.useRef(0);
+  const hoverTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
+  const popoverRef = React.useRef<HTMLDivElement | null>(null);
+
+  const isMenuOpen = divisionsHover || divisionsOpen;
+
+  const handleOpenMenu = () => {
+    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    setDivisionsHover(true);
+  };
+
+  const handleCloseMenu = () => {
+    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    hoverTimeoutRef.current = setTimeout(() => {
+      setDivisionsHover(false);
+    }, 220);
+  };
+
+  const handleDismissMenu = () => {
+    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    setDivisionsHover(false);
+    setDivisionsOpen(false);
+  };
+
+  useEffect(() => {
+    handleDismissMenu();
+  }, [pathname]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
+        handleDismissMenu();
+      }
+    };
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        handleDismissMenu();
+      }
+    };
+    if (isMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleKeyDown);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isMenuOpen]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -220,7 +268,8 @@ export default function Navbar() {
         }}
       >
         <header
-          className="kokonut-nav-pill specular-sheen ios-glass backdrop-blur-md"
+          ref={popoverRef}
+          className="kokonut-nav-pill specular-sheen ios-glass backdrop-blur-md relative"
           style={{
             pointerEvents: 'auto',
             display: 'flex',
@@ -234,6 +283,7 @@ export default function Navbar() {
             border: '1px solid rgba(255, 255, 255, 0.85)',
             boxShadow: '0 16px 40px -6px rgba(0, 0, 0, 0.12), 0 2px 6px -1px rgba(0, 0, 0, 0.04), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.05)',
             width: '100%',
+            position: 'relative',
           }}
         >
           {/* Brand Wordmark & Umbrella Mascot */}
@@ -302,19 +352,28 @@ export default function Navbar() {
             <span style={{ color: 'rgba(0, 0, 0, 0.18)' }}>/</span>
             <div
               className="relative"
-              onMouseEnter={() => setDivisionsHover(true)}
-              onMouseLeave={() => setDivisionsHover(false)}
+              onMouseEnter={handleOpenMenu}
+              onMouseLeave={handleCloseMenu}
             >
-              <Link
-                href="/#divisions"
+              <button
+                type="button"
+                onClick={() => setDivisionsOpen((prev) => !prev)}
+                onMouseEnter={handleOpenMenu}
+                aria-haspopup="menu"
+                aria-expanded={isMenuOpen}
                 aria-label="View Specialized Divisions"
                 style={{
-                  color: divisionsHover || ['/solis', '/sanyog', '/grid-apex', '/tvasta', '/emudran', '/agrim'].includes(pathname) ? '#8C733E' : '#222222',
-                  textDecoration: 'none',
+                  background: 'transparent',
+                  border: 'none',
+                  padding: 0,
+                  cursor: 'pointer',
+                  color: isMenuOpen || ['/solis', '/sanyog', '/grid-apex', '/tvasta', '/emudran', '/agrim'].includes(pathname) ? '#8C733E' : '#222222',
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '5px',
-                  fontWeight: divisionsHover || ['/solis', '/sanyog', '/grid-apex', '/tvasta', '/emudran', '/agrim'].includes(pathname) ? 650 : 500,
+                  fontWeight: isMenuOpen || ['/solis', '/sanyog', '/grid-apex', '/tvasta', '/emudran', '/agrim'].includes(pathname) ? 650 : 500,
+                  fontSize: '0.82rem',
+                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
                 }}
               >
                 <ScrambleText text="Divisions" />
@@ -341,128 +400,13 @@ export default function Navbar() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   style={{
-                    transform: divisionsHover ? 'rotate(180deg)' : 'rotate(0deg)',
+                    transform: isMenuOpen ? 'rotate(180deg)' : 'rotate(0deg)',
                     transition: 'transform 0.2s ease',
                   }}
                 >
                   <polyline points="6 9 12 15 18 9" />
                 </svg>
-              </Link>
-              {divisionsHover && (
-                <div
-                  className="absolute left-1/2 -translate-x-1/2 top-full mt-3 w-[660px] p-4 rounded-3xl shadow-2xl z-50 pointer-events-auto"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(246, 244, 238, 0.92) 100%)',
-                    backdropFilter: 'blur(36px) saturate(220%)',
-                    WebkitBackdropFilter: 'blur(36px) saturate(220%)',
-                    border: '1px solid rgba(255, 255, 255, 0.95)',
-                    boxShadow: '0 28px 60px -12px rgba(0, 0, 0, 0.20), 0 2px 8px rgba(0, 0, 0, 0.04), inset 0 1.5px 1px rgba(255, 255, 255, 0.98)',
-                  }}
-                >
-                  {/* Popover Header */}
-                  <div className="flex items-center justify-between pb-3 mb-3 border-b border-black/8 px-1">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-[#16A34A]" />
-                      <span className="text-[10.5px] font-bold tracking-wider uppercase text-[#111111]">
-                        Consortium Operating Divisions
-                      </span>
-                    </div>
-                    <span className="text-[10.5px] text-[#666666] font-medium">
-                      Direct Access to 6 Specialized Engineering Practices
-                    </span>
-                  </div>
-
-                  {/* 2-Column Grid of Elevated Division Cards */}
-                  <div className="grid grid-cols-2 gap-2.5">
-                    {divisions.map((div) => {
-                      const isActive = pathname === div.href;
-                      return (
-                        <Link
-                          key={div.href}
-                          href={div.href}
-                          onClick={() => setDivisionsHover(false)}
-                          className="flex items-start gap-3 p-3 rounded-2xl transition-all duration-200 no-underline group relative overflow-hidden"
-                          style={{
-                            background: isActive
-                              ? 'rgba(194, 159, 83, 0.12)'
-                              : 'rgba(255, 255, 255, 0.70)',
-                            border: isActive
-                              ? '1px solid rgba(194, 159, 83, 0.45)'
-                              : '1px solid rgba(0, 0, 0, 0.07)',
-                            boxShadow: '0 2px 6px rgba(0, 0, 0, 0.02)',
-                          }}
-                        >
-                          {/* Authentic Brand Emblem */}
-                          <div
-                            className="w-11 h-11 rounded-xl flex items-center justify-center p-1.5 shrink-0 overflow-hidden shadow-sm transition-transform duration-200 group-hover:scale-105"
-                            style={{
-                              backgroundColor: div.href === '/grid-apex' ? '#111111' : '#FFFFFF',
-                              border: '1px solid rgba(0, 0, 0, 0.10)',
-                            }}
-                          >
-                            <img
-                              src={div.logo}
-                              alt={`${div.label} official brand emblem`}
-                              className="max-h-7 max-w-full object-contain"
-                            />
-                          </div>
-
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center justify-between gap-1.5">
-                              <span className="text-xs font-bold text-[#111111] group-hover:text-[#C29F53] transition-colors">
-                                {div.label}
-                              </span>
-                              <span
-                                className="text-[9px] font-semibold px-1.5 py-0.5 rounded-md"
-                                style={{
-                                  backgroundColor: 'rgba(0, 0, 0, 0.05)',
-                                  color: '#555555',
-                                  whiteSpace: 'nowrap',
-                                }}
-                              >
-                                {div.keyMetric}
-                              </span>
-                            </div>
-
-                            <div className="text-[10.5px] font-medium text-[#222222] mt-0.5 leading-snug truncate">
-                              {div.domainTag}
-                            </div>
-
-                            <div className="text-[9.5px] text-[#666666] mt-1 line-clamp-1 leading-normal">
-                              {div.summary}
-                            </div>
-                          </div>
-
-                          <ArrowUpRight
-                            size={12}
-                            className="text-[#999999] opacity-0 group-hover:opacity-100 group-hover:text-[#C29F53] transition-all shrink-0 mt-0.5"
-                          />
-                        </Link>
-                      );
-                    })}
-                  </div>
-
-                  {/* Popover Footer */}
-                  <div className="flex items-center justify-between pt-3 mt-3 border-t border-black/8 px-1">
-                    <Link
-                      href="/#calculators"
-                      onClick={() => setDivisionsHover(false)}
-                      className="text-[11px] font-semibold text-[#555555] hover:text-[#111111] flex items-center gap-1 no-underline"
-                    >
-                      <span>Interactive Field Calculators</span>
-                      <ArrowUpRight size={11} />
-                    </Link>
-                    <Link
-                      href="/studio"
-                      onClick={() => setDivisionsHover(false)}
-                      className="text-[11px] font-semibold text-[#8C733E] hover:underline flex items-center gap-1 no-underline"
-                    >
-                      <span>Studio &amp; Practice Leadership</span>
-                      <ArrowUpRight size={11} />
-                    </Link>
-                  </div>
-                </div>
-              )}
+              </button>
             </div>
             <span style={{ color: 'rgba(0, 0, 0, 0.18)' }}>/</span>
             <Link
@@ -626,6 +570,129 @@ export default function Navbar() {
               )}
             </button>
           </div>
+
+          {/* Centered Mega Popover inside Header: perfectly centered relative to the floating nav dock on all screens >= 768px */}
+          {isMenuOpen && (
+            <div
+              className="absolute left-1/2 -translate-x-1/2 top-full pt-2.5 w-[650px] max-w-[calc(100vw-32px)] z-50 pointer-events-auto"
+              onMouseEnter={handleOpenMenu}
+              onMouseLeave={handleCloseMenu}
+            >
+              <div
+                className="p-4 rounded-3xl shadow-2xl"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(246, 244, 238, 0.94) 100%)',
+                  backdropFilter: 'blur(36px) saturate(220%)',
+                  WebkitBackdropFilter: 'blur(36px) saturate(220%)',
+                  border: '1px solid rgba(255, 255, 255, 0.95)',
+                  boxShadow: '0 28px 60px -12px rgba(0, 0, 0, 0.20), 0 2px 8px rgba(0, 0, 0, 0.04), inset 0 1.5px 1px rgba(255, 255, 255, 0.98)',
+                }}
+              >
+                {/* Popover Header */}
+                <div className="flex items-center justify-between pb-3 mb-3 border-b border-black/8 px-1">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-[#16A34A]" />
+                    <span className="text-[10.5px] font-bold tracking-wider uppercase text-[#111111]">
+                      Consortium Operating Divisions
+                    </span>
+                  </div>
+                  <span className="text-[10.5px] text-[#666666] font-medium">
+                    Direct Access to 6 Specialized Engineering Practices
+                  </span>
+                </div>
+
+                {/* 2-Column Grid of Elevated Division Cards */}
+                <div className="grid grid-cols-2 gap-2.5">
+                  {divisions.map((div) => {
+                    const isActive = pathname === div.href;
+                    return (
+                      <Link
+                        key={div.href}
+                        href={div.href}
+                        onClick={handleDismissMenu}
+                        className="flex items-start gap-3 p-3 rounded-2xl transition-all duration-200 no-underline group relative overflow-hidden"
+                        style={{
+                          background: isActive
+                            ? 'rgba(194, 159, 83, 0.12)'
+                            : 'rgba(255, 255, 255, 0.70)',
+                          border: isActive
+                            ? '1px solid rgba(194, 159, 83, 0.45)'
+                            : '1px solid rgba(0, 0, 0, 0.07)',
+                          boxShadow: '0 2px 6px rgba(0, 0, 0, 0.02)',
+                        }}
+                      >
+                        {/* Authentic Brand Emblem */}
+                        <div
+                          className="w-11 h-11 rounded-xl flex items-center justify-center p-1.5 shrink-0 overflow-hidden shadow-sm transition-transform duration-200 group-hover:scale-105"
+                          style={{
+                            backgroundColor: div.href === '/grid-apex' ? '#111111' : '#FFFFFF',
+                            border: '1px solid rgba(0, 0, 0, 0.10)',
+                          }}
+                        >
+                          <img
+                            src={div.logo}
+                            alt={`${div.label} official brand emblem`}
+                            className="max-h-7 max-w-full object-contain"
+                          />
+                        </div>
+
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between gap-1.5">
+                            <span className="text-xs font-bold text-[#111111] group-hover:text-[#C29F53] transition-colors">
+                              {div.label}
+                            </span>
+                            <span
+                              className="text-[9px] font-semibold px-1.5 py-0.5 rounded-md"
+                              style={{
+                                backgroundColor: 'rgba(0, 0, 0, 0.05)',
+                                color: '#555555',
+                                whiteSpace: 'nowrap',
+                              }}
+                            >
+                              {div.keyMetric}
+                            </span>
+                          </div>
+
+                          <div className="text-[10.5px] font-medium text-[#222222] mt-0.5 leading-snug truncate">
+                            {div.domainTag}
+                          </div>
+
+                          <div className="text-[9.5px] text-[#666666] mt-1 line-clamp-1 leading-normal">
+                            {div.summary}
+                          </div>
+                        </div>
+
+                        <ArrowUpRight
+                          size={12}
+                          className="text-[#999999] opacity-0 group-hover:opacity-100 group-hover:text-[#C29F53] transition-all shrink-0 mt-0.5"
+                        />
+                      </Link>
+                    );
+                  })}
+                </div>
+
+                {/* Popover Footer */}
+                <div className="flex items-center justify-between pt-3 mt-3 border-t border-black/8 px-1">
+                  <Link
+                    href="/#calculators"
+                    onClick={handleDismissMenu}
+                    className="text-[11px] font-semibold text-[#555555] hover:text-[#111111] flex items-center gap-1 no-underline"
+                  >
+                    <span>Interactive Field Calculators</span>
+                    <ArrowUpRight size={11} />
+                  </Link>
+                  <Link
+                    href="/studio"
+                    onClick={handleDismissMenu}
+                    className="text-[11px] font-semibold text-[#8C733E] hover:underline flex items-center gap-1 no-underline"
+                  >
+                    <span>Studio &amp; Practice Leadership</span>
+                    <ArrowUpRight size={11} />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
         </header>
       </div>
 
@@ -638,26 +705,105 @@ export default function Navbar() {
             zIndex: 90,
             backgroundColor: '#111111',
             color: '#FFFFFF',
-            padding: '120px 32px 48px 32px',
+            padding: '108px 24px 40px 24px',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'space-between',
+            justifyContent: 'flex-start',
             overflowY: 'auto',
+            WebkitOverflowScrolling: 'touch',
           }}
         >
+          {/* Mobile Top Quick Links */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              flexWrap: 'wrap',
+              marginBottom: '28px',
+              paddingBottom: '20px',
+              borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
+            }}
+          >
+            <Link
+              href="/"
+              onClick={() => setMobileOpen(false)}
+              style={{
+                textDecoration: 'none',
+                padding: '6px 14px',
+                borderRadius: '9999px',
+                backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                color: '#FFFFFF',
+                fontSize: '0.80rem',
+                fontWeight: 600,
+                border: '1px solid rgba(255, 255, 255, 0.14)',
+              }}
+            >
+              Home
+            </Link>
+            <Link
+              href="/#projects"
+              onClick={() => setMobileOpen(false)}
+              style={{
+                textDecoration: 'none',
+                padding: '6px 14px',
+                borderRadius: '9999px',
+                backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                color: '#FFFFFF',
+                fontSize: '0.80rem',
+                fontWeight: 600,
+                border: '1px solid rgba(255, 255, 255, 0.14)',
+              }}
+            >
+              Builds &amp; Projects
+            </Link>
+            <Link
+              href="/#calculators"
+              onClick={() => setMobileOpen(false)}
+              style={{
+                textDecoration: 'none',
+                padding: '6px 14px',
+                borderRadius: '9999px',
+                backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                color: '#FFFFFF',
+                fontSize: '0.80rem',
+                fontWeight: 600,
+                border: '1px solid rgba(255, 255, 255, 0.14)',
+              }}
+            >
+              Field Calculators
+            </Link>
+            <Link
+              href="/studio"
+              onClick={() => setMobileOpen(false)}
+              style={{
+                textDecoration: 'none',
+                padding: '6px 14px',
+                borderRadius: '9999px',
+                backgroundColor: 'rgba(194, 159, 83, 0.18)',
+                color: '#C29F53',
+                fontSize: '0.80rem',
+                fontWeight: 600,
+                border: '1px solid rgba(194, 159, 83, 0.35)',
+              }}
+            >
+              Studio Dossier
+            </Link>
+          </div>
+
           <div>
             <div
               style={{
                 fontFamily: 'var(--font-sans, Inter, sans-serif)',
                 fontVariantNumeric: 'tabular-nums',
-                fontSize: '0.8rem',
+                fontSize: '0.76rem',
                 letterSpacing: '0.08em',
                 color: '#888888',
                 textTransform: 'uppercase',
-                marginBottom: '32px',
+                marginBottom: '20px',
               }}
             >
-              Direct Division Navigation
+              Direct Division Navigation (6 Specialized Practices)
             </div>
 
             <div
@@ -800,6 +946,7 @@ export default function Navbar() {
             style={{
               borderTop: '1px solid rgba(255, 255, 255, 0.12)',
               paddingTop: '28px',
+              marginTop: '36px',
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',

@@ -231,11 +231,11 @@ export default function SolisPage() {
           aria-hidden="true"
         >
           <GradientASCII
-            colors={['#1e3fd8', '#2563eb', '#38bdf8', '#fbbf24', '#f59e0b']}
+            colors={['#1e3fd8', '#2563eb', '#0284c7', '#38bdf8', '#f59e0b', '#fbbf24']}
             shape="horizon"
             characters=" =+xX0S8#@"
-            cellSize={14}
-            density={0.95}
+            cellSize={13}
+            density={1.0}
           />
           {/* Subtle Crystalline Glass Mask for Perfect Readability */}
           <div
@@ -243,7 +243,7 @@ export default function SolisPage() {
               position: 'absolute',
               inset: 0,
               background:
-                'radial-gradient(ellipse 90% 80% at 50% 25%, rgba(246, 248, 255, 0.10) 0%, rgba(246, 248, 255, 0.36) 60%, rgba(246, 248, 255, 0.74) 100%)',
+                'radial-gradient(ellipse 95% 85% at 50% 30%, rgba(246, 248, 255, 0.0) 0%, rgba(246, 248, 255, 0.12) 55%, rgba(246, 248, 255, 0.36) 100%)',
               pointerEvents: 'none',
             }}
           />
