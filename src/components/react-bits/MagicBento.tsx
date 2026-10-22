@@ -25,27 +25,57 @@ export default function MagicBento({
 }: MagicBentoProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const rafRef = useRef<number | null>(null);
+  const touchFadeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const handleContainerMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    cardRefs.current.forEach((cardEl) => {
-      if (!cardEl) return;
-      const rect = cardEl.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      cardEl.style.setProperty('--mouse-x', `${x}px`);
-      cardEl.style.setProperty('--mouse-y', `${y}px`);
+  // Clean up trailing refs when cards change
+  cardRefs.current = cardRefs.current.slice(0, cards.length);
 
-      // Calculated proximity factor for surrounding card illumination
-      const dx = Math.max(0, -x, x - rect.width);
-      const dy = Math.max(0, -y, y - rect.height);
-      const dist = Math.sqrt(dx * dx + dy * dy);
+  React.useEffect(() => {
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      if (touchFadeTimeoutRef.current) clearTimeout(touchFadeTimeoutRef.current);
+    };
+  }, []);
+
+  const calculateAndUpdate = (clientX: number, clientY: number) => {
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(() => {
+      // Phase 1: Batch Layout Reads (prevents layout thrashing)
+      const validCards: { el: HTMLDivElement; rect: DOMRect }[] = [];
+      for (let i = 0; i < cardRefs.current.length; i++) {
+        const el = cardRefs.current[i];
+        if (el) {
+          validCards.push({ el, rect: el.getBoundingClientRect() });
+        }
+      }
+
       const proximityRadius = 260;
-      const proximity = dist < proximityRadius ? 1 - dist / proximityRadius : 0;
-      cardEl.style.setProperty('--proximity', proximity.toFixed(3));
+
+      // Phase 2: Batch Style Writes
+      for (let i = 0; i < validCards.length; i++) {
+        const { el, rect } = validCards[i];
+        const x = clientX - rect.left;
+        const y = clientY - rect.top;
+        el.style.setProperty('--mouse-x', `${x}px`);
+        el.style.setProperty('--mouse-y', `${y}px`);
+
+        const dx = Math.max(0, -x, x - rect.width);
+        const dy = Math.max(0, -y, y - rect.height);
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const proximity = dist < proximityRadius ? 1 - dist / proximityRadius : 0;
+        el.style.setProperty('--proximity', proximity.toFixed(3));
+      }
     });
   };
 
+  const handleContainerMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (touchFadeTimeoutRef.current) clearTimeout(touchFadeTimeoutRef.current);
+    calculateAndUpdate(e.clientX, e.clientY);
+  };
+
   const handleContainerMouseLeave = () => {
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
     cardRefs.current.forEach((cardEl) => {
       if (!cardEl) return;
       cardEl.style.setProperty('--proximity', '0');
@@ -54,33 +84,16 @@ export default function MagicBento({
 
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
     if (!e.touches[0]) return;
+    if (touchFadeTimeoutRef.current) clearTimeout(touchFadeTimeoutRef.current);
     const touch = e.touches[0];
-    cardRefs.current.forEach((cardEl) => {
-      if (!cardEl) return;
-      const rect = cardEl.getBoundingClientRect();
-      const x = touch.clientX - rect.left;
-      const y = touch.clientY - rect.top;
-      cardEl.style.setProperty('--mouse-x', `${x}px`);
-      cardEl.style.setProperty('--mouse-y', `${y}px`);
-
-      const dx = Math.max(0, -x, x - rect.width);
-      const dy = Math.max(0, -y, y - rect.height);
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      const proximityRadius = 260;
-      const proximity = dist < proximityRadius ? 1 - dist / proximityRadius : 0;
-      cardEl.style.setProperty('--proximity', proximity.toFixed(3));
-    });
+    calculateAndUpdate(touch.clientX, touch.clientY);
   };
 
-  const handleCardMouseMove = (idx: number, e: React.MouseEvent<HTMLDivElement>) => {
-    const cardEl = cardRefs.current[idx];
-    if (!cardEl) return;
-    const rect = cardEl.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    cardEl.style.setProperty('--mouse-x', `${x}px`);
-    cardEl.style.setProperty('--mouse-y', `${y}px`);
-    cardEl.style.setProperty('--proximity', '1');
+  const handleTouchEnd = () => {
+    if (touchFadeTimeoutRef.current) clearTimeout(touchFadeTimeoutRef.current);
+    touchFadeTimeoutRef.current = setTimeout(() => {
+      handleContainerMouseLeave();
+    }, 600);
   };
 
   return (
@@ -90,7 +103,7 @@ export default function MagicBento({
       onMouseLeave={handleContainerMouseLeave}
       onTouchStart={handleTouchMove}
       onTouchMove={handleTouchMove}
-      onTouchEnd={handleContainerMouseLeave}
+      onTouchEnd={handleTouchEnd}
       onTouchCancel={handleContainerMouseLeave}
       className={`relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full ${className}`}
     >
@@ -110,7 +123,6 @@ export default function MagicBento({
             ref={(el) => {
               cardRefs.current[idx] = el;
             }}
-            onMouseMove={(e) => handleCardMouseMove(idx, e)}
             className={`group relative rounded-3xl p-8 backdrop-blur-xl transition-all duration-400 hover:-translate-y-1.5 overflow-hidden flex flex-col justify-between ${colClass} ${rowClass} focus-within:ring-2 focus-within:ring-[#C29F53]/60`}
             style={{
               backgroundColor: 'rgba(255, 255, 255, 0.84)',

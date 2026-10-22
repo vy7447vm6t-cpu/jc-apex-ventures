@@ -51,7 +51,10 @@ async function runAudit() {
 
     page.on('console', (msg) => {
       if (msg.type() === 'error') {
-        consoleErrors.push(msg.text());
+        const text = msg.text();
+        // Ignore expected HTTP 404 resource response logs when testing the 404 route
+        if (text.includes('status of 404')) return;
+        consoleErrors.push(text);
       } else {
         consoleLogs.push(msg.text());
       }
@@ -69,15 +72,18 @@ async function runAudit() {
     const heroCanvasCheck = await page.evaluate(() => {
       const hero = document.querySelector('.hero-sticky-container');
       if (!hero) return { error: 'Hero container not found' };
-      const canvases = hero.querySelectorAll('canvas');
+      const canvases = Array.from(hero.querySelectorAll('canvas'));
+      const patternWaveCanvas = canvases.find(c => c.getAttribute('aria-hidden') === 'true' || c.parentElement?.style?.mixBlendMode === 'screen');
       return {
         canvasCount: canvases.length,
-        hasPatternWavesCanvas: Array.from(canvases).some(c => c.getAttribute('aria-hidden') === 'true' || c.parentElement?.style?.mixBlendMode === 'screen'),
+        hasPatternWavesCanvas: !!patternWaveCanvas,
+        canvasWidth: patternWaveCanvas ? patternWaveCanvas.width : 0,
+        canvasHeight: patternWaveCanvas ? patternWaveCanvas.height : 0,
       };
     });
     console.log('Hero Canvas Check:', heroCanvasCheck);
 
-    // 2. Audit Bento Proximity Interaction
+    // 2. Audit Bento Desktop Hover Proximity Interaction
     console.log('Testing Bento Proximity Interaction...');
     await page.goto(`${BASE_URL}/studio#capabilities`, { waitUntil: 'networkidle2', timeout: 30000 });
     const bentoContainer = await page.$('#capabilities');
@@ -109,7 +115,8 @@ async function runAudit() {
     if (firstCardBox) {
       console.log('Hovering over first bento card at', firstCardBox);
       await page.mouse.move(firstCardBox.x, firstCardBox.y);
-      await new Promise(r => setTimeout(r, 200));
+      // Wait for rAF update
+      await new Promise(r => setTimeout(r, 250));
     }
 
     const bentoHoverCheck = await page.evaluate(() => {
@@ -124,7 +131,51 @@ async function runAudit() {
     });
     console.log('Bento Hover Values:', bentoHoverCheck);
 
-    // 3. Check All 16 routes
+    // 2b. Audit Bento Mobile Touch Proximity Interaction
+    console.log('Testing Bento Touch Proximity Interaction...');
+    const touchCheck = await page.evaluate(() => {
+      const container = document.querySelector('#capabilities .grid');
+      const cards = document.querySelectorAll('#capabilities .grid > .group');
+      if (!container || cards.length === 0) return { error: 'Container or cards missing' };
+
+      const rect = cards[0].getBoundingClientRect();
+      const touchX = rect.left + 50;
+      const touchY = rect.top + 50;
+
+      // Dispatch synthetic TouchEvent on container
+      const touchObj = new Touch({
+        identifier: 1,
+        target: container,
+        clientX: touchX,
+        clientY: touchY,
+        pageX: touchX,
+        pageY: touchY,
+      });
+
+      const touchStartEvent = new TouchEvent('touchstart', {
+        touches: [touchObj],
+        targetTouches: [touchObj],
+        changedTouches: [touchObj],
+        bubbles: true,
+        cancelable: true,
+      });
+
+      container.dispatchEvent(touchStartEvent);
+
+      return {
+        card0Proximity: cards[0].style.getPropertyValue('--proximity') || '0',
+        card0MouseX: cards[0].style.getPropertyValue('--mouse-x') || '0',
+      };
+    });
+    // Allow rAF to process touch update
+    await new Promise(r => setTimeout(r, 150));
+    const touchProximityAfterRaf = await page.evaluate(() => {
+      const card = document.querySelector('#capabilities .grid > .group');
+      return card?.style.getPropertyValue('--proximity') || '0';
+    });
+    console.log('Bento Touch Proximity Result:', { initial: touchCheck, afterRaf: touchProximityAfterRaf });
+
+    // 3. Check All Application and System Routes
     const routes = [
       '/',
       '/agrim',
@@ -138,16 +189,37 @@ async function runAudit() {
       '/space-planning',
       '/studio',
       '/tvasta',
+      '/_not-found',
     ];
 
     for (const r of routes) {
       const res = await page.goto(`${BASE_URL}${r}`, { waitUntil: 'domcontentloaded', timeout: 15000 });
       console.log(`Route ${r}: status ${res.status()}`);
+      if (res.status() >= 500) {
+        throw new Error(`Route ${r} returned server error status: ${res.status()}`);
+      }
     }
+
+    // Check API route
+    const apiCheck = await page.evaluate(async (url) => {
+      try {
+        const res = await fetch(`${url}/api/contact`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: 'Audit Test', email: 'audit@test.com', message: 'Healthcheck' }),
+        });
+        const data = await res.json();
+        return { status: res.status, ok: res.ok, data };
+      } catch (e) {
+        return { error: String(e) };
+      }
+    }, BASE_URL);
+    console.log('API /api/contact Check:', apiCheck);
 
     console.log('Console Errors detected:', consoleErrors.length);
     if (consoleErrors.length > 0) {
       console.error('Console errors:', consoleErrors);
+      throw new Error(`Console errors were recorded during audit: ${consoleErrors.join(', ')}`);
     }
 
     await browser.close();
