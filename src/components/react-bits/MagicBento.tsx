@@ -66,7 +66,8 @@ export default function MagicBento({
       const dx = Math.max(0, -x, x - rect.width);
       const dy = Math.max(0, -y, y - rect.height);
       const dist = Math.sqrt(dx * dx + dy * dy);
-      const proximity = dist < 200 ? 1 - dist / 200 : 0;
+      const proximityRadius = 260;
+      const proximity = dist < proximityRadius ? 1 - dist / proximityRadius : 0;
       cardEl.style.setProperty('--proximity', proximity.toFixed(3));
     });
   };
@@ -87,8 +88,10 @@ export default function MagicBento({
       ref={containerRef}
       onMouseMove={handleContainerMouseMove}
       onMouseLeave={handleContainerMouseLeave}
+      onTouchStart={handleTouchMove}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleContainerMouseLeave}
+      onTouchCancel={handleContainerMouseLeave}
       className={`relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full ${className}`}
     >
       {cards.map((card, idx) => {
