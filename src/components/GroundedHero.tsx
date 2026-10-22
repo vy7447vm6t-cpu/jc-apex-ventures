@@ -11,6 +11,7 @@ import {
   LogoLoop,
   ElectricBorder,
   TargetCursor,
+  PatternWaves,
 } from '@/components/react-bits';
 
 interface HeroZone {
@@ -183,6 +184,29 @@ export default function GroundedHero({ onOpenConsultation }: GroundedHeroProps =
     >
       {/* Magnetic Target-Snapping CAD Reticle Cursor (Desktop >= 1024px) */}
       <TargetCursor containerRef={heroRef} color="#C29F53" />
+
+      {/* WebGL PatternWaves Silk Dynamic Background Layer */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          zIndex: 2,
+          pointerEvents: 'none',
+          opacity: 0.65,
+          mixBlendMode: 'screen',
+        }}
+        aria-hidden="true"
+      >
+        <PatternWaves
+          preset="silk"
+          color="#ffffff"
+          backgroundColor="#000000"
+          fade="edges"
+          interactive
+          cursorSize={50}
+          cursorStrength={0.6}
+        />
+      </div>
 
       {/* MicroSlats Architectural Louver Rhythm with CAD Datum Ticks */}
       <MicroSlats count={24} color="#FFFFFF" opacity={0.10} zIndex={12} showTicks={true} />
