@@ -240,14 +240,14 @@ function StatCard({ item, stagger }: { item: StatMetric; stagger: number }) {
         />
 
         {/* Upper zone: index + category + number */}
-        <div style={{ marginBottom: '20px', textAlign: 'left' }}>
+        <div style={{ marginBottom: '10px', textAlign: 'left' }}>
           {/* Index badge + Category label row */}
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
               gap: '10px',
-              marginBottom: '14px',
+              marginBottom: '8px',
               textAlign: 'left',
             }}
           >
@@ -270,7 +270,7 @@ function StatCard({ item, stagger }: { item: StatMetric; stagger: number }) {
             <span
               style={{
                 fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                fontSize: '0.72rem',
+                fontSize: '0.7rem',
                 fontWeight: 650,
                 letterSpacing: '0.08em',
                 textTransform: 'uppercase',
@@ -294,12 +294,12 @@ function StatCard({ item, stagger }: { item: StatMetric; stagger: number }) {
             className="stat-counter"
             style={{
               fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
-              fontSize: 'clamp(3.4rem, 5vw, 4.6rem)',
+              fontSize: 'clamp(2.7rem, 4vw, 3.6rem)',
               fontWeight: 400,
               lineHeight: 0.95,
               letterSpacing: '-0.03em',
               color: '#111111',
-              margin: '0 0 4px 0',
+              margin: '0 0 2px 0',
               fontVariantNumeric: 'tabular-nums',
               textAlign: 'left',
             }}
@@ -313,7 +313,7 @@ function StatCard({ item, stagger }: { item: StatMetric; stagger: number }) {
           style={{
             height: '1px',
             background: 'linear-gradient(90deg, rgba(194, 159, 83, 0.3) 0%, rgba(0, 0, 0, 0.05) 100%)',
-            marginBottom: '18px',
+            marginBottom: '12px',
           }}
         />
 
@@ -322,12 +322,12 @@ function StatCard({ item, stagger }: { item: StatMetric; stagger: number }) {
           <h3
             style={{
               fontFamily: 'var(--font-sans, Inter, sans-serif)',
-              fontSize: '1.02rem',
+              fontSize: '0.98rem',
               fontWeight: 600,
               letterSpacing: '-0.01em',
               color: '#111111',
-              margin: '0 0 8px 0',
-              lineHeight: 1.35,
+              margin: '0 0 4px 0',
+              lineHeight: 1.3,
               textAlign: 'left',
             }}
           >
@@ -336,8 +336,8 @@ function StatCard({ item, stagger }: { item: StatMetric; stagger: number }) {
           <p
             style={{
               fontFamily: 'var(--font-sans, Inter, sans-serif)',
-              fontSize: '0.9rem',
-              lineHeight: 1.6,
+              fontSize: '0.85rem',
+              lineHeight: 1.52,
               color: '#555555',
               margin: 0,
               fontWeight: 380,
@@ -351,8 +351,8 @@ function StatCard({ item, stagger }: { item: StatMetric; stagger: number }) {
           {/* Footer */}
           <div
             style={{
-              paddingTop: '14px',
-              marginTop: '16px',
+              paddingTop: '10px',
+              marginTop: '12px',
               borderTop: '1px solid rgba(0, 0, 0, 0.07)',
             }}
           >
@@ -372,7 +372,7 @@ export default function GroundedWhy() {
       style={{
         backgroundColor: '#F4F1EA',
         color: '#111111',
-        padding: 'clamp(112px, 14vh, 144px) 24px clamp(84px, 10vh, 112px) 24px',
+        padding: 'clamp(64px, 7.5vh, 88px) 24px clamp(48px, 6vh, 68px) 24px',
         position: 'relative',
         zIndex: 5,
         scrollMarginTop: '100px',
@@ -381,7 +381,7 @@ export default function GroundedWhy() {
         textAlign: 'left',
       }}
     >
-      {/* Background PatternWaves subtle texture */}
+      {/* Background PatternWaves vivid dynamic layer */}
       <div
         style={{
           position: 'absolute',
@@ -394,28 +394,38 @@ export default function GroundedWhy() {
           preset="silk"
           color="#8C733E"
           backgroundColor="transparent"
-          opacity={0.08}
+          opacity={0.24}
           fade="edges"
-          fadeSize={0.6}
-          speed={0.15}
-          depth={0.7}
-          spacing={10}
+          fadeSize={0.5}
+          speed={0.45}
+          depth={0.85}
+          spacing={11}
           interactive
-          cursorSize={60}
-          cursorStrength={0.4}
+          cursorSize={75}
+          cursorStrength={0.5}
           intro
+        />
+        {/* Soft light radial scrim to keep waves dynamically visible while retaining high text clarity */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background:
+              'radial-gradient(ellipse 95% 85% at 50% 25%, rgba(244, 241, 234, 0.45) 0%, rgba(244, 241, 234, 0.72) 65%, rgba(244, 241, 234, 0.88) 100%)',
+            pointerEvents: 'none',
+          }}
         />
       </div>
 
       {/* Background Architectural MicroSlats Rhythm matching Hero 24-slat grid */}
-      <MicroSlats count={24} color="#8C733E" opacity={0.11} zIndex={1} showTicks={true} />
+      <MicroSlats count={24} color="#8C733E" opacity={0.16} zIndex={1} showTicks={true} />
 
       {/* Anchor destination for header studio navigation */}
       <div id="studio" style={{ position: 'absolute', top: '-100px', left: 0, visibility: 'hidden' }} />
 
       <div style={{ maxWidth: '1240px', margin: '0 auto', width: '100%', position: 'relative', zIndex: 2, textAlign: 'left' }}>
         {/* Eyebrow Label with TechText Scramble */}
-        <div className="eye-brow-container" style={{ marginBottom: '24px', textAlign: 'left' }}>
+        <div className="eye-brow-container" style={{ marginBottom: '14px', textAlign: 'left' }}>
           <span
             className="text-eye-brow"
             style={{
@@ -436,16 +446,16 @@ export default function GroundedWhy() {
         </div>
 
         {/* Manifesto Heading & Narrative Statement */}
-        <div style={{ maxWidth: '1080px', marginBottom: '56px', textAlign: 'left' }}>
+        <div style={{ maxWidth: '1080px', marginBottom: '32px', textAlign: 'left' }}>
           <h2
             className="manifesto-serif-headline"
             style={{
-              fontSize: 'clamp(2.3rem, 4.4vw, 3.6rem)',
+              fontSize: 'clamp(2.1rem, 3.8vw, 3.2rem)',
               lineHeight: 1.15,
               fontWeight: 400,
               letterSpacing: '-0.025em',
               color: '#111111',
-              margin: '0 0 28px 0',
+              margin: '0 0 16px 0',
               fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
               textAlign: 'left',
             }}
@@ -460,17 +470,17 @@ export default function GroundedWhy() {
             style={{
               maxWidth: '860px',
               fontFamily: 'var(--font-sans, Inter, sans-serif)',
-              fontSize: 'clamp(1.02rem, 1.35vw, 1.16rem)',
-              lineHeight: 1.68,
+              fontSize: 'clamp(0.96rem, 1.25vw, 1.08rem)',
+              lineHeight: 1.62,
               color: '#444444',
               fontWeight: 350,
               textAlign: 'left',
             }}
           >
-            <p style={{ margin: '0 0 18px 0', textAlign: 'left', lineHeight: 1.68 }}>
+            <p style={{ margin: '0 0 12px 0', textAlign: 'left', lineHeight: 1.62 }}>
               Urban infrastructure across the Mumbai Metropolitan Region operates within a dense matrix of legacy grid codes, high-tension distribution corridors, and four distinct distribution licensees: BEST across the island city, Adani Electricity and Tata Power across suburban districts, and MSEDCL throughout regional industrial circles. In this operating environment, statutory clearances are not procedural formalities. They dictate structural load safety, transformer step-down configurations, and fault-level coordination.
             </p>
-            <p style={{ margin: 0, textAlign: 'left', lineHeight: 1.68 }}>
+            <p style={{ margin: 0, textAlign: 'left', lineHeight: 1.62 }}>
               Treating architectural spatial design, HT/LT substation engineering, and utility clearances as isolated silos creates expensive revisions and regulatory stall. Directed by Jitendra Chavan with over 36 years of direct engineering experience inside Mumbai electrical utilities, JC Apex Ventures integrates technical calculation with statutory compliance from inception: ensuring rooftop solar pergolas, corporate fit-outs, and grid substations operate legally, reliably, and on schedule.
             </p>
           </div>

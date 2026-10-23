@@ -657,7 +657,7 @@ export default function CRTWarp({
 
     const resize = () => {
       const s = settingsRef.current;
-      const ratio = Math.min(window.devicePixelRatio || 1, s.dpr);
+      const ratio = Math.min(window.devicePixelRatio || 1, s.dpr, 1.5);
       const width = Math.max(1, Math.round(container.clientWidth * ratio));
       const height = Math.max(1, Math.round(container.clientHeight * ratio));
       state.pixel = ratio;

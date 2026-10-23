@@ -28,17 +28,17 @@ export default function SpotlightCard({
   const activeSpotlight = spotlightColor ?? defaultSpotlight;
   const activeBorder = borderColor ?? defaultBorder;
   const cardRef = useRef<HTMLDivElement>(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
+    const el = cardRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    setMousePos({ x, y });
+    el.style.setProperty('--mouse-x', `${x}px`);
+    el.style.setProperty('--mouse-y', `${y}px`);
 
     if (enableTilt) {
       const centerX = rect.width / 2;
@@ -46,7 +46,8 @@ export default function SpotlightCard({
       // Bounded within +/- 3.5 degrees for poised architectural elegance
       const rotateX = ((y - centerY) / centerY) * -3.5;
       const rotateY = ((x - centerX) / centerX) * 3.5;
-      setTilt({ x: rotateX, y: rotateY });
+      el.style.setProperty('--tilt-x', `${rotateX.toFixed(2)}deg`);
+      el.style.setProperty('--tilt-y', `${rotateY.toFixed(2)}deg`);
     }
   }, [enableTilt]);
 
@@ -56,7 +57,13 @@ export default function SpotlightCard({
 
   const handleMouseLeave = useCallback(() => {
     setIsHovered(false);
-    setTilt({ x: 0, y: 0 });
+    const el = cardRef.current;
+    if (el) {
+      el.style.setProperty('--tilt-x', '0deg');
+      el.style.setProperty('--tilt-y', '0deg');
+      el.style.setProperty('--mouse-x', '-999px');
+      el.style.setProperty('--mouse-y', '-999px');
+    }
   }, []);
 
   const baseGlassClass = isLight ? 'ios-liquid-glass' : 'glass-panel ios-glass';
@@ -71,10 +78,10 @@ export default function SpotlightCard({
       style={{
         position: 'relative',
         transform: enableTilt && isHovered
-          ? `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) translateY(-4px)`
+          ? 'perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateY(-4px)'
           : 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)',
         transition: isHovered
-          ? 'transform 0.15s ease-out, box-shadow 0.3s ease'
+          ? 'transform 0.12s ease-out, box-shadow 0.3s ease'
           : 'transform 0.5s var(--ease-out-expo), box-shadow 0.5s var(--ease-out-expo)',
         transformStyle: 'preserve-3d',
         willChange: 'transform',
@@ -90,7 +97,7 @@ export default function SpotlightCard({
           borderRadius: 'inherit',
           padding: '1px',
           background: isHovered
-            ? `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, ${activeBorder}, transparent 60%)`
+            ? `radial-gradient(400px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), ${activeBorder}, transparent 60%)`
             : 'transparent',
           WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
           WebkitMaskComposite: 'xor',
@@ -109,7 +116,7 @@ export default function SpotlightCard({
           inset: 0,
           borderRadius: 'inherit',
           background: isHovered
-            ? `radial-gradient(550px circle at ${mousePos.x}px ${mousePos.y}px, ${activeSpotlight}, transparent 65%)`
+            ? `radial-gradient(550px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), ${activeSpotlight}, transparent 65%)`
             : 'transparent',
           pointerEvents: 'none',
           zIndex: 2,

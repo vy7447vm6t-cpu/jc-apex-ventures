@@ -12,12 +12,10 @@ interface GroundedCTAProps {
 
 export default function GroundedCTA({
   onOpenConsultation,
-  brandText,
   headlineText,
 }: GroundedCTAProps) {
   const headline =
     headlineText ||
-    (brandText && brandText !== 'JC APEX VENTURES' ? brandText : undefined) ||
     'Have a utility sanction, solar EPC,\nor interior fit-out requirement?';
   return (
     <section
@@ -92,8 +90,8 @@ export default function GroundedCTA({
               className="pointer-events-auto"
               style={{
                 width: '100%',
-                maxWidth: '820px',
-                height: 'clamp(120px, 15vw, 165px)',
+                maxWidth: '860px',
+                height: 'clamp(120px, 15vw, 175px)',
                 margin: '4px auto 20px auto',
                 position: 'relative',
               }}

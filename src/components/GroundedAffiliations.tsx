@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import AuthorityLogo from './AuthorityLogos';
-import { TechText, FluxLines, HoloCard, MicroSlats } from '@/components/react-bits';
+import { TechText, FluxLines, MicroSlats } from '@/components/react-bits';
 
 interface DivisionBadge {
   name: string;
@@ -179,6 +179,117 @@ const AFFILIATIONS: AffiliationItem[] = [
     icon: <AuthorityLogo id="mca" size={48} />,
   },
 ];
+
+/**
+ * GPU-accelerated CSS 3D Holographic Foil Card.
+ * Uses perspective(1000px) and rotateX/rotateY with direct DOM property mutation,
+ * dynamic iridescent gold foil gradient, and specular micro-borders.
+ * Offloads 9 WebGL contexts, eliminating Safari and mobile multi-context limits.
+ */
+function FoilAffiliationCard({ children }: { children: React.ReactNode }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const el = cardRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const x = Math.min(Math.max((e.clientX - rect.left) / rect.width, 0), 1);
+    const y = Math.min(Math.max((e.clientY - rect.top) / rect.height, 0), 1);
+
+    // Tilt bounded within +/- 7 degrees for poised architectural elegance
+    const tiltX = (0.5 - y) * 14;
+    const tiltY = (x - 0.5) * 14;
+
+    el.style.setProperty('--card-tilt-x', `${tiltX.toFixed(2)}deg`);
+    el.style.setProperty('--card-tilt-y', `${tiltY.toFixed(2)}deg`);
+    el.style.setProperty('--foil-x', `${(x * 100).toFixed(1)}%`);
+    el.style.setProperty('--foil-y', `${(y * 100).toFixed(1)}%`);
+    el.style.setProperty('--glare-opacity', '1');
+    el.style.setProperty(
+      '--foil-angle',
+      `${(Math.atan2(y - 0.5, x - 0.5) * (180 / Math.PI) + 90).toFixed(1)}deg`
+    );
+  };
+
+  const handlePointerLeave = () => {
+    const el = cardRef.current;
+    if (!el) return;
+    el.style.setProperty('--card-tilt-x', '0deg');
+    el.style.setProperty('--card-tilt-y', '0deg');
+    el.style.setProperty('--glare-opacity', '0');
+    el.style.setProperty('--foil-x', '50%');
+    el.style.setProperty('--foil-y', '50%');
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
+      className="w-full flex justify-center"
+      style={{
+        perspective: '1000px',
+        position: 'relative',
+        width: '100%',
+      }}
+    >
+      <div
+        style={{
+          width: '100%',
+          height: '100%',
+          position: 'relative',
+          borderRadius: '20px',
+          transform:
+            'rotateX(var(--card-tilt-x, 0deg)) rotateY(var(--card-tilt-y, 0deg)) translateZ(0)',
+          transformStyle: 'preserve-3d',
+          transition:
+            'transform 0.12s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.3s ease',
+          boxShadow:
+            '0 4px 20px -2px rgba(0, 0, 0, 0.04), 0 12px 32px -4px rgba(194, 159, 83, 0.08)',
+          willChange: 'transform',
+        }}
+      >
+        {/* Dynamic Iridescent Gold Foil Sheen Layer */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            zIndex: 4,
+            pointerEvents: 'none',
+            borderRadius: '20px',
+            opacity: 'var(--glare-opacity, 0)',
+            transition: 'opacity 0.28s ease',
+            background:
+              'radial-gradient(circle 380px at var(--foil-x, 50%) var(--foil-y, 50%), rgba(255, 236, 179, 0.4) 0%, rgba(212, 175, 55, 0.22) 35%, rgba(140, 115, 62, 0.08) 65%, transparent 85%), linear-gradient(var(--foil-angle, 135deg), rgba(255, 215, 0, 0.08) 0%, rgba(220, 180, 70, 0.16) 25%, rgba(255, 240, 190, 0.28) 50%, rgba(180, 140, 50, 0.12) 75%, rgba(212, 175, 55, 0.08) 100%)',
+            mixBlendMode: 'color-dodge',
+          }}
+        />
+
+        {/* Specular Micro-Borders Highlight */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            zIndex: 5,
+            pointerEvents: 'none',
+            borderRadius: '20px',
+            padding: '1px',
+            background:
+              'radial-gradient(360px circle at var(--foil-x, 50%) var(--foil-y, 50%), rgba(212, 175, 55, 0.85), rgba(194, 159, 83, 0.3) 40%, rgba(194, 159, 83, 0.12) 100%)',
+            WebkitMask:
+              'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+            WebkitMaskComposite: 'xor',
+            maskComposite: 'exclude',
+          }}
+        />
+
+        {children}
+      </div>
+    </div>
+  );
+}
 
 export default function GroundedAffiliations() {
   const [activeFilter, setActiveFilter] = useState<'all' | 'discom' | 'statutory'>('all');
@@ -382,50 +493,27 @@ export default function GroundedAffiliations() {
           </div>
         </div>
 
-        {/* 9-Box Interactive HoloCard Grid with Prismatic Tilt & Foil Glints */}
+        {/* 9-Box Interactive CSS 3D Holographic Foil Card Grid with Prismatic Tilt & Foil Glints */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
-          {filteredAffiliations.map((item, idx) => {
-            const presets: Array<'bursts' | 'stars' | 'shards' | 'cosmos' | 'rainbow' | 'swirl' | 'glitter' | 'gold'> = [
-              'bursts',
-              'shards',
-              'stars',
-              'gold',
-              'cosmos',
-              'glitter',
-              'bursts',
-              'shards',
-              'gold',
-            ];
-            const preset = presets[idx % presets.length];
-
+          {filteredAffiliations.map((item) => {
             return (
-              <div key={item.id} className="w-full flex justify-center">
-                <HoloCard
-                  preset={preset}
-                  width="100%"
-                  radius={20}
-                  aspectRatio={0.78}
-                  intensity={0.65}
-                  glare={0.4}
-                  foilColor="#D4AF37"
-                  className="w-full"
+              <FoilAffiliationCard key={item.id}>
+                <div
+                  style={{
+                    padding: '24px',
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    textAlign: 'left',
+                    background: 'rgba(255, 255, 255, 0.88)',
+                    backdropFilter: 'blur(16px)',
+                    WebkitBackdropFilter: 'blur(16px)',
+                    borderRadius: '18px',
+                    border: '1px solid rgba(194, 159, 83, 0.32)',
+                    boxShadow: 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.9)',
+                  }}
                 >
-                  <div
-                    style={{
-                      padding: '24px',
-                      height: '100%',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'space-between',
-                      textAlign: 'left',
-                      background: 'rgba(255, 255, 255, 0.88)',
-                      backdropFilter: 'blur(16px)',
-                      WebkitBackdropFilter: 'blur(16px)',
-                      borderRadius: '18px',
-                      border: '1px solid rgba(194, 159, 83, 0.32)',
-                      boxShadow: 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.9)',
-                    }}
-                  >
                     {/* Top Section */}
                     <div>
                       {/* Jurisdiction Pill + Authority Emblem */}
@@ -622,10 +710,9 @@ export default function GroundedAffiliations() {
                       </div>
                     </div>
                   </div>
-                </HoloCard>
-              </div>
-            );
-          })}
+                </FoilAffiliationCard>
+              );
+            })}
         </div>
       </div>
     </section>

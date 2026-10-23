@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 interface TargetCursorProps {
   containerRef?: React.RefObject<HTMLElement | null>;
@@ -9,23 +9,13 @@ interface TargetCursorProps {
   className?: string;
 }
 
-interface SnapRect {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  borderRadius: string;
-}
-
 export default function TargetCursor({
   containerRef,
   targetSelector = '.cursor-target, a, button, [role="button"], [data-cursor-target]',
   color = '#C29F53',
   className = '',
 }: TargetCursorProps) {
-  const [pos, setPos] = useState({ x: -100, y: -100 });
-  const [active, setActive] = useState(false);
-  const [snappedRect, setSnappedRect] = useState<SnapRect | null>(null);
+  const cursorRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number | null>(null);
 
   useEffect(() => {
@@ -39,10 +29,30 @@ export default function TargetCursor({
       );
     };
 
+    const updateCursor = (
+      x: number,
+      y: number,
+      w: number,
+      h: number,
+      active: boolean,
+      isSnapped: boolean
+    ) => {
+      const el = cursorRef.current;
+      if (!el) return;
+      el.style.setProperty('--cursor-x', `${x}px`);
+      el.style.setProperty('--cursor-y', `${y}px`);
+      el.style.setProperty('--cursor-w', `${w}px`);
+      el.style.setProperty('--cursor-h', `${h}px`);
+      el.style.setProperty('--cursor-opacity', active ? '1' : '0');
+      el.style.setProperty('--bracket-size', isSnapped ? '10px' : '7px');
+      el.style.setProperty('--bracket-radius', isSnapped ? '4px' : '1px');
+      el.style.setProperty('--bracket-glow', isSnapped ? `0 0 8px ${color}` : 'none');
+      el.style.setProperty('--dot-opacity', isSnapped ? '0' : '0.9');
+    };
+
     const handleMove = (e: MouseEvent) => {
       if (!checkIsDesktop()) {
-        setActive(false);
-        setSnappedRect(null);
+        updateCursor(-100, -100, 28, 28, false, false);
         return;
       }
 
@@ -60,14 +70,10 @@ export default function TargetCursor({
             e.clientY <= rect.bottom;
 
           if (!inside) {
-            setActive(false);
-            setSnappedRect(null);
+            updateCursor(-100, -100, 28, 28, false, false);
             return;
           }
         }
-
-        setPos({ x: e.clientX, y: e.clientY });
-        setActive(true);
 
         // Check if hovering a magnetic snap target inside containerRef
         const targetNode = e.target as HTMLElement | null;
@@ -80,31 +86,30 @@ export default function TargetCursor({
           const tRect = matchedEl.getBoundingClientRect();
           // Ignore oversized full-screen overlays
           if (tRect.width > 16 && tRect.width < 680 && tRect.height > 16 && tRect.height < 260) {
-            const computedRadius = window.getComputedStyle(matchedEl).borderRadius || '10px';
             const centerX = tRect.left + tRect.width / 2;
             const centerY = tRect.top + tRect.height / 2;
             // Subtle magnetic pull toward pointer
             const pullX = (e.clientX - centerX) * 0.1;
             const pullY = (e.clientY - centerY) * 0.1;
 
-            setSnappedRect({
-              x: centerX + pullX,
-              y: centerY + pullY,
-              width: tRect.width + 10,
-              height: tRect.height + 10,
-              borderRadius: computedRadius,
-            });
+            updateCursor(
+              centerX + pullX,
+              centerY + pullY,
+              tRect.width + 10,
+              tRect.height + 10,
+              true,
+              true
+            );
             return;
           }
         }
 
-        setSnappedRect(null);
+        updateCursor(e.clientX, e.clientY, 28, 28, true, false);
       });
     };
 
     const handleLeave = () => {
-      setActive(false);
-      setSnappedRect(null);
+      updateCursor(-100, -100, 28, 28, false, false);
     };
 
     window.addEventListener('mousemove', handleMove, { passive: true });
@@ -117,27 +122,21 @@ export default function TargetCursor({
       window.removeEventListener('scroll', handleLeave);
       document.removeEventListener('mouseleave', handleLeave);
     };
-  }, [containerRef, targetSelector]);
-
-  const isSnapped = Boolean(snappedRect);
-  const displayX = snappedRect ? snappedRect.x : pos.x;
-  const displayY = snappedRect ? snappedRect.y : pos.y;
-  const displayW = snappedRect ? snappedRect.width : 28;
-  const displayH = snappedRect ? snappedRect.height : 28;
+  }, [containerRef, targetSelector, color]);
 
   return (
     <div
+      ref={cursorRef}
       className={`pointer-events-none fixed z-50 hidden lg:block ${className}`}
       style={{
-        left: `${displayX}px`,
-        top: `${displayY}px`,
-        width: `${displayW}px`,
-        height: `${displayH}px`,
+        left: 'var(--cursor-x, -100px)',
+        top: 'var(--cursor-y, -100px)',
+        width: 'var(--cursor-w, 28px)',
+        height: 'var(--cursor-h, 28px)',
         transform: 'translate(-50%, -50%)',
-        opacity: active && pos.x >= 0 ? 1 : 0,
-        transition: isSnapped
-          ? 'left 0.22s cubic-bezier(0.16, 1, 0.3, 1), top 0.22s cubic-bezier(0.16, 1, 0.3, 1), width 0.24s cubic-bezier(0.16, 1, 0.3, 1), height 0.24s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.18s ease'
-          : 'width 0.2s cubic-bezier(0.16, 1, 0.3, 1), height 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.18s ease',
+        opacity: 'var(--cursor-opacity, 0)',
+        transition:
+          'left 0.18s cubic-bezier(0.16, 1, 0.3, 1), top 0.18s cubic-bezier(0.16, 1, 0.3, 1), width 0.22s cubic-bezier(0.16, 1, 0.3, 1), height 0.22s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.18s ease',
       }}
       aria-hidden="true"
     >
@@ -147,12 +146,12 @@ export default function TargetCursor({
           position: 'absolute',
           top: 0,
           left: 0,
-          width: isSnapped ? '10px' : '7px',
-          height: isSnapped ? '10px' : '7px',
+          width: 'var(--bracket-size, 7px)',
+          height: 'var(--bracket-size, 7px)',
           borderTop: `2px solid ${color}`,
           borderLeft: `2px solid ${color}`,
-          borderTopLeftRadius: isSnapped ? '4px' : '1px',
-          boxShadow: isSnapped ? `0 0 8px ${color}` : 'none',
+          borderTopLeftRadius: 'var(--bracket-radius, 1px)',
+          boxShadow: 'var(--bracket-glow, none)',
           transition: 'all 0.2s ease',
         }}
       />
@@ -162,12 +161,12 @@ export default function TargetCursor({
           position: 'absolute',
           top: 0,
           right: 0,
-          width: isSnapped ? '10px' : '7px',
-          height: isSnapped ? '10px' : '7px',
+          width: 'var(--bracket-size, 7px)',
+          height: 'var(--bracket-size, 7px)',
           borderTop: `2px solid ${color}`,
           borderRight: `2px solid ${color}`,
-          borderTopRightRadius: isSnapped ? '4px' : '1px',
-          boxShadow: isSnapped ? `0 0 8px ${color}` : 'none',
+          borderTopRightRadius: 'var(--bracket-radius, 1px)',
+          boxShadow: 'var(--bracket-glow, none)',
           transition: 'all 0.2s ease',
         }}
       />
@@ -177,12 +176,12 @@ export default function TargetCursor({
           position: 'absolute',
           bottom: 0,
           left: 0,
-          width: isSnapped ? '10px' : '7px',
-          height: isSnapped ? '10px' : '7px',
+          width: 'var(--bracket-size, 7px)',
+          height: 'var(--bracket-size, 7px)',
           borderBottom: `2px solid ${color}`,
           borderLeft: `2px solid ${color}`,
-          borderBottomLeftRadius: isSnapped ? '4px' : '1px',
-          boxShadow: isSnapped ? `0 0 8px ${color}` : 'none',
+          borderBottomLeftRadius: 'var(--bracket-radius, 1px)',
+          boxShadow: 'var(--bracket-glow, none)',
           transition: 'all 0.2s ease',
         }}
       />
@@ -192,12 +191,12 @@ export default function TargetCursor({
           position: 'absolute',
           bottom: 0,
           right: 0,
-          width: isSnapped ? '10px' : '7px',
-          height: isSnapped ? '10px' : '7px',
+          width: 'var(--bracket-size, 7px)',
+          height: 'var(--bracket-size, 7px)',
           borderBottom: `2px solid ${color}`,
           borderRight: `2px solid ${color}`,
-          borderBottomRightRadius: isSnapped ? '4px' : '1px',
-          boxShadow: isSnapped ? `0 0 8px ${color}` : 'none',
+          borderBottomRightRadius: 'var(--bracket-radius, 1px)',
+          boxShadow: 'var(--bracket-glow, none)',
           transition: 'all 0.2s ease',
         }}
       />
@@ -213,7 +212,7 @@ export default function TargetCursor({
           borderRadius: '9999px',
           backgroundColor: color,
           transform: 'translate(-50%, -50%)',
-          opacity: isSnapped ? 0 : 0.9,
+          opacity: 'var(--dot-opacity, 0.9)',
           transition: 'opacity 0.15s ease',
           boxShadow: `0 0 6px ${color}`,
         }}
