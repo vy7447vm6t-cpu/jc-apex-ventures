@@ -4,6 +4,7 @@ import React, { useState, useCallback } from 'react';
 import SolarCalculator from '@/components/SolarCalculator';
 import PrintCalculator from '@/components/PrintCalculator';
 import InteriorCalculator from '@/components/InteriorCalculator';
+import GridApexSubstationCalculator from '@/components/GridApexSubstationCalculator';
 import {
   SolarGenerationCurve,
   CashflowPaybackSchedule,
@@ -50,10 +51,17 @@ const CALCULATOR_OPTIONS = [
     logoSrc: '/images/logos/emudran-official.png',
     logoDark: '/images/logos/emudran-white.png',
   },
+  {
+    label: '(06) HT Substation & Sizing',
+    value: 'substation',
+    subtext: 'Grid Apex',
+    logoSrc: '/images/logos/grid-apex-official.png',
+    logoDark: '/images/logos/grid-apex-official.png',
+  },
 ];
 
 export default function GroundedCalculators() {
-  const [activeTab, setActiveTab] = useState<'solar' | 'tariff' | 'ev' | 'interior' | 'print'>('solar');
+  const [activeTab, setActiveTab] = useState<'solar' | 'tariff' | 'ev' | 'interior' | 'print' | 'substation'>('solar');
 
   // Solis metrics
   const [solarMetrics, setSolarMetrics] = useState({
@@ -378,7 +386,7 @@ export default function GroundedCalculators() {
                     CGRF &amp; Ombudsman
                   </div>
                   <div style={{ fontSize: '0.7rem', color: 'rgba(255, 255, 255, 0.65)', marginTop: '4px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                    ₹50 Statutory Evaluation · Electricity Act 2003
+                    ₹50 Administrative Intake · Electricity Act 2003
                   </div>
                 </div>
               </div>
@@ -630,6 +638,9 @@ export default function GroundedCalculators() {
 
           {/* Tab 5: eMudran Packaging & Print Run */}
           {activeTab === 'print' && <PrintCalculator onLiveChange={handlePrintChange} />}
+
+          {/* Tab 6: Grid Apex HT Substation & Sizing */}
+          {activeTab === 'substation' && <GridApexSubstationCalculator />}
         </div>
 
         {/* Dynamic Bklit Engineering Data Visualizations */}
@@ -790,6 +801,31 @@ export default function GroundedCalculators() {
           {activeTab === 'print' && (
             <div style={{ maxWidth: '720px', margin: '0 auto' }}>
               <PackagingVolumeTierCurve activeQuantity={printMetrics.quantity} />
+            </div>
+          )}
+
+          {/* Grid Apex Technical Overview Strip */}
+          {activeTab === 'substation' && (
+            <div
+              style={{
+                maxWidth: '960px',
+                margin: '0 auto',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: '12px',
+                padding: '18px 24px',
+                borderRadius: '16px',
+                background: 'rgba(212, 175, 55, 0.06)',
+                border: '1px solid rgba(194, 159, 83, 0.22)',
+                fontSize: '0.84rem',
+                color: '#444444',
+                fontFamily: 'var(--font-sans, Inter, sans-serif)',
+              }}
+            >
+              <span>11kV/22kV/33kV Step-Down Transformer Yard · 1.25x Dynamic Headroom · Fault Level Coordination</span>
+              <span style={{ fontWeight: 700, color: '#8C733E', letterSpacing: '0.04em' }}>CLASS-A PWD &amp; CEI SANCTIONS</span>
             </div>
           )}
         </div>

@@ -84,13 +84,13 @@ test({
   id: 'T2_R7_06',
   tier: 'tier2',
   feature: 'r7',
-  title: 'R7 Boundary: CHS solar subsidy strictly caps at ₹10.8 Lakhs even at 250 kWp',
+  title: 'R7 Boundary: CHS solar subsidy strictly caps at ₹90 Lakhs (500 kWp statutory ceiling)',
   fn: () => {
     function calcChsSubsidy(kwp) {
-      return Math.min(1080000, kwp * 18000);
+      return Math.min(9000000, kwp * 18000);
     }
-    assertEqual(calcChsSubsidy(60), 1080000, '60 kWp reaches exact ₹10.8L cap');
-    assertEqual(calcChsSubsidy(120), 1080000, '120 kWp capped at ₹10.8L');
-    assertEqual(calcChsSubsidy(250), 1080000, '250 kWp capped at ₹10.8L');
+    assertEqual(calcChsSubsidy(60), 1080000, '60 kWp reaches ₹10.8L subsidy');
+    assertEqual(calcChsSubsidy(500), 9000000, '500 kWp reaches exact ₹90L cap');
+    assertEqual(calcChsSubsidy(600), 9000000, '600 kWp capped at ₹90L');
   },
 });

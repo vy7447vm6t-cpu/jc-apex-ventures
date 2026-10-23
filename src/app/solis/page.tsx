@@ -186,7 +186,7 @@ export default function SolisPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          to: 'Solis@jcapexv.com',
+          to: 'solis@jcapexv.com',
           cc: 'admin@jcapexv.com',
           subject,
           body,
@@ -200,7 +200,7 @@ export default function SolisPage() {
       // Non-blocking
     }
 
-    const mailtoUrl = `mailto:Solis@jcapexv.com?cc=admin@jcapexv.com&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const mailtoUrl = `mailto:solis@jcapexv.com?cc=admin@jcapexv.com&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
     setSubmittedBody(body);
     setFormSubmitted(true);
@@ -544,7 +544,7 @@ export default function SolisPage() {
                         PM Surya Ghar Subsidy Support
                       </strong>
                       <span style={{ fontSize: '0.88rem', color: 'var(--color-text-secondary)', lineHeight: 1.55 }}>
-                        Up to Rs 10.8 Lakhs for housing societies (Rs 18,000/kW) and up to Rs 78,000 for individual residences.
+                        Up to Rs 18,000/kW (statutory cap up to Rs 90 Lakhs) for housing societies and up to Rs 78,000 for individual residences.
                       </span>
                     </div>
                   </div>
@@ -1055,7 +1055,7 @@ export default function SolisPage() {
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '14px', flex: 1 }}>
                   <li style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', fontSize: '0.92rem', lineHeight: 1.65, color: 'var(--color-text-secondary)' }}>
                     <CheckCircle2 size={16} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '4px' }} />
-                    <span><strong>PM Surya Ghar Central Grants:</strong> Unprecedented direct subsidies: up to Rs 78,000 for individual homes and up to Rs 10.8 Lakh (Rs 18,000/kW up to 60 kW) for Group Housing Society common meters.</span>
+                    <span><strong>PM Surya Ghar Central Grants:</strong> Unprecedented direct subsidies: up to Rs 78,000 for individual homes and Rs 18,000/kW (statutory ceiling up to Rs 90 Lakhs for 500 kW) for Group Housing Society common meters.</span>
                   </li>
                   <li style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', fontSize: '0.92rem', lineHeight: 1.65, color: 'var(--color-text-secondary)' }}>
                     <CheckCircle2 size={16} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '4px' }} />
@@ -1158,7 +1158,7 @@ export default function SolisPage() {
                       alt="Cumulative Cashflow and Payback Schedule: 3.8 Year Breakeven"
                       title="Cumulative Cashflow & 3.8-Year Payback Schedule"
                       category="Financial Breakeven Model"
-                      scope="Comprehensive cashflow trajectory illustrating initial capex offset by Rs 10.8L PM Surya Ghar subsidy, 3.8-year breakeven, and 25-year compounding multi-lakh net savings."
+                      scope="Comprehensive cashflow trajectory illustrating initial capex offset by PM Surya Ghar subsidy (e.g. Rs 10.8L on typical 60 kWp CHS arrays), 3.8-year breakeven, and 25-year compounding multi-lakh net savings."
                       style={{ width: '100%', height: '100%' }}
                     />
                   </div>
@@ -1862,7 +1862,7 @@ export default function SolisPage() {
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.9rem', color: 'var(--color-text-secondary)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                       <Mail size={15} color="var(--color-accent)" />
-                      <span>Email: <strong style={{ color: 'var(--color-text-primary)' }}>Solis@jcapexv.com</strong> (CC: admin@jcapexv.com)</span>
+                      <span>Email: <strong style={{ color: 'var(--color-text-primary)' }}>solis@jcapexv.com</strong> (CC: admin@jcapexv.com)</span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                       <Phone size={15} color="var(--color-accent)" />
@@ -1875,7 +1875,7 @@ export default function SolisPage() {
                       style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'inherit', textDecoration: 'none' }}
                     >
                       <MapPin size={15} color="var(--color-accent)" />
-                      <span>Office: One International Centre, Tower 1, Elphinstone, Mumbai 400013 <strong style={{ color: 'var(--color-accent)' }}>[Open Maps ↗]</strong></span>
+                      <span>Office: One International Centre, Tower 2, Elphinstone, Mumbai 400013 <strong style={{ color: 'var(--color-accent)' }}>[Open Maps ↗]</strong></span>
                     </a>
                   </div>
                 </div>
@@ -2110,7 +2110,7 @@ export default function SolisPage() {
                 </button>
 
                 <p style={{ textAlign: 'center', fontSize: '0.78rem', color: 'var(--color-text-muted)', marginTop: '12px' }}>
-                  This will open an email to Solis@jcapexv.com (CC: admin@jcapexv.com) with your pre-filled inquiry details.
+                  This will open an email to solis@jcapexv.com (CC: admin@jcapexv.com) with your pre-filled inquiry details.
                 </p>
 
                 {formSubmitted && (

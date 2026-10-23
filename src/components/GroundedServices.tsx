@@ -32,7 +32,7 @@ const DISCIPLINES: PracticeDiscipline[] = [
     image: '/images/solis_pergola_solar.jpg',
     scope:
       'Elevated walkable solar pergolas, BIPV architectural glass, integrated EV charging hubs, and PM Surya Ghar central capital subsidy liaisoning.',
-    statutoryMetric: '10.5 ft clearance · 150 km/h wind certified · Up to ₹10.8L society subsidy',
+    statutoryMetric: '10.5 ft clearance · 150 km/h wind certified · Up to ₹18k/kW society subsidy (₹90L cap)',
     leadAssociate: 'Jitendra Chavan (Director) & Solis EPC Engineering Network',
     badge: 'MNRE / DISCOM NET-METERING',
     logoLight: '/images/logos/solis-official.png',

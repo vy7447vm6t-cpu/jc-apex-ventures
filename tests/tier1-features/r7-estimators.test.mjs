@@ -23,7 +23,7 @@ test({
   fn: () => {
     // Exact official subsidy logic test:
     // Residential: <= 1 kW = 30000; <= 2 kW = 60000; > 2 kW = 78000
-    // CHS: 18000/kW capped at 10,80,000
+    // CHS: 18000/kW capped at 90,00,000 (500 kWp statutory ceiling)
     // Commercial: 0
     function calcSubsidy(type, kwp) {
       if (type === 'commercial') return 0;
@@ -33,7 +33,7 @@ test({
         return 78000;
       }
       if (type === 'chs') {
-        return Math.min(1080000, kwp * 18000);
+        return Math.min(9000000, kwp * 18000);
       }
       return 0;
     }
@@ -43,7 +43,9 @@ test({
     assertEqual(calcSubsidy('residential', 3.0), 78000, 'Residential 3kW subsidy must be ₹78,000');
     assertEqual(calcSubsidy('residential', 10.0), 78000, 'Residential >2kW subsidy must cap at ₹78,000');
     assertEqual(calcSubsidy('chs', 10.0), 180000, 'CHS 10kW subsidy must be ₹1,80,000');
-    assertEqual(calcSubsidy('chs', 100.0), 1080000, 'CHS 100kW subsidy must cap at ₹10,80,000');
+    assertEqual(calcSubsidy('chs', 100.0), 1800000, 'CHS 100kW subsidy must be ₹18,00,000');
+    assertEqual(calcSubsidy('chs', 500.0), 9000000, 'CHS 500kW subsidy must reach ₹90,00,000 ceiling');
+    assertEqual(calcSubsidy('chs', 600.0), 9000000, 'CHS 600kW subsidy must cap at ₹90,00,000 ceiling');
     assertEqual(calcSubsidy('commercial', 25.0), 0, 'Commercial subsidy must be ₹0');
   },
 });

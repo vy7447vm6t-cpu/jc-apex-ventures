@@ -44,7 +44,7 @@ const KNOWLEDGE_BASE: KnowledgeItem[] = [
     shortQ: 'Office Location',
     keywords: ['office', 'location', 'address', 'directions', 'maps', 'where', 'headquarters', 'elphinstone', 'lower parel', 'mumbai', 'find'],
     q: 'Where is your corporate office located in Mumbai?',
-    a: 'Our corporate headquarters is located at One International Centre, Tower 1, Units 801-802, Senapati Bapat Marg, Elphinstone, Lower Parel, Mumbai 400013. Visitors can easily reach us via Western or Central Railway lines.',
+    a: 'Our corporate headquarters is located at One International Centre, Tower 2, Units 801-802, Senapati Bapat Marg, Elphinstone, Lower Parel, Mumbai 400013. Visitors can easily reach us via Western or Central Railway lines.',
     actionHref:
       'https://www.google.com/maps/search/?api=1&query=One+International+Centre+Senapati+Bapat+Marg+Elphinstone+Mumbai+400013',
     actionLabel: 'Open Office in Google Maps',
@@ -62,7 +62,7 @@ const KNOWLEDGE_BASE: KnowledgeItem[] = [
     shortQ: 'PM Surya Ghar Subsidy',
     keywords: ['subsidy', 'pm surya ghar', 'surya ghar', 'central subsidy', 'grant', 'discount', 'rebate', 'cost'],
     q: 'How much subsidy is available under PM Surya Ghar Muft Bijli Yojana?',
-    a: 'Individual residential homes receive up to Rs 78,000 credited directly to their bank account post DISCOM meter commissioning. Housing societies receive Rs 18,000 per kW up to Rs 10.8 Lakhs for common meters, lifts, pumps, and EV charging.',
+    a: 'Individual residential homes receive up to Rs 78,000 credited directly to their bank account post DISCOM meter commissioning. Housing societies receive Rs 18,000 per kW (up to Rs 90 Lakhs statutory ceiling for 500 kW) for common meters, lifts, pumps, and EV charging.',
     actionHref: '/solis#calculator',
     actionLabel: 'Estimate Your Society Subsidy',
   },

@@ -32,13 +32,13 @@ const divisions: DivisionData[] = [
     pillars: [
       'Elevated walk-under pergola canopies lifting panels 8 to 10 feet overhead',
       'Architectural semi-transparent BIPV solar glass with 30% natural light transmittance',
-      'Direct liaisoning for PM Surya Ghar Muft Bijli Yojana subsidies up to Rs 10.8 Lakhs',
+      'Direct liaisoning for PM Surya Ghar Muft Bijli Yojana subsidies up to statutory Rs 90 Lakhs (Rs 18,000/kW)',
       'Integrated AC and DC electric vehicle charging hubs linked to solar distribution boards',
     ],
     metrics: [
       { label: 'Terrace Usability', value: '100% Open' },
       { label: 'Wind Load Rating', value: '150 km/h' },
-      { label: 'Max Subsidy Support', value: 'Rs 10.8L' },
+      { label: 'Max Subsidy Support', value: 'Rs 18k/kW' },
     ],
     associates: ['PM Surya Ghar', 'MNRE Standards', 'Tier-1 TopCon Modules', 'Discom Net Metering'],
   },

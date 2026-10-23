@@ -9,18 +9,16 @@ import ScrollReveal from '@/components/ScrollReveal';
 import { FileText } from 'lucide-react';
 
 const formFields: FormField[] = [
-  { name: 'service', label: 'Service Needed', type: 'select', options: [
-    'PWD Licences (Wireman, Supervisory, Contractor)',
-    'Udyam Registration',
-    'FSSAI',
-    'Health Licence',
-    'GST Registration',
-    'PAN Card / Aadhar Card',
-    'Marriage Certificate',
-    'Affidavit',
-    'Leave & Licence',
-    'RTO',
-    'Passport'
+  { name: 'service', label: 'Statutory Approval Needed', type: 'select', options: [
+    'Maharashtra PWD Electrical Contractor License (Class-A)',
+    'PWD Electrical Supervisory & Wireman Competency Certificates',
+    'Chief Electrical Inspector (CEI) Substation Clearance',
+    'MPCB Consent to Establish (CTE) / Consent to Operate (CTO)',
+    'Factory Act Directorate (CIF) Industrial Licensing',
+    'Municipal Corporation Fire NOC & Trade License',
+    'Udyam & MSME Regulatory Classification',
+    'FSSAI Central / State Manufacturing License',
+    'GST Registration & Commercial Tax Structuring'
   ], required: true },
   { name: 'documentsReady', label: 'List of Documents Ready?', type: 'radio', options: ['Yes', 'No', 'Need to talk'], required: true },
   { name: 'urgency', label: 'Urgency', type: 'radio', options: ['Urgent', 'Very Urgent'], required: true },
@@ -29,17 +27,15 @@ const formFields: FormField[] = [
 ];
 
 const servicesList = [
-  { id: 1, name: "PWD Licences", docs: "Wireman, Supervisory, Contractor" },
-  { id: 2, name: "Udyam Registration", docs: "Standard KYC & Business proofs" },
-  { id: 3, name: "FSSAI", docs: "Premise & Entity documents" },
-  { id: 4, name: "Health Licence", docs: "Municipal requirements" },
-  { id: 5, name: "GST Registration", docs: "PAN, Aadhar, Address proof" },
-  { id: 6, name: "PAN Card / Aadhar Card", docs: "Identity & Address proofs" },
-  { id: 7, name: "Marriage Certificate", docs: "Joint photographs, Affidavits" },
-  { id: 8, name: "Affidavit", docs: "Drafting subject to requirement" },
-  { id: 9, name: "Leave & Licence", docs: "Property documents, KYC of parties" },
-  { id: 10, name: "RTO", docs: "Vehicle & Identity documents" },
-  { id: 11, name: "Passport", docs: "Standard Government portal docs" },
+  { id: 1, name: "Maharashtra PWD Class-A Electrical License", docs: "Chartered Electrical Engineer supervision, solvency certificate, equipment inventory" },
+  { id: 2, name: "Supervisory & Wireman Competency", docs: "ITI / Diploma credentials, apprentice logbooks, state examination docket" },
+  { id: 3, name: "Chief Electrical Inspector (CEI) Clearances", docs: "Single-line diagrams (SLD), transformer earthing tests, relay calibration reports" },
+  { id: 4, name: "MPCB Consents (CTE & CTO)", docs: "Effluent / emission calculations, solid waste plan, environmental audit dockets" },
+  { id: 5, name: "Factory Act & Industrial Registrations", docs: "Architectural floor plans, machinery layouts, stability certificates" },
+  { id: 6, name: "Municipal Fire NOC & Trade Compliance", docs: "Hydrant schematics, smoke extraction specs, emergency egress audits" },
+  { id: 7, name: "Udyam & MSME Classification", docs: "Statutory audited balance sheets, plant & machinery investment certifications" },
+  { id: 8, name: "FSSAI Food Manufacturing Licensing", docs: "Water testing reports, food safety management plan (FSMS), facility blueprints" },
+  { id: 9, name: "GST & Commercial Tax Structuring", docs: "Corporate PAN, entity registration documents, registered office lease deed" },
 ];
 
 export default function LicensesPage() {

@@ -5,6 +5,19 @@ import Link from 'next/link';
 import Logo from './Logo';
 import { Phone, Mail, MapPin, ArrowUpRight } from 'lucide-react';
 import { SpecularButton } from '@/components/react-bits';
+import LogoLoop, { LogoLoopItem } from '@/components/react-bits/LogoLoop';
+
+const REGULATORY_RIBBON_ITEMS: LogoLoopItem[] = [
+  { id: 'best', name: 'BEST Undertaking', category: 'DISCOM Island City' },
+  { id: 'adani', name: 'Adani Electricity (AEML)', category: 'DISCOM Suburbs' },
+  { id: 'tata', name: 'Tata Power (TPCL)', category: 'DISCOM Suburbs' },
+  { id: 'msedcl', name: 'MSEDCL', category: 'DISCOM Regional MMR' },
+  { id: 'merc', name: 'MERC', category: 'Regulatory Commission' },
+  { id: 'mnre', name: 'MNRE / PM Surya Ghar', category: 'Central CFA' },
+  { id: 'meda', name: 'MEDA', category: 'State Renewable Energy' },
+  { id: 'cei', name: 'PWD Electrical Inspectorate (CEI)', category: 'Statutory Safety' },
+  { id: 'mca', name: 'Ministry of Corporate Affairs (MCA)', category: 'ROC Mumbai' },
+];
 
 const DIVISION_FOOTER_LOGOS = [
   {
@@ -356,7 +369,7 @@ export default function Footer() {
             >
               <MapPin size={18} color="#C29F53" style={{ flexShrink: 0, marginTop: '3px' }} />
               <div>
-                <span>One International Centre, Tower 1,</span><br />
+                <span>One International Centre, Tower 2,</span><br />
                 <span>8th Floor, Units 801-802,</span><br />
                 <span>Senapati Bapat Marg,</span><br />
                 <span>Elphinstone, Mumbai 400013</span>
@@ -418,6 +431,25 @@ export default function Footer() {
               36+ Years Direct Utility Practice
             </div>
           </div>
+        </div>
+
+        {/* Statutory & Regulatory Authority Infinite Ribbon */}
+        <div style={{ marginTop: '36px', marginBottom: '24px' }}>
+          <div
+            style={{
+              fontSize: '0.68rem',
+              fontWeight: 700,
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+              color: 'rgba(194, 159, 83, 0.75)',
+              fontFamily: 'var(--font-sans, Inter, sans-serif)',
+              marginBottom: '10px',
+              textAlign: 'center',
+            }}
+          >
+            [ DISCOM &amp; STATUTORY REGULATORY FRAMEWORKS ]
+          </div>
+          <LogoLoop items={REGULATORY_RIBBON_ITEMS} speed={28} theme="dark" className="border-y border-white/10" />
         </div>
 
         {/* Bottom Statutory Row */}

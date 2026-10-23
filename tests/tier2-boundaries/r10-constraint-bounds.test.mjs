@@ -99,11 +99,17 @@ test({
   id: 'T2_R10_06',
   tier: 'tier2',
   feature: 'r10',
-  title: 'R10 Boundary: Client confidentiality check ensures no private mobile numbers or passwords exposed in code',
+  title: 'R10 Boundary: Client confidentiality check ensures no private mobile numbers, passwords or named corporate accounts exposed in code',
   fn: () => {
     const content = readFileSafe(PATHS.divisionsContent) || '';
     // Must only contain authorized official contact coordinates
     assert(!content.includes('password'), 'Source content must never contain password strings');
     assert(!content.includes('secret_key'), 'Source content must never contain secret keys');
+
+    // Strict confidentiality: private client names must never be leaked
+    const forbiddenClients = ['Taj Mahal Palace', 'The Oberoi', 'Trident BKC', 'Lanxess', 'Tolia Ball', 'Pristo Pipes'];
+    for (const client of forbiddenClients) {
+      assert(!content.includes(client), `Source content must not leak private client name: ${client}`);
+    }
   },
 });

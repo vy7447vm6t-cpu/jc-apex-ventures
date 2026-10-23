@@ -141,8 +141,8 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
     else if (actualKwp <= 2) subsidyRs = 60000;
     else subsidyRs = 78000;
   } else if (propertyType === 'chs') {
-    // Housing society common meters: Rs 18,000 per kW up to 500 kWp / max Rs 10.8 Lakh
-    subsidyRs = Math.min(1080000, Math.round(actualKwp * 18000));
+    // Housing society common meters: Rs 18,000 per kW up to 500 kWp / statutory ceiling Rs 90 Lakhs
+    subsidyRs = Math.min(9000000, Math.round(actualKwp * 18000));
   } else {
     // Commercial gets 40% Accelerated Depreciation tax benefit instead of direct central capital subsidy
     subsidyRs = 0;
@@ -776,7 +776,7 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
 
                 <div style={{ fontSize: '0.78rem', color: '#777777', lineHeight: 1.4, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                   {propertyType === 'chs'
-                    ? 'PM Surya Ghar provides Rs 18,000/kW up to Rs 10.8 Lakhs for housing societies for common meters and EV charging.'
+                    ? 'PM Surya Ghar provides Rs 18,000/kW (statutory ceiling up to Rs 90 Lakhs for 500 kW) for housing societies for common meters and EV charging.'
                     : propertyType === 'residential'
                     ? 'PM Surya Ghar subsidy of up to Rs 78,000 is credited directly to consumer bank account post DISCOM meter commissioning.'
                     : 'Commercial enterprises benefit from accelerated depreciation and heavy peak-tariff reductions.'}

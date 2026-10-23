@@ -341,7 +341,7 @@ export default function SanyogTariffAuditCalculator() {
 
             <div style={{ fontSize: '0.78rem', color: '#444444', lineHeight: 1.5, display: 'flex', alignItems: 'flex-start', gap: '6px' }}>
               <CheckCircle2 size={15} color="#2C5ED4" style={{ flexShrink: 0, marginTop: '2px' }} />
-              <span>CGRF petitions require nominal statutory ₹50 token fee with 60-day mandatory disposal timeline.</span>
+              <span>Official CGRF forum filings are fee-free under MERC regulations; JC Apex provides initial technical docket intake with 60-day mandatory disposal timeline.</span>
             </div>
           </div>
 

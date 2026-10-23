@@ -62,7 +62,7 @@ test({
   id: 'T2_R9_05',
   tier: 'tier2',
   feature: 'r9',
-  title: 'R9 Boundary: Electricity grievance dossier enforces exact statutory ₹50 consultation fee',
+  title: 'R9 Boundary: Electricity grievance dossier enforces exact nominal ₹50 administrative intake fee',
   fn: () => {
     const code = readFileSafe(PATHS.routeGrievances);
     assert(code !== null, 'src/app/electricity-grievances/page.tsx must exist');

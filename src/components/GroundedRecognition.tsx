@@ -112,7 +112,7 @@ const LEDGER_ROWS: LedgerRow[] = [
     authorityId: 'pmsuryaghar',
     jurisdictionBadge: 'CENTRAL MNRE PORTAL',
     framework: 'National Rooftop Solar Guidelines',
-    deliverable: 'Central financial assistance clearance up to Rs 78,000 (homes) and Rs 10.8 Lakhs (CHS)',
+    deliverable: 'Central financial assistance clearance up to Rs 78,000 (homes) and statutory ₹90L ceiling (Rs 18,000/kW for CHS)',
     category: 'env',
     divisionLogo: '/images/logos/solis-logo-white.png',
     divisionName: 'Solis',
@@ -138,9 +138,9 @@ const LEDGER_ROWS: LedgerRow[] = [
     framework: 'Companies Act 2013',
     deliverable: 'Registered OPC Private Limited. Corporate Identity Number: U70200MH2023OPC411326',
     category: 'corporate',
-    divisionLogo: '/images/logos/agrim-official.png',
-    divisionName: 'Agrim',
-    divisionHref: '/agrim',
+    divisionLogo: '/images/logos/high-resolution-color-logo-2.png',
+    divisionName: 'JC Apex Ventures',
+    divisionHref: '/studio',
   },
 ];
 
@@ -166,7 +166,7 @@ const CATEGORY_TELEMETRY_RIBBON: Record<string, { label: string; status: 'nomina
   env: [
     { label: 'MPCB CTE/CTO THERMAL WASTE PASS', status: 'nominal', tag: 'ZERO EMISSION' },
     { label: 'PM SURYA GHAR NATIONAL PORTAL', status: 'synced', tag: 'CENTRAL MNRE' },
-    { label: 'CHS SUBSIDY SLAB ₹10.8L CAP SYNC', status: 'nominal', tag: 'SOCIETY CFA' },
+    { label: 'CHS SUBSIDY SLAB ₹18K/kW (₹90L CAP)', status: 'nominal', tag: 'SOCIETY CFA' },
     { label: 'RESIDENTIAL ₹78,000 SUBSIDY ACTIVE', status: 'active', tag: 'DIRECT BENEFIT' },
   ],
   corporate: [
@@ -197,7 +197,7 @@ const TELEMETRY_LOGS: Record<string, { timestamp: string; source: string; messag
   ],
   env: [
     { timestamp: 'IST 10:18:05', source: 'MPCB-CONSENT', message: 'CTE/CTO solid waste thermal decomposition compliant.', status: 'success' },
-    { timestamp: 'IST 10:18:11', source: 'MNRE-SUBSIDY', message: 'Residential Rs 78,000 & Society Rs 10.8L cap active.', status: 'success' },
+    { timestamp: 'IST 10:18:11', source: 'MNRE-SUBSIDY', message: 'Residential Rs 78,000 & Society Rs 18k/kW (Rs 90L statutory cap) active.', status: 'success' },
   ],
   corporate: [
     { timestamp: 'IST 10:22:00', source: 'MCA-ROC', message: 'CIN U70200MH2023OPC411326 active at Mumbai ROC.', status: 'success' },
@@ -575,7 +575,7 @@ export default function GroundedRecognition() {
                           >
                             <img
                               src={row.divisionLogo}
-                              alt=""
+                              alt={`${row.divisionName} logo`}
                               style={{
                                 height: row.divisionLogo.includes('sanyog') ? '18px' : '16px',
                                 maxWidth: '72px',
@@ -714,7 +714,7 @@ export default function GroundedRecognition() {
                     >
                       <img
                         src={row.divisionLogo}
-                        alt=""
+                        alt={`${row.divisionName} logo`}
                         style={{
                           height: row.divisionLogo.includes('sanyog') ? '17px' : '15px',
                           maxWidth: '64px',

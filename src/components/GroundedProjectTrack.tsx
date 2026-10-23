@@ -149,7 +149,7 @@ const CASE_STUDIES: CaseStudy[] = [
       { label: 'Sanction Load', value: '250 kVA Regularization' },
       { label: 'Statutory Forum', value: 'CGRF & Electricity Ombudsman' },
       { label: 'Jurisdiction', value: 'BEST, Adani, Tata Power, MSEDCL' },
-      { label: 'Initial Review', value: '₹50 Statutory Case Evaluation' },
+      { label: 'Initial Review', value: '₹50 Administrative Intake' },
     ],
     actionHref: '/sanyog',
     actionLabel: 'Open Sanyog Regulatory Dossier',
@@ -176,7 +176,7 @@ const CASE_STUDIES: CaseStudy[] = [
       },
       {
         id: 'sub-2',
-        title: 'SF6 Vacuum Circuit Breaker (VCB) Switchgear',
+        title: 'Vacuum Circuit Breaker (VCB) & SF6 Ring Main Unit (RMU)',
         tag: 'PROTECTION RELAYS',
         image: '/images/field_switchgear_panel.jpg',
         description: 'Fault-current protection coordination calibrated to parent DISCOM feeder.',

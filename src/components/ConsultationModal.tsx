@@ -19,7 +19,7 @@ interface DivisionOption {
 
 const DIVISIONS: DivisionOption[] = [
   { id: 'solis', name: 'Solis', tag: 'Solar & Walkable Pergolas', email: 'solis@jcapexv.com' },
-  { id: 'sanyog', name: 'Sanyog', tag: 'Utility Liaison & CGRF', email: 'licenses@jcapexv.com' },
+  { id: 'sanyog', name: 'Sanyog', tag: 'Utility Liaison & CGRF', email: 'Consumercmpl@jcapexv.com' },
   { id: 'grid-apex', name: 'Grid Apex', tag: 'HT/LT Substations', email: 'admin@jcapexv.com' },
   { id: 'tvasta', name: 'Tvasta', tag: 'Turnkey Architectural Interiors', email: 'spacemgmt@jcapexv.com' },
   { id: 'emudran', name: 'eMudran', tag: 'Luxury Packaging & Press', email: 'printmgmt@jcapexv.com' },

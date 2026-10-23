@@ -19,7 +19,7 @@ export default function InteriorCalculator() {
       ratePerSqft = 2850;
       days = area > 1200 ? 75 : 60;
     } else {
-      ratePerSqft = 4400;
+      ratePerSqft = 4600;
       days = area > 1200 ? 110 : 90;
     }
 

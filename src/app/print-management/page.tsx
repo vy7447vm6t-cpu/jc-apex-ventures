@@ -52,7 +52,7 @@ const offsetRates = [
   { item: 'Letterhead (Alabaster Paper)', rate: '₹2,000', spec: 'Qty 1,000 | A4 Size | Premium Alabaster Paper' },
   { item: 'Letterhead (Executive Bond)', rate: '₹2,500', spec: 'Qty 1,000 | A4 Size | Premium Executive Bond Paper' },
   { item: 'Envelope (Alabaster Paper)', rate: '₹2,800', spec: 'Qty 1,000 | A4 Size | Premium Alabaster Paper' },
-  { item: 'Wedding Card Invitation', rate: '₹1,500 onwards', spec: 'Qty 200+ | Premium cover & inserts, varies by design' },
+  { item: 'Corporate Presentation Suites', rate: '₹1,500 onwards', spec: 'Qty 200+ | Rigid foil-stamped presentation covers & bespoke inserts' },
   { item: 'Society Name Plate (Acrylic)', rate: '₹400 / plate', spec: 'Custom laser engraved / printed acrylic sign' },
   { item: 'Society Name Plate (Steel)', rate: '₹600 / plate', spec: 'Etched high-grade stainless steel sign' },
 ];
@@ -68,9 +68,9 @@ const acrylicRates = [
 ];
 
 const logisticsRates = [
-  { item: 'Transport (Local Virar Area)', rate: 'Minimum ₹300', spec: 'Standard logistics within Virar limits' },
-  { item: 'Transport (Virar to Nalasopara)', rate: '₹500', spec: 'Logistics delivery to Nalasopara area' },
-  { item: 'Transport (Virar to Vasai)', rate: '₹800', spec: 'Logistics delivery to Vasai area' },
+  { item: 'Logistics (Island City / South Mumbai)', rate: 'Corporate Dispatch', spec: 'Nariman Point, BKC, Lower Parel, Prabhadevi corridors' },
+  { item: 'Logistics (Western & Central Suburbs)', rate: 'Scheduled Dispatch', spec: 'Andheri, Bandra, Powai, Thane industrial centers' },
+  { item: 'Logistics (Navi Mumbai & Extended MMR)', rate: 'Freight Dispatch', spec: 'TTC Industrial Area, Taloja, Palghar manufacturing zones' },
   { item: 'Wooden Frame Making / Fitting', rate: '₹40 / sq. ft.', spec: 'On-site frame construction' },
   { item: 'Pole Fitting with Light', rate: '₹300 / pole', spec: 'Installation of light poles' },
   { item: 'Vinyl Pasting', rate: '₹10 / sq. ft.', spec: 'Application of vinyl on storefronts/signboards' },
@@ -111,8 +111,8 @@ const calculateEstimate = (
     case 'Catalogues':
       printCost = (qty / 1000) * 28000; // Hospital File multi-page style
       break;
-    case 'Wedding Cards':
-      printCost = qty * 7.5; // Avg cost per card cover + inserts
+    case 'Corporate Presentation Suites':
+      printCost = qty * 7.5; // Custom rigid presentation box + inserts
       break;
     case 'Signage':
       const signageRate = quality === 'Premium' ? 450 : 350; // Glow Sign Board rate
@@ -356,10 +356,10 @@ export default function PrintManagementPage() {
 
             <ScrollReveal delay={3}>
               <div className="glass-panel" style={{ padding: '32px', height: '100%', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                <Heart color="var(--color-accent)" size={28} />
-                <h3 style={{ fontSize: '1.15rem' }}>Wedding Cards</h3>
+                <Sparkles color="var(--color-accent)" size={28} />
+                <h3 style={{ fontSize: '1.15rem' }}>Presentation Suites &amp; Security Packaging</h3>
                 <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem', lineHeight: 1.5 }}>
-                  Premium wedding invitation sets, event cards, custom foil-stamped boxes, and metallic accent envelopes.
+                  Bespoke corporate presentation suites, luxury rigid boxes, metallic foil stamping, and tamper-evident security holograms.
                 </p>
               </div>
             </ScrollReveal>
@@ -667,7 +667,7 @@ export default function PrintManagementPage() {
                       'Corporate Printing', 
                       'Brochures', 
                       'Catalogues', 
-                      'Wedding Cards', 
+                      'Corporate Presentation Suites', 
                       'Signage', 
                       'Vinyl', 
                       'Flex / Banners', 

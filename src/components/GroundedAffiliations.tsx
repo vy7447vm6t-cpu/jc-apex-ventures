@@ -134,7 +134,7 @@ const AFFILIATIONS: AffiliationItem[] = [
     acronym: 'MNRE / MEDA PORTAL',
     name: 'PM Surya Ghar National Portal',
     scope: 'Central capital subsidy verification for residential and cooperative housing society solar plants.',
-    code: 'MNRE / MEDA Rooftop Solar Verification (Up to ₹10.8L)',
+    code: 'MNRE / MEDA Rooftop Solar Verification (Up to ₹18k/kW, ₹90L cap)',
     jurisdiction: 'Ministry of New & Renewable Energy',
     sla: 'Direct DBT Disbursal',
     deliverables: ['CHS ₹18,000/kW Subsidy', 'National Portal Dossier', 'DCR Module Audit'],

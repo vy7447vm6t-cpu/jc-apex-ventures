@@ -4,7 +4,7 @@ import DivisionPage from '@/components/DivisionPage';
 import { emudran } from '@/content/divisions';
 import { PackagingVolumeTierCurve } from '@/components/bklit';
 import Link from 'next/link';
-import { ArrowUpRight, CheckCircle2, ShieldCheck, Printer, Sparkles, Layers, Box, Cpu } from 'lucide-react';
+import { ArrowUpRight, CheckCircle2, ShieldCheck, Printer, Sparkles, Layers, Box, Cpu, FileCheck, Stamp } from 'lucide-react';
 import { ImageWithLightbox } from '@/components/ImageLightbox';
 
 export const metadata: Metadata = {
@@ -45,6 +45,14 @@ const PACKAGING_SPECIMENS = [
     description: 'Precision waterjet-cut brushed architectural bronze and acrylic corporate wayfinding signage with edge-lit 3000K LED modules for commercial headquarters.',
     specs: ['Architectural Brushed Brass', 'Precision Waterjet Cut', '3000K LED Modules', 'Weather-Resistant PVDF'],
   },
+  {
+    id: 'specimen-05',
+    title: 'Statutory Real Estate Conveyance Docket with e-SBTR & Security Seals',
+    tag: 'Digital Stamping & Franking',
+    image: '/images/project-finance-binder.jpg',
+    description: 'Fully authenticated legal conveyance binders with verified e-SBTR treasury receipts, physical document franking, and tamper-evident optical micro-pattern security holograms.',
+    specs: ['e-SBTR Treasury Receipt', 'Physical Franking Seal', 'Serialized Optical Hologram', 'Acid-Free Archival Paper'],
+  },
 ];
 
 const PRINT_BENCHMARKS = [
@@ -83,6 +91,18 @@ const PRINT_BENCHMARKS = [
     title: 'Automated Line Compatibility',
     desc: 'ArtiosCAD parametric structural design ensuring drop-in compatibility with high-speed automated carton erection and bottle sleeve filling lines.',
     icon: Cpu,
+  },
+  {
+    code: 'Maharashtra Stamp Act §32A',
+    title: 'e-SBTR & Statutory Franking Desk',
+    desc: 'Authorized electronic Secure Bank and Treasury Receipt processing, stamp duty payments, and physical document franking for corporate conveyance deeds, commercial leases, and banking facilities.',
+    icon: Stamp,
+  },
+  {
+    code: 'ISO 14298 Security Printing',
+    title: 'Tamper-Evident Security Holograms',
+    desc: 'Multi-depth 2D/3D optical diffraction pattern holograms with micro-text, kinetic guilloche lines, tamper-void release adhesives, and unique serialized numbering.',
+    icon: FileCheck,
   },
 ];
 

@@ -263,7 +263,7 @@ export const sanyog: DivisionContent = {
       title: 'Why Act Now',
       subtitle: 'Statutory Windows & Grid Quotas',
       points: [
-        'Statutory CGRF dispute filing requires only a nominal Rs 50 fee, providing immediate legal protection against illegal disconnection.',
+        'MERC CGRF dispute filing carries zero court fees under state regulations, with initial JC Apex engineering intake available at a nominal Rs 50 token fee, securing immediate protection against illegal disconnection.',
         'Utility distribution transformer solar capacity caps under MERC rules make early load enhancement and net metering registration urgent.',
         'Annual regulatory tariff filings introduce escalating commercial rates; locking in dispute resolution now prevents compounding back-billing.',
       ],
@@ -409,7 +409,7 @@ export const gridApex: DivisionContent = {
   ],
   whoDoesTheWork: {
     title: 'Who does the work',
-    text: 'Installation is done by execution partners we have checked. They are responsible for the on-site work, safety and warranty. GRID APEX plans the project, deals with the utility and manages the partners. If a partner pays us a referral fee, we tell you before you decide.',
+    text: 'Turnkey engineering governance is retained directly by GRID APEX engineers at One International Centre. Heavy on-site fabrication, transformer rigging, and high-tension terminations are executed by vetted, licensed Class-A electrical contracting associates under our direct quality and safety supervision.',
   },
   steps: [
     { title: 'Site visit', text: 'We look at the site and understand what you need.' },
@@ -418,11 +418,11 @@ export const gridApex: DivisionContent = {
     { title: 'Installation and handover', text: 'Our partner installs and tests the system, and we hand it over to you.' },
   ],
   actions: [
-    { label: 'Solis Solar Hub & Calculator', href: '/solis' },
-    { label: 'Discuss an electrical project', href: 'mailto:admin@jcapexv.com?subject=GRID%20APEX%20enquiry' },
+    { label: 'Consult with Grid Apex Engineers', href: 'mailto:admin@jcapexv.com?subject=GRID%20APEX%20enquiry' },
+    { label: 'High-Tension Substation Dossier', href: '/grid-apex' },
   ],
   description:
-    'GRID APEX by JC Apex Ventures: HT and LT electrical work, rooftop solar, EV charging and a patented solid waste machine.',
+    'GRID APEX by JC Apex Ventures: High-tension substations, power transformers, vacuum circuit breakers and patented solid waste technology.',
   strategicWhy: {
     heading: 'Why Entrust Heavy Electrical Infrastructure to GRID APEX',
     subheading: 'From high-voltage substations powering iconic hospitality landmarks to patented zero-power solid waste treatment systems.',
@@ -430,7 +430,7 @@ export const gridApex: DivisionContent = {
       title: 'Why GRID APEX & JC Apex',
       subtitle: 'Institutional Engineering Pedigree',
       points: [
-        'Trusted track record across Mumbai marquee hospitality and industrial facilities: The Taj Mahal Palace Colaba, The Oberoi Nariman Point, Trident BKC, Lanxess, Tolia Ball & Roller (691.2 kWp), and Pristo Pipes (180 kWp).',
+        'Trusted track record across Mumbai marquee luxury hospitality landmarks, multinational specialty chemical complexes, and heavy precision manufacturing plants across the MMR industrial corridors.',
         'Complete high-voltage and low-voltage competence covering 11kV/33kV substations, power transformers, vacuum circuit breakers, and certified cable termination.',
         'Strategic government tender panel empanelment consultancy empowering electrical contractors to bid for major public sector contracts.',
       ],
@@ -693,8 +693,12 @@ export const emudran: DivisionContent = {
       text: 'Logos, brand guidelines, product packaging and box design, campaign material, brochures and company profiles.',
     },
     {
-      title: 'Printing',
-      text: 'Letterheads, visiting cards, bill and receipt books, brochures, catalogues, ID cards, certificates, registers, folders, envelopes and wedding cards.',
+      title: 'Commercial Printing & Corporate Collateral',
+      text: 'Annual reports, statutory shareholder disclosures, executive presentation binders, brochures, luxury business suites, and rigid presentation packaging.',
+    },
+    {
+      title: 'Digital Stamping & Security Authentication',
+      text: 'Authorized e-SBTR (electronic Secure Bank and Treasury Receipt) stamp duty payment processing, physical document franking, and tamper-evident optical micro-pattern security holograms.',
     },
     {
       title: 'Signboards',
@@ -803,7 +807,7 @@ export const agrim: DivisionContent = {
   name: 'AGRIM',
   href: '/agrim',
   icon: 'landmark',
-  short: 'Help preparing project loan and advance files. Not a lender.',
+  short: 'Bankable Detailed Project Reports (DPR), financial feasibility modeling, and agro-infrastructure advisory. Non-lender advisory.',
   tagline: 'Institutional Detailed Project Reports (DPR), CAPEX/NPV financial modeling, and statutory clearance binders for infrastructure credit appraisal. Strictly a non-lender advisory.',
   heroImage: '/images/project-finance-binder.jpg',
   heroImageTag: 'Project Finance Feasibility Binder',
@@ -888,6 +892,11 @@ export const agrim: DivisionContent = {
       text: 'Detailed Project Report for deploying 3,900 EV chargers across Maharashtra housing societies (60 kW DC plus dual AC per 100 kW sanctioned site), detailing Rs 40L site CAPEX, 10-year NPV schedules, and 6 to 7 year payback economics.',
       tag: 'EV Infrastructure DPR',
     },
+    {
+      title: '5,000 MT Controlled Atmosphere (CA) Cold Storage & Agro-Processing',
+      text: 'Comprehensive techno-economic feasibility dossier, NABARD/NHB capital grant alignment, AIF 3% interest subvention modeling, and 15-year debt servicing schedules.',
+      tag: 'Agro-Infra DPR',
+    },
   ],
   peopleTitle: 'Advisory Panel & DPR Modeling Fellows',
   peopleIntro: 'Project finance files and technical appraisal dossiers are structured by licensed engineering consultants and chartered project fellows.',
@@ -913,14 +922,14 @@ export const agrim: DivisionContent = {
     text: 'Banks, NBFCs, and institutional credit committees determine final credit sanction and disbursement. AGRIM operates strictly as a technical and financial project advisory desk, assembling credit-ready DPR binders, CMA debt schedules, and statutory NOC dossiers to eliminate procedural delays.',
   },
   steps: [
-    { title: 'Tell us about the project', text: 'Share what you plan to build and what you need.' },
-    { title: 'We collect the papers', text: 'We list the documents needed and help gather them.' },
-    { title: 'We prepare the file', text: 'We build the file in the order lenders expect.' },
-    { title: 'You apply', text: 'You submit the file to your chosen lender.' },
+    { title: 'Techno-Economic Feasibility', text: 'We evaluate site parameters, sizing specifications, and bill of quantities (BOQ).' },
+    { title: 'Financial Modeling & CMA Schedules', text: 'We construct 10 to 25 year cash-flow models, DSCR, IRR, and sensitivity analysis.' },
+    { title: 'Statutory Docket Indexing', text: 'We assemble required DISCOM, CEI, MPCB, and municipal clearances in institutional banking order.' },
+    { title: 'Credit Committee Docket Presentation', text: 'We deliver an appraisal-ready, indexed project dossier for your scheduled bank or lending institution.' },
   ],
   actions: [{ label: 'Email AGRIM', href: 'mailto:admin@jcapexv.com?subject=AGRIM%20enquiry' }],
   description:
-    'AGRIM by JC Apex Ventures prepares project loan and advance files. AGRIM is not a bank, NBFC or lender.',
+    'AGRIM by JC Apex Ventures: Institutional Detailed Project Reports (DPR), agro-infrastructure feasibility, and non-lender financial modeling.',
   strategicWhy: {
     heading: 'Why Choose AGRIM for Project Finance Dossiers & Bank DPRs',
     subheading: 'Bridging technical engineering specifications and banking credit requirements to eliminate appraisal bottlenecks.',
@@ -1044,7 +1053,7 @@ export const solisDivision: DivisionContent = {
     },
     {
       title: 'PM Surya Ghar subsidy assistance',
-      text: 'End-to-end documentation and submission for government subsidies up to Rs 78,000 for homes and up to Rs 10.8 Lakh for housing societies.',
+      text: 'End-to-end documentation and submission for government subsidies up to Rs 78,000 for homes and statutory grants up to Rs 90 Lakh (Rs 18,000/kW) for housing societies.',
     },
   ],
   portfolioTitle: 'Project and engineering experience',
@@ -1144,7 +1153,7 @@ export const solisDivision: DivisionContent = {
       title: 'Why Install Now',
       subtitle: 'PM Surya Ghar Subsidies & Local Grid Transformer Quotas',
       points: [
-        'Central Government PM Surya Ghar Muft Bijli Yojana provides unprecedented capital subsidies: up to Rs 78,000 for individual homes and up to Rs 10.8 Lakh for housing society common meters.',
+        'Central Government PM Surya Ghar Muft Bijli Yojana provides unprecedented capital subsidies: up to Rs 78,000 for individual homes and Rs 18,000/kW (statutory cap of Rs 90 Lakhs for 500 kW) for housing society common meters.',
         'Rapid capital recovery: typical 101-panel high-rise society installations achieve full capital payback within 3.2 to 3.8 years, delivering over 21 years of pure dividend generation.',
         'Local distribution transformer solar caps (MERC 70% to 80% transformer threshold) mean late applicants face rejection once neighborhood substation quotas fill up.',
       ],

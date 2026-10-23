@@ -12,7 +12,7 @@ const formFields: FormField[] = [
   { name: 'status', label: 'Current Status', type: 'radio', options: ['Ready', 'Under Construction', 'Planning Stage'], required: true },
   { name: 'vastu', label: 'Vastu Suggestions', type: 'radio', options: ['Required', 'Not Required'], required: true },
   { name: 'scope', label: 'Scope of Work', type: 'checkbox', options: ['Design & Planning', 'Civil Work', 'Electrical', 'Paint', 'Furniture & Furnishings'], required: false },
-  { name: 'budget', label: 'Budget Expectation', type: 'radio', options: ['Basic', 'Standard', 'Premium', 'Luxury'], required: true },
+  { name: 'budget', label: 'Budget Expectation', type: 'radio', options: ['Standard', 'Premium', 'Luxury'], required: true },
   { name: 'urgency', label: 'Urgency', type: 'radio', options: ['Leisure', 'Urgent', 'Very Urgent'], required: true },
   { name: 'details', label: 'Requirement Details', type: 'textarea', placeholder: 'Tell us a bit more about your vision...', required: false },
   { name: 'contact', label: 'Contact Number', type: 'tel', placeholder: '+91', required: true },

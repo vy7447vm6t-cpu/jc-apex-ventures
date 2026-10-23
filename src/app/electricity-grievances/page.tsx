@@ -69,7 +69,7 @@ export default function ElectricityGrievancesPage() {
                   Consumer Advocacy &<br/>Technical Resolutions.
                 </h2>
                 <p style={{ color: 'var(--color-text-secondary)', fontSize: '1.05rem', lineHeight: 1.8, marginBottom: '32px' }}>
-                  Dealing with electrical boards (BEST, MSEDCL, Adani) can be complex and time-consuming. From unjustified high bills to CGRF grievance filings, we represent your interests with deep institutional knowledge.
+                  Dealing with distribution licensees (BEST, Adani Electricity, Tata Power, MSEDCL) can be complex and time-consuming. From unjustified high bills to CGRF grievance filings, we represent your interests with deep institutional knowledge.
                 </p>
               </ScrollReveal>
 
@@ -82,9 +82,9 @@ export default function ElectricityGrievancesPage() {
                 }}>
                   <ShieldAlert color="var(--color-accent)" size={24} style={{ flexShrink: 0, marginTop: '4px' }} />
                   <div>
-                    <h4 style={{ fontSize: '1.1rem', marginBottom: '8px', color: 'var(--color-text-primary)' }}>Initial Consultation Fee</h4>
+                    <h4 style={{ fontSize: '1.1rem', marginBottom: '8px', color: 'var(--color-text-primary)' }}>Administrative Case Intake Fee</h4>
                     <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.95rem', lineHeight: 1.5 }}>
-                      A nominal fee of <strong style={{ color: 'var(--color-accent)' }}>₹50</strong> applies for the initial query analysis. This ensures dedicated attention to your specific case from our senior engineers.
+                      Under Regulation 6.3 of MERC CGRF Regulations 2020, official Forum filings are statutorily free. A nominal administrative fee of <strong style={{ color: 'var(--color-accent)' }}>₹50</strong> applies for our initial engineering merit review and technical docket preparation.
                     </p>
                   </div>
                 </div>

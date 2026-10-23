@@ -70,9 +70,9 @@ const SANYOG_BENCHMARKS = [
     desc: 'Standards for MRI (Meter Reading Instrument) optical dump telemetry, tamper event log retrieval, and third-party NABL calibration tests.',
   },
   {
-    code: 'MERC Token Fee Structure',
-    title: 'Statutory ₹50 Consultation Registration',
-    desc: 'Compliant with State regulatory fee structures, initial grievance analysis and formal docket preparation begins with a statutory ₹50 token registration.',
+    code: 'MERC Compliance Framework',
+    title: 'Administrative ₹50 Case Intake Review',
+    desc: 'While official MERC CGRF forum filings carry zero statutory court fees under state regulations, our engineering team conducts an initial grievance merit analysis and technical docket preparation for a nominal ₹50 administrative intake token.',
   },
 ];
 
