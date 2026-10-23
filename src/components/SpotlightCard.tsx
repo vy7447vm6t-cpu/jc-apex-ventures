@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useCallback } from 'react';
+import React, { useRef, useCallback } from 'react';
 
 interface SpotlightCardProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
@@ -28,7 +28,6 @@ export default function SpotlightCard({
   const activeSpotlight = spotlightColor ?? defaultSpotlight;
   const activeBorder = borderColor ?? defaultBorder;
   const cardRef = useRef<HTMLDivElement>(null);
-  const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     const el = cardRef.current;
@@ -52,15 +51,25 @@ export default function SpotlightCard({
   }, [enableTilt]);
 
   const handleMouseEnter = useCallback(() => {
-    setIsHovered(true);
+    const el = cardRef.current;
+    if (el) {
+      el.style.setProperty('--spotlight-opacity', '1');
+      el.style.setProperty('--card-lift', '-4px');
+      el.style.setProperty('--card-transition', 'transform 0.12s ease-out, box-shadow 0.3s ease');
+    }
   }, []);
 
   const handleMouseLeave = useCallback(() => {
-    setIsHovered(false);
     const el = cardRef.current;
     if (el) {
       el.style.setProperty('--tilt-x', '0deg');
       el.style.setProperty('--tilt-y', '0deg');
+      el.style.setProperty('--card-lift', '0px');
+      el.style.setProperty('--spotlight-opacity', '0');
+      el.style.setProperty(
+        '--card-transition',
+        'transform 0.5s var(--ease-out-expo), box-shadow 0.5s var(--ease-out-expo)'
+      );
       el.style.setProperty('--mouse-x', '-999px');
       el.style.setProperty('--mouse-y', '-999px');
     }
@@ -77,12 +86,11 @@ export default function SpotlightCard({
       className={`${baseGlassClass} ${className}`}
       style={{
         position: 'relative',
-        transform: enableTilt && isHovered
-          ? 'perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateY(-4px)'
-          : 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)',
-        transition: isHovered
-          ? 'transform 0.12s ease-out, box-shadow 0.3s ease'
-          : 'transform 0.5s var(--ease-out-expo), box-shadow 0.5s var(--ease-out-expo)',
+        transform: enableTilt
+          ? 'perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateY(var(--card-lift, 0px))'
+          : 'perspective(1000px) translateY(var(--card-lift, 0px))',
+        transition:
+          'var(--card-transition, transform 0.5s var(--ease-out-expo), box-shadow 0.5s var(--ease-out-expo))',
         transformStyle: 'preserve-3d',
         willChange: 'transform',
         ...style,
@@ -96,15 +104,13 @@ export default function SpotlightCard({
           inset: 0,
           borderRadius: 'inherit',
           padding: '1px',
-          background: isHovered
-            ? `radial-gradient(400px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), ${activeBorder}, transparent 60%)`
-            : 'transparent',
+          background: `radial-gradient(400px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), ${activeBorder}, transparent 60%)`,
           WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
           WebkitMaskComposite: 'xor',
           maskComposite: 'exclude',
           pointerEvents: 'none',
           zIndex: 4,
-          opacity: isHovered ? 1 : 0,
+          opacity: 'var(--spotlight-opacity, 0)',
           transition: 'opacity 0.35s ease',
         }}
       />
@@ -115,12 +121,10 @@ export default function SpotlightCard({
           position: 'absolute',
           inset: 0,
           borderRadius: 'inherit',
-          background: isHovered
-            ? `radial-gradient(550px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), ${activeSpotlight}, transparent 65%)`
-            : 'transparent',
+          background: `radial-gradient(550px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), ${activeSpotlight}, transparent 65%)`,
           pointerEvents: 'none',
           zIndex: 2,
-          opacity: isHovered ? 1 : 0,
+          opacity: 'var(--spotlight-opacity, 0)',
           transition: 'opacity 0.35s ease',
         }}
       />

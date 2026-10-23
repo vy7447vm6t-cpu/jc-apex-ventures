@@ -34,7 +34,7 @@ export default function ParticleText({
     let isLoopRunning = false;
     let isVisible = false;
 
-    const dpr = window.devicePixelRatio || 1;
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     const width = 800;
     const height = 100;
 

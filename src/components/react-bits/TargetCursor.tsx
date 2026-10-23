@@ -48,6 +48,12 @@ export default function TargetCursor({
       el.style.setProperty('--bracket-radius', isSnapped ? '4px' : '1px');
       el.style.setProperty('--bracket-glow', isSnapped ? `0 0 8px ${color}` : 'none');
       el.style.setProperty('--dot-opacity', isSnapped ? '0' : '0.9');
+      el.style.setProperty(
+        '--cursor-transition',
+        isSnapped
+          ? 'left 0.2s cubic-bezier(0.16, 1, 0.3, 1), top 0.2s cubic-bezier(0.16, 1, 0.3, 1), width 0.22s cubic-bezier(0.16, 1, 0.3, 1), height 0.22s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.18s ease'
+          : 'width 0.2s cubic-bezier(0.16, 1, 0.3, 1), height 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.18s ease'
+      );
     };
 
     const handleMove = (e: MouseEvent) => {
@@ -55,6 +61,10 @@ export default function TargetCursor({
         updateCursor(-100, -100, 28, 28, false, false);
         return;
       }
+
+      const clientX = e.clientX;
+      const clientY = e.clientY;
+      const targetNode = e.target as HTMLElement | null;
 
       if (rafRef.current) {
         cancelAnimationFrame(rafRef.current);
@@ -64,10 +74,10 @@ export default function TargetCursor({
         if (containerRef && containerRef.current) {
           const rect = containerRef.current.getBoundingClientRect();
           const inside =
-            e.clientX >= rect.left &&
-            e.clientX <= rect.right &&
-            e.clientY >= rect.top &&
-            e.clientY <= rect.bottom;
+            clientX >= rect.left &&
+            clientX <= rect.right &&
+            clientY >= rect.top &&
+            clientY <= rect.bottom;
 
           if (!inside) {
             updateCursor(-100, -100, 28, 28, false, false);
@@ -76,7 +86,6 @@ export default function TargetCursor({
         }
 
         // Check if hovering a magnetic snap target inside containerRef
-        const targetNode = e.target as HTMLElement | null;
         const matchedEl = targetNode?.closest?.(targetSelector) as HTMLElement | null;
 
         if (
@@ -89,8 +98,8 @@ export default function TargetCursor({
             const centerX = tRect.left + tRect.width / 2;
             const centerY = tRect.top + tRect.height / 2;
             // Subtle magnetic pull toward pointer
-            const pullX = (e.clientX - centerX) * 0.1;
-            const pullY = (e.clientY - centerY) * 0.1;
+            const pullX = (clientX - centerX) * 0.1;
+            const pullY = (clientY - centerY) * 0.1;
 
             updateCursor(
               centerX + pullX,
@@ -104,7 +113,7 @@ export default function TargetCursor({
           }
         }
 
-        updateCursor(e.clientX, e.clientY, 28, 28, true, false);
+        updateCursor(clientX, clientY, 28, 28, true, false);
       });
     };
 
@@ -136,7 +145,7 @@ export default function TargetCursor({
         transform: 'translate(-50%, -50%)',
         opacity: 'var(--cursor-opacity, 0)',
         transition:
-          'left 0.18s cubic-bezier(0.16, 1, 0.3, 1), top 0.18s cubic-bezier(0.16, 1, 0.3, 1), width 0.22s cubic-bezier(0.16, 1, 0.3, 1), height 0.22s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.18s ease',
+          'var(--cursor-transition, width 0.2s cubic-bezier(0.16, 1, 0.3, 1), height 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.18s ease)',
       }}
       aria-hidden="true"
     >

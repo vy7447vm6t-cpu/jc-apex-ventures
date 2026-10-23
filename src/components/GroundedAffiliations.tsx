@@ -226,6 +226,8 @@ function FoilAffiliationCard({ children }: { children: React.ReactNode }) {
       ref={cardRef}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
+      onPointerUp={handlePointerLeave}
+      onPointerCancel={handlePointerLeave}
       className="w-full flex justify-center"
       style={{
         perspective: '1000px',
