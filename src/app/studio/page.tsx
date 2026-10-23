@@ -1,14 +1,20 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Clippy from '@/components/Clippy';
-import { ArrowUpRight, MapPin, Phone, Mail, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import StudioCADViewer from '@/components/StudioCADViewer';
+import { ArrowUpRight, MapPin, Phone, Mail, ShieldCheck, CheckCircle2, Compass } from 'lucide-react';
 import {
   MagicBento,
   FlexCarousel,
+  InfiniteSpiral,
+  LineSidebar,
+  TechText,
+  ElectricBorder,
 } from '@/components/react-bits';
+import type { LineSidebarItem } from '@/components/react-bits';
 
 const CAPABILITIES_CARDS = [
   {
@@ -18,9 +24,9 @@ const CAPABILITIES_CARDS = [
     badge: 'Solar Architecture',
     colSpan: 2 as const,
     content: (
-      <div className="flex flex-col gap-2 text-xs text-[#555555]">
+      <div className="flex flex-col gap-2 text-xs text-[#C9D1D9]">
         <p>10.5 ft elevated hot-dip galvanized pergolas that preserve 100% usable terrace space while harvesting peak Mumbai sunlight.</p>
-        <span className="font-semibold text-[#111111]">101 Bi-Facial PERC Modules | PM Surya Ghar Subsidy Liaisoning</span>
+        <span className="font-semibold text-[#F5D78E]">101 Bi-Facial PERC Modules | PM Surya Ghar Subsidy Liaisoning</span>
       </div>
     ),
   },
@@ -31,7 +37,7 @@ const CAPABILITIES_CARDS = [
     badge: '36-Yr Utility Practice',
     colSpan: 1 as const,
     content: (
-      <div className="flex flex-col gap-2 text-xs text-[#555555]">
+      <div className="flex flex-col gap-2 text-xs text-[#C9D1D9]">
         <p>High-friction MERC billing audits, sanctioned load releases, and consumer grievance representation across BEST, AEML, Tata Power, and MSEDCL.</p>
       </div>
     ),
@@ -43,7 +49,7 @@ const CAPABILITIES_CARDS = [
     badge: 'Heavy Industrial',
     colSpan: 1 as const,
     content: (
-      <div className="flex flex-col gap-2 text-xs text-[#555555]">
+      <div className="flex flex-col gap-2 text-xs text-[#C9D1D9]">
         <p>1600 kVA transformer bays, vacuum circuit breakers, busbar trunking, and PWD electrical inspectorate compliance clearances.</p>
       </div>
     ),
@@ -55,9 +61,9 @@ const CAPABILITIES_CARDS = [
     badge: 'Three-Tier Delivery',
     colSpan: 2 as const,
     content: (
-      <div className="flex flex-col gap-2 text-xs text-[#555555]">
+      <div className="flex flex-col gap-2 text-xs text-[#C9D1D9]">
         <p>Comprehensive turnkey civil, electrical, plumbing, and carpentry execution under one desk across Standard, Premium, and Luxury tiers.</p>
-        <span className="font-semibold text-[#111111]">Acoustic STC 52 Boardrooms | Book-Matched Marble & Veneers</span>
+        <span className="font-semibold text-[#F5D78E]">Acoustic STC 52 Boardrooms | Book-Matched Marble & Veneers</span>
       </div>
     ),
   },
@@ -68,7 +74,7 @@ const CAPABILITIES_CARDS = [
     badge: 'Brand Identity',
     colSpan: 2 as const,
     content: (
-      <div className="flex flex-col gap-2 text-xs text-[#555555]">
+      <div className="flex flex-col gap-2 text-xs text-[#C9D1D9]">
         <p>Led by veteran FMCG Art Director Manish Ajgaonkar. Thermal micro-embossed foil packaging, custom rigid presentation boxes, and outdoor corporate signage.</p>
       </div>
     ),
@@ -80,7 +86,7 @@ const CAPABILITIES_CARDS = [
     badge: 'Non-Lender Advisory',
     colSpan: 1 as const,
     content: (
-      <div className="flex flex-col gap-2 text-xs text-[#555555]">
+      <div className="flex flex-col gap-2 text-xs text-[#C9D1D9]">
         <p>Statutory project finance file assembly, bank credit syndication DPRs, and patented zero-energy solid waste tech feasibility dossiers.</p>
       </div>
     ),
@@ -91,10 +97,7 @@ const FEASIBILITY_ITEMS = [
   {
     id: 'f1',
     content: (
-      <div
-        className="rounded-2xl shadow-md flex flex-col justify-between h-[360px] w-[340px]"
-        style={{ backgroundColor: '#FFFFFF', border: '1px solid rgba(0, 0, 0, 0.08)', padding: '28px' }}
-      >
+      <div className="ios-glass-card rounded-2xl flex flex-col justify-between h-[360px] w-[340px] p-7">
         <div>
           <span
             style={{
@@ -115,7 +118,7 @@ const FEASIBILITY_ITEMS = [
               fontSize: '1.4rem',
               lineHeight: 1.25,
               fontWeight: 400,
-              color: '#111111',
+              color: '#FFFFFF',
               margin: '0 0 12px 0',
               fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
             }}
@@ -125,7 +128,7 @@ const FEASIBILITY_ITEMS = [
           <p
             style={{
               fontSize: '0.92rem',
-              color: '#555555',
+              color: '#C9D1D9',
               lineHeight: 1.65,
               margin: 0,
               fontFamily: 'var(--font-sans, Inter, sans-serif)',
@@ -136,7 +139,7 @@ const FEASIBILITY_ITEMS = [
         </div>
         <div
           style={{
-            borderTop: '1px solid rgba(0, 0, 0, 0.06)',
+            borderTop: '1px solid rgba(255, 255, 255, 0.1)',
             paddingTop: '16px',
             display: 'flex',
             alignItems: 'center',
@@ -146,7 +149,7 @@ const FEASIBILITY_ITEMS = [
           <span
             style={{
               fontSize: '0.78rem',
-              color: '#777777',
+              color: '#8B949E',
               fontFamily: 'var(--font-sans, Inter, sans-serif)',
             }}
           >
@@ -155,7 +158,7 @@ const FEASIBILITY_ITEMS = [
           <span
             style={{
               fontSize: '0.75rem',
-              color: '#C29F53',
+              color: '#F5D78E',
               fontWeight: 600,
               fontFamily: 'var(--font-sans, Inter, sans-serif)',
             }}
@@ -169,10 +172,7 @@ const FEASIBILITY_ITEMS = [
   {
     id: 'f2',
     content: (
-      <div
-        className="rounded-2xl shadow-md flex flex-col justify-between h-[360px] w-[340px]"
-        style={{ backgroundColor: '#FFFFFF', border: '1px solid rgba(0, 0, 0, 0.08)', padding: '28px' }}
-      >
+      <div className="ios-glass-card rounded-2xl flex flex-col justify-between h-[360px] w-[340px] p-7">
         <div>
           <span
             style={{
@@ -193,7 +193,7 @@ const FEASIBILITY_ITEMS = [
               fontSize: '1.4rem',
               lineHeight: 1.25,
               fontWeight: 400,
-              color: '#111111',
+              color: '#FFFFFF',
               margin: '0 0 12px 0',
               fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
             }}
@@ -203,7 +203,7 @@ const FEASIBILITY_ITEMS = [
           <p
             style={{
               fontSize: '0.92rem',
-              color: '#555555',
+              color: '#C9D1D9',
               lineHeight: 1.65,
               margin: 0,
               fontFamily: 'var(--font-sans, Inter, sans-serif)',
@@ -214,7 +214,7 @@ const FEASIBILITY_ITEMS = [
         </div>
         <div
           style={{
-            borderTop: '1px solid rgba(0, 0, 0, 0.06)',
+            borderTop: '1px solid rgba(255, 255, 255, 0.1)',
             paddingTop: '16px',
             display: 'flex',
             alignItems: 'center',
@@ -224,7 +224,7 @@ const FEASIBILITY_ITEMS = [
           <span
             style={{
               fontSize: '0.78rem',
-              color: '#777777',
+              color: '#8B949E',
               fontFamily: 'var(--font-sans, Inter, sans-serif)',
             }}
           >
@@ -233,7 +233,7 @@ const FEASIBILITY_ITEMS = [
           <span
             style={{
               fontSize: '0.75rem',
-              color: '#C29F53',
+              color: '#F5D78E',
               fontWeight: 600,
               fontFamily: 'var(--font-sans, Inter, sans-serif)',
             }}
@@ -247,10 +247,7 @@ const FEASIBILITY_ITEMS = [
   {
     id: 'f3',
     content: (
-      <div
-        className="rounded-2xl shadow-md flex flex-col justify-between h-[360px] w-[340px]"
-        style={{ backgroundColor: '#FFFFFF', border: '1px solid rgba(0, 0, 0, 0.08)', padding: '28px' }}
-      >
+      <div className="ios-glass-card rounded-2xl flex flex-col justify-between h-[360px] w-[340px] p-7">
         <div>
           <span
             style={{
@@ -271,7 +268,7 @@ const FEASIBILITY_ITEMS = [
               fontSize: '1.4rem',
               lineHeight: 1.25,
               fontWeight: 400,
-              color: '#111111',
+              color: '#FFFFFF',
               margin: '0 0 12px 0',
               fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
             }}
@@ -281,7 +278,7 @@ const FEASIBILITY_ITEMS = [
           <p
             style={{
               fontSize: '0.92rem',
-              color: '#555555',
+              color: '#C9D1D9',
               lineHeight: 1.65,
               margin: 0,
               fontFamily: 'var(--font-sans, Inter, sans-serif)',
@@ -292,7 +289,7 @@ const FEASIBILITY_ITEMS = [
         </div>
         <div
           style={{
-            borderTop: '1px solid rgba(0, 0, 0, 0.06)',
+            borderTop: '1px solid rgba(255, 255, 255, 0.1)',
             paddingTop: '16px',
             display: 'flex',
             alignItems: 'center',
@@ -302,7 +299,7 @@ const FEASIBILITY_ITEMS = [
           <span
             style={{
               fontSize: '0.78rem',
-              color: '#777777',
+              color: '#8B949E',
               fontFamily: 'var(--font-sans, Inter, sans-serif)',
             }}
           >
@@ -311,7 +308,7 @@ const FEASIBILITY_ITEMS = [
           <span
             style={{
               fontSize: '0.75rem',
-              color: '#C29F53',
+              color: '#F5D78E',
               fontWeight: 600,
               fontFamily: 'var(--font-sans, Inter, sans-serif)',
             }}
@@ -325,10 +322,7 @@ const FEASIBILITY_ITEMS = [
   {
     id: 'f4',
     content: (
-      <div
-        className="rounded-2xl shadow-md flex flex-col justify-between h-[360px] w-[340px]"
-        style={{ backgroundColor: '#FFFFFF', border: '1px solid rgba(0, 0, 0, 0.08)', padding: '28px' }}
-      >
+      <div className="ios-glass-card rounded-2xl flex flex-col justify-between h-[360px] w-[340px] p-7">
         <div>
           <span
             style={{
@@ -349,7 +343,7 @@ const FEASIBILITY_ITEMS = [
               fontSize: '1.4rem',
               lineHeight: 1.25,
               fontWeight: 400,
-              color: '#111111',
+              color: '#FFFFFF',
               margin: '0 0 12px 0',
               fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
             }}
@@ -359,7 +353,7 @@ const FEASIBILITY_ITEMS = [
           <p
             style={{
               fontSize: '0.92rem',
-              color: '#555555',
+              color: '#C9D1D9',
               lineHeight: 1.65,
               margin: 0,
               fontFamily: 'var(--font-sans, Inter, sans-serif)',
@@ -370,7 +364,7 @@ const FEASIBILITY_ITEMS = [
         </div>
         <div
           style={{
-            borderTop: '1px solid rgba(0, 0, 0, 0.06)',
+            borderTop: '1px solid rgba(255, 255, 255, 0.1)',
             paddingTop: '16px',
             display: 'flex',
             alignItems: 'center',
@@ -380,7 +374,7 @@ const FEASIBILITY_ITEMS = [
           <span
             style={{
               fontSize: '0.78rem',
-              color: '#777777',
+              color: '#8B949E',
               fontFamily: 'var(--font-sans, Inter, sans-serif)',
             }}
           >
@@ -389,7 +383,7 @@ const FEASIBILITY_ITEMS = [
           <span
             style={{
               fontSize: '0.75rem',
-              color: '#C29F53',
+              color: '#F5D78E',
               fontWeight: 600,
               fontFamily: 'var(--font-sans, Inter, sans-serif)',
             }}
@@ -402,54 +396,128 @@ const FEASIBILITY_ITEMS = [
   },
 ];
 
-const SIDEBAR_ITEMS = [
-  { id: 'coordinates', label: 'COORDINATES', tag: '01' },
-  { id: 'capabilities', label: 'CAPABILITIES', tag: '02' },
-  { id: 'leadership', label: 'LEADERSHIP', tag: '03' },
-  { id: 'feasibility', label: 'FEASIBILITY', tag: '04' },
+const SIDEBAR_ITEMS: LineSidebarItem[] = [
+  { id: 'coordinates', label: 'Studio Coordinates & CAD', tag: '01' },
+  { id: 'capabilities', label: 'Consortium Capabilities', tag: '02' },
+  { id: 'leadership', label: 'Practice Directors', tag: '03' },
+  { id: 'feasibility', label: 'Feasibility Dockets', tag: '04' },
 ];
 
 export default function StudioPage() {
   const [activeSection, setActiveSection] = useState('coordinates');
 
+  useEffect(() => {
+    const sectionIds = ['coordinates', 'capabilities', 'leadership', 'feasibility'];
+    const handleScroll = () => {
+      const scrollPos = window.scrollY + 260;
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const el = document.getElementById(sectionIds[i]);
+        if (el && el.offsetTop <= scrollPos) {
+          setActiveSection(sectionIds[i]);
+          break;
+        }
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const scrollToSection = (id: string) => {
     setActiveSection(id);
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const yOffset = -90;
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
     }
   };
 
   return (
-    <main className="grounded-canvas relative">
+    <main className="studio-canvas relative min-h-screen">
       <Navbar />
       <Clippy />
 
-      {/* Hero Section */}
-      <section
+      {/* Desktop Sticky LineSidebar Rail */}
+      <aside
+        aria-label="Studio Navigation"
+        className="hidden xl:block fixed left-6 top-32 z-40 w-64 p-3 rounded-2xl"
         style={{
-          position: 'relative',
-          paddingTop: '160px',
-          paddingBottom: '80px',
-          backgroundColor: '#111111',
-          color: '#FFFFFF',
-          overflow: 'hidden',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+          background: 'linear-gradient(135deg, rgba(22, 28, 41, 0.88) 0%, rgba(13, 17, 26, 0.94) 100%)',
+          backdropFilter: 'blur(24px) saturate(190%)',
+          WebkitBackdropFilter: 'blur(24px) saturate(190%)',
+          border: '1px solid rgba(255, 255, 255, 0.12)',
+          boxShadow: '0 20px 48px -8px rgba(0, 0, 0, 0.65), inset 0 1.5px 1px rgba(255, 255, 255, 0.14)',
         }}
       >
+        <div className="px-3 pt-2 pb-1.5 text-[10px] font-mono tracking-widest text-[#C29F53] uppercase border-b border-white/10 mb-2">
+          Studio Navigation
+        </div>
+        <LineSidebar
+          items={SIDEBAR_ITEMS}
+          activeId={activeSection}
+          onSelect={scrollToSection}
+          variant="dark"
+        />
+      </aside>
+
+      {/* Mobile / Tablet Horizontal Sticky Quick Switcher */}
+      <div
+        className="xl:hidden sticky top-20 z-30 px-4 py-2.5 flex items-center justify-start sm:justify-center gap-2 overflow-x-auto no-scrollbar"
+        style={{
+          background: 'rgba(11, 14, 20, 0.92)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+        }}
+      >
+        {SIDEBAR_ITEMS.map((item) => (
+          <button
+            key={item.id}
+            type="button"
+            onClick={() => scrollToSection(item.id)}
+            className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all ${
+              activeSection === item.id
+                ? 'bg-[#C29F53] text-[#0B0E14] font-semibold shadow-xs'
+                : 'bg-white/5 text-white/70 hover:text-white hover:bg-white/10'
+            }`}
+          >
+            <span className="font-mono text-[10px] opacity-75 mr-1.5">{item.tag}</span>
+            {item.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Hero Section */}
+      <section
+        className="relative pt-36 pb-20 md:pt-44 md:pb-28 overflow-hidden"
+        style={{
+          background: 'radial-gradient(ellipse at 80% 20%, rgba(194, 159, 83, 0.08) 0%, transparent 60%), #0B0E14',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+        }}
+      >
+        {/* InfiniteSpiral Canvas with Contrast Scrims */}
+        <div
+          aria-hidden="true"
+          className="absolute right-[-80px] top-[-40px] md:right-8 md:top-8 pointer-events-none opacity-45 md:opacity-65 z-0"
+          style={{
+            maskImage: 'radial-gradient(circle at center, black 40%, transparent 75%)',
+            WebkitMaskImage: 'radial-gradient(circle at center, black 40%, transparent 75%)',
+          }}
+        >
+          <InfiniteSpiral color="#C29F53" size={460} speed={0.005} />
+        </div>
+
         <div style={{ maxWidth: '1240px', margin: '0 auto', padding: '0 24px', position: 'relative', zIndex: 10 }}>
-          <div className="eye-brow-container" style={{ marginBottom: '20px' }}>
-            <span
-              style={{
-                fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                fontSize: '0.82rem',
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-                color: '#C29F53',
-              }}
-            >
-              [practice, leadership &amp; discipline]
-            </span>
+          <div className="flex flex-wrap items-center gap-3 mb-6">
+            <div className="metric-pill">
+              <span className="w-2 h-2 rounded-full bg-[#C29F53] animate-pulse" />
+              <span className="font-mono tracking-wider text-[11px] uppercase">One International Centre // Mumbai</span>
+            </div>
+            <div className="hidden sm:inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-[#C9D1D9] font-mono">
+              <Compass size={13} className="text-[#C29F53]" />
+              <span>19.0069° N, 72.8311° E</span>
+            </div>
           </div>
 
           <h1
@@ -460,15 +528,24 @@ export default function StudioPage() {
               letterSpacing: '-0.025em',
               margin: '0 0 24px 0',
               fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+              color: '#FFFFFF',
             }}
           >
-            The Studio &amp; <span style={{ fontStyle: 'italic', color: '#E8E4DA' }}>Engineering Practice.</span>
+            The Studio &amp; <span style={{ fontStyle: 'italic', color: '#F5D78E' }}>Engineering Practice.</span>
           </h1>
+
+          <div className="mb-6 max-w-[820px]">
+            <TechText
+              text="ONE INTERNATIONAL CENTRE // TOWER 2 // UNITS 801-802 // 2,280 SQ FT PRACTICE"
+              className="font-mono text-xs tracking-wider text-[#C29F53]"
+              style={{ letterSpacing: '0.12em' }}
+            />
+          </div>
 
           <p
             style={{
-              fontSize: 'clamp(1.1rem, 1.8vw, 1.35rem)',
-              color: 'rgba(255, 255, 255, 0.78)',
+              fontSize: 'clamp(1.05rem, 1.8vw, 1.3rem)',
+              color: '#C9D1D9',
               maxWidth: '820px',
               lineHeight: 1.65,
               margin: '0 0 32px 0',
@@ -484,13 +561,7 @@ export default function StudioPage() {
               href="https://www.google.com/maps/search/?api=1&query=One+International+Centre+Senapati+Bapat+Marg+Elphinstone+Mumbai+400013"
               target="_blank"
               rel="noopener noreferrer"
-              className="button is-icon"
-              style={{
-                backgroundColor: '#FFFFFF',
-                color: '#111111',
-                padding: '0.85rem 1.6rem',
-                textDecoration: 'none',
-              }}
+              className="btn-primary"
             >
               <MapPin size={16} />
               <span>Open Studio in Google Maps</span>
@@ -498,14 +569,7 @@ export default function StudioPage() {
             </a>
             <a
               href="tel:+917021112664"
-              className="button is-icon is-alternate"
-              style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                color: '#FFFFFF',
-                borderColor: 'rgba(255, 255, 255, 0.25)',
-                padding: '0.85rem 1.6rem',
-                textDecoration: 'none',
-              }}
+              className="btn-outline"
             >
               <Phone size={15} />
               <span>Call +91 70211 12664</span>
@@ -514,112 +578,122 @@ export default function StudioPage() {
         </div>
       </section>
 
-      {/* 1. Studio Location & Access Card */}
+      {/* 1. Studio Location & Interactive CAD Card */}
       <section
         id="coordinates"
+        className="relative py-24 px-6"
         style={{
-          backgroundColor: '#FFFFFF',
-          padding: '80px 24px',
-          borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
+          background: '#0B0E14',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
         }}
       >
         <div style={{ maxWidth: '1240px', margin: '0 auto' }}>
+          <div className="mb-10">
+            <div className="eye-brow-container" style={{ marginBottom: '16px' }}>
+              <span className="font-mono text-xs uppercase tracking-widest text-[#C29F53]">
+                [01 / studio coordinates &amp; architectural cad]
+              </span>
+            </div>
+            <h2
+              style={{
+                fontSize: 'clamp(2.2rem, 4vw, 3.4rem)',
+                lineHeight: 1.15,
+                fontWeight: 400,
+                letterSpacing: '-0.02em',
+                color: '#FFFFFF',
+                margin: '0 0 16px 0',
+                fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+              }}
+            >
+              Headquarters at One International Centre.
+            </h2>
+            <p
+              style={{
+                fontSize: '1.05rem',
+                color: '#C9D1D9',
+                lineHeight: 1.6,
+                maxWidth: '840px',
+                fontFamily: 'var(--font-sans, Inter, sans-serif)',
+              }}
+            >
+              Located along Senapati Bapat Marg in Elphinstone / Prabhadevi, our studio places engineering consultants, architectural draftsmen, and account executives in the heart of Mumbai commercial infrastructure.
+            </p>
+          </div>
+
+          {/* Interactive CAD Floor Plan Blueprint Component */}
+          <div className="mb-14">
+            <StudioCADViewer />
+          </div>
+
+          {/* Location Info Card & Building Photograph */}
           <div
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: '40px',
+              gap: '32px',
               alignItems: 'center',
             }}
           >
-            <div>
-              <div className="eye-brow-container" style={{ marginBottom: '16px' }}>
-                <span className="text-eye-brow">[studio coordinates]</span>
-              </div>
-              <h2
-                style={{
-                  fontSize: 'clamp(2rem, 3.6vw, 3rem)',
-                  lineHeight: 1.15,
-                  fontWeight: 400,
-                  letterSpacing: '-0.02em',
-                  color: '#111111',
-                  margin: '0 0 20px 0',
-                  fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
-                }}
-              >
-                Headquarters at One International Centre.
-              </h2>
-              <p
-                style={{
-                  fontSize: '1.05rem',
-                  color: '#555555',
-                  lineHeight: 1.7,
-                  margin: '0 0 28px 0',
-                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                }}
-              >
-                Located along Senapati Bapat Marg in Elphinstone / Prabhadevi, our studio places engineering consultants, architectural draftsmen, and account executives in the heart of Mumbai commercial infrastructure.
-              </p>
-
-              <div
-                style={{
-                  padding: '24px',
-                  borderRadius: '16px',
-                  backgroundColor: 'var(--color-grounded-stone)',
-                  border: '1px solid rgba(0, 0, 0, 0.08)',
-                  marginBottom: '28px',
-                }}
-              >
-                <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
-                  <MapPin size={22} color="#C29F53" style={{ flexShrink: 0, marginTop: '3px' }} />
-                  <div>
-                    <strong style={{ display: 'block', fontSize: '1.05rem', color: '#111111', marginBottom: '4px' }}>
-                      One International Centre, Tower 1
-                    </strong>
-                    <div style={{ color: '#555555', fontSize: '0.94rem', lineHeight: 1.6 }}>
-                      Units 801-802, 8th Floor, Senapati Bapat Marg,<br />
-                      Elphinstone / Prabhadevi, Mumbai 400013, Maharashtra, India.
-                    </div>
-                    <div
-                      style={{
-                        marginTop: '12px',
-                        fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                        fontSize: '0.8rem',
-                        color: '#C29F53',
-                      }}
-                    >
-                      Latitude: 19.0069° N | Longitude: 72.8311° E
-                    </div>
+            <div className="ios-glass-card rounded-2xl p-7 md:p-8">
+              <div className="flex items-start gap-4 mb-6">
+                <div className="p-3 rounded-xl bg-[#C29F53]/15 border border-[#C29F53]/30 text-[#C29F53] shrink-0">
+                  <MapPin size={22} />
+                </div>
+                <div>
+                  <div className="text-xs font-mono uppercase tracking-widest text-[#C29F53] mb-1">
+                    PHYSICAL PRACTICE FACILITY
                   </div>
+                  <h3
+                    style={{
+                      fontSize: '1.5rem',
+                      fontWeight: 400,
+                      color: '#FFFFFF',
+                      margin: '0 0 8px 0',
+                      fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+                    }}
+                  >
+                    One International Centre, Tower 2
+                  </h3>
+                  <p className="text-sm text-[#C9D1D9] leading-relaxed m-0">
+                    Units 801-802, 8th Floor, Senapati Bapat Marg,<br />
+                    Elphinstone / Prabhadevi, Mumbai 400013, Maharashtra, India.
+                  </p>
                 </div>
               </div>
 
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=One+International+Centre+Senapati+Bapat+Marg+Elphinstone+Mumbai+400013"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="button is-icon"
-                style={{
-                  backgroundColor: '#111111',
-                  color: '#FFFFFF',
-                  padding: '0.85rem 1.6rem',
-                  textDecoration: 'none',
-                }}
-              >
-                <span>Navigate via Google Maps</span>
-                <ArrowUpRight size={14} />
-              </a>
+              <div className="grid grid-cols-2 gap-3 pt-4 border-t border-white/10 mb-6 text-xs font-mono text-[#8B949E]">
+                <div>
+                  <span className="block text-[#C29F53] font-semibold mb-0.5">LATITUDE / LONGITUDE</span>
+                  <span>19.0069° N, 72.8311° E</span>
+                </div>
+                <div>
+                  <span className="block text-[#C29F53] font-semibold mb-0.5">SURFACE FOOTPRINT</span>
+                  <span>2,280 sq ft (Dual Units)</span>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=One+International+Centre+Senapati+Bapat+Marg+Elphinstone+Mumbai+400013"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary"
+                >
+                  <span>Navigate via Google Maps</span>
+                  <ArrowUpRight size={14} />
+                </a>
+                <a
+                  href="tel:+917021112664"
+                  className="btn-outline"
+                >
+                  <Phone size={14} />
+                  <span>Direct Desk</span>
+                </a>
+              </div>
             </div>
 
             <div
-              style={{
-                borderRadius: '20px',
-                overflow: 'hidden',
-                border: '1px solid rgba(0, 0, 0, 0.1)',
-                boxShadow: '0 20px 40px rgba(0, 0, 0, 0.08)',
-                position: 'relative',
-                height: '460px',
-              }}
+              className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl relative h-[420px]"
             >
               <img
                 src="/images/one-international-centre.jpg"
@@ -631,15 +705,20 @@ export default function StudioPage() {
                 }}
               />
               <div
+                className="absolute inset-0 bg-gradient-to-t from-[#0B0E14] via-transparent to-transparent opacity-80"
+              />
+              <div
                 style={{
                   position: 'absolute',
                   bottom: '20px',
                   left: '20px',
                   right: '20px',
                   padding: '16px 20px',
-                  borderRadius: '12px',
-                  backgroundColor: 'rgba(17, 17, 17, 0.85)',
+                  borderRadius: '14px',
+                  backgroundColor: 'rgba(11, 14, 20, 0.85)',
                   backdropFilter: 'blur(16px)',
+                  WebkitBackdropFilter: 'blur(16px)',
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
                   color: '#FFFFFF',
                   display: 'flex',
                   justifyContent: 'space-between',
@@ -647,14 +726,14 @@ export default function StudioPage() {
                 }}
               >
                 <div>
-                  <div style={{ fontSize: '0.82rem', fontFamily: 'var(--font-sans, Inter, sans-serif)', color: '#C29F53' }}>
-                    [STUDIO DESK]
+                  <div style={{ fontSize: '0.78rem', fontFamily: 'monospace', color: '#C29F53', letterSpacing: '0.08em' }}>
+                    [CONSULTATIVE DESK]
                   </div>
-                  <div style={{ fontSize: '0.92rem', fontWeight: 500 }}>
-                    Consultation by Appointment
+                  <div style={{ fontSize: '0.92rem', fontWeight: 500, color: '#F0F3F6' }}>
+                    Consultation by Prior Appointment
                   </div>
                 </div>
-                <span style={{ fontSize: '0.78rem', color: '#CCCCCC', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+                <span style={{ fontSize: '0.78rem', color: '#8B949E', fontFamily: 'monospace' }}>
                   Mon - Sat 10:00 - 18:30 IST
                 </span>
               </div>
@@ -666,15 +745,17 @@ export default function StudioPage() {
       {/* 2. MagicBento: Consortium Capabilities */}
       <section
         id="capabilities"
+        className="relative py-24 px-6"
         style={{
-          backgroundColor: 'var(--color-grounded-stone)',
-          padding: '100px 24px',
-          borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
+          background: '#101520',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
         }}
       >
         <div style={{ maxWidth: '1240px', margin: '0 auto' }}>
           <div className="eye-brow-container" style={{ marginBottom: '16px' }}>
-            <span className="text-eye-brow">[core specializations]</span>
+            <span className="font-mono text-xs uppercase tracking-widest text-[#C29F53]">
+              [02 / core specializations &amp; consortium bento]
+            </span>
           </div>
 
           <h2
@@ -683,7 +764,7 @@ export default function StudioPage() {
               lineHeight: 1.15,
               fontWeight: 400,
               letterSpacing: '-0.02em',
-              color: '#111111',
+              color: '#FFFFFF',
               margin: '0 0 16px 0',
               fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
             }}
@@ -694,7 +775,7 @@ export default function StudioPage() {
           <p
             style={{
               fontSize: '1.05rem',
-              color: '#666666',
+              color: '#C9D1D9',
               lineHeight: 1.6,
               maxWidth: '820px',
               margin: '0 0 40px 0',
@@ -711,15 +792,17 @@ export default function StudioPage() {
       {/* 3. Leadership Dossiers */}
       <section
         id="leadership"
+        className="relative py-24 px-6"
         style={{
-          backgroundColor: '#FFFFFF',
-          padding: '100px 24px',
-          borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
+          background: '#0B0E14',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
         }}
       >
         <div style={{ maxWidth: '1240px', margin: '0 auto' }}>
           <div className="eye-brow-container" style={{ marginBottom: '16px' }}>
-            <span className="text-eye-brow">[practice leadership]</span>
+            <span className="font-mono text-xs uppercase tracking-widest text-[#C29F53]">
+              [03 / practice leadership &amp; directorship]
+            </span>
           </div>
 
           <h2
@@ -728,7 +811,7 @@ export default function StudioPage() {
               lineHeight: 1.15,
               fontWeight: 400,
               letterSpacing: '-0.02em',
-              color: '#111111',
+              color: '#FFFFFF',
               margin: '0 0 16px 0',
               fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
             }}
@@ -739,7 +822,7 @@ export default function StudioPage() {
           <p
             style={{
               fontSize: '1.05rem',
-              color: '#666666',
+              color: '#C9D1D9',
               lineHeight: 1.6,
               maxWidth: '820px',
               margin: '0 0 50px 0',
@@ -753,63 +836,34 @@ export default function StudioPage() {
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: '24px',
+              gap: '28px',
             }}
           >
             {/* Director 1: Jitendra Chavan */}
-            <div
-              style={{
-                backgroundColor: 'var(--color-grounded-stone)',
-                borderRadius: '18px',
-                padding: '32px',
-                border: '1px solid rgba(0, 0, 0, 0.08)',
-                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.03)',
-              }}
-            >
-              <div
-                style={{
-                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                  fontSize: '0.78rem',
-                  color: '#C29F53',
-                  textTransform: 'uppercase',
-                  marginBottom: '10px',
-                }}
-              >
-                [FOUNDER &amp; TECHNICAL DIRECTOR]
+            <div className="ios-glass-card rounded-2xl p-8 flex flex-col justify-between">
+              <div>
+                <div className="font-mono text-xs uppercase text-[#C29F53] tracking-widest mb-2.5">
+                  [FOUNDER &amp; TECHNICAL DIRECTOR]
+                </div>
+                <h3
+                  style={{
+                    fontSize: '1.65rem',
+                    fontWeight: 400,
+                    color: '#FFFFFF',
+                    margin: '0 0 10px 0',
+                    fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+                  }}
+                >
+                  Jitendra Chavan
+                </h3>
+                <div className="text-xs font-mono text-[#8B949E] mb-4">
+                  36+ Years Direct Mumbai Utility Network Operations
+                </div>
+                <p className="text-sm text-[#C9D1D9] leading-relaxed mb-6">
+                  Over three decades of service inside Mumbai electrical distribution grids. Specializes in statutory MERC tariff compliance, CGRF consumer grievance advocacy, high-tension substation commissioning, and elevated solar pergola structures. Direct working background across BEST, Adani Electricity (AEML), Tata Power (TPCL), and MSEDCL.
+                </p>
               </div>
-              <h3
-                style={{
-                  fontSize: '1.6rem',
-                  fontWeight: 500,
-                  color: '#111111',
-                  margin: '0 0 10px 0',
-                  fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
-                }}
-              >
-                Jitendra Chavan
-              </h3>
-              <div
-                style={{
-                  fontSize: '0.86rem',
-                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                  color: '#777777',
-                  marginBottom: '16px',
-                }}
-              >
-                36+ Years Direct Mumbai Utility Network Operations
-              </div>
-              <p
-                style={{
-                  fontSize: '0.94rem',
-                  color: '#555555',
-                  lineHeight: 1.6,
-                  margin: '0 0 20px 0',
-                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                }}
-              >
-                Over three decades of service inside Mumbai electrical distribution grids. Specializes in statutory MERC tariff compliance, CGRF consumer grievance advocacy, high-tension substation commissioning, and elevated solar pergola structures. Direct working background across BEST, Adani Electricity (AEML), Tata Power (TPCL), and MSEDCL.
-              </p>
-              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <div className="flex gap-2 flex-wrap">
                 <span className="badge-tag">MERC Tariff Regularization</span>
                 <span className="badge-tag">CGRF Advocacy</span>
                 <span className="badge-tag">HT/LT Engineering</span>
@@ -817,119 +871,61 @@ export default function StudioPage() {
             </div>
 
             {/* Director 2: Manish Ajgaonkar */}
-            <div
-              style={{
-                backgroundColor: 'var(--color-grounded-stone)',
-                borderRadius: '18px',
-                padding: '32px',
-                border: '1px solid rgba(0, 0, 0, 0.08)',
-                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.03)',
-              }}
-            >
-              <div
-                style={{
-                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                  fontSize: '0.78rem',
-                  color: '#C29F53',
-                  textTransform: 'uppercase',
-                  marginBottom: '10px',
-                }}
-              >
-                [CREATIVE DIRECTOR &amp; BRAND VISIONARY]
+            <div className="ios-glass-card rounded-2xl p-8 flex flex-col justify-between">
+              <div>
+                <div className="font-mono text-xs uppercase text-[#C29F53] tracking-widest mb-2.5">
+                  [CREATIVE DIRECTOR &amp; BRAND VISIONARY]
+                </div>
+                <h3
+                  style={{
+                    fontSize: '1.65rem',
+                    fontWeight: 400,
+                    color: '#FFFFFF',
+                    margin: '0 0 10px 0',
+                    fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+                  }}
+                >
+                  Mr. Manish Ajgaonkar
+                </h3>
+                <div className="text-xs font-mono text-[#8B949E] mb-4">
+                  Art Direction, FMCG Packaging &amp; Brand Systems
+                </div>
+                <p className="text-sm text-[#C9D1D9] leading-relaxed mb-6">
+                  Celebrated Creative Director behind iconic Indian and global brands, including Go Cheese, Gowardhan Pure Cow Ghee, Vadilal Ice-creams, Citroën India, Kaya Skin Clinic, Samsonite Luggage, Complan, and Club Mahindra campaigns. Leads eMudran visual identity desk and structural packaging engineering.
+                </p>
               </div>
-              <h3
-                style={{
-                  fontSize: '1.6rem',
-                  fontWeight: 500,
-                  color: '#111111',
-                  margin: '0 0 10px 0',
-                  fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
-                }}
-              >
-                Mr. Manish Ajgaonkar
-              </h3>
-              <div
-                style={{
-                  fontSize: '0.86rem',
-                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                  color: '#777777',
-                  marginBottom: '16px',
-                }}
-              >
-                Art Direction, FMCG Packaging &amp; Brand Systems
-              </div>
-              <p
-                style={{
-                  fontSize: '0.94rem',
-                  color: '#555555',
-                  lineHeight: 1.6,
-                  margin: '0 0 20px 0',
-                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                }}
-              >
-                Celebrated Creative Director behind iconic Indian and global brands, including Go Cheese, Gowardhan Pure Cow Ghee, Vadilal Ice-creams, Citroën India, Kaya Skin Clinic, Samsonite Luggage, Complan, and Club Mahindra campaigns. Leads eMudran visual identity desk and structural packaging engineering.
-              </p>
-              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <div className="flex gap-2 flex-wrap">
                 <span className="badge-tag">FMCG Packaging</span>
                 <span className="badge-tag">Identity Systems</span>
                 <span className="badge-tag">Art Direction</span>
               </div>
             </div>
 
-            {/* Director 3: Thermal & Solid Waste Tech */}
-            <div
-              style={{
-                backgroundColor: 'var(--color-grounded-stone)',
-                borderRadius: '18px',
-                padding: '32px',
-                border: '1px solid rgba(0, 0, 0, 0.08)',
-                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.03)',
-              }}
-            >
-              <div
-                style={{
-                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                  fontSize: '0.78rem',
-                  color: '#C29F53',
-                  textTransform: 'uppercase',
-                  marginBottom: '10px',
-                }}
-              >
-                [PATENTED ENVIRONMENTAL TECH]
+            {/* Director 3: Dr. Manoj Chavan & Mahendra Kabnurkar */}
+            <div className="ios-glass-card rounded-2xl p-8 flex flex-col justify-between">
+              <div>
+                <div className="font-mono text-xs uppercase text-[#C29F53] tracking-widest mb-2.5">
+                  [PATENTED ENVIRONMENTAL TECH]
+                </div>
+                <h3
+                  style={{
+                    fontSize: '1.65rem',
+                    fontWeight: 400,
+                    color: '#FFFFFF',
+                    margin: '0 0 10px 0',
+                    fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+                  }}
+                >
+                  Dr. Manoj Chavan &amp; Mahendra Kabnurkar
+                </h3>
+                <div className="text-xs font-mono text-[#8B949E] mb-4">
+                  Patented Zero-Energy Solid Waste Processing &amp; Project Advisory
+                </div>
+                <p className="text-sm text-[#C9D1D9] leading-relaxed mb-6">
+                  Inventors and co-developers of the patented zero-power thermal degradation technology certified by the Maharashtra Pollution Control Board (MPCB). Processes unsegregated municipal and industrial solid waste with zero petrol, diesel, or external electricity, converting mass to 4% ash for paver blocks and 350°C green coal.
+                </p>
               </div>
-              <h3
-                style={{
-                  fontSize: '1.6rem',
-                  fontWeight: 500,
-                  color: '#111111',
-                  margin: '0 0 10px 0',
-                  fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
-                }}
-              >
-                Dr. Manoj Chavan &amp; Mahendra Kabnurkar
-              </h3>
-              <div
-                style={{
-                  fontSize: '0.86rem',
-                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                  color: '#777777',
-                  marginBottom: '16px',
-                }}
-              >
-                Patented Zero-Energy Solid Waste Processing &amp; Project Advisory
-              </div>
-              <p
-                style={{
-                  fontSize: '0.94rem',
-                  color: '#555555',
-                  lineHeight: 1.6,
-                  margin: '0 0 20px 0',
-                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                }}
-              >
-                Inventors and co-developers of the patented zero-power thermal degradation technology certified by the Maharashtra Pollution Control Board (MPCB). Processes unsegregated municipal and industrial solid waste with zero petrol, diesel, or external electricity, converting mass to 4% ash for paver blocks and 350°C green coal.
-              </p>
-              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <div className="flex gap-2 flex-wrap">
                 <span className="badge-tag">Central Govt Patent</span>
                 <span className="badge-tag">MPCB Certified</span>
                 <span className="badge-tag">Zero External Energy</span>
@@ -942,15 +938,17 @@ export default function StudioPage() {
       {/* 4. FlexCarousel: Feasibility Proposals & Technical Schematics */}
       <section
         id="feasibility"
+        className="relative py-24 px-6"
         style={{
-          backgroundColor: 'var(--color-grounded-stone)',
-          padding: '100px 24px',
-          borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
+          background: '#101520',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
         }}
       >
         <div style={{ maxWidth: '1240px', margin: '0 auto' }}>
           <div className="eye-brow-container" style={{ marginBottom: '16px' }}>
-            <span className="text-eye-brow">[technical schematics &amp; proposals]</span>
+            <span className="font-mono text-xs uppercase tracking-widest text-[#C29F53]">
+              [04 / technical schematics &amp; feasibility dockets]
+            </span>
           </div>
 
           <h2
@@ -959,7 +957,7 @@ export default function StudioPage() {
               lineHeight: 1.15,
               fontWeight: 400,
               letterSpacing: '-0.02em',
-              color: '#111111',
+              color: '#FFFFFF',
               margin: '0 0 16px 0',
               fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
             }}
@@ -970,7 +968,7 @@ export default function StudioPage() {
           <p
             style={{
               fontSize: '1.05rem',
-              color: '#666666',
+              color: '#C9D1D9',
               lineHeight: 1.6,
               maxWidth: '820px',
               margin: '0 0 40px 0',
@@ -985,19 +983,21 @@ export default function StudioPage() {
       </section>
 
       {/* Engineering Manifesto */}
-      <section style={{ backgroundColor: '#FFFFFF', padding: '100px 24px' }}>
+      <section className="relative py-24 px-6" style={{ background: '#0B0E14' }}>
         <div style={{ maxWidth: '960px', margin: '0 auto', textAlign: 'center' }}>
           <div className="eye-brow-container" style={{ justifyContent: 'center', marginBottom: '20px' }}>
-            <span className="text-eye-brow">[the engineering manifesto]</span>
+            <span className="font-mono text-xs uppercase tracking-widest text-[#C29F53]">
+              [the engineering manifesto]
+            </span>
           </div>
 
           <blockquote
             style={{
               fontSize: 'clamp(1.6rem, 3.2vw, 2.5rem)',
-              lineHeight: 1.3,
+              lineHeight: 1.35,
               fontWeight: 400,
               fontStyle: 'italic',
-              color: '#111111',
+              color: '#FFFFFF',
               margin: '0 0 28px 0',
               fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
             }}
@@ -1010,8 +1010,9 @@ export default function StudioPage() {
               fontFamily: 'var(--font-sans, Inter, sans-serif)',
               fontSize: '0.88rem',
               color: '#C29F53',
-              letterSpacing: '0.06em',
+              letterSpacing: '0.08em',
               textTransform: 'uppercase',
+              fontWeight: 600,
             }}
           >
             JC Apex Ventures (OPC) Private Limited
@@ -1020,18 +1021,6 @@ export default function StudioPage() {
       </section>
 
       <Footer />
-
-      <style jsx global>{`
-        .badge-tag {
-          font-family: var(--font-sans, Inter, sans-serif);
-          font-size: 0.72rem;
-          padding: 4px 10px;
-          border-radius: 9999px;
-          background-color: var(--color-grounded-stone);
-          color: #444444;
-          border: 1px solid rgba(0, 0, 0, 0.06);
-        }
-      `}</style>
     </main>
   );
 }

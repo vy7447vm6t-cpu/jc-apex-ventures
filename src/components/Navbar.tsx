@@ -38,6 +38,59 @@ function ScrambleText({ text }: { text: string }) {
   );
 }
 
+function renderDivisionIcon(key: string) {
+  switch (key) {
+    case 'sun':
+      return (
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#C29F53" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+        </svg>
+      );
+    case 'zap':
+      return (
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0284C7" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+        </svg>
+      );
+    case 'layout':
+      return (
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#D72A1B" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="2" />
+          <line x1="3" y1="9" x2="21" y2="9" />
+          <line x1="9" y1="21" x2="9" y2="9" />
+        </svg>
+      );
+    case 'plug':
+      return (
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2C5ED4" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M12 22v-5M9 8V2M15 8V2M6 8h12a3 3 0 0 1 3 3v2a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4v-2a3 3 0 0 1 3-3z" />
+        </svg>
+      );
+    case 'printer':
+      return (
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4338CA" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <polyline points="6 9 6 2 18 2 18 9" />
+          <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+          <rect x="6" y="14" width="12" height="8" />
+        </svg>
+      );
+    case 'landmark':
+      return (
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#047857" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <line x1="3" y1="22" x2="21" y2="22" />
+          <line x1="6" y1="18" x2="6" y2="11" />
+          <line x1="10" y1="18" x2="10" y2="11" />
+          <line x1="14" y1="18" x2="14" y2="11" />
+          <line x1="18" y1="18" x2="18" y2="11" />
+          <polygon points="12 2 20 7 4 7" />
+        </svg>
+      );
+    default:
+      return null;
+  }
+}
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
@@ -53,7 +106,10 @@ export default function Navbar() {
   const isMenuOpen = divisionsHover || divisionsOpen;
 
   const handleOpenMenu = () => {
-    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = null;
+    }
     setDivisionsHover(true);
   };
 
@@ -61,11 +117,30 @@ export default function Navbar() {
     if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
     hoverTimeoutRef.current = setTimeout(() => {
       setDivisionsHover(false);
-    }, 220);
+      setDivisionsOpen(false);
+    }, 280);
+  };
+
+  const handleToggleMenu = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = null;
+    }
+    if (isMenuOpen) {
+      setDivisionsHover(false);
+      setDivisionsOpen(false);
+    } else {
+      setDivisionsOpen(true);
+    }
   };
 
   const handleDismissMenu = () => {
-    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = null;
+    }
     setDivisionsHover(false);
     setDivisionsOpen(false);
   };
@@ -180,13 +255,40 @@ export default function Navbar() {
       href: '/solis',
       label: 'Solis',
       domainTag: 'Bespoke Solar & Elevated Pergolas',
-      keyMetric: 'PM Surya Ghar | 0 to 500 kWp',
-      summary: 'Turnkey rooftop PV arrays, walkable terrace pergolas, and net-metering liaisoning.',
+      keyMetric: '0 to 500 kWp | PM Surya Ghar',
+      summary: 'Turnkey rooftop PV arrays, walkable terrace pergolas, and net metering liaisoning.',
       logo: '/images/logos/solis-official.png',
       logoDark: '/images/logos/solis-logo-white.png',
       bg: '#FFFFFF',
       accent: '#1E3FD8',
       tag: 'Solar & Pergolas',
+      vectorIcon: 'sun',
+    },
+    {
+      href: '/grid-apex',
+      label: 'Grid Apex',
+      domainTag: 'High-Tension Substations & Grid',
+      keyMetric: '11kV/33kV | MPCB & CEA',
+      summary: 'Turnkey 11kV/33kV substation bays, vacuum switchgear panels, and CEA compliance.',
+      logo: '/images/logos/grid-apex-official.png',
+      logoDark: '/images/logos/grid-apex-white.png',
+      bg: '#111111',
+      accent: '#0284C7',
+      tag: 'HT/LT & Substations',
+      vectorIcon: 'zap',
+    },
+    {
+      href: '/tvasta',
+      label: 'Tvasta',
+      domainTag: 'Turnkey Architecture & Space Planning',
+      keyMetric: 'STC 52 | Turnkey Fit-Outs',
+      summary: 'Turnkey interior fit-outs, 3D space planning, modular joinery, and STC acoustic partitioning.',
+      logo: '/images/logos/tvasta-dark.png',
+      logoDark: '/images/logos/tvasta-official.png',
+      bg: '#FFFFFF',
+      accent: '#D72A1B',
+      tag: 'Turnkey Interiors',
+      vectorIcon: 'layout',
     },
     {
       href: '/sanyog',
@@ -199,30 +301,7 @@ export default function Navbar() {
       bg: '#FFFFFF',
       accent: '#2C5ED4',
       tag: 'Utility & CGRF',
-    },
-    {
-      href: '/grid-apex',
-      label: 'Grid Apex',
-      domainTag: 'High-Tension Substations & Grid',
-      keyMetric: '11kV/33kV | MPCB & CEA',
-      summary: 'Turnkey 11kV/33kV substation bays, switchgear panels, and Central Govt patented thermal cleantech.',
-      logo: '/images/logos/grid-apex-official.png',
-      logoDark: '/images/logos/grid-apex-white.png',
-      bg: 'rgba(255, 255, 255, 0.08)',
-      accent: '#0284C7',
-      tag: 'HT/LT & Substations',
-    },
-    {
-      href: '/tvasta',
-      label: 'Tvasta',
-      domainTag: 'Turnkey Architecture & Space Planning',
-      keyMetric: 'STC 52 | Rs 1,850 to Rs 4,600/sq.ft',
-      summary: 'Turnkey interior fit-outs, 3D space planning, modular joinery, and STC acoustic partitioning.',
-      logo: '/images/logos/tvasta-dark.png',
-      logoDark: '/images/logos/tvasta-official.png',
-      bg: 'rgba(255, 255, 255, 0.08)',
-      accent: '#D72A1B',
-      tag: 'Turnkey Interiors',
+      vectorIcon: 'plug',
     },
     {
       href: '/emudran',
@@ -232,9 +311,10 @@ export default function Navbar() {
       summary: 'Luxury rigid presentation boxes, micro-foil thermal stamping, and architectural corporate signage.',
       logo: '/images/logos/emudran-official.png',
       logoDark: '/images/logos/emudran-white.png',
-      bg: 'rgba(255, 255, 255, 0.08)',
+      bg: '#FFFFFF',
       accent: '#4338CA',
       tag: 'Branding & Print',
+      vectorIcon: 'printer',
     },
     {
       href: '/agrim',
@@ -244,9 +324,10 @@ export default function Navbar() {
       summary: 'Bankable DPR file assembly, financial feasibility modeling, and agro-infrastructure advisory.',
       logo: '/images/logos/agrim-dark.png',
       logoDark: '/images/logos/agrim-official.png',
-      bg: 'rgba(255, 255, 255, 0.08)',
+      bg: '#FFFFFF',
       accent: '#047857',
       tag: 'Project Advisory',
+      vectorIcon: 'landmark',
     },
   ];
 
@@ -254,6 +335,7 @@ export default function Navbar() {
     <>
       {/* ===== APPLE KOKONUTUI FLOATING LIQUID GLASS NAVIGATION ===== */}
       <div
+        ref={popoverRef}
         className="nav-menu-fixed-wrapper z-50"
         style={{
           position: 'fixed',
@@ -268,8 +350,7 @@ export default function Navbar() {
         }}
       >
         <header
-          ref={popoverRef}
-          className="kokonut-nav-pill specular-sheen ios-glass backdrop-blur-md relative"
+          className="kokonut-nav-pill ios-glass backdrop-blur-md relative"
           style={{
             pointerEvents: 'auto',
             display: 'flex',
@@ -284,6 +365,7 @@ export default function Navbar() {
             boxShadow: '0 16px 40px -6px rgba(0, 0, 0, 0.12), 0 2px 6px -1px rgba(0, 0, 0, 0.04), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.05)',
             width: '100%',
             position: 'relative',
+            overflow: 'visible',
           }}
         >
           {/* Brand Wordmark & Umbrella Mascot */}
@@ -357,7 +439,7 @@ export default function Navbar() {
             >
               <button
                 type="button"
-                onClick={() => setDivisionsOpen((prev) => !prev)}
+                onClick={handleToggleMenu}
                 onMouseEnter={handleOpenMenu}
                 aria-haspopup="menu"
                 aria-expanded={isMenuOpen}
@@ -570,130 +652,144 @@ export default function Navbar() {
               )}
             </button>
           </div>
+        </header>
 
-          {/* Centered Mega Popover inside Header: perfectly centered relative to the floating nav dock on all screens >= 768px */}
-          {isMenuOpen && (
+        {/* Authentic iOS Liquid Glass Dropdown Showcase for All 6 Divisions */}
+        {isMenuOpen && (
+          <div
+            className="absolute left-1/2 -translate-x-1/2 top-full pt-2.5 w-[760px] max-w-[calc(100vw-32px)] z-50 pointer-events-auto"
+            onMouseEnter={handleOpenMenu}
+            onMouseLeave={handleCloseMenu}
+          >
             <div
-              className="absolute left-1/2 -translate-x-1/2 top-full pt-2.5 w-[650px] max-w-[calc(100vw-32px)] z-50 pointer-events-auto"
-              onMouseEnter={handleOpenMenu}
-              onMouseLeave={handleCloseMenu}
+              className="p-4 sm:p-5 rounded-[26px]"
+              style={{
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(246, 244, 238, 0.75) 100%)',
+                backdropFilter: 'blur(24px) saturate(190%)',
+                WebkitBackdropFilter: 'blur(24px) saturate(190%)',
+                border: '1px solid rgba(255, 255, 255, 0.85)',
+                boxShadow: '0 24px 48px -12px rgba(0, 0, 0, 0.18), 0 4px 12px -2px rgba(0, 0, 0, 0.06), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.04)',
+              }}
             >
-              <div
-                className="p-4 rounded-3xl shadow-2xl"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(246, 244, 238, 0.94) 100%)',
-                  backdropFilter: 'blur(36px) saturate(220%)',
-                  WebkitBackdropFilter: 'blur(36px) saturate(220%)',
-                  border: '1px solid rgba(255, 255, 255, 0.95)',
-                  boxShadow: '0 28px 60px -12px rgba(0, 0, 0, 0.20), 0 2px 8px rgba(0, 0, 0, 0.04), inset 0 1.5px 1px rgba(255, 255, 255, 0.98)',
-                }}
-              >
-                {/* Popover Header */}
-                <div className="flex items-center justify-between pb-3 mb-3 border-b border-black/8 px-1">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#16A34A]" />
-                    <span className="text-[10.5px] font-bold tracking-wider uppercase text-[#111111]">
-                      Consortium Operating Divisions
-                    </span>
-                  </div>
-                  <span className="text-[10.5px] text-[#666666] font-medium">
-                    Direct Access to 6 Specialized Engineering Practices
+              {/* Popover Header */}
+              <div className="flex items-center justify-between pb-3 mb-3 border-b border-black/8 px-1">
+                <div className="flex items-center gap-2">
+                  <span
+                    style={{
+                      width: '7px',
+                      height: '7px',
+                      borderRadius: '50%',
+                      backgroundColor: '#16A34A',
+                      boxShadow: '0 0 8px rgba(22, 163, 74, 0.6)',
+                      display: 'inline-block',
+                    }}
+                  />
+                  <span className="text-[11px] font-bold tracking-wider uppercase text-[#111111]">
+                    Consortium Operating Divisions
                   </span>
                 </div>
+                <span className="text-[11px] text-[#666666] font-medium hidden sm:inline">
+                  Direct Access to 6 Specialized Engineering Practices
+                </span>
+              </div>
 
-                {/* 2-Column Grid of Elevated Division Cards */}
-                <div className="grid grid-cols-2 gap-2.5">
-                  {divisions.map((div) => {
-                    const isActive = pathname === div.href;
-                    return (
-                      <Link
-                        key={div.href}
-                        href={div.href}
-                        onClick={handleDismissMenu}
-                        className="flex items-start gap-3 p-3 rounded-2xl transition-all duration-200 no-underline group relative overflow-hidden"
+              {/* 2-Column Grid of Elevated Division Cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                {divisions.map((div) => {
+                  const isActive = pathname === div.href;
+                  return (
+                    <Link
+                      key={div.href}
+                      href={div.href}
+                      onClick={handleDismissMenu}
+                      className="flex items-start gap-3 p-3 rounded-2xl transition-all duration-200 no-underline group relative overflow-hidden"
+                      style={{
+                        background: isActive
+                          ? 'rgba(194, 159, 83, 0.14)'
+                          : 'rgba(255, 255, 255, 0.65)',
+                        backdropFilter: 'blur(16px)',
+                        WebkitBackdropFilter: 'blur(16px)',
+                        border: isActive
+                          ? '1px solid rgba(194, 159, 83, 0.50)'
+                          : '1px solid rgba(255, 255, 255, 0.80)',
+                        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.85)',
+                      }}
+                    >
+                      {/* Authentic Brand Emblem */}
+                      <div
+                        className="w-11 h-11 rounded-xl flex items-center justify-center p-1.5 shrink-0 overflow-hidden shadow-xs transition-transform duration-200 group-hover:scale-105"
                         style={{
-                          background: isActive
-                            ? 'rgba(194, 159, 83, 0.12)'
-                            : 'rgba(255, 255, 255, 0.70)',
-                          border: isActive
-                            ? '1px solid rgba(194, 159, 83, 0.45)'
-                            : '1px solid rgba(0, 0, 0, 0.07)',
-                          boxShadow: '0 2px 6px rgba(0, 0, 0, 0.02)',
+                          backgroundColor: div.href === '/grid-apex' ? '#111111' : '#FFFFFF',
+                          border: '1px solid rgba(0, 0, 0, 0.09)',
                         }}
                       >
-                        {/* Authentic Brand Emblem */}
-                        <div
-                          className="w-11 h-11 rounded-xl flex items-center justify-center p-1.5 shrink-0 overflow-hidden shadow-sm transition-transform duration-200 group-hover:scale-105"
-                          style={{
-                            backgroundColor: div.href === '/grid-apex' ? '#111111' : '#FFFFFF',
-                            border: '1px solid rgba(0, 0, 0, 0.10)',
-                          }}
-                        >
-                          <img
-                            src={div.logo}
-                            alt={`${div.label} official brand emblem`}
-                            className="max-h-7 max-w-full object-contain"
-                          />
-                        </div>
-
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center justify-between gap-1.5">
-                            <span className="text-xs font-bold text-[#111111] group-hover:text-[#C29F53] transition-colors">
-                              {div.label}
-                            </span>
-                            <span
-                              className="text-[9px] font-semibold px-1.5 py-0.5 rounded-md"
-                              style={{
-                                backgroundColor: 'rgba(0, 0, 0, 0.05)',
-                                color: '#555555',
-                                whiteSpace: 'nowrap',
-                              }}
-                            >
-                              {div.keyMetric}
-                            </span>
-                          </div>
-
-                          <div className="text-[10.5px] font-medium text-[#222222] mt-0.5 leading-snug truncate">
-                            {div.domainTag}
-                          </div>
-
-                          <div className="text-[9.5px] text-[#666666] mt-1 line-clamp-1 leading-normal">
-                            {div.summary}
-                          </div>
-                        </div>
-
-                        <ArrowUpRight
-                          size={12}
-                          className="text-[#999999] opacity-0 group-hover:opacity-100 group-hover:text-[#C29F53] transition-all shrink-0 mt-0.5"
+                        <img
+                          src={div.logo}
+                          alt={`${div.label} official brand emblem`}
+                          className="max-h-7 max-w-full object-contain"
                         />
-                      </Link>
-                    );
-                  })}
-                </div>
+                      </div>
 
-                {/* Popover Footer */}
-                <div className="flex items-center justify-between pt-3 mt-3 border-t border-black/8 px-1">
-                  <Link
-                    href="/#calculators"
-                    onClick={handleDismissMenu}
-                    className="text-[11px] font-semibold text-[#555555] hover:text-[#111111] flex items-center gap-1 no-underline"
-                  >
-                    <span>Interactive Field Calculators</span>
-                    <ArrowUpRight size={11} />
-                  </Link>
-                  <Link
-                    href="/studio"
-                    onClick={handleDismissMenu}
-                    className="text-[11px] font-semibold text-[#8C733E] hover:underline flex items-center gap-1 no-underline"
-                  >
-                    <span>Studio &amp; Practice Leadership</span>
-                    <ArrowUpRight size={11} />
-                  </Link>
-                </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between gap-1.5">
+                          <span className="text-xs font-bold text-[#111111] group-hover:text-[#C29F53] transition-colors flex items-center gap-1.5">
+                            {div.label}
+                            <span className="opacity-75 group-hover:opacity-100 transition-opacity">
+                              {renderDivisionIcon(div.vectorIcon)}
+                            </span>
+                          </span>
+                          <span
+                            className="text-[9px] font-semibold px-1.5 py-0.5 rounded-md"
+                            style={{
+                              backgroundColor: 'rgba(0, 0, 0, 0.05)',
+                              color: '#555555',
+                              whiteSpace: 'nowrap',
+                            }}
+                          >
+                            {div.keyMetric}
+                          </span>
+                        </div>
+
+                        <div className="text-[10.5px] font-medium text-[#222222] mt-0.5 leading-snug truncate">
+                          {div.domainTag}
+                        </div>
+
+                        <div className="text-[9.5px] text-[#666666] mt-1 line-clamp-1 leading-normal">
+                          {div.summary}
+                        </div>
+                      </div>
+
+                      <ArrowUpRight
+                        size={12}
+                        className="text-[#999999] opacity-0 group-hover:opacity-100 group-hover:text-[#C29F53] transition-all shrink-0 mt-0.5"
+                      />
+                    </Link>
+                  );
+                })}
+              </div>
+
+              {/* Popover Footer */}
+              <div className="flex items-center justify-between pt-3 mt-3 border-t border-black/8 px-1">
+                <Link
+                  href="/#calculators"
+                  onClick={handleDismissMenu}
+                  className="text-[11px] font-semibold text-[#555555] hover:text-[#111111] flex items-center gap-1 no-underline"
+                >
+                  <span>Interactive Field Calculators</span>
+                  <ArrowUpRight size={11} />
+                </Link>
+                <Link
+                  href="/studio"
+                  onClick={handleDismissMenu}
+                  className="text-[11px] font-semibold text-[#8C733E] hover:underline flex items-center gap-1 no-underline"
+                >
+                  <span>Studio &amp; Practice Leadership</span>
+                  <ArrowUpRight size={11} />
+                </Link>
               </div>
             </div>
-          )}
-        </header>
+          </div>
+        )}
       </div>
 
       {/* ===== GROUNDED CURTAIN DRAWER OVERLAY ===== */}
