@@ -51,14 +51,16 @@ export default function ConsultationModal({
   const [statusMessage, setStatusMessage] = useState('');
 
   // Synchronize initialDivision prop on change
-  useEffect(() => {
+  const [prevInitialDivision, setPrevInitialDivision] = useState(initialDivision);
+  if (prevInitialDivision !== initialDivision) {
+    setPrevInitialDivision(initialDivision);
     if (initialDivision) {
       const match = DIVISIONS.find(
         (d) => d.id === initialDivision.toLowerCase() || d.name.toLowerCase() === initialDivision.toLowerCase()
       );
       if (match) setSelectedDivision(match.id);
     }
-  }, [initialDivision]);
+  }
 
   // Handle ESC key listener
   const handleKeyDown = useCallback(
@@ -70,14 +72,21 @@ export default function ConsultationModal({
     [onClose]
   );
 
+  const [prevIsOpen, setPrevIsOpen] = useState(isOpen);
+  if (prevIsOpen !== isOpen) {
+    setPrevIsOpen(isOpen);
+    if (!isOpen) {
+      setSubmitStatus('idle');
+      setStatusMessage('');
+    }
+  }
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
       window.addEventListener('keydown', handleKeyDown);
     } else {
       document.body.style.overflow = '';
-      setSubmitStatus('idle');
-      setStatusMessage('');
     }
     return () => {
       document.body.style.overflow = '';

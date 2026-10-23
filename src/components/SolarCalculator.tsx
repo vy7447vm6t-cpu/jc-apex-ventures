@@ -205,7 +205,7 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     } else {
-      window.location.href = `/solis#solis-enquiry`;
+      window.location.assign(`/solis#solis-enquiry`);
     }
   };
 

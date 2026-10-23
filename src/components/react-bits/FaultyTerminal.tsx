@@ -635,7 +635,9 @@ export default function FaultyTerminal({
     dpr
   };
   const settingsRef = useRef(settings);
-  settingsRef.current = settings;
+  useEffect(() => {
+    settingsRef.current = settings;
+  });
 
   useEffect(() => {
     const container = containerRef.current;
@@ -803,7 +805,7 @@ export default function FaultyTerminal({
       const s = settingsRef.current;
       view.width = Math.max(1, container.clientWidth);
       view.height = Math.max(1, container.clientHeight);
-      view.ratio = Math.min(s.dpr || window.devicePixelRatio || 1, 1.5);
+      view.ratio = Math.min(s.dpr || window.devicePixelRatio || 1, 1.25);
       view.columns = Math.min(1, view.width / view.height / 1.5);
       canvas.width = Math.max(1, Math.round(view.width * view.ratio));
       canvas.height = Math.max(1, Math.round(view.height * view.ratio));
@@ -891,10 +893,13 @@ export default function FaultyTerminal({
 
     const resizeObserver = new ResizeObserver(resize);
     resizeObserver.observe(container);
-    const intersection = new IntersectionObserver(entries => {
-      visible = entries.some(entry => entry.isIntersecting);
-      if (visible) wake();
-    });
+    const intersection = new IntersectionObserver(
+      entries => {
+        visible = entries.some(entry => entry.isIntersecting);
+        if (visible) wake();
+      },
+      { rootMargin: '250px 0px' }
+    );
     intersection.observe(container);
     window.addEventListener('pointermove', onPointerMove, { passive: true });
     window.addEventListener('pointerdown', onPointerDown, { passive: true });

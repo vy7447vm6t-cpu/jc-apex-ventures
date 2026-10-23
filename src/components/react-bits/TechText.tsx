@@ -134,6 +134,11 @@ function ScrambleTechText({
 }: TechTextProps) {
   const effectiveSpeed = Math.min(scrambleSpeed ?? speed ?? 16, 18);
   const [displayText, setDisplayText] = useState(text);
+  const [prevText, setPrevText] = useState(text);
+  if (prevText !== text) {
+    setPrevText(text);
+    setDisplayText(text);
+  }
   const isScramblingRef = useRef(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -177,7 +182,6 @@ function ScrambleTechText({
   useEffect(() => {
     if (intervalRef.current) clearInterval(intervalRef.current);
     isScramblingRef.current = false;
-    setDisplayText(text);
     if (trigger === 'mount') {
       startScramble();
     }
@@ -185,13 +189,18 @@ function ScrambleTechText({
       if (intervalRef.current) clearInterval(intervalRef.current);
       isScramblingRef.current = false;
     };
-  }, [text, trigger]);
+  }, [trigger]);
 
   useEffect(() => {
     if (active) {
       startScramble();
     } else {
-      setDisplayText(text);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        isScramblingRef.current = false;
+      }
+      const raf = requestAnimationFrame(() => setDisplayText(text));
+      return () => cancelAnimationFrame(raf);
     }
   }, [active, text]);
 
@@ -378,7 +387,7 @@ function CanvasTechText({
     const setFont = (target: CanvasRenderingContext2D, s: CanvasSettings, size: number) => {
       target.font = fontFor(s, size);
       if ('letterSpacing' in target && typeof s.letterSpacing === 'number') {
-        (target as any).letterSpacing = `${s.letterSpacing * size}px`;
+        (target as unknown as { letterSpacing: string }).letterSpacing = `${s.letterSpacing * size}px`;
       }
       target.textAlign = 'left';
       target.textBaseline = 'alphabetic';

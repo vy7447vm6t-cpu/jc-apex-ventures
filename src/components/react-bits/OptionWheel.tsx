@@ -13,7 +13,7 @@ export interface WheelOption {
 interface OptionWheelProps {
   options: WheelOption[];
   selectedValue: string | number;
-  onChange: (value: any) => void;
+  onChange: (value: string | number) => void;
   className?: string;
 }
 
@@ -68,6 +68,8 @@ export default function OptionWheel({
       {/* Tactile Apple iOS liquid glass segmented well */}
       <div
         ref={containerRef}
+        role="tablist"
+        aria-orientation="horizontal"
         style={{
           position: 'relative',
           backgroundColor: 'rgba(255, 255, 255, 0.86)',
@@ -109,7 +111,30 @@ export default function OptionWheel({
                 buttonRefs.current[idx] = el;
               }}
               type="button"
+              role="tab"
+              aria-selected={isSelected}
+              tabIndex={isSelected ? 0 : -1}
               onClick={() => onChange(opt.value)}
+              onKeyDown={(e) => {
+                let targetIdx = -1;
+                if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                  e.preventDefault();
+                  targetIdx = (idx + 1) % options.length;
+                } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                  e.preventDefault();
+                  targetIdx = (idx - 1 + options.length) % options.length;
+                } else if (e.key === 'Home') {
+                  e.preventDefault();
+                  targetIdx = 0;
+                } else if (e.key === 'End') {
+                  e.preventDefault();
+                  targetIdx = options.length - 1;
+                }
+                if (targetIdx >= 0) {
+                  onChange(options[targetIdx].value);
+                  buttonRefs.current[targetIdx]?.focus();
+                }
+              }}
               style={{
                 position: 'relative',
                 zIndex: 2,

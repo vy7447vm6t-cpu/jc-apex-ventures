@@ -136,19 +136,19 @@ export default function EvNetworkCapexRevenueChart({
       {/* DPR Financial Validation */}
       <div className="mt-4 pt-4 border-t border-black/8 grid grid-cols-3 gap-2 text-center">
         <div>
-          <span className="text-[10px] font-semibold tracking-wider text-[#888888] block">PER-SITE CAPEX</span>
+          <span className="text-[10px] font-semibold tracking-wider text-[#595959] block">PER-SITE CAPEX</span>
           <span className="text-sm font-bold text-[#FF5F56] tabular-nums">
             Rs 40.0L
           </span>
         </div>
         <div>
-          <span className="text-[10px] font-semibold tracking-wider text-[#888888] block">BREAKEVEN</span>
+          <span className="text-[10px] font-semibold tracking-wider text-[#595959] block">BREAKEVEN</span>
           <span className="text-sm font-bold text-[#27C93F] tabular-nums">
             Year 2.4
           </span>
         </div>
         <div>
-          <span className="text-[10px] font-semibold tracking-wider text-[#888888] block">10-YR PROJECT IRR</span>
+          <span className="text-[10px] font-semibold tracking-wider text-[#595959] block">10-YR PROJECT IRR</span>
           <span className="text-sm font-bold text-[#8C6D23] tabular-nums">
             34.8%
           </span>

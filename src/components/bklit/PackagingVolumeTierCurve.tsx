@@ -1,37 +1,45 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 
 interface PackagingVolumeTierCurveProps {
   activeQuantity?: number;
   className?: string;
 }
 
+// Volume tiers and unit costs in INR
+const TIERS = [
+  { qty: 500, digital: 145, offset: 220, label: '500' },
+  { qty: 1000, digital: 110, offset: 135, label: '1k' },
+  { qty: 2500, digital: 85, offset: 78, label: '2.5k' },
+  { qty: 5000, digital: 72, offset: 48, label: '5k' },
+  { qty: 10000, digital: 64, offset: 32, label: '10k' },
+  { qty: 25000, digital: 58, offset: 22, label: '25k' },
+  { qty: 50000, digital: 54, offset: 16, label: '50k' },
+];
+const tiers = TIERS;
+
 export default function PackagingVolumeTierCurve({
   activeQuantity,
   className = '',
 }: PackagingVolumeTierCurveProps) {
-  const [selectedQty, setSelectedQty] = useState<number>(5000);
+  const [userSelectedQty, setUserSelectedQty] = useState<number | null>(null);
+  const [prevActiveQty, setPrevActiveQty] = useState(activeQuantity);
+  if (prevActiveQty !== activeQuantity) {
+    setPrevActiveQty(activeQuantity);
+    setUserSelectedQty(null);
+  }
 
-  // Volume tiers and unit costs in INR
-  const tiers = [
-    { qty: 500, digital: 145, offset: 220, label: '500' },
-    { qty: 1000, digital: 110, offset: 135, label: '1k' },
-    { qty: 2500, digital: 85, offset: 78, label: '2.5k' },
-    { qty: 5000, digital: 72, offset: 48, label: '5k' },
-    { qty: 10000, digital: 64, offset: 32, label: '10k' },
-    { qty: 25000, digital: 58, offset: 22, label: '25k' },
-    { qty: 50000, digital: 54, offset: 16, label: '50k' },
-  ];
-
-  useEffect(() => {
+  const selectedQty = useMemo(() => {
+    if (userSelectedQty !== null) return userSelectedQty;
     if (typeof activeQuantity === 'number') {
-      const closest = tiers.reduce((prev, curr) =>
+      const closest = TIERS.reduce((prev, curr) =>
         Math.abs(curr.qty - activeQuantity) < Math.abs(prev.qty - activeQuantity) ? curr : prev
       );
-      setSelectedQty(closest.qty);
+      return closest.qty;
     }
-  }, [activeQuantity]);
+    return 5000;
+  }, [userSelectedQty, activeQuantity]);
 
   const width = 560;
   const height = 220;
@@ -136,7 +144,7 @@ export default function PackagingVolumeTierCurve({
             return (
               <g
                 key={t.qty}
-                onClick={() => setSelectedQty(t.qty)}
+                onClick={() => setUserSelectedQty(t.qty)}
                 className="cursor-pointer"
               >
                 <circle
@@ -182,19 +190,19 @@ export default function PackagingVolumeTierCurve({
       {/* Recommended Process Guidance */}
       <div className="mt-4 pt-4 border-t border-black/8 grid grid-cols-3 gap-2 text-center">
         <div>
-          <span className="text-[10px] font-semibold tracking-wider text-[#888888] block">OPTIMAL THRESHOLD</span>
+          <span className="text-[10px] font-semibold tracking-wider text-[#595959] block">OPTIMAL THRESHOLD</span>
           <span className="text-sm font-bold text-[#111111] tabular-nums">
             &gt; 2,500 Units (Offset)
           </span>
         </div>
         <div>
-          <span className="text-[10px] font-semibold tracking-wider text-[#888888] block">MAX SCALE SAVING</span>
+          <span className="text-[10px] font-semibold tracking-wider text-[#595959] block">MAX SCALE SAVING</span>
           <span className="text-sm font-bold text-[#27C93F] tabular-nums">
             92.7% per-unit drop
           </span>
         </div>
         <div>
-          <span className="text-[10px] font-semibold tracking-wider text-[#888888] block">PRESS DIRECTION</span>
+          <span className="text-[10px] font-semibold tracking-wider text-[#595959] block">PRESS DIRECTION</span>
           <span className="text-sm font-bold text-[#8C6D23]">
             Manish Ajgaonkar
           </span>

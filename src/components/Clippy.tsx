@@ -155,6 +155,20 @@ export default function Clippy() {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsOpen(false);
+      }
+    };
+    if (isOpen) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen]);
+
   const handleQuerySubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!userQuery.trim()) return;
@@ -630,6 +644,8 @@ export default function Clippy() {
           transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
         }}
         aria-label="Toggle JC Apex assistant concierge"
+        aria-expanded={isOpen}
+        aria-haspopup="dialog"
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <Logo width={20} height={20} />

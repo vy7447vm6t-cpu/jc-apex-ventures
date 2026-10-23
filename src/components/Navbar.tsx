@@ -145,7 +145,10 @@ export default function Navbar() {
   };
 
   useEffect(() => {
-    handleDismissMenu();
+    const raf = requestAnimationFrame(() => {
+      handleDismissMenu();
+    });
+    return () => cancelAnimationFrame(raf);
   }, [pathname]);
 
   useEffect(() => {
@@ -221,13 +224,20 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setMobileOpen(false);
+      }
+    };
     if (mobileOpen) {
       document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKeyDown);
     } else {
       document.body.style.overflow = '';
     }
     return () => {
       document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
     };
   }, [mobileOpen]);
 
@@ -626,6 +636,8 @@ export default function Navbar() {
               type="button"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle Navigation Menu"
+              aria-expanded={mobileOpen}
+              aria-haspopup="dialog"
               className="flex md:hidden items-center justify-center shrink-0"
               style={{
                 width: '36px',

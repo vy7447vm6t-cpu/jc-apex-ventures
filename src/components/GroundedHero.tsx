@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import AuthorityLogo from './AuthorityLogos';
@@ -221,9 +222,12 @@ export default function GroundedHero({ onOpenConsultation }: GroundedHeroProps =
         }}
       >
         {/* Default Baseline Image (One International Centre Facade) */}
-        <img
+        <Image
           src="/images/hero-architectural-facade.jpg"
           alt="One International Centre Mumbai Facade"
+          fill
+          priority={true}
+          sizes="100vw"
           style={{
             position: 'absolute',
             inset: 0,
@@ -238,10 +242,13 @@ export default function GroundedHero({ onOpenConsultation }: GroundedHeroProps =
 
         {/* 6 Hover/Tap Trigger Images */}
         {HERO_ZONES.map((zone, idx) => (
-          <img
+          <Image
             key={zone.id}
             src={zone.image}
             alt={zone.label}
+            fill
+            loading="lazy"
+            sizes="100vw"
             style={{
               position: 'absolute',
               inset: 0,

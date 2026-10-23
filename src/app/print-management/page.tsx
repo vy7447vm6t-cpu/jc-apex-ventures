@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PageHero from '@/components/PageHero';
@@ -197,21 +197,20 @@ export default function PrintManagementPage() {
     notes: ''
   });
 
-  const [quote, setQuote] = useState({ printCost: 0, transportCost: 0, installationCost: 0, total: 0 });
+  const quote = useMemo(
+    () =>
+      calculateEstimate(
+        formData.jobType,
+        formData.quantity,
+        formData.quality,
+        formData.area,
+        formData.installation,
+        formData.sizeSqFt
+      ),
+    [formData]
+  );
 
-  useEffect(() => {
-    const updatedQuote = calculateEstimate(
-      formData.jobType,
-      formData.quantity,
-      formData.quality,
-      formData.area,
-      formData.installation,
-      formData.sizeSqFt
-    );
-    setQuote(updatedQuote);
-  }, [formData]);
-
-  const handleChange = (name: string, value: any) => {
+  const handleChange = (name: string, value: string | number | boolean) => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 

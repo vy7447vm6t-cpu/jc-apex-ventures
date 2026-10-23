@@ -272,7 +272,9 @@ const FluxLines: React.FC<FluxLinesProps> = ({
     dpr
   };
   const settingsRef = useRef(settings);
-  settingsRef.current = settings;
+  useEffect(() => {
+    settingsRef.current = settings;
+  });
 
   useEffect(() => {
     const container = containerRef.current;
@@ -399,7 +401,7 @@ const FluxLines: React.FC<FluxLinesProps> = ({
       const s = settingsRef.current;
       const width = Math.max(1, container.clientWidth);
       const height = Math.max(1, container.clientHeight);
-      const ratio = Math.min(s.dpr || window.devicePixelRatio || 1, 1.5);
+      const ratio = Math.min(s.dpr || window.devicePixelRatio || 1, 1.25);
       canvas.width = Math.max(1, Math.round(width * ratio));
       canvas.height = Math.max(1, Math.round(height * ratio));
       render();
@@ -450,13 +452,16 @@ const FluxLines: React.FC<FluxLinesProps> = ({
 
     const resizeObserver = new ResizeObserver(resize);
     resizeObserver.observe(container);
-    const intersection = new IntersectionObserver(entries => {
-      visible = entries.some(entry => entry.isIntersecting);
-      if (visible) {
-        last = 0;
-        wake();
-      }
-    });
+    const intersection = new IntersectionObserver(
+      entries => {
+        visible = entries.some(entry => entry.isIntersecting);
+        if (visible) {
+          last = 0;
+          wake();
+        }
+      },
+      { rootMargin: '250px 0px' }
+    );
     intersection.observe(container);
     window.addEventListener('pointermove', onPointerMove, { passive: true });
     window.addEventListener('pointerdown', onPointerDown, { passive: true });

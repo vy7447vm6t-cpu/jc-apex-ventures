@@ -473,7 +473,7 @@ export const PatternWaves: React.FC<PatternWavesProps> = ({
   style
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const settingsRef = useRef<any>(null);
+  const settingsRef = useRef<Record<string, unknown> | null>(null);
   const wakeRef = useRef<(() => void) | null>(null);
 
   const base = SURFACE_PRESETS[preset] || SURFACE_PRESETS.silk;
@@ -697,7 +697,7 @@ export const PatternWaves: React.FC<PatternWavesProps> = ({
     const resize = () => {
       width = Math.max(1, container.clientWidth);
       height = Math.max(1, container.clientHeight);
-      renderer.dpr = Math.min(window.devicePixelRatio || 1, 1.5, Math.sqrt(PIXEL_BUDGET / (width * height)));
+      renderer.dpr = Math.min(window.devicePixelRatio || 1, 1.25, Math.sqrt(PIXEL_BUDGET / (width * height)));
       renderer.setSize(width, height);
       buildRipple();
       dirty = true;
@@ -873,11 +873,11 @@ export const PatternWaves: React.FC<PatternWavesProps> = ({
       if (!document.hidden) start();
     };
 
-    window.addEventListener('pointermove', onPointerMove, { passive: true });
-    window.addEventListener('pointerdown', onPointerDown, { passive: true });
-    window.addEventListener('pointerout', onPointerOut, { passive: true });
-    window.addEventListener('pointerup', onPointerUp, { passive: true });
-    window.addEventListener('blur', onPointerLeave);
+    container.addEventListener('pointermove', onPointerMove, { passive: true });
+    container.addEventListener('pointerdown', onPointerDown, { passive: true });
+    container.addEventListener('pointerout', onPointerOut, { passive: true });
+    container.addEventListener('pointerup', onPointerUp, { passive: true });
+    container.addEventListener('pointerleave', onPointerLeave);
     document.addEventListener('visibilitychange', onVisibility);
 
     const resizeObserver = new ResizeObserver(resize);
@@ -885,7 +885,7 @@ export const PatternWaves: React.FC<PatternWavesProps> = ({
     const intersectionObserver = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
       start();
-    });
+    }, { rootMargin: '250px 0px' });
     intersectionObserver.observe(container);
 
     wakeRef.current = () => {
@@ -900,11 +900,11 @@ export const PatternWaves: React.FC<PatternWavesProps> = ({
       cancelAnimationFrame(raf);
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
-      window.removeEventListener('pointermove', onPointerMove);
-      window.removeEventListener('pointerdown', onPointerDown);
-      window.removeEventListener('pointerout', onPointerOut);
-      window.removeEventListener('pointerup', onPointerUp);
-      window.removeEventListener('blur', onPointerLeave);
+      container.removeEventListener('pointermove', onPointerMove);
+      container.removeEventListener('pointerdown', onPointerDown);
+      container.removeEventListener('pointerout', onPointerOut);
+      container.removeEventListener('pointerup', onPointerUp);
+      container.removeEventListener('pointerleave', onPointerLeave);
       document.removeEventListener('visibilitychange', onVisibility);
       wakeRef.current = null;
       if (ripple) {

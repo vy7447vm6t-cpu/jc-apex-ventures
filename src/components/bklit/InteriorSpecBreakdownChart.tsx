@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 export interface InteriorSpecBreakdownChartProps {
   tier?: 'standard' | 'premium' | 'luxury';
@@ -78,12 +78,14 @@ export default function InteriorSpecBreakdownChart({
   areaSqFt = 2500,
   className = '',
 }: InteriorSpecBreakdownChartProps) {
-  const [activeTier, setActiveTier] = useState<'standard' | 'premium' | 'luxury'>(tier);
+  const [selectedTier, setSelectedTier] = useState<'standard' | 'premium' | 'luxury' | null>(null);
+  const [prevTier, setPrevTier] = useState(tier);
+  if (prevTier !== tier) {
+    setPrevTier(tier);
+    setSelectedTier(null);
+  }
+  const activeTier = selectedTier ?? tier;
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
-
-  useEffect(() => {
-    setActiveTier(tier);
-  }, [tier]);
 
   const currentSpec = TIER_SPECS[activeTier] || TIER_SPECS.premium;
   const safeArea = Math.max(100, areaSqFt);
@@ -96,22 +98,29 @@ export default function InteriorSpecBreakdownChart({
   const barHeight = 44;
   const usableWidth = width - paddingX * 2;
 
-  // Compute segmented cumulative widths for stacked SVG bar
-  let cumulativePct = 0;
-  const segments = currentSpec.allocations.map((alloc) => {
-    const startX = paddingX + cumulativePct * usableWidth;
+  // Compute segmented cumulative widths for stacked SVG bar purely
+  const segments = currentSpec.allocations.reduce<
+    Array<(typeof currentSpec.allocations)[number] & {
+      startX: number;
+      segWidth: number;
+      perSqFtCost: number;
+      categoryBudget: number;
+    }>
+  >((acc, alloc, idx) => {
+    const prevCum = currentSpec.allocations.slice(0, idx).reduce((sum, a) => sum + a.pct, 0);
+    const startX = paddingX + prevCum * usableWidth;
     const segWidth = alloc.pct * usableWidth;
-    cumulativePct += alloc.pct;
     const perSqFtCost = Math.round(currentSpec.ratePerSqFt * alloc.pct);
     const categoryBudget = Math.round(totalBudget * alloc.pct);
-    return {
+    acc.push({
       ...alloc,
       startX,
       segWidth,
       perSqFtCost,
       categoryBudget,
-    };
-  });
+    });
+    return acc;
+  }, []);
 
   return (
     <div className={`rounded-3xl border border-black/8 bg-white/90 p-6 md:p-8 backdrop-blur-xl shadow-lg font-sans ${className}`}>
@@ -136,7 +145,7 @@ export default function InteriorSpecBreakdownChart({
               key={t}
               type="button"
               onClick={() => {
-                setActiveTier(t);
+                setSelectedTier(t);
                 setHoveredIdx(null);
               }}
               className={`px-3 py-1 rounded-full text-xs font-semibold capitalize transition-all cursor-pointer ${
@@ -225,7 +234,7 @@ export default function InteriorSpecBreakdownChart({
             </>
           ) : (
             <>
-              <span className="text-[#888888] font-medium">Allocation Telemetry:</span>
+              <span className="text-[#595959] font-medium">Allocation Telemetry:</span>
               <span className="text-[#666666]">
                 Hover category segments to inspect itemized per-sqft cost for {safeArea.toLocaleString('en-IN')} sq ft
               </span>
@@ -237,19 +246,19 @@ export default function InteriorSpecBreakdownChart({
       {/* Footer Specification KPIs */}
       <div className="mt-4 pt-4 border-t border-black/8 grid grid-cols-3 gap-2 text-center">
         <div>
-          <span className="text-[10px] font-semibold tracking-wider text-[#888888] block">BASE RATE</span>
+          <span className="text-[10px] font-semibold tracking-wider text-[#595959] block">BASE RATE</span>
           <span className="text-sm font-bold text-[#111111] tabular-nums">
             Rs {currentSpec.ratePerSqFt.toLocaleString('en-IN')}/sqft
           </span>
         </div>
         <div>
-          <span className="text-[10px] font-semibold tracking-wider text-[#888888] block">ACOUSTIC RATING</span>
+          <span className="text-[10px] font-semibold tracking-wider text-[#595959] block">ACOUSTIC RATING</span>
           <span className="text-sm font-bold text-[#8C6D23] tabular-nums">
             STC {currentSpec.stcRating} Certified
           </span>
         </div>
         <div>
-          <span className="text-[10px] font-semibold tracking-wider text-[#888888] block">TOTAL FOR {safeArea.toLocaleString('en-IN')} SQFT</span>
+          <span className="text-[10px] font-semibold tracking-wider text-[#595959] block">TOTAL FOR {safeArea.toLocaleString('en-IN')} SQFT</span>
           <span className="text-sm font-bold text-[#27C93F] tabular-nums">
             Rs {(totalBudget / 100000).toFixed(2)} Lakhs
           </span>

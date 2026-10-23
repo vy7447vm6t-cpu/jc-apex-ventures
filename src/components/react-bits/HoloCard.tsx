@@ -364,22 +364,21 @@ export default function HoloCard({
   const [flipped, setFlipped] = useState(false);
   const flippable = Boolean(backImage);
 
-  settingsRef.current = {
-    preset: Math.max(0, PRESETS.indexOf(preset)),
-    intensity: clamp(intensity, 0, 1),
-    scale: clamp(scale, 0.25, 4),
-    edgeSparkle: clamp(edgeSparkle, 0, 1),
-    frame: clamp(frame, 0, 20) / 100,
-    glare: clamp(glare, 0, 1),
-    foil: parseColor(foilColor),
-    radius: Math.max(0, radius),
-    tiltMax: clamp(tiltMax, 0, 45),
-    hoverScale: clamp(hoverScale, 0.8, 1.3),
-    idle
-  };
-  flipRef.current = flippable && flipped;
-
   useEffect(() => {
+    settingsRef.current = {
+      preset: Math.max(0, PRESETS.indexOf(preset)),
+      intensity: clamp(intensity, 0, 1),
+      scale: clamp(scale, 0.25, 4),
+      edgeSparkle: clamp(edgeSparkle, 0, 1),
+      frame: clamp(frame, 0, 20) / 100,
+      glare: clamp(glare, 0, 1),
+      foil: parseColor(foilColor),
+      radius: Math.max(0, radius),
+      tiltMax: clamp(tiltMax, 0, 45),
+      hoverScale: clamp(hoverScale, 0.8, 1.3),
+      idle
+    };
+    flipRef.current = flippable && flipped;
     wakeRef.current?.();
   });
 

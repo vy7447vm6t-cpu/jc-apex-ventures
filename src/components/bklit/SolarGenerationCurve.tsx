@@ -176,7 +176,7 @@ export default function SolarGenerationCurve({
             </>
           ) : (
             <>
-              <span className="text-[#888888] font-medium">Diurnal Telemetry:</span>
+              <span className="text-[#595959] font-medium">Diurnal Telemetry:</span>
               <span className="text-[#666666]">Hover curve markers to inspect hourly irradiance output</span>
             </>
           )}
@@ -186,19 +186,19 @@ export default function SolarGenerationCurve({
       {/* Footer Metrics */}
       <div className="mt-4 pt-4 border-t border-black/8 grid grid-cols-3 gap-2 text-center">
         <div>
-          <span className="text-[10px] font-semibold tracking-wider text-[#888888] block">PEAK OUTPUT</span>
+          <span className="text-[10px] font-semibold tracking-wider text-[#595959] block">PEAK OUTPUT</span>
           <span className="text-sm font-bold text-[#111111] tabular-nums">
             {(peakMultiplier * (activeSeason === 'summer' ? 1.0 : activeSeason === 'winter' ? 0.88 : 0.52)).toFixed(1)} kW
           </span>
         </div>
         <div>
-          <span className="text-[10px] font-semibold tracking-wider text-[#888888] block">DAILY HARVEST</span>
+          <span className="text-[10px] font-semibold tracking-wider text-[#595959] block">DAILY HARVEST</span>
           <span className="text-sm font-bold text-[#111111] tabular-nums">
             {(capacityKw * (activeSeason === 'summer' ? 4.5 : activeSeason === 'winter' ? 3.8 : 2.4)).toFixed(0)} kWh
           </span>
         </div>
         <div>
-          <span className="text-[10px] font-semibold tracking-wider text-[#888888] block">ANNUAL PROJECTION</span>
+          <span className="text-[10px] font-semibold tracking-wider text-[#595959] block">ANNUAL PROJECTION</span>
           <span className="text-sm font-bold text-[#111111] tabular-nums">
             ~{Math.round(capacityKw * 1440).toLocaleString('en-IN')} units
           </span>

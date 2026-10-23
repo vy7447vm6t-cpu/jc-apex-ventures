@@ -414,7 +414,7 @@ export interface CrtWarpProps {
   enableScanlines?: boolean;
   children?: React.ReactNode;
   style?: React.CSSProperties;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export default function CRTWarp({
@@ -455,44 +455,7 @@ export default function CRTWarp({
   children = undefined,
   style = undefined
 }: CrtWarpProps) {
-  if (enableScanlines !== undefined || enableCurvature !== undefined) {
-    return (
-      <div
-        className={`relative overflow-hidden rounded-xl border border-black/15 bg-[#0F1318] text-[#E8E4DA] shadow-2xl ${className}`}
-        style={{
-          boxShadow: 'inset 0 0 80px rgba(0, 0, 0, 0.7), 0 16px 40px rgba(0, 0, 0, 0.25)',
-          ...style,
-        }}
-      >
-        <div
-          className="relative z-10 p-6 font-sans text-sm tabular-nums"
-          style={{
-            transform: enableCurvature ? 'perspective(600px) rotateX(1deg)' : 'none',
-          }}
-        >
-          {children}
-        </div>
-        {enableScanlines && (
-          <div
-            className="pointer-events-none absolute inset-0 z-20 opacity-20"
-            style={{
-              backgroundImage:
-                'repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0px, rgba(0, 0, 0, 0.6) 1px, transparent 1px, transparent 2px)',
-              backgroundSize: '100% 2px',
-            }}
-          />
-        )}
-        <div
-          className="pointer-events-none absolute inset-0 z-30 opacity-40"
-          style={{
-            background:
-              'radial-gradient(ellipse at center, transparent 65%, rgba(0, 0, 0, 0.8) 100%)',
-          }}
-        />
-      </div>
-    );
-  }
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const ink = useMemo(() => parseColor(color, [0.78, 0.33, 0.97]) ?? [0.78, 0.33, 0.97], [color]);
   const paper = useMemo(() => parseColor(backgroundColor, [0.07, 0.06, 0.09]), [backgroundColor]);
 
@@ -530,9 +493,12 @@ export default function CRTWarp({
     paused
   };
   const settingsRef = useRef(settings);
-  settingsRef.current = settings;
+  useEffect(() => {
+    settingsRef.current = settings;
+  });
 
   useEffect(() => {
+    if (enableScanlines !== undefined || enableCurvature !== undefined) return undefined;
     const container = containerRef.current;
     if (!container) return undefined;
     const canvas = document.createElement('canvas');
@@ -657,7 +623,7 @@ export default function CRTWarp({
 
     const resize = () => {
       const s = settingsRef.current;
-      const ratio = Math.min(window.devicePixelRatio || 1, s.dpr, 1.5);
+      const ratio = Math.min(window.devicePixelRatio || 1, s.dpr, 1.25);
       const width = Math.max(1, Math.round(container.clientWidth * ratio));
       const height = Math.max(1, Math.round(container.clientHeight * ratio));
       state.pixel = ratio;
@@ -876,9 +842,12 @@ export default function CRTWarp({
       state.lost = true;
     };
 
-    const visibility = new IntersectionObserver(entries => {
-      state.visible = entries.some(entry => entry.isIntersecting);
-    });
+    const visibility = new IntersectionObserver(
+      entries => {
+        state.visible = entries.some(entry => entry.isIntersecting);
+      },
+      { rootMargin: '250px 0px' }
+    );
     visibility.observe(container);
     const sizes = new ResizeObserver(resize);
     sizes.observe(container);
@@ -905,7 +874,45 @@ export default function CRTWarp({
       gl.getExtension('WEBGL_lose_context')?.loseContext();
       canvas.remove();
     };
-  }, []);
+  }, [enableCurvature, enableScanlines]);
+
+  if (enableScanlines !== undefined || enableCurvature !== undefined) {
+    return (
+      <div
+        className={`relative overflow-hidden rounded-xl border border-black/15 bg-[#0F1318] text-[#E8E4DA] shadow-2xl ${className}`}
+        style={{
+          boxShadow: 'inset 0 0 80px rgba(0, 0, 0, 0.7), 0 16px 40px rgba(0, 0, 0, 0.25)',
+          ...style,
+        }}
+      >
+        <div
+          className="relative z-10 p-6 font-sans text-sm tabular-nums"
+          style={{
+            transform: enableCurvature ? 'perspective(600px) rotateX(1deg)' : 'none',
+          }}
+        >
+          {children}
+        </div>
+        {enableScanlines && (
+          <div
+            className="pointer-events-none absolute inset-0 z-20 opacity-20"
+            style={{
+              backgroundImage:
+                'repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0px, rgba(0, 0, 0, 0.6) 1px, transparent 1px, transparent 2px)',
+              backgroundSize: '100% 2px',
+            }}
+          />
+        )}
+        <div
+          className="pointer-events-none absolute inset-0 z-30 opacity-40"
+          style={{
+            background:
+              'radial-gradient(ellipse at center, transparent 65%, rgba(0, 0, 0, 0.8) 100%)',
+          }}
+        />
+      </div>
+    );
+  }
 
   return (
     <div ref={containerRef} className={[ROOT, className].filter(Boolean).join(' ')} style={style}>

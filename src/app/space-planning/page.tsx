@@ -75,7 +75,7 @@ export default function SpacePlanningPage() {
               <ScrollReveal delay={2}>
                 <div className="glass-panel" style={{ padding: '32px', borderLeft: '4px solid var(--color-accent)' }}>
                   <p style={{ fontStyle: 'italic', color: 'var(--color-text-secondary)', fontSize: '1.1rem', lineHeight: 1.6 }}>
-                    "From a basic functional office setup to a luxury 4BHK overhaul, every square foot is engineered for maximum utility and taste."
+                    &quot;From a basic functional office setup to a luxury 4BHK overhaul, every square foot is engineered for maximum utility and taste.&quot;
                   </p>
                 </div>
               </ScrollReveal>

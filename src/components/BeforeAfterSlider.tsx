@@ -243,6 +243,27 @@ export default function BeforeAfterSlider({
         >
           {/* Architectural Drag Pill Handle */}
           <div
+            role="slider"
+            tabIndex={0}
+            aria-valuenow={Math.round(sliderPosition)}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-label="Compare traditional rooftop with Solis walkable pergola"
+            onKeyDown={(e) => {
+              if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                setSliderPosition((prev) => Math.max(0, prev - 2));
+              } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                setSliderPosition((prev) => Math.min(100, prev + 2));
+              } else if (e.key === 'Home') {
+                e.preventDefault();
+                setSliderPosition(0);
+              } else if (e.key === 'End') {
+                e.preventDefault();
+                setSliderPosition(100);
+              }
+            }}
             style={{
               position: 'absolute',
               top: '50%',
@@ -262,6 +283,7 @@ export default function BeforeAfterSlider({
               touchAction: 'none',
               transition: isDragging ? 'transform 0.1s ease' : 'transform 0.2s ease',
               scale: isDragging ? '1.08' : '1',
+              outline: 'none',
             }}
           >
             <ChevronsLeftRight size={18} color="#111111" />

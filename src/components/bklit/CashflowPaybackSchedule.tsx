@@ -171,19 +171,19 @@ export default function CashflowPaybackSchedule({
       {/* Financial Summary KPIs */}
       <div className="mt-4 pt-4 border-t border-black/8 grid grid-cols-3 gap-2 text-center">
         <div>
-          <span className="text-[10px] font-semibold tracking-wider text-[#888888] block">INITIAL OUTLAY</span>
+          <span className="text-[10px] font-semibold tracking-wider text-[#595959] block">INITIAL OUTLAY</span>
           <span className="text-sm font-bold text-[#FF5F56] tabular-nums">
             -Rs {safeCapex.toFixed(1)}L
           </span>
         </div>
         <div>
-          <span className="text-[10px] font-semibold tracking-wider text-[#888888] block">PAYBACK PERIOD</span>
+          <span className="text-[10px] font-semibold tracking-wider text-[#595959] block">PAYBACK PERIOD</span>
           <span className="text-sm font-bold text-[#27C93F] tabular-nums">
             {breakevenYear} Years
           </span>
         </div>
         <div>
-          <span className="text-[10px] font-semibold tracking-wider text-[#888888] block">25-YR NET RETURN</span>
+          <span className="text-[10px] font-semibold tracking-wider text-[#595959] block">25-YR NET RETURN</span>
           <span className="text-sm font-bold text-[#8C6D23] tabular-nums">
             +Rs {finalSavings}L
           </span>

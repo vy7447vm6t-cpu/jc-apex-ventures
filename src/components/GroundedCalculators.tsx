@@ -183,7 +183,7 @@ export default function GroundedCalculators() {
           <OptionWheel
             options={CALCULATOR_OPTIONS}
             selectedValue={activeTab}
-            onChange={(val) => setActiveTab(val)}
+            onChange={(val) => setActiveTab(val as 'solar' | 'tariff' | 'ev' | 'interior' | 'print' | 'substation')}
           />
         </div>
 

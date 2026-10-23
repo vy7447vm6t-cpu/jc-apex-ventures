@@ -78,12 +78,13 @@ Sent automatically from JC Apex Ventures website.
       messageId: info.messageId,
       message: 'Enquiry sent successfully.',
     });
-  } catch (error: any) {
-    console.error('[API /contact] Error sending email:', error);
+  } catch (error: unknown) {
+    const err = error as Record<string, unknown>;
+    console.error('[API /contact] Error sending email:', err);
     return NextResponse.json(
       {
         success: false,
-        error: error.message || 'Failed to send message',
+        error: (err?.message as string) || 'Failed to send message',
       },
       { status: 500 }
     );

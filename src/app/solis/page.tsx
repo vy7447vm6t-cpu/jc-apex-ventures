@@ -37,12 +37,23 @@ import {
   Building2,
 } from 'lucide-react';
 
+interface DossierProject {
+  tag: string;
+  title: string;
+  galleryImages: string[];
+  specs: { label: string; value: string }[];
+  challenge: string;
+  solution: string;
+  outcomes: string[];
+  [key: string]: unknown;
+}
+
 export default function SolisPage() {
   const [calculatorData, setCalculatorData] = useState<CalculationResult | null>(null);
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
   const [submittedBody, setSubmittedBody] = useState<string>('');
   const [copied, setCopied] = useState<boolean>(false);
-  const [selectedDossier, setSelectedDossier] = useState<any | null>(null);
+  const [selectedDossier, setSelectedDossier] = useState<DossierProject | null>(null);
   const [dossierPhotoIdx, setDossierPhotoIdx] = useState<number>(0);
 
   React.useEffect(() => {
@@ -893,7 +904,7 @@ export default function SolisPage() {
                 Why Solis? Why Solar & Clean Energy? Why Now?
               </h2>
               <p style={{ color: 'var(--color-text-secondary)', maxWidth: '740px', margin: '0 auto', fontSize: '1.08rem', lineHeight: 1.75 }}>
-                A mathematical, regulatory, and spatial breakdown of why urban rooftop solar is Mumbai's highest-yielding infrastructure investment, and how our elevated pergola engineering eliminates the historic compromise between clean electricity and terrace lifestyle.
+                A mathematical, regulatory, and spatial breakdown of why urban rooftop solar is Mumbai&apos;s highest-yielding infrastructure investment, and how our elevated pergola engineering eliminates the historic compromise between clean electricity and terrace lifestyle.
               </p>
             </div>
           </ScrollReveal>
@@ -1875,7 +1886,7 @@ export default function SolisPage() {
                       style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'inherit', textDecoration: 'none' }}
                     >
                       <MapPin size={15} color="var(--color-accent)" />
-                      <span>Office: One International Centre, Tower 2, Elphinstone, Mumbai 400013 <strong style={{ color: 'var(--color-accent)' }}>[Open Maps ↗]</strong></span>
+                      <span>Office: One International Centre, Tower 2, Units 801-802, Elphinstone, Mumbai 400013 <strong style={{ color: 'var(--color-accent)' }}>[Open Maps ↗]</strong></span>
                     </a>
                   </div>
                 </div>

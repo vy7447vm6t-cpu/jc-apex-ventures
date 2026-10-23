@@ -29,7 +29,9 @@ export default function MagicBento({
   const touchFadeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Clean up trailing refs when cards change
-  cardRefs.current = cardRefs.current.slice(0, cards.length);
+  React.useEffect(() => {
+    cardRefs.current = cardRefs.current.slice(0, cards.length);
+  }, [cards.length]);
 
   React.useEffect(() => {
     return () => {
