@@ -87,6 +87,11 @@ export default function StudioCADViewer() {
   const [hoveredZone, setHoveredZone] = useState<CADZone | null>(null);
   const [layerMode, setLayerMode] = useState<LayerMode>('architectural');
 
+  const handleSelectZone = (zone: CADZone) => {
+    setSelectedZone(zone);
+    setHoveredZone(null);
+  };
+
   const activeZone = hoveredZone || selectedZone;
 
   return (
@@ -322,7 +327,7 @@ export default function StudioCADViewer() {
                 return (
                   <g
                     key={zone.id}
-                    onClick={() => setSelectedZone(zone)}
+                    onClick={() => handleSelectZone(zone)}
                     onMouseEnter={() => setHoveredZone(zone)}
                     onMouseLeave={() => setHoveredZone(null)}
                     className="cursor-pointer transition-all duration-200"
@@ -421,6 +426,31 @@ export default function StudioCADViewer() {
             <div className="font-mono text-[#F5D78E] hidden sm:block">
               ACTIVE SELECTION: {activeZone.code} ({activeZone.name})
             </div>
+          </div>
+
+          {/* Quick Zone Selector Strip for Touch & Desktop */}
+          <div className="flex items-center gap-2 overflow-x-auto pt-3 mt-2 border-t border-white/5 no-scrollbar">
+            <span className="text-[10px] font-mono text-[#8B949E] uppercase tracking-wider shrink-0 mr-1 hidden sm:inline">
+              QUICK SELECT:
+            </span>
+            {CAD_ZONES.map((zone) => {
+              const isCurrent = activeZone.id === zone.id;
+              return (
+                <button
+                  key={zone.id}
+                  type="button"
+                  onClick={() => handleSelectZone(zone)}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-mono transition-all shrink-0 cursor-pointer flex items-center gap-1.5 ${
+                    isCurrent
+                      ? 'bg-[#C29F53] text-[#0B0E14] font-bold shadow-xs'
+                      : 'bg-white/5 text-[#C9D1D9] hover:text-white hover:bg-white/10 border border-white/5'
+                  }`}
+                >
+                  <span className={isCurrent ? 'text-[#0B0E14]' : 'text-[#F5D78E]'}>{zone.code}</span>
+                  <span className="opacity-90">{zone.name.split(' ')[0]}</span>
+                </button>
+              );
+            })}
           </div>
         </div>
       </ElectricBorder>

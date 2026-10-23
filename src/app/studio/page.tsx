@@ -397,9 +397,9 @@ const FEASIBILITY_ITEMS = [
 ];
 
 const SIDEBAR_ITEMS: LineSidebarItem[] = [
-  { id: 'coordinates', label: 'Studio Coordinates & CAD', tag: '01' },
+  { id: 'coordinates', label: 'Headquarters Coordinates', tag: '01' },
   { id: 'capabilities', label: 'Consortium Capabilities', tag: '02' },
-  { id: 'leadership', label: 'Practice Directors', tag: '03' },
+  { id: 'leadership', label: 'Executive Leadership', tag: '03' },
   { id: 'feasibility', label: 'Feasibility Dockets', tag: '04' },
 ];
 
@@ -409,12 +409,16 @@ export default function StudioPage() {
   useEffect(() => {
     const sectionIds = ['coordinates', 'capabilities', 'leadership', 'feasibility'];
     const handleScroll = () => {
-      const scrollPos = window.scrollY + 260;
+      const scrollPos = window.scrollY + 280;
       for (let i = sectionIds.length - 1; i >= 0; i--) {
         const el = document.getElementById(sectionIds[i]);
-        if (el && el.offsetTop <= scrollPos) {
-          setActiveSection(sectionIds[i]);
-          break;
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          const top = rect.top + window.scrollY;
+          if (top <= scrollPos) {
+            setActiveSection(sectionIds[i]);
+            break;
+          }
         }
       }
     };
@@ -427,7 +431,7 @@ export default function StudioPage() {
     setActiveSection(id);
     const element = document.getElementById(id);
     if (element) {
-      const yOffset = -90;
+      const yOffset = -105;
       const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
       window.scrollTo({ top: y, behavior: 'smooth' });
     }
@@ -437,29 +441,6 @@ export default function StudioPage() {
     <main className="studio-canvas relative min-h-screen">
       <Navbar />
       <Clippy />
-
-      {/* Desktop Sticky LineSidebar Rail */}
-      <aside
-        aria-label="Studio Navigation"
-        className="hidden xl:block fixed left-6 top-32 z-40 w-64 p-3 rounded-2xl"
-        style={{
-          background: 'linear-gradient(135deg, rgba(22, 28, 41, 0.88) 0%, rgba(13, 17, 26, 0.94) 100%)',
-          backdropFilter: 'blur(24px) saturate(190%)',
-          WebkitBackdropFilter: 'blur(24px) saturate(190%)',
-          border: '1px solid rgba(255, 255, 255, 0.12)',
-          boxShadow: '0 20px 48px -8px rgba(0, 0, 0, 0.65), inset 0 1.5px 1px rgba(255, 255, 255, 0.14)',
-        }}
-      >
-        <div className="px-3 pt-2 pb-1.5 text-[10px] font-mono tracking-widest text-[#C29F53] uppercase border-b border-white/10 mb-2">
-          Studio Navigation
-        </div>
-        <LineSidebar
-          items={SIDEBAR_ITEMS}
-          activeId={activeSection}
-          onSelect={scrollToSection}
-          variant="dark"
-        />
-      </aside>
 
       {/* Mobile / Tablet Horizontal Sticky Quick Switcher */}
       <div
@@ -578,409 +559,459 @@ export default function StudioPage() {
         </div>
       </section>
 
-      {/* 1. Studio Location & Interactive CAD Card */}
-      <section
-        id="coordinates"
-        className="relative py-24 px-6"
-        style={{
-          background: '#0B0E14',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-        }}
-      >
-        <div style={{ maxWidth: '1240px', margin: '0 auto' }}>
-          <div className="mb-10">
-            <div className="eye-brow-container" style={{ marginBottom: '16px' }}>
-              <span className="font-mono text-xs uppercase tracking-widest text-[#C29F53]">
-                [01 / studio coordinates &amp; architectural cad]
-              </span>
-            </div>
-            <h2
-              style={{
-                fontSize: 'clamp(2.2rem, 4vw, 3.4rem)',
-                lineHeight: 1.15,
-                fontWeight: 400,
-                letterSpacing: '-0.02em',
-                color: '#FFFFFF',
-                margin: '0 0 16px 0',
-                fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
-              }}
-            >
-              Headquarters at One International Centre.
-            </h2>
-            <p
-              style={{
-                fontSize: '1.05rem',
-                color: '#C9D1D9',
-                lineHeight: 1.6,
-                maxWidth: '840px',
-                fontFamily: 'var(--font-sans, Inter, sans-serif)',
-              }}
-            >
-              Located along Senapati Bapat Marg in Elphinstone / Prabhadevi, our studio places engineering consultants, architectural draftsmen, and account executives in the heart of Mumbai commercial infrastructure.
-            </p>
-          </div>
-
-          {/* Interactive CAD Floor Plan Blueprint Component */}
-          <div className="mb-14">
-            <StudioCADViewer />
-          </div>
-
-          {/* Location Info Card & Building Photograph */}
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: '32px',
-              alignItems: 'center',
-            }}
+      {/* Studio Workspace Container: Stationary Sticky LineSidebar Rail + 4 Main Sections */}
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 xl:px-10 py-16">
+        <div className="xl:flex xl:gap-12 xl:items-start">
+          {/* Desktop Sticky LineSidebar Rail */}
+          <aside
+            aria-label="Studio Navigation"
+            className="hidden xl:block w-64 shrink-0 sticky top-28 z-30"
           >
-            <div className="ios-glass-card rounded-2xl p-7 md:p-8">
-              <div className="flex items-start gap-4 mb-6">
-                <div className="p-3 rounded-xl bg-[#C29F53]/15 border border-[#C29F53]/30 text-[#C29F53] shrink-0">
-                  <MapPin size={22} />
-                </div>
-                <div>
-                  <div className="text-xs font-mono uppercase tracking-widest text-[#C29F53] mb-1">
-                    PHYSICAL PRACTICE FACILITY
+            <div
+              className="p-3.5 rounded-2xl obsidian-card"
+              style={{
+                background: 'linear-gradient(135deg, rgba(22, 28, 41, 0.90) 0%, rgba(13, 17, 26, 0.95) 100%)',
+                backdropFilter: 'blur(24px) saturate(190%)',
+                WebkitBackdropFilter: 'blur(24px) saturate(190%)',
+                border: '1px solid rgba(255, 255, 255, 0.12)',
+                boxShadow: '0 20px 48px -8px rgba(0, 0, 0, 0.65), inset 0 1.5px 1px rgba(255, 255, 255, 0.14)',
+              }}
+            >
+              <div className="px-3 pt-2 pb-1.5 text-[10px] font-mono tracking-widest text-[#C29F53] uppercase border-b border-white/10 mb-2">
+                Studio Navigation
+              </div>
+              <LineSidebar
+                items={SIDEBAR_ITEMS}
+                activeId={activeSection}
+                onSelect={scrollToSection}
+                variant="dark"
+              />
+            </div>
+          </aside>
+
+          {/* Right Column: 4 Main Studio Sections */}
+          <div className="flex-1 min-w-0 flex flex-col gap-28">
+            {/* 1. Studio Location & Interactive CAD Blueprint */}
+            <section
+              id="coordinates"
+              className="relative scroll-mt-28"
+            >
+              <div>
+                <div className="mb-10">
+                  <div className="eye-brow-container" style={{ marginBottom: '16px' }}>
+                    <span className="font-mono text-xs uppercase tracking-widest text-[#C29F53]">
+                      [01 / headquarters coordinates &amp; architectural cad]
+                    </span>
                   </div>
-                  <h3
+                  <h2
                     style={{
-                      fontSize: '1.5rem',
+                      fontSize: 'clamp(2.2rem, 4vw, 3.4rem)',
+                      lineHeight: 1.15,
                       fontWeight: 400,
+                      letterSpacing: '-0.02em',
                       color: '#FFFFFF',
-                      margin: '0 0 8px 0',
+                      margin: '0 0 16px 0',
                       fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
                     }}
                   >
-                    One International Centre, Tower 2
-                  </h3>
-                  <p className="text-sm text-[#C9D1D9] leading-relaxed m-0">
-                    Units 801-802, 8th Floor, Senapati Bapat Marg,<br />
-                    Elphinstone / Prabhadevi, Mumbai 400013, Maharashtra, India.
+                    Headquarters at One International Centre.
+                  </h2>
+                  <p
+                    style={{
+                      fontSize: '1.05rem',
+                      color: '#C9D1D9',
+                      lineHeight: 1.6,
+                      maxWidth: '840px',
+                      fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                    }}
+                  >
+                    Located along Senapati Bapat Marg in Elphinstone / Prabhadevi, our studio places engineering consultants, architectural draftsmen, and account executives in the heart of Mumbai commercial infrastructure.
                   </p>
                 </div>
-              </div>
 
-              <div className="grid grid-cols-2 gap-3 pt-4 border-t border-white/10 mb-6 text-xs font-mono text-[#8B949E]">
-                <div>
-                  <span className="block text-[#C29F53] font-semibold mb-0.5">LATITUDE / LONGITUDE</span>
-                  <span>19.0069° N, 72.8311° E</span>
+                {/* Interactive CAD Floor Plan Blueprint Component */}
+                <div className="mb-14">
+                  <StudioCADViewer />
                 </div>
-                <div>
-                  <span className="block text-[#C29F53] font-semibold mb-0.5">SURFACE FOOTPRINT</span>
-                  <span>2,280 sq ft (Dual Units)</span>
+
+                {/* Location Info Card & Building Photograph */}
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                    gap: '32px',
+                    alignItems: 'center',
+                  }}
+                >
+                  <div className="ios-glass-card rounded-2xl p-7 md:p-8">
+                    <div className="flex items-start gap-4 mb-6">
+                      <div className="p-3 rounded-xl bg-[#C29F53]/15 border border-[#C29F53]/30 text-[#C29F53] shrink-0">
+                        <MapPin size={22} />
+                      </div>
+                      <div>
+                        <div className="text-xs font-mono uppercase tracking-widest text-[#C29F53] mb-1">
+                          PHYSICAL PRACTICE FACILITY
+                        </div>
+                        <h3
+                          style={{
+                            fontSize: '1.5rem',
+                            fontWeight: 400,
+                            color: '#FFFFFF',
+                            margin: '0 0 8px 0',
+                            fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+                          }}
+                        >
+                          One International Centre, Tower 2
+                        </h3>
+                        <p className="text-sm text-[#C9D1D9] leading-relaxed m-0">
+                          Units 801-802, 8th Floor, Senapati Bapat Marg,<br />
+                          Elphinstone / Prabhadevi, Mumbai 400013, Maharashtra, India.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3 pt-4 border-t border-white/10 mb-6 text-xs font-mono text-[#8B949E]">
+                      <div>
+                        <span className="block text-[#C29F53] font-semibold mb-0.5">LATITUDE / LONGITUDE</span>
+                        <span>19.0069° N, 72.8311° E</span>
+                      </div>
+                      <div>
+                        <span className="block text-[#C29F53] font-semibold mb-0.5">SURFACE FOOTPRINT</span>
+                        <span>2,280 sq ft (Dual Units)</span>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-wrap gap-3">
+                      <a
+                        href="https://www.google.com/maps/search/?api=1&query=One+International+Centre+Senapati+Bapat+Marg+Elphinstone+Mumbai+400013"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-primary"
+                      >
+                        <span>Navigate via Google Maps</span>
+                        <ArrowUpRight size={14} />
+                      </a>
+                      <a
+                        href="tel:+917021112664"
+                        className="btn-outline"
+                      >
+                        <Phone size={14} />
+                        <span>Direct Desk</span>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div
+                    className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl relative h-[420px]"
+                  >
+                    <img
+                      src="/images/one-international-centre.jpg"
+                      alt="One International Centre Mumbai Studio"
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                      }}
+                    />
+                    <div
+                      className="absolute inset-0 bg-gradient-to-t from-[#0B0E14] via-transparent to-transparent opacity-80"
+                    />
+                    <div
+                      style={{
+                        position: 'absolute',
+                        bottom: '20px',
+                        left: '20px',
+                        right: '20px',
+                        padding: '16px 20px',
+                        borderRadius: '14px',
+                        backgroundColor: 'rgba(11, 14, 20, 0.85)',
+                        backdropFilter: 'blur(16px)',
+                        WebkitBackdropFilter: 'blur(16px)',
+                        border: '1px solid rgba(255, 255, 255, 0.12)',
+                        color: '#FFFFFF',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <div>
+                        <div style={{ fontSize: '0.78rem', fontFamily: 'monospace', color: '#C29F53', letterSpacing: '0.08em' }}>
+                          [CONSULTATIVE DESK]
+                        </div>
+                        <div style={{ fontSize: '0.92rem', fontWeight: 500, color: '#F0F3F6' }}>
+                          Consultation by Prior Appointment
+                        </div>
+                      </div>
+                      <span style={{ fontSize: '0.78rem', color: '#8B949E', fontFamily: 'monospace' }}>
+                        Mon - Sat 10:00 - 18:30 IST
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
+            </section>
 
-              <div className="flex flex-wrap gap-3">
-                <a
-                  href="https://www.google.com/maps/search/?api=1&query=One+International+Centre+Senapati+Bapat+Marg+Elphinstone+Mumbai+400013"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-primary"
-                >
-                  <span>Navigate via Google Maps</span>
-                  <ArrowUpRight size={14} />
-                </a>
-                <a
-                  href="tel:+917021112664"
-                  className="btn-outline"
-                >
-                  <Phone size={14} />
-                  <span>Direct Desk</span>
-                </a>
-              </div>
-            </div>
-
-            <div
-              className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl relative h-[420px]"
+            {/* 2. MagicBento: Consortium Capabilities */}
+            <section
+              id="capabilities"
+              className="relative scroll-mt-28"
             >
-              <img
-                src="/images/one-international-centre.jpg"
-                alt="One International Centre Mumbai Studio"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                }}
-              />
-              <div
-                className="absolute inset-0 bg-gradient-to-t from-[#0B0E14] via-transparent to-transparent opacity-80"
-              />
-              <div
-                style={{
-                  position: 'absolute',
-                  bottom: '20px',
-                  left: '20px',
-                  right: '20px',
-                  padding: '16px 20px',
-                  borderRadius: '14px',
-                  backgroundColor: 'rgba(11, 14, 20, 0.85)',
-                  backdropFilter: 'blur(16px)',
-                  WebkitBackdropFilter: 'blur(16px)',
-                  border: '1px solid rgba(255, 255, 255, 0.12)',
-                  color: '#FFFFFF',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}
-              >
-                <div>
-                  <div style={{ fontSize: '0.78rem', fontFamily: 'monospace', color: '#C29F53', letterSpacing: '0.08em' }}>
-                    [CONSULTATIVE DESK]
+              <div>
+                <div className="eye-brow-container" style={{ marginBottom: '16px' }}>
+                  <span className="font-mono text-xs uppercase tracking-widest text-[#C29F53]">
+                    [02 / consortium capabilities &amp; bento]
+                  </span>
+                </div>
+
+                <h2
+                  style={{
+                    fontSize: 'clamp(2.2rem, 4vw, 3.4rem)',
+                    lineHeight: 1.15,
+                    fontWeight: 400,
+                    letterSpacing: '-0.02em',
+                    color: '#FFFFFF',
+                    margin: '0 0 16px 0',
+                    fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+                  }}
+                >
+                  Consortium Engineering Capabilities
+                </h2>
+
+                <p
+                  style={{
+                    fontSize: '1.05rem',
+                    color: '#C9D1D9',
+                    lineHeight: 1.6,
+                    maxWidth: '820px',
+                    margin: '0 0 40px 0',
+                    fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                  }}
+                >
+                  Interactive capabilities architecture spanning clean power, high-voltage distribution, commercial interiors, and packaging engineering.
+                </p>
+
+                <MagicBento cards={CAPABILITIES_CARDS} />
+              </div>
+            </section>
+
+            {/* 3. Leadership Dossiers */}
+            <section
+              id="leadership"
+              className="relative scroll-mt-28"
+            >
+              <div>
+                <div className="eye-brow-container" style={{ marginBottom: '16px' }}>
+                  <span className="font-mono text-xs uppercase tracking-widest text-[#C29F53]">
+                    [03 / executive leadership &amp; directorship]
+                  </span>
+                </div>
+
+                <h2
+                  style={{
+                    fontSize: 'clamp(2.2rem, 4vw, 3.4rem)',
+                    lineHeight: 1.15,
+                    fontWeight: 400,
+                    letterSpacing: '-0.02em',
+                    color: '#FFFFFF',
+                    margin: '0 0 16px 0',
+                    fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+                  }}
+                >
+                  Executive Leadership &amp; Practice Directors
+                </h2>
+
+                <p
+                  style={{
+                    fontSize: '1.05rem',
+                    color: '#C9D1D9',
+                    lineHeight: 1.6,
+                    maxWidth: '820px',
+                    margin: '0 0 50px 0',
+                    fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                  }}
+                >
+                  Every division is led by field practitioners with verified operational histories, not theoretical managers.
+                </p>
+
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                    gap: '28px',
+                  }}
+                >
+                  {/* Director 1: Jitendra Chavan */}
+                  <ElectricBorder
+                    color="#C29F53"
+                    glowColor="rgba(194, 159, 83, 0.35)"
+                    borderRadius={18}
+                    duration={5.0}
+                  >
+                    <div className="ios-glass-card rounded-2xl p-7 flex flex-col justify-between h-full">
+                      <div>
+                        <div className="flex items-center justify-between gap-2 mb-2.5">
+                          <span className="font-mono text-[11px] uppercase text-[#C29F53] tracking-widest font-semibold">
+                            [FOUNDER &amp; TECHNICAL DIRECTOR]
+                          </span>
+                          <span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-emerald-500/15 border border-emerald-500/30 text-emerald-400">
+                            Active Field Practice
+                          </span>
+                        </div>
+                        <h3
+                          style={{
+                            fontSize: '1.65rem',
+                            fontWeight: 400,
+                            color: '#FFFFFF',
+                            margin: '0 0 8px 0',
+                            fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+                          }}
+                        >
+                          Jitendra Chavan
+                        </h3>
+                        <div className="mb-3">
+                          <TechText
+                            text="MERC TARIFF REGULARIZATION // 36+ YRS DIRECT UTILITY DESK"
+                            className="font-mono text-[10.5px] text-[#F5D78E]"
+                          />
+                        </div>
+                        <p className="text-sm text-[#C9D1D9] leading-relaxed mb-6">
+                          Over three decades of service inside Mumbai electrical distribution grids. Specializes in statutory MERC tariff compliance, CGRF consumer grievance advocacy, high-tension substation commissioning, and elevated solar pergola structures. Direct working background across BEST, Adani Electricity (AEML), Tata Power (TPCL), and MSEDCL.
+                        </p>
+                      </div>
+                      <div className="flex gap-2 flex-wrap pt-4 border-t border-white/10">
+                        <span className="badge-tag">MERC Tariff Regularization</span>
+                        <span className="badge-tag">CGRF Advocacy</span>
+                        <span className="badge-tag">HT/LT Engineering</span>
+                      </div>
+                    </div>
+                  </ElectricBorder>
+
+                  {/* Director 2: Manish Ajgaonkar */}
+                  <div className="ios-glass-card rounded-2xl p-7 flex flex-col justify-between h-full">
+                    <div>
+                      <div className="flex items-center justify-between gap-2 mb-2.5">
+                        <span className="font-mono text-[11px] uppercase text-[#C29F53] tracking-widest font-semibold">
+                          [CREATIVE DIRECTOR &amp; BRAND VISIONARY]
+                        </span>
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-white/5 border border-white/10 text-[#C9D1D9]">
+                          FMCG Art Direction
+                        </span>
+                      </div>
+                      <h3
+                        style={{
+                          fontSize: '1.65rem',
+                          fontWeight: 400,
+                          color: '#FFFFFF',
+                          margin: '0 0 8px 0',
+                          fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+                        }}
+                      >
+                        Mr. Manish Ajgaonkar
+                      </h3>
+                      <div className="mb-3">
+                        <TechText
+                          text="FMCG ART DIRECTION // SAMSONITE / GO CHEESE / CITROEN / VADILAL"
+                          className="font-mono text-[10.5px] text-[#F5D78E]"
+                        />
+                      </div>
+                      <p className="text-sm text-[#C9D1D9] leading-relaxed mb-6">
+                        Celebrated Creative Director behind iconic Indian and global brands, including Go Cheese, Gowardhan Pure Cow Ghee, Vadilal Ice-creams, Citroën India, Kaya Skin Clinic, Samsonite Luggage, Complan, and Club Mahindra campaigns. Leads eMudran visual identity desk and structural packaging engineering.
+                      </p>
+                    </div>
+                    <div className="flex gap-2 flex-wrap pt-4 border-t border-white/10">
+                      <span className="badge-tag">FMCG Packaging</span>
+                      <span className="badge-tag">Identity Systems</span>
+                      <span className="badge-tag">Art Direction</span>
+                    </div>
                   </div>
-                  <div style={{ fontSize: '0.92rem', fontWeight: 500, color: '#F0F3F6' }}>
-                    Consultation by Prior Appointment
+
+                  {/* Director 3: Dr. Manoj Chavan & Mahendra Kabnurkar */}
+                  <div className="ios-glass-card rounded-2xl p-7 flex flex-col justify-between h-full">
+                    <div>
+                      <div className="flex items-center justify-between gap-2 mb-2.5">
+                        <span className="font-mono text-[11px] uppercase text-[#C29F53] tracking-widest font-semibold">
+                          [PATENTED ENVIRONMENTAL TECH]
+                        </span>
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-[#0284C7]/15 border border-[#0284C7]/30 text-[#38BDF8]">
+                          Central Govt Patent
+                        </span>
+                      </div>
+                      <h3
+                        style={{
+                          fontSize: '1.65rem',
+                          fontWeight: 400,
+                          color: '#FFFFFF',
+                          margin: '0 0 8px 0',
+                          fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+                        }}
+                      >
+                        Dr. Manoj Chavan &amp; Mahendra Kabnurkar
+                      </h3>
+                      <div className="mb-3">
+                        <TechText
+                          text="MPCB CERTIFIED // 25-YEAR ZERO EXTERNAL ENERGY SOLID WASTE PATENT"
+                          className="font-mono text-[10.5px] text-[#F5D78E]"
+                        />
+                      </div>
+                      <p className="text-sm text-[#C9D1D9] leading-relaxed mb-6">
+                        Inventors and co-developers of the patented zero-power thermal degradation technology certified by the Maharashtra Pollution Control Board (MPCB). Processes unsegregated municipal and industrial solid waste with zero petrol, diesel, or external electricity, converting mass to 4% ash for paver blocks and 350°C green coal.
+                      </p>
+                    </div>
+                    <div className="flex gap-2 flex-wrap pt-4 border-t border-white/10">
+                      <span className="badge-tag">Central Govt Patent</span>
+                      <span className="badge-tag">MPCB Certified</span>
+                      <span className="badge-tag">Zero External Energy</span>
+                    </div>
                   </div>
                 </div>
-                <span style={{ fontSize: '0.78rem', color: '#8B949E', fontFamily: 'monospace' }}>
-                  Mon - Sat 10:00 - 18:30 IST
-                </span>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
+            </section>
 
-      {/* 2. MagicBento: Consortium Capabilities */}
-      <section
-        id="capabilities"
-        className="relative py-24 px-6"
-        style={{
-          background: '#101520',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-        }}
-      >
-        <div style={{ maxWidth: '1240px', margin: '0 auto' }}>
-          <div className="eye-brow-container" style={{ marginBottom: '16px' }}>
-            <span className="font-mono text-xs uppercase tracking-widest text-[#C29F53]">
-              [02 / core specializations &amp; consortium bento]
-            </span>
-          </div>
-
-          <h2
-            style={{
-              fontSize: 'clamp(2.2rem, 4vw, 3.4rem)',
-              lineHeight: 1.15,
-              fontWeight: 400,
-              letterSpacing: '-0.02em',
-              color: '#FFFFFF',
-              margin: '0 0 16px 0',
-              fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
-            }}
-          >
-            Consortium Engineering Capabilities
-          </h2>
-
-          <p
-            style={{
-              fontSize: '1.05rem',
-              color: '#C9D1D9',
-              lineHeight: 1.6,
-              maxWidth: '820px',
-              margin: '0 0 40px 0',
-              fontFamily: 'var(--font-sans, Inter, sans-serif)',
-            }}
-          >
-            Interactive capabilities architecture spanning clean power, high-voltage distribution, commercial interiors, and packaging engineering.
-          </p>
-
-          <MagicBento cards={CAPABILITIES_CARDS} />
-        </div>
-      </section>
-
-      {/* 3. Leadership Dossiers */}
-      <section
-        id="leadership"
-        className="relative py-24 px-6"
-        style={{
-          background: '#0B0E14',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-        }}
-      >
-        <div style={{ maxWidth: '1240px', margin: '0 auto' }}>
-          <div className="eye-brow-container" style={{ marginBottom: '16px' }}>
-            <span className="font-mono text-xs uppercase tracking-widest text-[#C29F53]">
-              [03 / practice leadership &amp; directorship]
-            </span>
-          </div>
-
-          <h2
-            style={{
-              fontSize: 'clamp(2.2rem, 4vw, 3.4rem)',
-              lineHeight: 1.15,
-              fontWeight: 400,
-              letterSpacing: '-0.02em',
-              color: '#FFFFFF',
-              margin: '0 0 16px 0',
-              fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
-            }}
-          >
-            Senior Practice Directors &amp; Engineering Fellows
-          </h2>
-
-          <p
-            style={{
-              fontSize: '1.05rem',
-              color: '#C9D1D9',
-              lineHeight: 1.6,
-              maxWidth: '820px',
-              margin: '0 0 50px 0',
-              fontFamily: 'var(--font-sans, Inter, sans-serif)',
-            }}
-          >
-            Every division is led by field practitioners with verified operational histories, not theoretical managers.
-          </p>
-
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: '28px',
-            }}
-          >
-            {/* Director 1: Jitendra Chavan */}
-            <div className="ios-glass-card rounded-2xl p-8 flex flex-col justify-between">
+            {/* 4. FlexCarousel: Feasibility Proposals & Technical Schematics */}
+            <section
+              id="feasibility"
+              className="relative scroll-mt-28"
+            >
               <div>
-                <div className="font-mono text-xs uppercase text-[#C29F53] tracking-widest mb-2.5">
-                  [FOUNDER &amp; TECHNICAL DIRECTOR]
+                <div className="eye-brow-container" style={{ marginBottom: '16px' }}>
+                  <span className="font-mono text-xs uppercase tracking-widest text-[#C29F53]">
+                    [04 / technical schematics &amp; feasibility dockets]
+                  </span>
                 </div>
-                <h3
+
+                <h2
                   style={{
-                    fontSize: '1.65rem',
+                    fontSize: 'clamp(2.2rem, 4vw, 3.4rem)',
+                    lineHeight: 1.15,
                     fontWeight: 400,
+                    letterSpacing: '-0.02em',
                     color: '#FFFFFF',
-                    margin: '0 0 10px 0',
+                    margin: '0 0 16px 0',
                     fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
                   }}
                 >
-                  Jitendra Chavan
-                </h3>
-                <div className="text-xs font-mono text-[#8B949E] mb-4">
-                  36+ Years Direct Mumbai Utility Network Operations
-                </div>
-                <p className="text-sm text-[#C9D1D9] leading-relaxed mb-6">
-                  Over three decades of service inside Mumbai electrical distribution grids. Specializes in statutory MERC tariff compliance, CGRF consumer grievance advocacy, high-tension substation commissioning, and elevated solar pergola structures. Direct working background across BEST, Adani Electricity (AEML), Tata Power (TPCL), and MSEDCL.
-                </p>
-              </div>
-              <div className="flex gap-2 flex-wrap">
-                <span className="badge-tag">MERC Tariff Regularization</span>
-                <span className="badge-tag">CGRF Advocacy</span>
-                <span className="badge-tag">HT/LT Engineering</span>
-              </div>
-            </div>
+                  Engineering Feasibility Studies &amp; Dockets
+                </h2>
 
-            {/* Director 2: Manish Ajgaonkar */}
-            <div className="ios-glass-card rounded-2xl p-8 flex flex-col justify-between">
-              <div>
-                <div className="font-mono text-xs uppercase text-[#C29F53] tracking-widest mb-2.5">
-                  [CREATIVE DIRECTOR &amp; BRAND VISIONARY]
-                </div>
-                <h3
+                <p
                   style={{
-                    fontSize: '1.65rem',
-                    fontWeight: 400,
-                    color: '#FFFFFF',
-                    margin: '0 0 10px 0',
-                    fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
+                    fontSize: '1.05rem',
+                    color: '#C9D1D9',
+                    lineHeight: 1.6,
+                    maxWidth: '820px',
+                    margin: '0 0 40px 0',
+                    fontFamily: 'var(--font-sans, Inter, sans-serif)',
                   }}
                 >
-                  Mr. Manish Ajgaonkar
-                </h3>
-                <div className="text-xs font-mono text-[#8B949E] mb-4">
-                  Art Direction, FMCG Packaging &amp; Brand Systems
-                </div>
-                <p className="text-sm text-[#C9D1D9] leading-relaxed mb-6">
-                  Celebrated Creative Director behind iconic Indian and global brands, including Go Cheese, Gowardhan Pure Cow Ghee, Vadilal Ice-creams, Citroën India, Kaya Skin Clinic, Samsonite Luggage, Complan, and Club Mahindra campaigns. Leads eMudran visual identity desk and structural packaging engineering.
+                  All non-commissioned projects are transparently documented as engineering feasibility studies and technical proposal frameworks.
                 </p>
-              </div>
-              <div className="flex gap-2 flex-wrap">
-                <span className="badge-tag">FMCG Packaging</span>
-                <span className="badge-tag">Identity Systems</span>
-                <span className="badge-tag">Art Direction</span>
-              </div>
-            </div>
 
-            {/* Director 3: Dr. Manoj Chavan & Mahendra Kabnurkar */}
-            <div className="ios-glass-card rounded-2xl p-8 flex flex-col justify-between">
-              <div>
-                <div className="font-mono text-xs uppercase text-[#C29F53] tracking-widest mb-2.5">
-                  [PATENTED ENVIRONMENTAL TECH]
-                </div>
-                <h3
-                  style={{
-                    fontSize: '1.65rem',
-                    fontWeight: 400,
-                    color: '#FFFFFF',
-                    margin: '0 0 10px 0',
-                    fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
-                  }}
-                >
-                  Dr. Manoj Chavan &amp; Mahendra Kabnurkar
-                </h3>
-                <div className="text-xs font-mono text-[#8B949E] mb-4">
-                  Patented Zero-Energy Solid Waste Processing &amp; Project Advisory
-                </div>
-                <p className="text-sm text-[#C9D1D9] leading-relaxed mb-6">
-                  Inventors and co-developers of the patented zero-power thermal degradation technology certified by the Maharashtra Pollution Control Board (MPCB). Processes unsegregated municipal and industrial solid waste with zero petrol, diesel, or external electricity, converting mass to 4% ash for paver blocks and 350°C green coal.
-                </p>
+                <FlexCarousel items={FEASIBILITY_ITEMS} gap={24} />
               </div>
-              <div className="flex gap-2 flex-wrap">
-                <span className="badge-tag">Central Govt Patent</span>
-                <span className="badge-tag">MPCB Certified</span>
-                <span className="badge-tag">Zero External Energy</span>
-              </div>
-            </div>
+            </section>
           </div>
         </div>
-      </section>
-
-      {/* 4. FlexCarousel: Feasibility Proposals & Technical Schematics */}
-      <section
-        id="feasibility"
-        className="relative py-24 px-6"
-        style={{
-          background: '#101520',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-        }}
-      >
-        <div style={{ maxWidth: '1240px', margin: '0 auto' }}>
-          <div className="eye-brow-container" style={{ marginBottom: '16px' }}>
-            <span className="font-mono text-xs uppercase tracking-widest text-[#C29F53]">
-              [04 / technical schematics &amp; feasibility dockets]
-            </span>
-          </div>
-
-          <h2
-            style={{
-              fontSize: 'clamp(2.2rem, 4vw, 3.4rem)',
-              lineHeight: 1.15,
-              fontWeight: 400,
-              letterSpacing: '-0.02em',
-              color: '#FFFFFF',
-              margin: '0 0 16px 0',
-              fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
-            }}
-          >
-            Engineering Feasibility Studies &amp; Schematics
-          </h2>
-
-          <p
-            style={{
-              fontSize: '1.05rem',
-              color: '#C9D1D9',
-              lineHeight: 1.6,
-              maxWidth: '820px',
-              margin: '0 0 40px 0',
-              fontFamily: 'var(--font-sans, Inter, sans-serif)',
-            }}
-          >
-            All non-commissioned projects are transparently documented as engineering feasibility studies and technical proposal frameworks.
-          </p>
-
-          <FlexCarousel items={FEASIBILITY_ITEMS} gap={24} />
-        </div>
-      </section>
+      </div>
 
       {/* Engineering Manifesto */}
       <section className="relative py-24 px-6" style={{ background: '#0B0E14' }}>

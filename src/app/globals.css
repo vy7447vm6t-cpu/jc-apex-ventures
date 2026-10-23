@@ -1962,6 +1962,34 @@ section[id] {
   color: #C9D1D9 !important;
 }
 
+/* Custom Scrollbar for Studio Canvas */
+.studio-canvas ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.studio-canvas ::-webkit-scrollbar-track {
+  background: #0B0E14;
+}
+.studio-canvas ::-webkit-scrollbar-thumb {
+  background: rgba(194, 159, 83, 0.35);
+  border-radius: 9999px;
+}
+.studio-canvas ::-webkit-scrollbar-thumb:hover {
+  background: rgba(194, 159, 83, 0.6);
+}
+
+/* Authentic iOS Liquid Glass Dropdown Keyframes */
+@keyframes dropdownInnerFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 /* Page Hero Grid Responsive Utility */
 @media (max-width: 900px) {
   .page-hero-grid {

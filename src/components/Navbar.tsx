@@ -117,7 +117,6 @@ export default function Navbar() {
     if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
     hoverTimeoutRef.current = setTimeout(() => {
       setDivisionsHover(false);
-      setDivisionsOpen(false);
     }, 280);
   };
 
@@ -128,9 +127,9 @@ export default function Navbar() {
       clearTimeout(hoverTimeoutRef.current);
       hoverTimeoutRef.current = null;
     }
-    if (isMenuOpen) {
-      setDivisionsHover(false);
+    if (divisionsOpen) {
       setDivisionsOpen(false);
+      setDivisionsHover(false);
     } else {
       setDivisionsOpen(true);
     }
@@ -193,6 +192,9 @@ export default function Navbar() {
       }
 
       const diff = currentScrollY - lastScrollY.current;
+      if (Math.abs(diff) > 15) {
+        handleDismissMenu();
+      }
       if (Math.abs(diff) < 8) return;
 
       if (diff > 0 && currentScrollY > 100) {
@@ -426,6 +428,7 @@ export default function Navbar() {
           >
             <Link
               href="/#projects"
+              onClick={handleDismissMenu}
               aria-label="View Builds and Projects"
               style={{ color: '#222222', textDecoration: 'none' }}
             >
@@ -493,6 +496,7 @@ export default function Navbar() {
             <span style={{ color: 'rgba(0, 0, 0, 0.18)' }}>/</span>
             <Link
               href="/solis"
+              onClick={handleDismissMenu}
               aria-label="Solis Solar Division"
               style={{
                 color: pathname === '/solis' ? '#8C733E' : '#222222',
@@ -505,6 +509,7 @@ export default function Navbar() {
             <span style={{ color: 'rgba(0, 0, 0, 0.18)' }}>/</span>
             <Link
               href="/#calculators"
+              onClick={handleDismissMenu}
               aria-label="Field Calculators"
               style={{ color: '#222222', textDecoration: 'none' }}
             >
@@ -513,6 +518,7 @@ export default function Navbar() {
             <span style={{ color: 'rgba(0, 0, 0, 0.18)' }}>/</span>
             <Link
               href="/studio"
+              onClick={handleDismissMenu}
               aria-label="Practice, Leadership and Studio"
               style={{
                 color: pathname === '/studio' ? '#8C733E' : '#222222',
@@ -591,6 +597,7 @@ export default function Navbar() {
             {/* Consultation Action Button with KokonutUI Liquid Glass */}
             <a
               href="#contact"
+              onClick={handleDismissMenu}
               aria-label="Consultation Enquiry"
               className="hidden md:inline-flex specular-sheen"
               style={{
@@ -669,6 +676,7 @@ export default function Navbar() {
                 WebkitBackdropFilter: 'blur(24px) saturate(190%)',
                 border: '1px solid rgba(255, 255, 255, 0.85)',
                 boxShadow: '0 24px 48px -12px rgba(0, 0, 0, 0.18), 0 4px 12px -2px rgba(0, 0, 0, 0.06), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.04)',
+                animation: 'dropdownInnerFadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards',
               }}
             >
               {/* Popover Header */}
@@ -750,11 +758,25 @@ export default function Navbar() {
                           </span>
                         </div>
 
-                        <div className="text-[10.5px] font-medium text-[#222222] mt-0.5 leading-snug truncate">
+                        {/* Official Division Tag Pill */}
+                        <div className="flex items-center gap-1.5 mt-0.5">
+                          <span
+                            className="text-[8.5px] font-semibold tracking-wider uppercase px-1.5 py-0.5 rounded"
+                            style={{
+                              backgroundColor: 'rgba(194, 159, 83, 0.16)',
+                              color: '#8C733E',
+                              border: '1px solid rgba(194, 159, 83, 0.32)',
+                            }}
+                          >
+                            {div.tag}
+                          </span>
+                        </div>
+
+                        <div className="text-[10.5px] font-medium text-[#222222] mt-1 leading-snug truncate">
                           {div.domainTag}
                         </div>
 
-                        <div className="text-[9.5px] text-[#666666] mt-1 line-clamp-1 leading-normal">
+                        <div className="text-[9.5px] text-[#666666] mt-0.5 line-clamp-1 leading-normal">
                           {div.summary}
                         </div>
                       </div>
