@@ -142,12 +142,12 @@ function ScrambleTechText({
   const isScramblingRef = useRef(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  const startScramble = () => {
+  const startScramble = React.useCallback(() => {
     if (isScramblingRef.current) return;
     isScramblingRef.current = true;
 
     let step = 0;
-    const totalSteps = 8;
+    const totalSteps = maxScrambles || 8;
     const originalText = text;
 
     if (intervalRef.current) clearInterval(intervalRef.current);
@@ -177,7 +177,7 @@ function ScrambleTechText({
           .join('')
       );
     }, effectiveSpeed);
-  };
+  }, [text, effectiveSpeed, preserveSpaces, maxScrambles]);
 
   useEffect(() => {
     if (intervalRef.current) clearInterval(intervalRef.current);
@@ -189,7 +189,7 @@ function ScrambleTechText({
       if (intervalRef.current) clearInterval(intervalRef.current);
       isScramblingRef.current = false;
     };
-  }, [trigger]);
+  }, [trigger, startScramble]);
 
   useEffect(() => {
     if (active) {
@@ -202,7 +202,7 @@ function ScrambleTechText({
       const raf = requestAnimationFrame(() => setDisplayText(text));
       return () => cancelAnimationFrame(raf);
     }
-  }, [active, text]);
+  }, [active, text, startScramble]);
 
   const hasCustomFont = Boolean(style?.fontFamily) || /font-(serif|sans)|tracking-/.test(className);
   const fontClasses = hasCustomFont ? '' : 'font-sans tracking-wider';

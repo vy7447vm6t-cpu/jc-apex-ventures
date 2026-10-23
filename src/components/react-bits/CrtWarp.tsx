@@ -746,15 +746,26 @@ export default function CRTWarp({
       draw(null, state.width, state.height);
     };
 
-    const tick = now => {
-      state.raf = requestAnimationFrame(tick);
+    const wake = () => {
+      state.quiet = 0;
+      if (!state.raf && state.visible && !document.hidden && !state.lost) {
+        state.last = 0;
+        state.raf = requestAnimationFrame(tick);
+      }
+    };
+
+    const tick = (now: number) => {
+      state.raf = 0;
       if (!state.visible || document.hidden || state.lost) {
         state.last = now;
         return;
       }
       const s = settingsRef.current;
       const interval = 1000 / s.fps;
-      if (state.last && now - state.last < interval - 1) return;
+      if (state.last && now - state.last < interval - 1) {
+        state.raf = requestAnimationFrame(tick);
+        return;
+      }
       const dt = state.last ? Math.min((now - state.last) / 1000, 0.1) : 1 / 60;
       state.last = now;
       const reduced = prefersReduced();
@@ -785,6 +796,9 @@ export default function CRTWarp({
 
       resize();
       render(dt, reduced);
+      if (state.visible && !document.hidden && !state.lost) {
+        state.raf = requestAnimationFrame(tick);
+      }
     };
 
     const local = event => {
@@ -812,6 +826,7 @@ export default function CRTWarp({
         state.pointer = [point.x, point.y];
       }
       state.magnetGoal = point.inside ? 1 : 0;
+      wake();
     };
 
     const onLeave = () => {
@@ -830,11 +845,13 @@ export default function CRTWarp({
       if (!point.inside) return;
       if (prefersReduced()) {
         state.channel += 1;
+        wake();
         return;
       }
       if (state.flipAt >= 0) return;
       state.flipAt = state.clock;
       state.flipped = false;
+      wake();
     };
 
     const onLost = event => {
@@ -842,9 +859,14 @@ export default function CRTWarp({
       state.lost = true;
     };
 
+    const onVisibility = () => {
+      if (!document.hidden) wake();
+    };
+
     const visibility = new IntersectionObserver(
       entries => {
         state.visible = entries.some(entry => entry.isIntersecting);
+        if (state.visible) wake();
       },
       { rootMargin: '250px 0px' }
     );
@@ -855,8 +877,9 @@ export default function CRTWarp({
     window.addEventListener('pointermove', onMove, { passive: true });
     window.addEventListener('pointerdown', onDown);
     document.documentElement.addEventListener('pointerleave', onLeave);
+    document.addEventListener('visibilitychange', onVisibility);
     canvas.addEventListener('webglcontextlost', onLost);
-    state.raf = requestAnimationFrame(tick);
+    wake();
 
     return () => {
       cancelAnimationFrame(state.raf);
@@ -865,6 +888,7 @@ export default function CRTWarp({
       window.removeEventListener('pointermove', onMove);
       window.removeEventListener('pointerdown', onDown);
       document.documentElement.removeEventListener('pointerleave', onLeave);
+      document.removeEventListener('visibilitychange', onVisibility);
       canvas.removeEventListener('webglcontextlost', onLost);
       state.cells.forEach(target => deleteTarget(gl, target));
       state.glows.forEach(target => deleteTarget(gl, target));

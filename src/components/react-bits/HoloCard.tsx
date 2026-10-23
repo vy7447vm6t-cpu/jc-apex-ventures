@@ -665,6 +665,7 @@ export default function HoloCard({
         gl.deleteTexture(texture);
         gl.deleteBuffer(buffer);
         gl.deleteProgram(program);
+        gl.getExtension('WEBGL_lose_context')?.loseContext();
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -264,6 +264,7 @@ export default function BeforeAfterSlider({
                 setSliderPosition(100);
               }
             }}
+            className="focus-visible:ring-2 focus-visible:ring-[#C29F53] focus-visible:ring-offset-2 focus-visible:outline-none"
             style={{
               position: 'absolute',
               top: '50%',
@@ -283,7 +284,6 @@ export default function BeforeAfterSlider({
               touchAction: 'none',
               transition: isDragging ? 'transform 0.1s ease' : 'transform 0.2s ease',
               scale: isDragging ? '1.08' : '1',
-              outline: 'none',
             }}
           >
             <ChevronsLeftRight size={18} color="#111111" />
