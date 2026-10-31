@@ -4,7 +4,6 @@ import React from 'react';
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 import { ImageWithLightbox } from '@/components/ImageLightbox';
-import MicroSlats from '@/components/react-bits/MicroSlats';
 
 interface PageHeroProps {
   title: string;
@@ -36,19 +35,10 @@ export default function PageHero({
         paddingBottom: '64px',
         position: 'relative',
         overflow: 'hidden',
-        background: 'linear-gradient(180deg, #F4F1EA 0%, #FFFFFF 100%)',
+        background: '#F4F1EA',
         borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
       }}
     >
-      {/* Subtle Architectural Louver Geometry */}
-      <MicroSlats
-        count={12}
-        opacity={0.09}
-        color="rgba(17, 17, 17, 0.35)"
-        showTicks={true}
-        zIndex={1}
-      />
-
       <div className="container" style={{ position: 'relative', zIndex: 5 }}>
         {/* Breadcrumb */}
         <div
@@ -161,77 +151,23 @@ export default function PageHero({
             </p>
 
             {statPill && (
-              <div
-                className="animate-fade-in-up delay-300"
-                style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}
-              >
-                <div
-                  className="metric-pill"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    padding: '8px 16px',
-                    borderRadius: '9999px',
-                    backgroundColor: '#FFFFFF',
-                    border: '1px solid rgba(0, 0, 0, 0.08)',
-                    color: '#111111',
-                    fontSize: '0.78rem',
-                    fontWeight: 600,
-                    fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                    boxShadow: '0 4px 14px rgba(0, 0, 0, 0.03)',
-                  }}
-                >
-                  <span
-                    style={{
-                      width: '8px',
-                      height: '8px',
-                      borderRadius: '50%',
-                      background: '#C29F53',
-                    }}
-                  />
-                  {statPill}
-                </div>
-              </div>
+              <p className="margin-note animate-fade-in-up delay-300">{statPill}</p>
             )}
           </div>
 
           {heroImage && (
-            <div
-              className="animate-fade-in-up delay-200"
-              style={{
-                position: 'relative',
-                borderRadius: '22px',
-                overflow: 'hidden',
-                boxShadow: '0 20px 48px rgba(0, 0, 0, 0.1)',
-                border: '1px solid rgba(0, 0, 0, 0.08)',
-                height: '340px',
-              }}
-            >
-              {heroImageTag && (
-                <div className="editorial-pill" style={{ zIndex: 10, pointerEvents: 'none' }}>
-                  <span
-                    style={{
-                      width: '5px',
-                      height: '5px',
-                      borderRadius: '50%',
-                      backgroundColor: '#C29F53',
-                      display: 'inline-block',
-                      flexShrink: 0,
-                    }}
-                  />
-                  <span>{heroImageTag}</span>
-                </div>
-              )}
-              <ImageWithLightbox
-                src={heroImage}
-                alt={title}
-                title={title}
-                category={heroImageTag || breadcrumb}
-                scope={tagline}
-                style={{ width: '100%', height: '100%' }}
-              />
-            </div>
+            <figure className="animate-fade-in-up delay-200" style={{ margin: 0 }}>
+              <div style={{ position: 'relative', borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(0, 0, 0, 0.08)', height: '340px' }}>
+                <ImageWithLightbox
+                  src={heroImage}
+                  alt={heroImageTag || title}
+                  title={title}
+                  scope={tagline}
+                  style={{ width: '100%', height: '100%' }}
+                />
+              </div>
+              {heroImageTag && <figcaption className="photo-caption">{heroImageTag}</figcaption>}
+            </figure>
           )}
         </div>
       </div>

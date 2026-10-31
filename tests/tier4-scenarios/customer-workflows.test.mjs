@@ -20,7 +20,7 @@ test({
     
     // EPC Cost (11-50kWp base = 48/W, Pergola = +12/W => 60/W)
     const baseCost = kwp * 1000 * 60;
-    const gst = baseCost * 0.138;
+    const gst = baseCost * 0.089;
     const grossCost = baseCost + gst;
     
     // Subsidy (Residential > 2kW => 78,000)
@@ -35,8 +35,9 @@ test({
     assertInRange(paybackYears, 3.5, 6.0, `Payback must be between 3.5 and 6 years (calculated: ${paybackYears})`);
     
     // Verify routing destination
-    const divisions = readFileSafe(PATHS.divisionsContent) || '';
-    assert(divisions.includes('solis@jcapexv.com'), 'Solar consultation must route to solis@jcapexv.com');
+    const content = readFileSafe(PATHS.divisionsContent) || '';
+    const solis = content.slice(content.indexOf("slug: 'solis'"));
+    assert(/enquiryForm: \{ to: 'solis@jcapexv\.com'/.test(solis), 'Solar consultation must route to solis@jcapexv.com');
   },
 });
 
@@ -65,10 +66,8 @@ test({
     
     // Verify routing destination
     const divisions = readFileSafe(PATHS.divisionsContent) || '';
-    assert(
-      divisions.includes('printmgmt@jcapexv.com') || divisions.includes('emudran@jcapexv.com'),
-      'eMudran print order must route to printmgmt@jcapexv.com'
-    );
+    // eMudran works mostly over WhatsApp and admin@ (client decision, October 2026).
+    assert(/contact: \{ emails: \['admin@jcapexv\.com'\], note: 'WhatsApp preferred' \}/.test(divisions), 'eMudran print order must route to admin@jcapexv.com, WhatsApp preferred');
   },
 });
 
@@ -128,14 +127,16 @@ test({
   id: 'T4_SCEN_05',
   tier: 'tier4',
   feature: 'scenario',
-  title: 'T4 Scenario 5: End-to-end HT substation engineering & solid waste tech (GRID APEX / AGRIM)',
+  title: 'T4 Scenario 5: Grid Apex HT and LT electrical enquiry routes to admin@jcapexv.com',
   fn: () => {
     const gridApexPage = readFileSafe(PATHS.routeGridApex) || '';
     assert(gridApexPage.length > 0, 'GRID APEX page must exist');
     
     // Verify technical scope: Substation / HT / LT / Waste
-    const hasEngineeringScope = /substation/i.test(gridApexPage) || /switchgear/i.test(gridApexPage) || /transformer/i.test(gridApexPage) || /waste/i.test(gridApexPage);
-    assert(hasEngineeringScope, 'GRID APEX must detail electrical substation and environmental engineering scope');
+    const divisionsText = readFileSafe(PATHS.divisionsContent) || '';
+    assert(gridApexPage.includes('<DivisionPage data={gridApex} />'), 'Grid Apex page must render the division template');
+    assert(/transformer installation, testing and maintenance/.test(divisionsText), 'Grid Apex must list HT and transformer work');
+    assert(!/waste/i.test(divisionsText.slice(divisionsText.indexOf('export const gridApex'), divisionsText.indexOf('export const sanyog'))), 'Waste treatment is a Solis service, not Grid Apex (client decision)');
     
     // Verify routing email
     const divisions = readFileSafe(PATHS.divisionsContent) || '';
@@ -147,13 +148,12 @@ test({
   id: 'T4_SCEN_06',
   tier: 'tier4',
   feature: 'scenario',
-  title: 'T4 Scenario 6: Mobile visitor quick guidance via Clippy dock to 1-tap WhatsApp consultation',
+  title: 'T4 Scenario 6: Mobile visitor messages us on WhatsApp from any page',
   fn: () => {
-    const clippy = readFileSafe(PATHS.clippy);
-    assert(clippy !== null, 'Clippy assistant must exist');
-    
-    // Verify WhatsApp direct consultation URL with authorized phone number
-    const waUrlRegex = /https:\/\/wa\.me\/917021112664/i;
-    assert(waUrlRegex.test(clippy) || clippy.includes('7021112664'), 'Clippy must provide direct WhatsApp link to +91 70211 12664');
+    const nav = readFileSafe(PATHS.navbar);
+    assert(nav !== null, 'Navbar.tsx must exist');
+    assert(/https:\/\/wa\.me\/917021112664/.test(nav), 'Navigation must link to WhatsApp on +91 70211 12664');
+    assert(nav.includes('className="whatsapp-fab"'), 'The WhatsApp button renders with the navigation on every page');
+    assert(nav.includes('aria-label="Message JC Apex Ventures on WhatsApp"'), 'The icon-only button must have an accessible name');
   },
 });

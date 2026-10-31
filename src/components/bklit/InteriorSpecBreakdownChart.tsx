@@ -128,7 +128,7 @@ export default function InteriorSpecBreakdownChart({
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
         <div>
           <span className="text-[11px] uppercase tracking-[0.14em] font-semibold text-[#8C6D23]">
-            [TVASTA TELEMETRY / SPATIAL SPEC &amp; ACOUSTIC ALLOCATION]
+            Illustrative · fit-out budget by category
           </span>
           <h4
             className="text-2xl font-normal text-[#111111] mt-1 tracking-tight"
@@ -212,7 +212,7 @@ export default function InteriorSpecBreakdownChart({
           })}
         </svg>
 
-        {/* Locked-height hover telemetry readout bar (prevents layout shift) */}
+        {/* Locked-height hover readout bar (prevents layout shift) */}
         <div className="mt-2 min-h-[44px] flex items-center justify-between px-3.5 py-2 rounded-xl bg-[#F4F1EA] text-xs font-sans tabular-nums border border-black/5">
           {hoveredIdx !== null ? (
             <>
@@ -234,7 +234,7 @@ export default function InteriorSpecBreakdownChart({
             </>
           ) : (
             <>
-              <span className="text-[#595959] font-medium">Allocation Telemetry:</span>
+              <span className="text-[#595959] font-medium">Selected:</span>
               <span className="text-[#666666]">
                 Hover category segments to inspect itemized per-sqft cost for {safeArea.toLocaleString('en-IN')} sq ft
               </span>

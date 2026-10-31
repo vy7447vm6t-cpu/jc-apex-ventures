@@ -54,7 +54,7 @@ test({
   id: 'T1_R7_03',
   tier: 'tier1',
   feature: 'r7',
-  title: 'R7 Feature: Solis EPC pricing tiers, pergola premium and 13.8% composite GST',
+  title: 'R7 Feature: Solis EPC pricing tiers, pergola premium and 8.9% composite GST (from 22 September 2025)',
   fn: () => {
     function calcEpc(kwp, isPergola = false) {
       const watts = kwp * 1000;
@@ -65,13 +65,16 @@ test({
       
       const rate = isPergola ? baseRate + 12 : baseRate;
       const baseCost = watts * rate;
-      const gst = baseCost * 0.138;
+      const gst = baseCost * 0.089;
       return { baseCost, gst, totalCost: baseCost + gst };
     }
 
     const standard10 = calcEpc(5, false);
     assertEqual(standard10.baseCost, 5000 * 52, '5kW base EPC at ₹52/W');
-    assertCloseTo(standard10.gst, 260000 * 0.138, 0.1, 'Composite GST 13.8%');
+    assertCloseTo(standard10.gst, 260000 * 0.089, 0.1, 'Composite GST 8.9%');
+    const source = readFileSafe(PATHS.solarCalculator) || '';
+    assert(source.includes('subtotalRs * 0.089'), 'SolarCalculator must apply 8.9% GST: 70% at 5%, 30% at 18%');
+    assert(!source.includes('0.138'), 'The pre-September 2025 rate of 13.8% must be gone');
 
     const pergola5 = calcEpc(5, true);
     assertEqual(pergola5.baseCost, 5000 * (52 + 12), '5kW pergola EPC at ₹64/W (+₹12/W)');

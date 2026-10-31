@@ -106,10 +106,9 @@ test({
     assert(!content.includes('password'), 'Source content must never contain password strings');
     assert(!content.includes('secret_key'), 'Source content must never contain secret keys');
 
-    // Strict confidentiality: private client names must never be leaked
-    const forbiddenClients = ['Taj Mahal Palace', 'The Oberoi', 'Trident BKC', 'Lanxess', 'Tolia Ball', 'Pristo Pipes'];
-    for (const client of forbiddenClients) {
-      assert(!content.includes(client), `Source content must not leak private client name: ${client}`);
+    // Clients are named from track-record.ts only; associates and earlier contract holders are never named (guidelines 5.2).
+    for (const name of ['Sanjay Marketing', 'Sanjay Mktg']) {
+      assert(!content.includes(name), `Source content must not name associates: ${name}`);
     }
   },
 });

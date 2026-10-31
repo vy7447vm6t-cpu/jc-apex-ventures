@@ -146,10 +146,10 @@ ${scope.trim() || 'Direct consultation requested via modal.'}
       }
 
       setSubmitStatus('success');
-      setStatusMessage('Consultation dossier dispatched to ' + currentDiv.email + '. Our engineering desk will connect within 4 business hours.');
+      setStatusMessage('Enquiry sent to ' + currentDiv.email + '. We will reply with the next steps.');
     } catch {
       setSubmitStatus('error');
-      setStatusMessage('Transmission error. Please use 1-tap WhatsApp consultation below for immediate engineering response.');
+      setStatusMessage('Your enquiry could not be sent. Please message us on WhatsApp instead.');
     } finally {
       setIsSubmitting(false);
     }
@@ -210,7 +210,7 @@ ${scope.trim() || 'Direct consultation requested via modal.'}
                 }}
                 className="block"
               >
-                [DIRECT DESK · ONE INTERNATIONAL CENTRE]
+                Enquiry · One International Centre
               </span>
               <h3
                 style={{
@@ -394,7 +394,7 @@ ${scope.trim() || 'Direct consultation requested via modal.'}
               className="w-full sm:flex-1 py-2.5 px-4 rounded-xl bg-[#111111] text-white text-xs font-semibold flex items-center justify-center gap-2 hover:bg-black transition-all cursor-pointer shadow-md disabled:opacity-60"
             >
               <Send size={14} className={isSubmitting ? 'animate-spin' : ''} />
-              <span>{isSubmitting ? 'Transmitting Dossier...' : 'Submit Official Dossier'}</span>
+              <span>{isSubmitting ? 'Sending...' : 'Send enquiry'}</span>
             </button>
 
             <a
@@ -404,7 +404,7 @@ ${scope.trim() || 'Direct consultation requested via modal.'}
               className="w-full sm:w-auto py-2.5 px-4 rounded-xl bg-[#25D366]/15 hover:bg-[#25D366]/25 border border-[#25D366]/40 text-[#128C7E] text-xs font-semibold flex items-center justify-center gap-2 transition-all text-decoration-none"
             >
               <MessageSquare size={14} />
-              <span>1-Tap WhatsApp Desk</span>
+              <span>Message us on WhatsApp</span>
             </a>
           </div>
         </form>

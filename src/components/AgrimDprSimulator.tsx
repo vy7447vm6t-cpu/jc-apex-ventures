@@ -111,7 +111,7 @@ export default function AgrimDprSimulator() {
               color: '#047857',
             }}
           >
-            [BANKABLE DPR FINANCIAL MODELING &amp; DSCR ENGINE]
+            Agrim · Project cost and loan readiness
           </span>
         </div>
         <h3
@@ -431,7 +431,7 @@ export default function AgrimDprSimulator() {
                 transition: 'all 0.2s ease',
               }}
             >
-              <span>Commission Bankable DPR Appraisal Dossier</span>
+              <span>Ask Agrim to prepare your project report</span>
               <ArrowUpRight size={14} />
             </a>
           </div>

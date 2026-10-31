@@ -38,12 +38,12 @@ test({
   fn: () => {
     const data = readFileSafe(PATHS.divisionsContent) || '';
     const formCode = readFileSafe(PATHS.enquiryForm) || '';
-    const combined = data + ' ' + formCode;
+    const combined = data + ' ' + formCode + ' ' + (readFileSafe(PATHS.routeSolis) || '');
 
     // Homepage / general: admin@jcapexv.com
     assert(/admin@jcapexv\.com/i.test(combined), 'Must route general enquiries to admin@jcapexv.com');
-    // eMudran: printmgmt@jcapexv.com or emudran@jcapexv.com
-    assert(/printmgmt@jcapexv\.com/i.test(combined) || /emudran@jcapexv\.com/i.test(combined), 'Must route eMudran enquiries to printmgmt@jcapexv.com');
+    // eMudran: admin@jcapexv.com, WhatsApp preferred (client decision, October 2026)
+    assert(/WhatsApp preferred/.test(data), 'eMudran contact must say WhatsApp preferred');
     // TVASTA: spacemgmt@jcapexv.com
     assert(/spacemgmt@jcapexv\.com/i.test(combined), 'Must route TVASTA enquiries to spacemgmt@jcapexv.com');
     // Solis: solis@jcapexv.com
@@ -91,8 +91,7 @@ test({
     const data = readFileSafe(PATHS.divisionsContent) || '';
     const formCode = readFileSafe(PATHS.enquiryForm) || '';
     const navCode = readFileSafe(PATHS.navbar) || '';
-    const clippyCode = readFileSafe(PATHS.clippy) || '';
-    const all = data + ' ' + formCode + ' ' + navCode + ' ' + clippyCode;
+    const all = data + ' ' + formCode + ' ' + navCode;
     const hasWhatsApp = /wa\.me/i.test(all) || /whatsapp/i.test(all);
     assert(hasWhatsApp, 'Platform must integrate 1-tap WhatsApp consultation touchpoints (wa.me)');
   },

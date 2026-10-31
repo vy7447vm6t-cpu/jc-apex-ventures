@@ -12,56 +12,24 @@ import {
   EvNetworkCapexRevenueChart,
   InteriorSpecBreakdownChart,
 } from '@/components/bklit';
-import { OptionWheel, SpecularButton, TechText } from '@/components/react-bits';
-import { ArrowUpRight, Zap, Building2, Sliders, ShieldCheck, Landmark } from 'lucide-react';
+import { SpecularButton } from '@/components/react-bits';
+import SectionEyebrow from './SectionEyebrow';
+import UnderlineTabs from './UnderlineTabs';
+import { ArrowUpRight } from 'lucide-react';
 
-const CALCULATOR_OPTIONS = [
-  {
-    label: '(01) Solar & Walkable Pergola',
-    value: 'solar',
-    subtext: 'Solis',
-    logoSrc: '/images/logos/solis-official.png',
-    logoDark: '/images/logos/solis-logo-white.png',
-  },
-  {
-    label: '(02) Utility Tariff & Load Audit',
-    value: 'tariff',
-    subtext: 'Sanyog',
-    logoSrc: '/images/logos/sanyog-official.png',
-    logoDark: '/images/logos/sanyog-official.png',
-  },
-  {
-    label: '(03) EV Network CAPEX & DPR',
-    value: 'ev',
-    subtext: 'Agrim',
-    logoSrc: '/images/logos/agrim-dark.png',
-    logoDark: '/images/logos/agrim-official.png',
-  },
-  {
-    label: '(04) Commercial Interior Fit-Out',
-    value: 'interior',
-    subtext: 'Tvasta',
-    logoSrc: '/images/logos/tvasta-dark.png',
-    logoDark: '/images/logos/tvasta-official.png',
-  },
-  {
-    label: '(05) Packaging & Print Run',
-    value: 'print',
-    subtext: 'eMudran',
-    logoSrc: '/images/logos/emudran-official.png',
-    logoDark: '/images/logos/emudran-white.png',
-  },
-  {
-    label: '(06) HT Substation & Sizing',
-    value: 'substation',
-    subtext: 'Grid Apex',
-    logoSrc: '/images/logos/grid-apex-official.png',
-    logoDark: '/images/logos/grid-apex-official.png',
-  },
+// One tab per division's estimator; every figure they show is indicative.
+const CALCULATOR_TABS = [
+  { value: 'solar', label: 'Solar savings', note: 'Solis' },
+  { value: 'tariff', label: 'Bill check', note: 'Sanyog' },
+  { value: 'ev', label: 'EV charging', note: 'Agrim' },
+  { value: 'interior', label: 'Fit-out cost', note: 'Tvasta' },
+  { value: 'print', label: 'Print run', note: 'eMudran' },
+  { value: 'substation', label: 'Transformer sizing', note: 'Grid Apex' },
 ];
+type CalculatorTab = 'solar' | 'tariff' | 'ev' | 'interior' | 'print' | 'substation';
 
 export default function GroundedCalculators() {
-  const [activeTab, setActiveTab] = useState<'solar' | 'tariff' | 'ev' | 'interior' | 'print' | 'substation'>('solar');
+  const [activeTab, setActiveTab] = useState<CalculatorTab>('solar');
 
   // Solis metrics
   const [solarMetrics, setSolarMetrics] = useState({
@@ -134,24 +102,8 @@ export default function GroundedCalculators() {
       }}
     >
       <div style={{ maxWidth: '1240px', margin: '0 auto', width: '100%' }}>
-        {/* Eyebrow Label */}
-        <div className="eye-brow-container" style={{ marginBottom: '16px' }}>
-          <span
-            style={{
-              fontFamily: 'var(--font-sans), Inter, sans-serif',
-              fontSize: '0.75rem',
-              fontWeight: 600,
-              letterSpacing: '0.16em',
-              textTransform: 'uppercase',
-              color: '#666666',
-            }}
-          >
-            [08 / FIELD ENGINEERING ESTIMATORS]
-          </span>
-        </div>
-
-        {/* Section Headline */}
-        <div style={{ maxWidth: '960px', marginBottom: '36px' }}>
+        <SectionEyebrow number={6}>Estimates</SectionEyebrow>
+        <div style={{ maxWidth: '760px', marginBottom: '32px' }}>
           <h2
             style={{
               fontSize: 'clamp(2.2rem, 4vw, 3.4rem)',
@@ -163,32 +115,25 @@ export default function GroundedCalculators() {
               fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
             }}
           >
-            Interactive Practice Estimators &amp; Engineering Schedules.
+            See indicative costs and savings first.
           </h2>
-          <p
-            style={{
-              fontSize: '1.02rem',
-              color: '#4A4A46',
-              lineHeight: 1.65,
-              margin: 0,
-              fontFamily: 'var(--font-sans, Inter, sans-serif)',
-            }}
-          >
-            Explore live mathematical models across all five consortium disciplines: rooftop solar pergolas, MERC tariff dispute regularizations, EV hub bankable CAPEX DPRs, commercial interior acoustic fit-outs, and luxury print runs.
+          <p style={{ fontSize: '1.02rem', color: '#4A4A46', lineHeight: 1.65, margin: 0, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+            One estimator for each division. Every figure is indicative: a site visit and a written quote come first.
           </p>
         </div>
 
-        {/* OptionWheel iOS Frosted Glass Switcher with Official Division Marks */}
-        <div className="mb-8 flex justify-start">
-          <OptionWheel
-            options={CALCULATOR_OPTIONS}
-            selectedValue={activeTab}
-            onChange={(val) => setActiveTab(val as 'solar' | 'tariff' | 'ev' | 'interior' | 'print' | 'substation')}
+        <div style={{ marginBottom: '32px' }}>
+          <UnderlineTabs
+            tabs={CALCULATOR_TABS}
+            value={activeTab}
+            onChange={(val) => setActiveTab(val as CalculatorTab)}
+            label="Estimators"
+            idPrefix="estimators"
           />
         </div>
 
         {/* Calculator Mounting Surface */}
-        <div className="grounded-calculator-wrapper">
+        <div className="grounded-calculator-wrapper" role="tabpanel" id="estimators-panel" aria-labelledby={`estimators-tab-${activeTab}`}>
           {/* Tab 1: Solis Solar & Walkable Pergola */}
           {activeTab === 'solar' && <SolarCalculator onLiveChange={handleSolarChange} />}
 
@@ -232,7 +177,7 @@ export default function GroundedCalculators() {
                       fontFamily: 'var(--font-sans, Inter, sans-serif)',
                     }}
                   >
-                    [SANYOG / MERC TARIFF &amp; LOAD SANCTION AUDIT]
+                    Sanyog · Bill and load check
                   </span>
                 </div>
                 <h3
@@ -394,7 +339,7 @@ export default function GroundedCalculators() {
               {/* Action Strip */}
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <SpecularButton href="/sanyog" variant="dark" icon={<ArrowUpRight size={15} />}>
-                  Open Sanyog Regulatory Grievance Dossier
+                  Go to Sanyog
                 </SpecularButton>
               </div>
             </div>
@@ -440,7 +385,7 @@ export default function GroundedCalculators() {
                       fontFamily: 'var(--font-sans, Inter, sans-serif)',
                     }}
                   >
-                    [AGRIM / EV NETWORK INFRASTRUCTURE DPR SIMULATOR]
+                    Agrim · EV charging project estimate
                   </span>
                 </div>
                 <h3
@@ -656,7 +601,7 @@ export default function GroundedCalculators() {
             </div>
           )}
 
-          {/* Sanyog Regulatory Schedule Ledger */}
+          {/* Sanyog tariff comparison */}
           {activeTab === 'tariff' && (
             <div
               style={{
@@ -673,7 +618,7 @@ export default function GroundedCalculators() {
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px', borderBottom: '1px solid rgba(0, 0, 0, 0.08)', paddingBottom: '12px' }}>
                 <div>
                   <span style={{ fontSize: '0.74rem', fontWeight: 700, color: '#8C6D23', textTransform: 'uppercase', letterSpacing: '0.1em', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                    [SANYOG TELEMETRY / MERC TARIFF MATRIX]
+                    Illustrative · tariff comparison
                   </span>
                   <h4 style={{ fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif', fontSize: '1.4rem', fontWeight: 400, color: '#111111', margin: '4px 0 0 0' }}>
                     Mumbai Utility Tariff Structure &amp; Recovery Horizons
@@ -751,7 +696,7 @@ export default function GroundedCalculators() {
               >
                 <div>
                   <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#8C6D23', textTransform: 'uppercase', letterSpacing: '0.1em', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                    [TVASTA INTERIOR COST &amp; ACOUSTIC BREAKDOWN MATRIX]
+                    Illustrative · fit-out cost breakdown
                   </span>
                   <h4 style={{ fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif', fontSize: '1.35rem', fontWeight: 400, color: '#111111', margin: '4px 0 0 0' }}>
                     Switch Fit-Out Specification Tier
@@ -824,8 +769,8 @@ export default function GroundedCalculators() {
                 fontFamily: 'var(--font-sans, Inter, sans-serif)',
               }}
             >
-              <span>11kV/22kV/33kV Step-Down Transformer Yard · 1.25x Dynamic Headroom · Fault Level Coordination</span>
-              <span style={{ fontWeight: 700, color: '#8C733E', letterSpacing: '0.04em' }}>CLASS-A PWD &amp; CEI SANCTIONS</span>
+              <span>Indicative transformer sizing for the load you entered.</span>
+              <span style={{ fontWeight: 600, color: '#4A4A46' }}>The final design follows a site survey.</span>
             </div>
           )}
         </div>

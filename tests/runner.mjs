@@ -9,11 +9,14 @@ import './tier1-features/r2-brand-logos.test.mjs';
 import './tier1-features/r3-typography.test.mjs';
 import './tier1-features/r4-cin-badge.test.mjs';
 import './tier1-features/r5-floating-nav.test.mjs';
-import './tier1-features/r6-monograph-hero.test.mjs';
+import './tier1-features/r6-hero-divisions.test.mjs';
 import './tier1-features/r7-estimators.test.mjs';
-import './tier1-features/r8-clippy-lightbox.test.mjs';
+import './tier1-features/r8-enquiry-lightbox.test.mjs';
 import './tier1-features/r9-division-routes.test.mjs';
 import './tier1-features/r10-constraints.test.mjs';
+import './tier1-features/r11-track-record.test.mjs';
+import './tier1-features/r12-retired-patterns.test.mjs';
+import './tier1-features/r13-division-pages.test.mjs';
 
 // Import all Tier 2 test modules
 import './tier2-boundaries/r1-theme-bounds.test.mjs';
@@ -21,9 +24,9 @@ import './tier2-boundaries/r2-logo-bounds.test.mjs';
 import './tier2-boundaries/r3-font-bounds.test.mjs';
 import './tier2-boundaries/r4-cin-bounds.test.mjs';
 import './tier2-boundaries/r5-nav-bounds.test.mjs';
-import './tier2-boundaries/r6-monograph-bounds.test.mjs';
+import './tier2-boundaries/r6-hero-bounds.test.mjs';
 import './tier2-boundaries/r7-estimator-bounds.test.mjs';
-import './tier2-boundaries/r8-clippy-bounds.test.mjs';
+import './tier2-boundaries/r8-enquiry-bounds.test.mjs';
 import './tier2-boundaries/r9-routing-bounds.test.mjs';
 import './tier2-boundaries/r10-constraint-bounds.test.mjs';
 

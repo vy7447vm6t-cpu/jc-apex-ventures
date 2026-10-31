@@ -55,7 +55,7 @@ export default function SolarGenerationCurve({
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
         <div>
           <span className="text-[11px] uppercase tracking-[0.14em] font-semibold text-[#8C6D23]">
-            [SOLIS TELEMETRY / DIURNAL IRRADIANCE]
+            Illustrative · generation through the day
           </span>
           <h4
             className="text-2xl font-normal text-[#111111] mt-1 tracking-tight"
@@ -165,7 +165,7 @@ export default function SolarGenerationCurve({
           ))}
         </svg>
 
-        {/* Locked-height hover telemetry readout bar (prevents layout shift) */}
+        {/* Locked-height hover readout bar (prevents layout shift) */}
         <div className="mt-3 min-h-[44px] flex items-center justify-between px-3.5 py-2 rounded-xl bg-[#F4F1EA] text-xs font-sans tabular-nums border border-black/5">
           {hoveredHour !== null ? (
             <>
@@ -176,7 +176,7 @@ export default function SolarGenerationCurve({
             </>
           ) : (
             <>
-              <span className="text-[#595959] font-medium">Diurnal Telemetry:</span>
+              <span className="text-[#595959] font-medium">Selected hour:</span>
               <span className="text-[#666666]">Hover curve markers to inspect hourly irradiance output</span>
             </>
           )}

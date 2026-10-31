@@ -62,18 +62,14 @@ test({
   id: 'T1_R2_04',
   tier: 'tier1',
   feature: 'r2',
-  title: 'R2 Feature: DivisionLogos component interface contract for 6 divisions',
+  title: 'R2 Feature: Official logo files exist for all six divisions, light and dark',
   fn: () => {
-    const code = readFileSafe(PATHS.divisionLogos);
-    assert(code !== null, 'src/components/DivisionLogos.tsx must exist');
-    // Must handle all 6 divisions
-    const divisions = ['solis', 'sanyog', 'gridApex', 'tvasta', 'emudran', 'agrim'];
-    for (const div of divisions) {
-      assert(
-        code.includes(div) || code.toLowerCase().includes(div.toLowerCase()),
-        `DivisionLogos component must support division identifier: ${div}`
-      );
-    }
+    const files = [
+      'grid-apex-official.png', 'grid-apex-white.png', 'solis-official.png', 'solis-logo-white.png',
+      'sanyog-official.png', 'sanyog-white.png', 'tvasta-dark.png', 'tvasta-official.png',
+      'emudran-official.png', 'emudran-white.png', 'agrim-dark.png', 'agrim-official.png',
+    ];
+    for (const file of files) assert(fileExists(path.join(PUBLIC_LOGOS, file)), `public/images/logos/${file} must exist`);
   },
 });
 
@@ -81,13 +77,14 @@ test({
   id: 'T1_R2_05',
   tier: 'tier1',
   feature: 'r2',
-  title: 'R2 Feature: GRID APEX bespoke architectural SVG vector emblem',
+  title: 'R2 Feature: Division pages use the official logo files, not redrawn marks',
   fn: () => {
-    const code = readFileSafe(PATHS.divisionLogos);
-    assert(code !== null, 'DivisionLogos.tsx must exist');
-    // GRID APEX requires bespoke SVG vector mark representing substation nodes/grid
-    const hasGridApexSvg = code.includes('gridApex') && (code.includes('<svg') || code.includes('<path') || code.includes('<polygon') || code.includes('<circle'));
-    assert(hasGridApexSvg, 'GRID APEX must render bespoke vector SVG geometry');
+    const code = readFileSafe(PATHS.divisionPage);
+    assert(code !== null, 'DivisionPage.tsx must exist');
+    // Solis has its own page; the shared template serves the other five divisions.
+    for (const file of ['grid-apex-official.png', 'sanyog-official.png', 'tvasta-dark.png', 'emudran-official.png', 'agrim-dark.png']) {
+      assert(code.includes(`/images/logos/${file}`), `Division template must use ${file}`);
+    }
   },
 });
 
@@ -95,16 +92,12 @@ test({
   id: 'T1_R2_06',
   tier: 'tier1',
   feature: 'r2',
-  title: 'R2 Feature: SOLIS, SANYOG, and AGRIM bespoke SVG vector emblems',
+  title: 'R2 Feature: Dark sections use the light logo variants',
   fn: () => {
-    const code = readFileSafe(PATHS.divisionLogos);
-    assert(code !== null, 'DivisionLogos.tsx must exist');
-    // SOLIS (solar ray / photovoltaic), SANYOG (circuit continuity / utility liaison), AGRIM (institutional pillars)
-    const hasSolis = /solis/i.test(code);
-    const hasSanyog = /sanyog/i.test(code);
-    const hasAgrim = /agrim/i.test(code);
-    assert(hasSolis, 'SOLIS must have dedicated brand mark in DivisionLogos');
-    assert(hasSanyog, 'SANYOG must have dedicated brand mark in DivisionLogos');
-    assert(hasAgrim, 'AGRIM must have dedicated brand mark in DivisionLogos');
+    const code = readFileSafe(PATHS.groundedServices);
+    assert(code !== null, 'GroundedServices.tsx must exist');
+    for (const file of ['grid-apex-white.png', 'solis-logo-white.png', 'sanyog-white.png', 'tvasta-official.png', 'emudran-white.png', 'agrim-official.png']) {
+      assert(code.includes(`/images/logos/${file}`), `The six divisions on Night must use ${file}`);
+    }
   },
 });

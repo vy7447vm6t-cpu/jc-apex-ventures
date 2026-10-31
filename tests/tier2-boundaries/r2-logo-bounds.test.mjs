@@ -36,13 +36,12 @@ test({
   id: 'T2_R2_03',
   tier: 'tier2',
   feature: 'r2',
-  title: 'R2 Boundary: DivisionLogos component implements fallback for unrecognized division slug',
+  title: 'R2 Boundary: Division template falls back to the group canvas for an unknown slug',
   fn: () => {
-    const code = readFileSafe(PATHS.divisionLogos);
-    assert(code !== null, 'DivisionLogos.tsx must exist');
-    // Switch statement or record lookup must have default fallback
-    const hasDefaultFallback = /default:/i.test(code) || /\|\|\s*null/i.test(code) || /\|\|\s*<Logo/i.test(code);
-    assert(hasDefaultFallback, 'DivisionLogos must include default fallback branch for unknown slugs');
+    const code = readFileSafe(PATHS.divisionPage);
+    assert(code !== null, 'DivisionPage.tsx must exist');
+    assert(/DIVISION_THEMES\[data\.slug\] \|\| DEFAULT_THEME/.test(code), 'Unknown slugs must fall back to DEFAULT_THEME');
+    assert(/canvasClass: 'grounded-canvas'/.test(code), 'The fallback must be the group canvas');
   },
 });
 

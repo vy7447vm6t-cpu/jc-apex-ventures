@@ -25,16 +25,32 @@ export const PATHS = {
   
   // Components
   logo: path.join(COMPONENTS_DIR, 'Logo.tsx'),
-  divisionLogos: path.join(COMPONENTS_DIR, 'DivisionLogos.tsx'),
   navbar: path.join(COMPONENTS_DIR, 'Navbar.tsx'),
-  clippy: path.join(COMPONENTS_DIR, 'Clippy.tsx'),
   footer: path.join(COMPONENTS_DIR, 'Footer.tsx'),
+  groundedHero: path.join(COMPONENTS_DIR, 'GroundedHero.tsx'),
+  groundedWhy: path.join(COMPONENTS_DIR, 'GroundedWhy.tsx'),
+  groundedServices: path.join(COMPONENTS_DIR, 'GroundedServices.tsx'),
+  groundedProjectTrack: path.join(COMPONENTS_DIR, 'GroundedProjectTrack.tsx'),
+  groundedAffiliations: path.join(COMPONENTS_DIR, 'GroundedAffiliations.tsx'),
+  groundedProcess: path.join(COMPONENTS_DIR, 'GroundedProcess.tsx'),
+  groundedCalculators: path.join(COMPONENTS_DIR, 'GroundedCalculators.tsx'),
+  groundedCta: path.join(COMPONENTS_DIR, 'GroundedCTA.tsx'),
+  clientMarquee: path.join(COMPONENTS_DIR, 'ClientMarquee.tsx'),
+  divisionPage: path.join(COMPONENTS_DIR, 'DivisionPage.tsx'),
+  sectionEyebrow: path.join(COMPONENTS_DIR, 'SectionEyebrow.tsx'),
+  underlineTabs: path.join(COMPONENTS_DIR, 'UnderlineTabs.tsx'),
+  messaging: path.join(CONTENT_DIR, 'messaging.ts'),
+  trackRecord: path.join(CONTENT_DIR, 'track-record.ts'),
+  profilesLib: path.join(PROJECT_ROOT, 'profiles', 'lib.mjs'),
   enquiryForm: path.join(COMPONENTS_DIR, 'EnquiryForm.tsx'),
   solarCalculator: path.join(COMPONENTS_DIR, 'SolarCalculator.tsx'),
+  solarPlants: path.join(COMPONENTS_DIR, 'SolarPlants.tsx'),
+  onGridDiagram: path.join(COMPONENTS_DIR, 'OnGridDiagram.tsx'),
+  siteEnquiryForm: path.join(COMPONENTS_DIR, 'SiteEnquiryForm.tsx'),
+  solisLayout: path.join(APP_DIR, 'solis', 'layout.tsx'),
   printEstimator: path.join(COMPONENTS_DIR, 'PrintEstimator.tsx'),
   spaceEstimator: path.join(COMPONENTS_DIR, 'SpaceEstimator.tsx'),
   imageLightbox: path.join(COMPONENTS_DIR, 'ImageLightbox.tsx'),
-  interactiveTabbedMonograph: path.join(COMPONENTS_DIR, 'InteractiveTabbedMonograph.tsx'),
   
   // Routes
   routeSolis: path.join(APP_DIR, 'solis', 'page.tsx'),
@@ -47,6 +63,7 @@ export const PATHS = {
   routeLicenses: path.join(APP_DIR, 'licenses', 'page.tsx'),
   routePrintMgmt: path.join(APP_DIR, 'print-management', 'page.tsx'),
   routeSpacePlanning: path.join(APP_DIR, 'space-planning', 'page.tsx'),
+  routeStudio: path.join(APP_DIR, 'studio', 'page.tsx'),
   apiContact: path.join(APP_DIR, 'api', 'contact', 'route.ts'),
 };
 

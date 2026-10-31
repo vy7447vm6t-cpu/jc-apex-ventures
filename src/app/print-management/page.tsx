@@ -434,17 +434,15 @@ export default function PrintManagementPage() {
             <ScrollReveal delay={1}>
               <div className="glass-panel" style={{ overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column' }}>
                 <div style={{ position: 'relative', width: '100%', aspectRatio: '1/1', overflow: 'hidden' }}>
-                  <div className="editorial-pill">
-                    Representative Stationery Array
-                  </div>
                   <img 
                     src="/images/luxury-print-packaging.jpg" 
-                    alt="Corporate Stationery Specimen" 
+                    alt="Printed business cards" 
                     style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease', cursor: 'pointer' }}
                     onMouseOver={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
                     onMouseOut={(e) => (e.currentTarget.style.transform = 'scale(1.0)')}
                   />
                 </div>
+                <p className="photo-caption" style={{ padding: '0 24px' }}>Printed business cards. Representative image.</p>
                 <div style={{ padding: '24px' }}>
                   <h3 style={{ fontSize: '1.15rem', marginBottom: '8px', color: 'var(--color-text-primary)' }}>Corporate Stationery Kits</h3>
                   <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem', lineHeight: 1.55 }}>
@@ -457,17 +455,15 @@ export default function PrintManagementPage() {
             <ScrollReveal delay={2}>
               <div className="glass-panel" style={{ overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column' }}>
                 <div style={{ position: 'relative', width: '100%', aspectRatio: '1/1', overflow: 'hidden' }}>
-                  <div className="editorial-pill">
-                    Brochure Print Specimen
-                  </div>
                   <img 
                     src="/images/brochures-catalogues-print.jpg" 
-                    alt="Brochures and Catalogues Specimen" 
+                    alt="Printed reports and brochures" 
                     style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease', cursor: 'pointer' }}
                     onMouseOver={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
                     onMouseOut={(e) => (e.currentTarget.style.transform = 'scale(1.0)')}
                   />
                 </div>
+                <p className="photo-caption" style={{ padding: '0 24px' }}>Printed reports and brochures. Representative image.</p>
                 <div style={{ padding: '24px' }}>
                   <h3 style={{ fontSize: '1.15rem', marginBottom: '8px', color: 'var(--color-text-primary)' }}>Catalogues & Brochures</h3>
                   <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem', lineHeight: 1.55 }}>
@@ -480,17 +476,15 @@ export default function PrintManagementPage() {
             <ScrollReveal delay={3}>
               <div className="glass-panel" style={{ overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column' }}>
                 <div style={{ position: 'relative', width: '100%', aspectRatio: '1/1', overflow: 'hidden' }}>
-                  <div className="editorial-pill">
-                    Architectural Signage Specimen
-                  </div>
                   <img 
                     src="/images/craft-signage-print.jpg" 
-                    alt="3D LED Signage Specimen" 
+                    alt="Two people shaking hands at a desk" 
                     style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease', cursor: 'pointer' }}
                     onMouseOver={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
                     onMouseOut={(e) => (e.currentTarget.style.transform = 'scale(1.0)')}
                   />
                 </div>
+                <p className="photo-caption" style={{ padding: '0 24px' }}>Two people shaking hands at a desk. Representative image.</p>
                 <div style={{ padding: '24px' }}>
                   <h3 style={{ fontSize: '1.15rem', marginBottom: '8px', color: 'var(--color-text-primary)' }}>3D Architectural Signage</h3>
                   <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem', lineHeight: 1.55 }}>

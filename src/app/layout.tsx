@@ -31,7 +31,7 @@ const organizationSchema = {
   logo: 'https://jcapexv.com/images/logos/high-resolution-color-logo-2.png',
   address: {
     '@type': 'PostalAddress',
-    streetAddress: 'One International Centre, Tower 2, Units 801-802, Senapati Bapat Marg, Prabhadevi / Elphinstone Road',
+    streetAddress: 'Units 801–802, 8th Floor, Tower 1, One International Centre, Senapati Bapat Marg, Elphinstone',
     addressLocality: 'Mumbai',
     postalCode: '400013',
     addressRegion: 'Maharashtra',

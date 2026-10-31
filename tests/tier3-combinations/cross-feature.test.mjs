@@ -1,19 +1,19 @@
+import path from 'node:path';
 import { test } from '../helpers/test-context.mjs';
 import { assert, assertEqual, assertIncludes } from '../helpers/assertions.mjs';
-import { PATHS, fileExists, readFileSafe } from '../helpers/project-paths.mjs';
+import { PATHS, PROJECT_ROOT, fileExists, readFileSafe } from '../helpers/project-paths.mjs';
 
 test({
   id: 'T3_COMB_01',
   tier: 'tier3',
   feature: 'cross',
-  title: 'T3 Cross-Feature: Floating Navbar styling integrates with global liquid glass and dark canvas',
+  title: 'T3 Cross-Feature: Navigation is a solid white bar with a hairline, no glass',
   fn: () => {
     const nav = readFileSafe(PATHS.navbar);
     const css = readFileSafe(PATHS.globalsCss);
     assert(nav !== null && css !== null, 'Navbar and globals.css must exist');
-    // Navbar must use glass styling or backdrop blur consistent with tokens
-    const usesGlass = nav.includes('ios-glass') || nav.includes('backdrop-blur') || nav.includes('bg-[');
-    assert(usesGlass, 'Navbar must inherit liquid glass styling consistent with design system');
+    assert(!/backdrop/i.test(nav), 'Navigation must not use backdrop blur (guidelines 2.5)');
+    assert(/\.kokonut-nav-pill \{[^}]*background: #FFFFFF !important;[^}]*border: 1px solid rgba\(0, 0, 0, 0\.08\)/.test(css), 'Navigation bar must be white with a hairline');
   },
 });
 
@@ -21,18 +21,12 @@ test({
   id: 'T3_COMB_02',
   tier: 'tier3',
   feature: 'cross',
-  title: 'T3 Cross-Feature: Master umbrella emblem is shared consistently across Navbar, Hero, and Clippy',
+  title: 'T3 Cross-Feature: Master emblem is shared by the navigation and the footer',
   fn: () => {
     const nav = readFileSafe(PATHS.navbar) || '';
     const footer = readFileSafe(PATHS.footer) || '';
-    const clippy = readFileSafe(PATHS.clippy) || '';
-    // Logo component or umbrella emblem must be used in key navigation & assistant shells
-    const navHasLogo = nav.includes('Logo') || nav.includes('umbrella');
-    const footerHasLogo = footer.includes('Logo') || footer.includes('umbrella') || footer.includes('JC APEX');
-    const clippyHasLogo = clippy.includes('Logo') || clippy.includes('umbrella') || clippy.includes('apex');
-    assert(navHasLogo, 'Navbar must feature master brand emblem');
-    assert(footerHasLogo, 'Footer must feature master brand emblem or identifier');
-    assert(clippyHasLogo, 'Clippy must feature master brand mascot emblem');
+    assert(/import Logo from '\.\/Logo'/.test(nav), 'Navigation must use the master emblem');
+    assert(/import Logo from '\.\/Logo'/.test(footer), 'Footer must use the master emblem');
   },
 });
 
@@ -40,17 +34,16 @@ test({
   id: 'T3_COMB_03',
   tier: 'tier3',
   feature: 'cross',
-  title: 'T3 Cross-Feature: Monograph division switcher routes match dedicated division pages',
+  title: 'T3 Cross-Feature: Hero, services and studio link to the same six division pages',
   fn: () => {
-    const monograph = readFileSafe(PATHS.interactiveTabbedMonograph);
-    assert(monograph !== null, 'InteractiveTabbedMonograph.tsx must exist');
-    // The 6 division routes linked by the monograph must exist on filesystem
     const routes = ['solis', 'sanyog', 'grid-apex', 'tvasta', 'emudran', 'agrim'];
+    const hero = readFileSafe(PATHS.groundedHero) || '';
+    const services = readFileSafe(PATHS.groundedServices) || '';
+    const studio = readFileSafe(PATHS.routeStudio) || '';
     for (const r of routes) {
-      assert(
-        monograph.includes(r),
-        `Monograph must link to existing division route: /${r}`
-      );
+      assert(hero.includes(`'/${r}'`), `Hero must link to /${r}`);
+      assert(services.includes(`'/${r}'`), `Services must link to /${r}`);
+      assert(studio.includes(`slug: '${r}'`), `Studio must link to /${r}`);
     }
   },
 });
@@ -100,14 +93,24 @@ test({
   id: 'T3_COMB_07',
   tier: 'tier3',
   feature: 'cross',
-  title: 'T3 Cross-Feature: Division brand mark identity aligns with division email routing targets',
+  title: 'T3 Cross-Feature: Division inboxes on the website match the PDF profiles',
   fn: () => {
     const content = readFileSafe(PATHS.divisionsContent);
     assert(content !== null, 'divisions.ts must exist');
-    // Verify coherent pairing: Solis -> solis@jcapexv.com, eMudran -> printmgmt@jcapexv.com, TVASTA -> spacemgmt@jcapexv.com
-    assert(content.includes('solis@jcapexv.com'), 'Solis must be paired with solis@jcapexv.com');
-    assert(content.includes('printmgmt@jcapexv.com'), 'eMudran must be paired with printmgmt@jcapexv.com');
-    assert(content.includes('spacemgmt@jcapexv.com'), 'TVASTA must be paired with spacemgmt@jcapexv.com');
+    const inbox = {
+      'grid-apex': 'admin@jcapexv.com',
+      sanyog: 'licenses@jcapexv.com',
+      tvasta: 'spacemgmt@jcapexv.com',
+      emudran: 'admin@jcapexv.com',
+      agrim: 'admin@jcapexv.com',
+    };
+    for (const [slug, email] of Object.entries(inbox)) {
+      const pdf = readFileSafe(path.join(PROJECT_ROOT, 'profiles', `${slug}.mjs`)) || '';
+      assert(pdf.includes(email), `The ${slug} PDF must use ${email}`);
+      const block = content.slice(content.indexOf(`slug: '${slug}'`));
+      const contact = /contact: \{ emails: \[([^\]]*)\]/.exec(block);
+      assert(contact && contact[1].includes(email), `The ${slug} page must use ${email}`);
+    }
   },
 });
 
@@ -115,12 +118,15 @@ test({
   id: 'T3_COMB_08',
   tier: 'tier3',
   feature: 'cross',
-  title: 'T3 Cross-Feature: Clippy assistant solar trigger navigates to SolarCalculator section',
+  title: 'T3 Cross-Feature: Enquire on the Solis page lands on the Solis enquiry form, which the estimate fills in',
   fn: () => {
-    const clippy = readFileSafe(PATHS.clippy);
-    assert(clippy !== null, 'Clippy.tsx must exist');
-    const hasSolarShortcut = clippy.includes('solis') || clippy.includes('solar') || clippy.includes('#solar');
-    assert(hasSolarShortcut, 'Clippy must provide shortcut navigation to Solis solar calculator');
+    const nav = readFileSafe(PATHS.navbar) || '';
+    const page = readFileSafe(PATHS.divisionPage) || '';
+    const anchors = /const ENQUIRY_ANCHORS[^}]*\}/.exec(nav)?.[0] ?? '';
+    assert(nav.includes("?? '#contact'") && !anchors.includes("'/solis'"), 'Navigation must send /solis to #contact');
+    assert(page.includes('<section id="contact"'), 'DivisionPage must have the #contact section');
+    assert(page.includes('<SiteEnquiryForm') && page.includes('estimate={estimate}'), 'The contact section must hold the form, filled by the estimate');
+    assert(page.includes('onUse(describeSolarEstimate(c))'), 'The solar estimator must pass its result to the form');
   },
 });
 
@@ -163,7 +169,8 @@ test({
       PATHS.enquiryForm,
       PATHS.navbar,
       PATHS.footer,
-      PATHS.clippy,
+      PATHS.groundedHero,
+      PATHS.clientMarquee,
     ];
     for (const f of filesToAudit) {
       if (fileExists(f)) {
@@ -181,9 +188,8 @@ test({
   title: 'T3 Cross-Feature: Dark theme canvas ensures high contrast with all gold division vector emblems',
   fn: () => {
     const css = readFileSafe(PATHS.globalsCss) || '';
-    const logos = readFileSafe(PATHS.divisionLogos) || '';
     // Accent gold #C29F53 or #D4AF37 against #0A0D10
-    const hasGoldAccent = css.includes('#C29F53') || css.includes('#D4AF37') || logos.includes('#C29F53') || logos.includes('#D4AF37') || logos.includes('gold');
+    const hasGoldAccent = css.includes('#C29F53') || css.includes('#D4AF37');
     assert(hasGoldAccent, 'Division vector marks must use champagne/gold tones optimized for deep dark canvas');
   },
 });

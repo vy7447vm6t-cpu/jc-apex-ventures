@@ -32,7 +32,7 @@ export default function SpacePlanningPage() {
         parent={{ label: 'TVASTA', href: '/tvasta' }}
       />
 
-      <section className="section">
+      <section id="contact" className="section" style={{ scrollMarginTop: '100px' }}>
         <div className="container">
           <div className="grid-2-col">
             

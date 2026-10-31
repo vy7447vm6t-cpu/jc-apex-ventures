@@ -72,7 +72,7 @@ export default function InteriorCalculator() {
               fontFamily: 'var(--font-sans, Inter, sans-serif)',
             }}
           >
-            [tvasta turnkey cost estimator]
+            Tvasta · Fit-out cost estimate
           </span>
         </div>
         <h3
@@ -237,7 +237,7 @@ export default function InteriorCalculator() {
                 display: 'block',
               }}
             >
-              [estimated turnkey budget]
+              Estimated budget
             </span>
             <div
               style={{

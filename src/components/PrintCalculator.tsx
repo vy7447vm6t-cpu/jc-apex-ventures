@@ -88,7 +88,7 @@ export default function PrintCalculator({ onLiveChange }: PrintCalculatorProps =
               fontFamily: 'var(--font-sans, Inter, sans-serif)',
             }}
           >
-            [emudran print &amp; packaging estimator]
+            eMudran · Print and packaging estimate
           </span>
         </div>
         <h3
@@ -274,7 +274,7 @@ export default function PrintCalculator({ onLiveChange }: PrintCalculatorProps =
                 display: 'block',
               }}
             >
-              [estimated investment]
+              Estimated cost
             </span>
             <div
               style={{

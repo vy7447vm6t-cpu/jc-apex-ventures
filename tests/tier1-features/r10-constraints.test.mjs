@@ -59,17 +59,19 @@ test({
   id: 'T1_R10_03',
   tier: 'tier1',
   feature: 'r10',
-  title: 'R10 Feature: Authentic local photography verification in divisions data',
+  title: 'R10 Feature: Website photographs are licensed, credited and on disk',
   fn: () => {
-    const content = readFileSafe(PATHS.divisionsContent);
-    assert(content !== null, 'src/content/divisions.ts must exist');
-    // Extract all image path references
-    const imgMatches = content.match(/\/images\/[a-zA-Z0-9_\-\.\/]+/g) || [];
-    assert(imgMatches.length > 0, 'divisions.ts must reference authentic local images');
-    for (const imgPath of imgMatches) {
-      const resolved = path.join(PROJECT_ROOT, 'public', imgPath.startsWith('/') ? imgPath.slice(1) : imgPath);
-      assert(fs.existsSync(resolved), `Referenced image must exist in public/: ${imgPath}`);
+    const photos = readFileSafe(path.join(SRC_DIR, 'content', 'photos.ts'));
+    assert(photos !== null, 'src/content/photos.ts must exist');
+    const entries = [...photos.matchAll(/src: '(\/images\/licensed\/[^']+)'.*?license: '([^']+)', source: '([^']+)'/g)];
+    assert(entries.length >= 10, 'photos.ts must list the licensed photographs');
+    for (const [, src, license, source] of entries) {
+      assert(fs.existsSync(path.join(PROJECT_ROOT, 'public', src.slice(1))), `${src} must exist in public/`);
+      assert(/^(CC0|CC BY [\d.]+|Public domain)$/.test(license), `${src} must be CC0, CC BY or public domain (no CC BY-SA), found ${license}`);
+      assert(source.startsWith('https://'), `${src} must record its source URL`);
     }
+    const credits = readFileSafe(path.join(PROJECT_ROOT, 'public', 'images', 'CREDITS.md')) || '';
+    for (const [, src] of entries) assert(credits.includes(src.replace('/images/', '')), `CREDITS.md must list ${src}`);
   },
 });
 
@@ -94,13 +96,12 @@ test({
   id: 'T1_R10_05',
   tier: 'tier1',
   feature: 'r10',
-  title: 'R10 Feature: Client confidentiality preserved (anonymized project titles)',
+  title: 'R10 Feature: Division pages show no facts still marked "Confirm" in the proof register',
   fn: () => {
     const content = readFileSafe(PATHS.divisionsContent) || '';
-    // Must use anonymized corporate designations (e.g. "Leading Tier-1 Pharma Hub", "Commercial Office Complex")
-    // and must not expose confidential private client family/corporate names
-    const hasAnonymizedDescriptors = /Tier-1|Commercial|Industrial|Institutional|Consortium|Residential/i.test(content);
-    assert(hasAnonymizedDescriptors, 'divisions.ts must use anonymized professional project categorizations');
+    for (const claim of ['Chennai Metro', '4,800 sq ft', 'STC', 'patent', 'MPCB', '3,900', 'Class-A', '140+']) {
+      assert(!content.includes(claim), `"${claim}" is unconfirmed or do-not-use (brand guidelines 6)`);
+    }
   },
 });
 

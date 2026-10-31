@@ -75,11 +75,12 @@ test({
   id: 'T2_R9_06',
   tier: 'tier2',
   feature: 'r9',
-  title: 'R9 Boundary: AGRIM project finance dossier includes prominent non-lender disclaimer',
+  title: 'R9 Boundary: Agrim says plainly, in several places, that it does not lend',
   fn: () => {
-    const code = readFileSafe(PATHS.routeAgrim);
-    assert(code !== null, 'src/app/agrim/page.tsx must exist');
-    const hasDisclaimer = /not a lender/i.test(code) || /not an NBFC/i.test(code) || /financial advisory/i.test(code) || /facilitation/i.test(code) || /disclaimer/i.test(code);
-    assert(hasDisclaimer, 'AGRIM dossier must include explicit non-lender / financial advisory disclaimer');
+    const code = readFileSafe(PATHS.divisionsContent) || '';
+    const agrim = code.slice(code.indexOf("slug: 'agrim'"));
+    assert(agrim.includes('Agrim does not lend money'), 'Agrim must state that it does not lend money');
+    assert(agrim.includes('Agrim does not approve, guarantee or promise any loan'), 'Agrim must state that it does not approve or guarantee loans');
+    assert(agrim.includes("q: 'Does Agrim lend money?'"), 'Agrim must answer the lending question directly');
   },
 });

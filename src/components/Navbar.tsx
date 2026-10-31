@@ -4,38 +4,19 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Logo from './Logo';
+import { DIVISION_ONE_LINERS, PROOF_LINE } from '@/content/messaging';
 import { Phone, ArrowUpRight, X } from 'lucide-react';
 
+// Enquiry section of each page; every other page has its enquiry block at #contact.
+const ENQUIRY_ANCHORS: Record<string, string> = {
+  '/print-management': '#enquiry-section',
+};
+
+const WHATSAPP_URL = `https://wa.me/917021112664?text=${encodeURIComponent('Hello JC Apex Ventures, I would like to enquire about a project.')}`;
+
+// Navigation labels are plain text; scrambling text is retired (brand guidelines 2.8.2).
 function ScrambleText({ text }: { text: string }) {
-  const [display, setDisplay] = useState(text);
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-
-  const handleMouseEnter = () => {
-    let iteration = 0;
-    const interval = setInterval(() => {
-      setDisplay(
-        text
-          .split('')
-          .map((letter, index) => {
-            if (index < iteration) return text[index];
-            return chars[Math.floor(Math.random() * chars.length)];
-          })
-          .join('')
-      );
-      if (iteration >= text.length) clearInterval(interval);
-      iteration += 1 / 2;
-    }, 25);
-  };
-
-  const handleMouseLeave = () => {
-    setDisplay(text);
-  };
-
-  return (
-    <span onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      {display}
-    </span>
-  );
+  return <span>{text}</span>;
 }
 
 function renderDivisionIcon(key: string) {
@@ -97,13 +78,13 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [divisionsHover, setDivisionsHover] = useState(false);
   const [divisionsOpen, setDivisionsOpen] = useState(false);
-  const [mumbaiTime, setMumbaiTime] = useState<string>('MUMBAI IST --:--:--');
   const pathname = usePathname();
   const lastScrollY = React.useRef(0);
   const hoverTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
   const popoverRef = React.useRef<HTMLDivElement | null>(null);
 
   const isMenuOpen = divisionsHover || divisionsOpen;
+  const enquireHref = ENQUIRY_ANCHORS[pathname] ?? '#contact';
 
   const handleOpenMenu = () => {
     if (hoverTimeoutRef.current) {
@@ -241,104 +222,65 @@ export default function Navbar() {
     };
   }, [mobileOpen]);
 
-  useEffect(() => {
-    const updateTime = () => {
-      try {
-        const now = new Date();
-        const formatted = new Intl.DateTimeFormat('en-IN', {
-          timeZone: 'Asia/Kolkata',
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit',
-          hour12: true,
-        }).format(now);
-        setMumbaiTime('MUMBAI IST ' + formatted.toUpperCase());
-      } catch {
-        setMumbaiTime('MUMBAI IST');
-      }
-    };
-    updateTime();
-    const timer = setInterval(updateTime, 1000);
-    return () => clearInterval(timer);
-  }, []);
-
   const divisions = [
     {
       href: '/solis',
       label: 'Solis',
-      domainTag: 'Bespoke Solar & Elevated Pergolas',
-      keyMetric: '0 to 500 kWp | PM Surya Ghar',
-      summary: 'Turnkey rooftop PV arrays, walkable terrace pergolas, and net metering liaisoning.',
+      summary: DIVISION_ONE_LINERS['solis'],
       logo: '/images/logos/solis-official.png',
       logoDark: '/images/logos/solis-logo-white.png',
       bg: '#FFFFFF',
       accent: '#1E3FD8',
-      tag: 'Solar & Pergolas',
       vectorIcon: 'sun',
     },
     {
       href: '/grid-apex',
       label: 'Grid Apex',
-      domainTag: 'High-Tension Substations & Grid',
-      keyMetric: '11kV/33kV | MPCB & CEA',
-      summary: 'Turnkey 11kV/33kV substation bays, vacuum switchgear panels, and CEA compliance.',
+      summary: DIVISION_ONE_LINERS['grid-apex'],
       logo: '/images/logos/grid-apex-official.png',
       logoDark: '/images/logos/grid-apex-white.png',
       bg: '#111111',
       accent: '#0284C7',
-      tag: 'HT/LT & Substations',
       vectorIcon: 'zap',
     },
     {
       href: '/tvasta',
       label: 'Tvasta',
-      domainTag: 'Turnkey Architecture & Space Planning',
-      keyMetric: 'STC 52 | Turnkey Fit-Outs',
-      summary: 'Turnkey interior fit-outs, 3D space planning, modular joinery, and STC acoustic partitioning.',
+      summary: DIVISION_ONE_LINERS['tvasta'],
       logo: '/images/logos/tvasta-dark.png',
       logoDark: '/images/logos/tvasta-official.png',
       bg: '#FFFFFF',
       accent: '#D72A1B',
-      tag: 'Turnkey Interiors',
       vectorIcon: 'layout',
     },
     {
       href: '/sanyog',
       label: 'Sanyog',
-      domainTag: 'HT/LT Regulatory Liaisoning',
-      keyMetric: '36+ Years Utility Authority',
-      summary: 'MERC regulatory appeals, sanctioned load upgrades, and statutory electricity grievance resolution.',
+      summary: DIVISION_ONE_LINERS['sanyog'],
       logo: '/images/logos/sanyog-official.png',
       logoDark: '/images/logos/sanyog-official.png',
       bg: '#FFFFFF',
       accent: '#2C5ED4',
-      tag: 'Utility & CGRF',
       vectorIcon: 'plug',
     },
     {
       href: '/emudran',
       label: 'eMudran',
-      domainTag: 'CMYK & Digital Stamping',
-      keyMetric: 'Heidelberg Offset | 1200 GSM',
-      summary: 'Luxury rigid presentation boxes, micro-foil thermal stamping, and architectural corporate signage.',
+      summary: DIVISION_ONE_LINERS['emudran'],
       logo: '/images/logos/emudran-official.png',
       logoDark: '/images/logos/emudran-white.png',
       bg: '#FFFFFF',
       accent: '#4338CA',
-      tag: 'Branding & Print',
       vectorIcon: 'printer',
     },
     {
       href: '/agrim',
       label: 'Agrim',
-      domainTag: 'Agro-Infrastructure & Project Advisory',
-      keyMetric: 'Bankable DPRs | DSCR Modeling',
-      summary: 'Bankable DPR file assembly, financial feasibility modeling, and agro-infrastructure advisory.',
+      summary: DIVISION_ONE_LINERS['agrim'],
       logo: '/images/logos/agrim-dark.png',
       logoDark: '/images/logos/agrim-official.png',
       bg: '#FFFFFF',
       accent: '#047857',
-      tag: 'Project Advisory',
       vectorIcon: 'landmark',
     },
   ];
@@ -362,7 +304,7 @@ export default function Navbar() {
         }}
       >
         <header
-          className="kokonut-nav-pill ios-glass backdrop-blur-md relative"
+          className="kokonut-nav-pill relative"
           style={{
             pointerEvents: 'auto',
             display: 'flex',
@@ -370,11 +312,8 @@ export default function Navbar() {
             justifyContent: 'space-between',
             padding: '8px 18px',
             borderRadius: '9999px',
-            background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.72) 0%, rgba(246, 244, 238, 0.52) 100%)',
-            backdropFilter: 'blur(32px) saturate(210%)',
-            WebkitBackdropFilter: 'blur(32px) saturate(210%)',
-            border: '1px solid rgba(255, 255, 255, 0.85)',
-            boxShadow: '0 16px 40px -6px rgba(0, 0, 0, 0.12), 0 2px 6px -1px rgba(0, 0, 0, 0.04), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.05)',
+            background: '#FFFFFF',
+            border: '1px solid rgba(0, 0, 0, 0.08)',
             width: '100%',
             position: 'relative',
             overflow: 'visible',
@@ -540,42 +479,8 @@ export default function Navbar() {
             </Link>
           </nav>
 
-          {/* Right: Live Mumbai Clock, Phone Action, Menu Trigger & CTA */}
+          {/* Right: Phone Action, Menu Trigger & CTA */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
-            {/* Live Mumbai Clock in KokonutUI Liquid Glass Pill */}
-            <div
-              className="mumbai-clock hidden xl:flex"
-              style={{
-                alignItems: 'center',
-                gap: '6px',
-                padding: '5px 12px',
-                borderRadius: '9999px',
-                background: 'rgba(255, 255, 255, 0.65)',
-                backdropFilter: 'blur(20px) saturate(180%)',
-                WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-                border: '1px solid rgba(255, 255, 255, 0.75)',
-                boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.8), 0 2px 6px rgba(0, 0, 0, 0.04)',
-                fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                fontVariantNumeric: 'tabular-nums',
-                fontSize: '0.68rem',
-                letterSpacing: '0.04em',
-                color: '#222222',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              <span
-                style={{
-                  width: '6px',
-                  height: '6px',
-                  borderRadius: '50%',
-                  backgroundColor: '#16A34A',
-                  boxShadow: '0 0 6px rgba(22, 163, 74, 0.6)',
-                  display: 'inline-block',
-                }}
-              />
-              <span>{mumbaiTime}</span>
-            </div>
-
             {/* Direct Telephone Action */}
             <a
               href="tel:+917021112664"
@@ -591,11 +496,8 @@ export default function Navbar() {
                 textDecoration: 'none',
                 padding: '6px 14px',
                 borderRadius: '9999px',
-                background: 'rgba(255, 255, 255, 0.65)',
-                backdropFilter: 'blur(20px) saturate(180%)',
-                WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-                border: '1px solid rgba(255, 255, 255, 0.75)',
-                boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.8), 0 2px 6px rgba(0, 0, 0, 0.04)',
+                background: 'transparent',
+                border: '1px solid rgba(0, 0, 0, 0.1)',
                 whiteSpace: 'nowrap',
                 transition: 'all 0.2s ease',
               }}
@@ -604,31 +506,13 @@ export default function Navbar() {
               <span>+91 70211 12664</span>
             </a>
 
-            {/* Consultation Action Button with KokonutUI Liquid Glass */}
+            {/* Enquire: jumps to this page's enquiry section (brand guidelines 2.8.2, replaces the concierge) */}
             <a
-              href="#contact"
+              href={enquireHref}
               onClick={handleDismissMenu}
-              aria-label="Consultation Enquiry"
-              className="hidden md:inline-flex specular-sheen"
-              style={{
-                alignItems: 'center',
-                gap: '6px',
-                padding: '7px 18px',
-                fontSize: '0.78rem',
-                fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                fontWeight: 600,
-                backgroundColor: '#111111',
-                color: '#FFFFFF',
-                borderRadius: '9999px',
-                textDecoration: 'none',
-                border: '1px solid rgba(255, 255, 255, 0.28)',
-                boxShadow: '0 6px 18px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.4)',
-                whiteSpace: 'nowrap',
-                transition: 'all 0.2s ease',
-              }}
+              className="hidden md:inline-flex nav-enquire"
             >
-              <ScrambleText text="Consultation" />
-              <ArrowUpRight size={14} color="#C29F53" />
+              Enquire
             </a>
 
             {/* Mobile Menu Trigger Button */}
@@ -643,9 +527,8 @@ export default function Navbar() {
                 width: '36px',
                 height: '36px',
                 borderRadius: '50%',
-                border: '1px solid rgba(255, 255, 255, 0.75)',
-                backgroundColor: 'rgba(255, 255, 255, 0.75)',
-                backdropFilter: 'blur(20px)',
+                border: '1px solid rgba(0, 0, 0, 0.1)',
+                backgroundColor: '#FFFFFF',
                 cursor: 'pointer',
                 color: '#111111',
                 transition: 'all 0.2s ease',
@@ -683,33 +566,20 @@ export default function Navbar() {
             <div
               className="p-4 sm:p-5 rounded-[26px]"
               style={{
-                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(246, 244, 238, 0.75) 100%)',
-                backdropFilter: 'blur(24px) saturate(190%)',
-                WebkitBackdropFilter: 'blur(24px) saturate(190%)',
-                border: '1px solid rgba(255, 255, 255, 0.85)',
-                boxShadow: '0 24px 48px -12px rgba(0, 0, 0, 0.18), 0 4px 12px -2px rgba(0, 0, 0, 0.06), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.04)',
+                background: '#FFFFFF',
+                border: '1px solid rgba(0, 0, 0, 0.08)',
                 animation: 'dropdownInnerFadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards',
               }}
             >
               {/* Popover Header */}
               <div className="flex items-center justify-between pb-3 mb-3 border-b border-black/8 px-1">
                 <div className="flex items-center gap-2">
-                  <span
-                    style={{
-                      width: '7px',
-                      height: '7px',
-                      borderRadius: '50%',
-                      backgroundColor: '#16A34A',
-                      boxShadow: '0 0 8px rgba(22, 163, 74, 0.6)',
-                      display: 'inline-block',
-                    }}
-                  />
                   <span className="text-[11px] font-bold tracking-wider uppercase text-[#111111]">
-                    Consortium Operating Divisions
+                    The six divisions
                   </span>
                 </div>
                 <span className="text-[11px] text-[#666666] font-medium hidden sm:inline">
-                  Direct Access to 6 Specialized Engineering Practices
+                  One desk for every division
                 </span>
               </div>
 
@@ -727,12 +597,9 @@ export default function Navbar() {
                         background: isActive
                           ? 'rgba(194, 159, 83, 0.14)'
                           : 'rgba(255, 255, 255, 0.65)',
-                        backdropFilter: 'blur(16px)',
-                        WebkitBackdropFilter: 'blur(16px)',
                         border: isActive
                           ? '1px solid rgba(194, 159, 83, 0.50)'
                           : '1px solid rgba(255, 255, 255, 0.80)',
-                        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.85)',
                       }}
                     >
                       {/* Authentic Brand Emblem */}
@@ -758,37 +625,10 @@ export default function Navbar() {
                               {renderDivisionIcon(div.vectorIcon)}
                             </span>
                           </span>
-                          <span
-                            className="text-[9px] font-semibold px-1.5 py-0.5 rounded-md"
-                            style={{
-                              backgroundColor: 'rgba(0, 0, 0, 0.05)',
-                              color: '#555555',
-                              whiteSpace: 'nowrap',
-                            }}
-                          >
-                            {div.keyMetric}
-                          </span>
+
                         </div>
 
-                        {/* Official Division Tag Pill */}
-                        <div className="flex items-center gap-1.5 mt-0.5">
-                          <span
-                            className="text-[8.5px] font-semibold tracking-wider uppercase px-1.5 py-0.5 rounded"
-                            style={{
-                              backgroundColor: 'rgba(194, 159, 83, 0.16)',
-                              color: '#8C733E',
-                              border: '1px solid rgba(194, 159, 83, 0.32)',
-                            }}
-                          >
-                            {div.tag}
-                          </span>
-                        </div>
-
-                        <div className="text-[10.5px] font-medium text-[#222222] mt-1 leading-snug truncate">
-                          {div.domainTag}
-                        </div>
-
-                        <div className="text-[9.5px] text-[#666666] mt-0.5 line-clamp-1 leading-normal">
+                        <div className="text-[11px] text-[#4A4A46] mt-1 line-clamp-2 leading-snug">
                           {div.summary}
                         </div>
                       </div>
@@ -917,7 +757,7 @@ export default function Navbar() {
                 border: '1px solid rgba(194, 159, 83, 0.35)',
               }}
             >
-              Studio Dossier
+              Our studio
             </Link>
           </div>
 
@@ -972,7 +812,7 @@ export default function Navbar() {
                     fontFamily: 'var(--font-sans, Inter, sans-serif)',
                   }}
                 >
-                  Studio Dossier
+                  Our studio
                 </div>
               </Link>
               {divisions.map((div) => (
@@ -992,40 +832,6 @@ export default function Navbar() {
                   }}
                 >
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <div
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        marginBottom: '4px',
-                        flexWrap: 'wrap',
-                      }}
-                    >
-                      <span
-                        style={{
-                          fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                          fontSize: '0.72rem',
-                          color: '#C29F53',
-                          fontWeight: 600,
-                          letterSpacing: '0.04em',
-                          textTransform: 'uppercase',
-                        }}
-                      >
-                        {div.domainTag}
-                      </span>
-                      <span
-                        style={{
-                          fontSize: '0.68rem',
-                          padding: '2px 8px',
-                          borderRadius: '9999px',
-                          backgroundColor: 'rgba(255, 255, 255, 0.10)',
-                          color: '#DDDDDD',
-                          fontVariantNumeric: 'tabular-nums',
-                        }}
-                      >
-                        {div.keyMetric}
-                      </span>
-                    </div>
                     <div
                       style={{
                         fontSize: '1.45rem',
@@ -1100,10 +906,10 @@ export default function Navbar() {
                   gap: '4px',
                 }}
               >
-                <span>One International Centre, Mumbai [open maps]</span>
+                <span>One International Centre, Mumbai (open in Google Maps)</span>
               </a>
               <div style={{ fontSize: '0.94rem', color: '#FFFFFF', marginTop: '4px' }}>
-                Director: Jitendra Chavan | 36 Years Direct Utility Background
+                {PROOF_LINE}
               </div>
             </div>
 
@@ -1121,16 +927,25 @@ export default function Navbar() {
                 +91 70211 12664
               </a>
               <a
-                href="#contact"
+                href={enquireHref}
                 onClick={() => setMobileOpen(false)}
                 className="button is-icon is-alternate"
                 style={{ padding: '8px 18px', fontSize: '0.85rem' }}
               >
-                <span>Direct Consultation</span>
+                <span>Enquire</span>
               </a>
             </div>
           </div>
         </div>
+      )}
+
+      {/* Phones only: a small WhatsApp button in the corner, clear of the content column. */}
+      {!mobileOpen && (
+        <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="whatsapp-fab" aria-label="Message JC Apex Ventures on WhatsApp">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.9-4.45 9.9-9.91A9.85 9.85 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23a8.2 8.2 0 0 1 8.23 8.24c0 4.54-3.7 8.23-8.23 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.16.04-.31-.02-.43-.06-.13-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.42h-.48a.92.92 0 0 0-.66.31c-.23.25-.87.85-.87 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.16-.48-.29Z" />
+          </svg>
+        </a>
       )}
     </>
   );

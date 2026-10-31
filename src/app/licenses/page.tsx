@@ -50,7 +50,7 @@ export default function LicensesPage() {
         parent={{ label: 'SANYOG', href: '/sanyog' }}
       />
 
-      <section className="section">
+      <section id="contact" className="section" style={{ scrollMarginTop: '100px' }}>
         <div className="container">
           <div className="grid-split">
             

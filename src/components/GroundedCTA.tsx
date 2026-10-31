@@ -2,21 +2,25 @@
 
 import React from 'react';
 import { Phone, Mail } from 'lucide-react';
-import { GridScan, TechText, SpecularButton } from '@/components/react-bits';
+import { SpecularButton } from '@/components/react-bits';
+import SectionEyebrow from './SectionEyebrow';
+
+// Enquiry routing, in the messaging framework's order of divisions.
+const DIVISIONS = [
+  { id: 'grid-apex', name: 'Grid Apex' },
+  { id: 'solis', name: 'Solis' },
+  { id: 'sanyog', name: 'Sanyog' },
+  { id: 'tvasta', name: 'Tvasta' },
+  { id: 'emudran', name: 'eMudran' },
+  { id: 'agrim', name: 'Agrim' },
+];
 
 interface GroundedCTAProps {
   onOpenConsultation?: (divisionId?: string) => void;
-  brandText?: string;
-  headlineText?: string;
 }
 
-export default function GroundedCTA({
-  onOpenConsultation,
-  headlineText,
-}: GroundedCTAProps) {
-  const headline =
-    headlineText ||
-    'Have a utility sanction, solar EPC,\nor interior fit-out requirement?';
+/** Closing enquiry panel: plain Night panel, no scanning grid or animated headline (brand guidelines 2.8.2). */
+export default function GroundedCTA({ onOpenConsultation }: GroundedCTAProps) {
   return (
     <section
       id="contact"
@@ -28,205 +32,61 @@ export default function GroundedCTA({
         scrollMarginTop: '108px',
       }}
     >
-      <div className="text-center" style={{ maxWidth: '1120px', margin: '0 auto', textAlign: 'center' }}>
-        <div
+      <div
+        style={{
+          maxWidth: '1240px',
+          margin: '0 auto',
+          backgroundColor: '#0B0E14',
+          color: '#F0F3F6',
+          borderRadius: '16px',
+          padding: 'clamp(40px, 5.5vw, 72px) clamp(24px, 4.5vw, 56px)',
+          border: '1px solid rgba(255, 255, 255, 0.12)',
+        }}
+      >
+        <SectionEyebrow number={7} tone="dark" inset>
+          Enquire
+        </SectionEyebrow>
+        <h2
           style={{
-            backgroundColor: '#0e0e12',
+            fontSize: 'clamp(2.2rem, 4.4vw, 3.6rem)',
+            lineHeight: 1.1,
+            fontWeight: 400,
+            letterSpacing: '-0.02em',
             color: '#FFFFFF',
-            borderRadius: '28px',
-            padding: 'clamp(44px, 5.5vw, 76px) clamp(20px, 4.5vw, 52px)',
-            border: '1px solid rgba(255, 255, 255, 0.14)',
-            boxShadow: '0 24px 60px rgba(0, 0, 0, 0.22), inset 0 1px 1px rgba(255, 255, 255, 0.2)',
-            position: 'relative',
-            overflow: 'hidden',
+            margin: '0 0 16px',
+            fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
           }}
         >
-          {/* GridScan 3D Room Background with Interactive Sonar Ping and Cyan Laser Sweep */}
-          <div className="absolute inset-0 z-0 overflow-hidden pointer-events-auto">
-            <GridScan
-              linesColor="#4d4757"
-              scanColor="#7dd3fc"
-              cells={8}
-              depth={3}
-              scanDuration={2.4}
-              scanDelay={1.6}
-              clickEffect="ping"
-              className="w-full h-full"
-            />
-            {/* Soft radial vignette ensuring razor-sharp textual contrast and legibility */}
-            <div
-              className="pointer-events-none absolute inset-0"
-              style={{
-                background:
-                  'radial-gradient(ellipse at 50% 50%, rgba(14, 14, 18, 0.68) 0%, rgba(14, 14, 18, 0.45) 60%, rgba(14, 14, 18, 0.85) 100%)',
-              }}
-            />
-          </div>
+          Talk to us about your site.
+        </h2>
+        <p style={{ fontSize: '1.05rem', color: 'rgba(240, 243, 246, 0.85)', maxWidth: '620px', margin: '0 0 32px', lineHeight: 1.65, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+          Call us, or send an enquiry and choose the division it is for. We reply with the next steps and the person who will handle
+          them.
+        </p>
 
-          <div style={{ position: 'relative', zIndex: 5, pointerEvents: 'none' }}>
-            {/* Eyebrow Label with TechText Scramble */}
-            <div
-              style={{
-                fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                fontSize: '0.75rem',
-                letterSpacing: '0.16em',
-                textTransform: 'uppercase',
-                color: '#D4B56A',
-                marginBottom: '10px',
-                fontWeight: 700,
-                pointerEvents: 'auto',
-                lineHeight: 1.4,
-              }}
-            >
-              <TechText
-                text="[10 / ENGINEERING CONSULTATION DESK · MUMBAI HQ]"
-                trigger="mount"
-                speed={22}
-              />
-            </div>
+        <p style={{ margin: '0 0 12px', fontSize: '13px', fontWeight: 600, color: '#8B949E', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+          Send an enquiry to
+        </p>
+        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '36px' }}>
+          {DIVISIONS.map((div) => (
+            <button key={div.id} type="button" onClick={() => onOpenConsultation?.(div.id)} className="cta-division-button">
+              {div.name}
+            </button>
+          ))}
+        </div>
 
-            {/* Focal TechText Interactive Headline in Instrument Serif with Dashed Vector Reveal and Tactile Click Kick */}
-            <h2
-              className="pointer-events-auto"
-              style={{
-                width: '100%',
-                maxWidth: '860px',
-                height: 'clamp(120px, 15vw, 175px)',
-                margin: '4px auto 20px auto',
-                position: 'relative',
-              }}
-            >
-              <TechText
-                text={headline}
-                fontFamily='var(--font-serif-display), "Instrument Serif", Georgia, serif'
-                fontWeight={400}
-                fontSize={56}
-                lineHeight={1.22}
-                letterSpacing={-0.02}
-                reveal="letter"
-                dashLength={4}
-                dashGap={2}
-                specks={15}
-                intro="none"
-                introDuration={2}
-                clickKick
-                guides={false}
-                labels={false}
-                color="#FFFFFF"
-                accentColor="#7dd3fc"
-                align="center"
-              />
-              <span className="sr-only">
-                Have a utility sanction, solar EPC, or interior fit-out requirement?
-              </span>
-            </h2>
-
-            <p
-              style={{
-                fontSize: '1.04rem',
-                color: 'rgba(255, 255, 255, 0.84)',
-                maxWidth: '640px',
-                margin: '0 auto 30px auto',
-                lineHeight: 1.65,
-                fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                fontWeight: 400,
-                pointerEvents: 'auto',
-              }}
-            >
-              Call our engineering desk directly at One International Centre or send us an enquiry. We review your site parameters, verify statutory feasibility across BEST, Adani, Tata Power, or MSEDCL, and provide verified next steps.
-            </p>
-
-            {/* Six Division Pills with Official Transparent Brand Marks for immediate consultation routing */}
-            <div
-              className="pointer-events-auto"
-              style={{
-                display: 'flex',
-                gap: '8px',
-                justifyContent: 'center',
-                flexWrap: 'wrap',
-                maxWidth: '720px',
-                margin: '0 auto 32px auto',
-              }}
-            >
-              {[
-                { id: 'solis', label: 'Solar & Pergolas', logo: '/images/logos/solis-logo-white.png' },
-                { id: 'sanyog', label: 'Tariff & CGRF', logo: '/images/logos/sanyog-official.png' },
-                { id: 'grid-apex', label: 'Substations', logo: '/images/logos/grid-apex-white.png' },
-                { id: 'tvasta', label: 'Interiors', logo: '/images/logos/tvasta-official.png' },
-                { id: 'emudran', label: 'Packaging', logo: '/images/logos/emudran-white.png' },
-                { id: 'agrim', label: 'EV & DPR', logo: '/images/logos/agrim-official.png' },
-              ].map((div) => (
-                <button
-                  key={div.id}
-                  type="button"
-                  onClick={() => onOpenConsultation?.(div.id)}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '7px',
-                    padding: '7px 14px',
-                    borderRadius: '9999px',
-                    fontSize: '0.78rem',
-                    fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                    backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                    border: '1px solid rgba(255, 255, 255, 0.16)',
-                    color: 'rgba(255, 255, 255, 0.92)',
-                    cursor: 'pointer',
-                    backdropFilter: 'blur(6px)',
-                    transition: 'all 0.2s ease',
-                  }}
-                  className="hover:bg-white/20 hover:border-sky-300/40 hover:scale-[1.02]"
-                >
-                  <img
-                    src={div.logo}
-                    alt={div.id}
-                    style={{
-                      height: '15px',
-                      maxWidth: '56px',
-                      width: 'auto',
-                      objectFit: 'contain',
-                      filter: div.id === 'sanyog' ? 'brightness(0) invert(1)' : 'none',
-                    }}
-                  />
-                  <span
-                    aria-hidden="true"
-                    style={{ width: '1px', height: '11px', backgroundColor: 'rgba(255, 255, 255, 0.25)' }}
-                  />
-                  <span>{div.label}</span>
-                </button>
-              ))}
-            </div>
-
-            {/* Quick Action Consultation Buttons */}
-            <div
-              className="pointer-events-auto items-center"
-              style={{
-                display: 'flex',
-                gap: '14px',
-                justifyContent: 'center',
-                flexWrap: 'wrap',
-                alignItems: 'center',
-              }}
-            >
-              <SpecularButton
-                onClick={() => onOpenConsultation?.()}
-                variant="gold"
-              >
-                <Phone size={15} />
-                <span>Initiate Engineering Consultation</span>
-              </SpecularButton>
-
-              <SpecularButton href="tel:+917021112664" variant="glass">
-                <Phone size={15} />
-                <span>Direct Desk +91 70211 12664</span>
-              </SpecularButton>
-
-              <SpecularButton href="mailto:admin@jcapexv.com" variant="glass">
-                <Mail size={15} />
-                <span>Email admin@jcapexv.com</span>
-              </SpecularButton>
-            </div>
-          </div>
+        <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', alignItems: 'center' }}>
+          <SpecularButton onClick={() => onOpenConsultation?.()} variant="light">
+            Send an enquiry
+          </SpecularButton>
+          <a href="tel:+917021112664" className="cta-contact-link">
+            <Phone size={15} aria-hidden="true" />
+            +91 70211 12664
+          </a>
+          <a href="mailto:admin@jcapexv.com" className="cta-contact-link">
+            <Mail size={15} aria-hidden="true" />
+            admin@jcapexv.com
+          </a>
         </div>
       </div>
     </section>

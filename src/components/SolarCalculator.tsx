@@ -5,9 +5,6 @@ import {
   Building2,
   Home,
   Factory,
-  ShieldCheck,
-  Layers,
-  Calculator,
   ArrowRight,
   CheckCircle2,
   IndianRupee,
@@ -114,7 +111,7 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
 
   const baseCostRs = Math.round(actualKwp * 1000 * baseRatePerWatt);
 
-  // Pergola premium (raising array 10 to 12 ft with structural wind certification)
+  // Pergola premium: the steel frame that raises the array high enough to walk under
   const pergolaExtraPerWatt = structureType === 'pergola' ? 12 : 0;
   const pergolaExtraRs = Math.round(actualKwp * 1000 * pergolaExtraPerWatt);
 
@@ -131,7 +128,8 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
   else if (bipvOption === '750sqft') bipvCostRs = 420000;
 
   const subtotalRs = baseCostRs + pergolaExtraRs + evCostRs + bipvCostRs;
-  const gstRs = Math.round(subtotalRs * 0.138); // 13.8% composite solar EPC rate
+  // Composite GST on a solar EPC contract from 22 September 2025: 70% of the value at 5%, 30% at 18% (Notification 9/2025-CT(R))
+  const gstRs = Math.round(subtotalRs * 0.089);
   const grossCostRs = subtotalRs + gstRs;
 
   // PM Surya Ghar Subsidy calculation
@@ -144,7 +142,7 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
     // Housing society common meters: Rs 18,000 per kW up to 500 kWp / statutory ceiling Rs 90 Lakhs
     subsidyRs = Math.min(9000000, Math.round(actualKwp * 18000));
   } else {
-    // Commercial gets 40% Accelerated Depreciation tax benefit instead of direct central capital subsidy
+    // PM Surya Ghar does not cover commercial sites
     subsidyRs = 0;
   }
 
@@ -199,14 +197,14 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
         co2OffsetTonsPerYear,
       });
     }
+    // Without a form on the page (the home page), the button leads to the Solis enquiry.
+    if (!onApplyCalculation) {
+      window.location.assign('/solis#contact');
+      return;
+    }
     setAppliedNotice(true);
     setTimeout(() => setAppliedNotice(false), 4000);
-    const el = document.getElementById('solis-enquiry') || document.getElementById('contact');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      window.location.assign(`/solis#solis-enquiry`);
-    }
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const formatCurrency = (val: number) => {
@@ -236,14 +234,14 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
             />
             <span style={{ width: '1.5px', height: '24px', backgroundColor: 'var(--color-solis-amber, #F59E0B)', display: 'inline-block' }} />
             <span style={{ fontSize: '0.76rem', color: 'var(--color-accent, #1E3FD8)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-              [SOLIS SOLAR &amp; CLEAN ENERGY ESTIMATOR]
+              Solis · Illustrative estimate
             </span>
           </div>
           <h3 style={{ fontSize: 'clamp(1.8rem, 3.2vw, 2.5rem)', fontWeight: 400, color: '#111111', fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif', letterSpacing: '-0.02em', margin: 0 }}>
-            Estimate Your Solar Plant, Structure &amp; Savings
+            Your plant, structure and savings
           </h3>
           <p style={{ color: '#555555', fontSize: '0.94rem', marginTop: '6px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-            Tailored for Mumbai conditions with BEST, Adani Electricity, Tata Power, and MSEDCL net metering tariffs.
+            Based on typical tariffs for BEST, Adani Electricity, Tata Power and MSEDCL customers.
           </p>
         </div>
 
@@ -295,7 +293,7 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
       </div>
 
       {/* Main Grid: Controls vs Result Panel */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1.05fr 0.95fr', gap: '36px' }} className="calculator-grid">
+      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.05fr) minmax(0, 0.95fr)', gap: '36px' }} className="calculator-grid">
         {/* Left Column: Interactive Controls */}
         <div>
           {/* 1. Property Type */}
@@ -303,7 +301,7 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
             <label style={{ display: 'block', fontSize: '0.88rem', fontWeight: 600, color: '#111111', marginBottom: '10px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
               1. Select Property Type
             </label>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: '10px' }}>
               {[
                 { id: 'chs', label: 'Housing Society', desc: 'CHS Common Meter', icon: Building2 },
                 { id: 'residential', label: 'Bungalow / Home', desc: 'Individual Meter', icon: Home },
@@ -469,7 +467,7 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
             <label style={{ display: 'block', fontSize: '0.88rem', fontWeight: 600, color: '#111111', marginBottom: '10px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
               3. Structural Mounting System
             </label>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '12px' }}>
               <button
                 type="button"
                 onClick={() => setStructureType('pergola')}
@@ -493,7 +491,7 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
                   </span>
                 </div>
                 <p style={{ fontSize: '0.82rem', color: '#666666', lineHeight: 1.4, margin: 0, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                  Elevated 10 to 12 ft on galvanized columns. 100% usable terrace, walking space, and rain gutters.
+                  Panels on a steel frame high enough to walk under, so the terrace stays usable.
                 </p>
                 <span style={{ display: 'inline-block', marginTop: '8px', fontSize: '0.74rem', color: 'var(--color-accent, #1E3FD8)', fontWeight: 600, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                   +Rs 12/watt premium
@@ -516,21 +514,21 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
                   <div style={{ fontWeight: 600, fontSize: '0.92rem', color: '#111111', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                    Standard Ground Mount
+                    Standard frame
                   </div>
                 </div>
                 <p style={{ fontSize: '0.82rem', color: '#666666', lineHeight: 1.4, margin: 0, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                  Hot-dip galvanized structure elevated 1 to 2 metres above roof floor. Lowest initial cost, ideal for closed roofs.
+                  Panels on low frames across the roof. Lower cost, for roofs nobody uses.
                 </p>
                 <span style={{ display: 'inline-block', marginTop: '8px', fontSize: '0.74rem', color: '#777777', fontWeight: 600, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                  Standard EPC Base
+                  Base rate
                 </span>
               </button>
             </div>
           </div>
 
           {/* 4. Optional Add-ons: EV Charging & BIPV Glass */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '16px' }}>
             <div>
               <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#111111', marginBottom: '8px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                 4. Add EV Charging
@@ -600,7 +598,7 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
             {/* Top Stat Ribbon */}
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(3, 1fr)',
+              gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
               gap: '12px',
               paddingBottom: '20px',
               marginBottom: '20px',
@@ -637,7 +635,7 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
               {[
                 { id: 'summary', label: 'Generation & Savings' },
                 { id: 'financials', label: 'Cost & Subsidy' },
-                { id: 'technical', label: 'BOS Inclusions' },
+                { id: 'technical', label: 'What a proposal lists' },
               ].map((tab) => (
                 <button
                   key={tab.id}
@@ -699,7 +697,7 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 14px', borderRadius: '10px', background: '#FFFFFF', border: '1px solid rgba(0, 0, 0, 0.06)' }}>
                   <span style={{ fontSize: '0.88rem', color: '#555555', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>Carbon Emissions Offset</span>
-                  <strong style={{ fontSize: '0.95rem', color: '#059669', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>~{co2OffsetTonsPerYear} Metric Tons CO2/yr</strong>
+                  <strong style={{ fontSize: '0.95rem', color: '#111111', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>~{co2OffsetTonsPerYear} tonnes CO2 a year</strong>
                 </div>
               </div>
             )}
@@ -714,7 +712,7 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
 
                 {structureType === 'pergola' && (
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.86rem', color: '#555555', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                    <span>Elevated Pergola Structure (10-12 ft)</span>
+                    <span>Elevated pergola structure</span>
                     <span style={{ fontWeight: 600, color: '#111111' }}>+{formatCurrency(pergolaExtraRs)}</span>
                   </div>
                 )}
@@ -734,7 +732,7 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
                 )}
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.86rem', color: '#555555', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                  <span>Composite GST (13.8% on EPC works)</span>
+                  <span>GST (about 8.9% on a solar EPC contract)</span>
                   <span style={{ fontWeight: 600, color: '#111111' }}>+{formatCurrency(gstRs)}</span>
                 </div>
 
@@ -746,13 +744,13 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
                 </div>
 
                 {subsidyRs > 0 ? (
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.92rem', color: '#059669', fontWeight: 600, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                    <span>PM Surya Ghar Government Subsidy</span>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.92rem', color: '#111111', fontWeight: 600, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+                    <span>PM Surya Ghar subsidy (estimate)</span>
                     <span>-{formatCurrency(subsidyRs)}</span>
                   </div>
                 ) : (
                   <div style={{ fontSize: '0.78rem', color: '#777777', lineHeight: 1.4, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                    Note: Commercial setups receive 40% Accelerated Depreciation tax benefits instead of direct central capital subsidy.
+                    PM Surya Ghar covers homes and housing societies, not commercial sites.
                   </div>
                 )}
 
@@ -775,53 +773,33 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
                 </div>
 
                 <div style={{ fontSize: '0.78rem', color: '#777777', lineHeight: 1.4, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                  {propertyType === 'chs'
-                    ? 'PM Surya Ghar provides Rs 18,000/kW (statutory ceiling up to Rs 90 Lakhs for 500 kW) for housing societies for common meters and EV charging.'
-                    : propertyType === 'residential'
-                    ? 'PM Surya Ghar subsidy of up to Rs 78,000 is credited directly to consumer bank account post DISCOM meter commissioning.'
-                    : 'Commercial enterprises benefit from accelerated depreciation and heavy peak-tariff reductions.'}
+                  {propertyType === 'commercial'
+                    ? 'Savings for commercial sites come from the lower bill.'
+                    : 'Shown at the PM Surya Ghar rates for ' +
+                      (propertyType === 'chs' ? 'housing society common meters' : 'homes') +
+                      '. The amount depends on the scheme rules at the time of application.'}
                 </div>
               </div>
             )}
 
-            {/* Tab 3: Technical Inclusions */}
+            {/* Tab 3: What the written proposal lists after the site survey (Solis profile, How we work) */}
             {activeTab === 'technical' && (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.84rem' }}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
-                  <CheckCircle2 size={16} color="var(--color-accent, #1E3FD8)" style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <div style={{ color: '#444444', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                    <strong style={{ color: '#111111' }}>Tier-1 540W to 590W Solar Modules:</strong> High-efficiency mono PERC or bifacial half-cut panels with 25-year performance warranty.
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
-                  <CheckCircle2 size={16} color="var(--color-accent, #1E3FD8)" style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <div style={{ color: '#444444', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                    <strong style={{ color: '#111111' }}>On-Grid String Inverter:</strong> IP65 rated, multi-MPPT tracking, integrated Wi-Fi mobile monitoring.
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
-                  <CheckCircle2 size={16} color="var(--color-accent, #1E3FD8)" style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <div style={{ color: '#444444', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                    <strong style={{ color: '#111111' }}>Mounting Structure:</strong> Hot-dip galvanized steel (minimum 80 microns) certified for wind speeds up to 150 km/h.
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
-                  <CheckCircle2 size={16} color="var(--color-accent, #1E3FD8)" style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <div style={{ color: '#444444', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                    <strong style={{ color: '#111111' }}>Safety & Protection:</strong> Class II SPD lightning protection, dual chemical earthing pits for AC and DC circuits.
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
-                  <CheckCircle2 size={16} color="var(--color-accent, #1E3FD8)" style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <div style={{ color: '#444444', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                    <strong style={{ color: '#111111' }}>DISCOM Liaisoning:</strong> Complete net-metering paperwork, inspection clearance with BEST, Adani, Tata Power, or MSEDCL.
-                  </div>
-                </div>
-              </div>
+              <ul style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.86rem', margin: 0, padding: 0, listStyle: 'none' }}>
+                {[
+                  ['Equipment list', 'The modules, inverter and mounting quoted for your site.'],
+                  ['Expected generation', 'For the plant size the survey supports.'],
+                  ['Net-metering route', 'The application with BEST, Adani Electricity, Tata Power or MSEDCL.'],
+                  ['Subsidy', 'Any PM Surya Ghar subsidy that applies, with the paperwork.'],
+                  ['Load extension', 'If the site needs more sanctioned load, filed through Sanyog.'],
+                ].map(([title, text]) => (
+                  <li key={title} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                    <CheckCircle2 size={16} color="var(--color-accent, #111111)" style={{ flexShrink: 0, marginTop: '2px' }} aria-hidden="true" />
+                    <div style={{ color: '#444444', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+                      <strong style={{ color: '#111111' }}>{title}:</strong> {text}
+                    </div>
+                  </li>
+                ))}
+              </ul>
             )}
           </div>
 
@@ -849,7 +827,7 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
                 transition: 'background-color 0.2s ease',
               }}
             >
-              <span>Book Site Feasibility with These Numbers</span>
+              <span>{onApplyCalculation ? 'Add this estimate to my enquiry' : 'Talk to Solis about these numbers'}</span>
               <ArrowRight size={18} />
             </button>
 
@@ -862,12 +840,12 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
                 fontWeight: 600,
                 fontFamily: 'var(--font-sans, Inter, sans-serif)',
               }}>
-                Calculated details copied to inspection form below!
+                Your estimate is now in the enquiry form.
               </div>
             )}
 
             <p style={{ textAlign: 'center', fontSize: '0.76rem', color: '#777777', marginTop: '10px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-              Estimates are indicative based on standard Mumbai tariffs and shadow-free orientation. Exact engineering proposal provided after physical site audit.
+              Illustrative estimate for a shade-free roof at typical Mumbai tariffs. The subsidy depends on the scheme rules at the time of application. A written proposal follows the site survey.
             </p>
           </div>
         </div>

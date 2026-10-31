@@ -110,7 +110,7 @@ export default function SanyogTariffAuditCalculator() {
               color: '#2C5ED4',
             }}
           >
-            [MERC STATUTORY TARIFF AUDIT &amp; GRIEVANCE CALCULATOR]
+            Sanyog · Electricity bill check
           </span>
         </div>
         <h3

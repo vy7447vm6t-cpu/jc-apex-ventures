@@ -2,1239 +2,600 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import Clippy from '@/components/Clippy';
 import ScrollReveal from '@/components/ScrollReveal';
-import type { DivisionContent, IconKey } from '@/content/divisions';
-import { ImageWithLightbox } from '@/components/ImageLightbox';
+import SectionEyebrow from '@/components/SectionEyebrow';
+import FaqList from '@/components/FaqList';
+import type { DivisionContent, FeatureSection, ProofBlock } from '@/content/divisions';
+import { DIVISION_ONE_LINERS, PROOF_LINE } from '@/content/messaging';
+import { ATTRIBUTION_LINES, PROJECTS, clientGroups, isShowable } from '@/content/track-record';
+import { PHOTOS, photoCaption, photoCredit, type PhotoKey } from '@/content/photos';
 import PrintCalculator from '@/components/PrintCalculator';
 import InteriorCalculator from '@/components/InteriorCalculator';
 import GridApexSubstationCalculator from '@/components/GridApexSubstationCalculator';
 import SanyogTariffAuditCalculator from '@/components/SanyogTariffAuditCalculator';
 import AgrimDprSimulator from '@/components/AgrimDprSimulator';
-import {
-  MicroSlats,
-  TechText,
-  MagicBento,
-  AccordionGallery,
-  OptionWheel,
-  ElectricBorder,
-  SvgPathAnimator,
-  SpecularButton,
-  PatternWaves,
-  FluxLines,
-  GradientASCII,
-  CRTWarp,
-} from '@/components/react-bits';
-import {
-  Plug,
-  Sun,
-  Layout,
-  Printer,
-  Landmark,
-  Zap,
-  ArrowRight,
-  AlertTriangle,
-  CheckCircle2,
-  User,
-  ChevronRight,
-} from 'lucide-react';
+import SolarCalculator, { type CalculationResult } from '@/components/SolarCalculator';
+import SolarPlants from '@/components/SolarPlants';
+import OnGridDiagram from '@/components/OnGridDiagram';
+import BeforeAfterSlider from '@/components/BeforeAfterSlider';
+import SiteEnquiryForm from '@/components/SiteEnquiryForm';
+import { SpecularButton } from '@/components/react-bits';
+import { ArrowRight, ArrowUpRight, ChevronRight, Mail, Phone } from 'lucide-react';
 
-export const divisionIcons: Record<IconKey, React.ComponentType<{ size?: number; color?: string }>> = {
-  plug: Plug,
-  sun: Sun,
-  layout: Layout,
-  printer: Printer,
-  landmark: Landmark,
-  zap: Zap,
-};
+const SERIF = 'var(--font-serif-display), "Instrument Serif", Georgia, serif';
+const SANS = 'var(--font-sans, Inter, sans-serif)';
 
-function SectionHeading({ title, intro, rightSlot }: { title: string; intro?: string; rightSlot?: React.ReactNode }) {
+/** Section head: eyebrow with its faint number, headline, optional intro (brand guidelines 2.8.3). */
+function SectionHeading({ number, eyebrow, title, intro }: { number?: number; eyebrow: string; title: string; intro?: string }) {
   return (
     <ScrollReveal>
-      <div className="section-divider" style={{ marginBottom: '24px' }} />
-      <div
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          alignItems: 'flex-end',
-          justifyContent: 'space-between',
-          gap: '20px',
-          marginBottom: intro ? '36px' : '28px',
-        }}
-      >
-        <div style={{ maxWidth: '760px' }}>
-          <h2
-            style={{
-              fontSize: 'clamp(2rem, 3.4vw, 2.8rem)',
-              marginBottom: intro ? '12px' : 0,
-              color: 'var(--color-text-primary)',
-              fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
-              fontWeight: 400,
-              letterSpacing: '-0.02em',
-              lineHeight: 1.15,
-            }}
-          >
-            {title}
-          </h2>
-          {intro && (
-            <p
-              style={{
-                color: 'var(--color-text-secondary)',
-                fontSize: '1.05rem',
-                lineHeight: 1.7,
-                margin: 0,
-                fontFamily: 'var(--font-sans, Inter, sans-serif)',
-              }}
-            >
-              {intro}
-            </p>
-          )}
-        </div>
-        {rightSlot && <div>{rightSlot}</div>}
+      <div style={{ maxWidth: '760px', marginBottom: '32px' }}>
+        <SectionEyebrow number={number}>{eyebrow}</SectionEyebrow>
+        <h2
+          style={{
+            fontSize: 'clamp(2rem, 3.4vw, 2.8rem)',
+            margin: intro ? '0 0 12px' : 0,
+            color: 'var(--color-text-primary)',
+            fontFamily: SERIF,
+            fontWeight: 400,
+            letterSpacing: '-0.02em',
+            lineHeight: 1.15,
+          }}
+        >
+          {title}
+        </h2>
+        {intro && <p style={{ color: 'var(--color-text-secondary)', fontSize: '1.05rem', lineHeight: 1.7, margin: 0, fontFamily: SANS }}>{intro}</p>}
       </div>
     </ScrollReveal>
   );
 }
 
-const OFFICIAL_DIVISION_LOGOS: Record<string, { src: string; darkSrc: string; alt: string; height?: number }> = {
-  solis: { src: '/images/logos/solis-official.png', darkSrc: '/images/logos/solis-logo-white.png', alt: 'Solis Official Logo', height: 56 },
-  sanyog: { src: '/images/logos/sanyog-official.png', darkSrc: '/images/logos/sanyog-white.png', alt: 'Sanyog Official Logo', height: 56 },
-  'grid-apex': { src: '/images/logos/grid-apex-official.png', darkSrc: '/images/logos/grid-apex-white.png', alt: 'Grid Apex Official Logo', height: 54 },
-  tvasta: { src: '/images/logos/tvasta-dark.png', darkSrc: '/images/logos/tvasta-official.png', alt: 'Tvasta Official Logo', height: 56 },
-  emudran: { src: '/images/logos/emudran-official.png', darkSrc: '/images/logos/emudran-white.png', alt: 'eMudran Official Logo', height: 54 },
-  agrim: { src: '/images/logos/agrim-dark.png', darkSrc: '/images/logos/agrim-official.png', alt: 'Agrim Official Logo', height: 56 },
-};
+const blockTitle: React.CSSProperties = { margin: '0 0 12px', fontFamily: SANS, fontSize: '16px', fontWeight: 600, color: 'var(--color-text-primary)' };
 
-interface DivisionThemeConfig {
-  canvasClass: string;
-  heroBg: string;
-  heroBorder: string;
-  dividerColor: string;
-  badgeDotColor: string;
-  accentColor: string;
-  maskGradient: string;
-  renderBackground: () => React.ReactNode;
+/**
+ * A photograph with its caption below. Above the fold it unmasks once on load (CSS only, so it
+ * never waits for script); further down it unmasks as it scrolls into view.
+ */
+function RevealPhoto({ photo, caption, height, hero = false }: { photo: PhotoKey; caption: string; height: string; hero?: boolean }) {
+  const p = PHOTOS[photo];
+  const figure = (
+    <figure style={{ margin: 0 }}>
+      <div className={hero ? 'unmask-on-load' : 'unmask'} style={{ position: 'relative', height, borderRadius: '16px', overflow: 'hidden', background: '#E8E4DA' }}>
+        <Image src={p.src} alt={p.subject} fill priority={hero} sizes="(max-width: 900px) 100vw, 45vw" style={{ objectFit: 'cover' }} />
+      </div>
+      <figcaption className="photo-caption">{caption}</figcaption>
+    </figure>
+  );
+  return hero ? figure : <ScrollReveal>{figure}</ScrollReveal>;
 }
 
-const DIVISION_CONFIGS: Record<string, DivisionThemeConfig> = {
-  tvasta: {
-    canvasClass: 'tvasta-canvas',
-    heroBg: '#F8F9FA',
-    heroBorder: '1px solid rgba(215, 42, 27, 0.22)',
-    dividerColor: '#D72A1B',
-    badgeDotColor: '#FFCB72',
-    accentColor: '#D72A1B',
-    maskGradient:
-      'radial-gradient(ellipse 95% 85% at 50% 30%, rgba(248, 249, 250, 0.0) 0%, rgba(248, 249, 250, 0.12) 55%, rgba(248, 249, 250, 0.38) 100%)',
-    renderBackground: () => (
-      <MicroSlats
-        preset="signal"
-        color="#D72A1B"
-        glintColor="#FFD166"
-        backgroundColor="#FAF5F0"
-        interactive={true}
-        speed={0.85}
-        glint={1.2}
-        contrast={1.6}
-        slatWidth={18}
-        slatHeight={64}
-        gap={4}
-        swirl={0.8}
-        trail={0.6}
-      />
-    ),
-  },
-  'grid-apex': {
-    canvasClass: 'grid-apex-canvas',
-    heroBg: '#F0F7FF',
-    heroBorder: '1px solid rgba(2, 132, 199, 0.24)',
-    dividerColor: '#F59E0B',
-    badgeDotColor: '#F59E0B',
-    accentColor: '#0284C7',
-    maskGradient:
-      'radial-gradient(ellipse 95% 85% at 50% 30%, rgba(240, 247, 255, 0.0) 0%, rgba(240, 247, 255, 0.12) 55%, rgba(240, 247, 255, 0.38) 100%)',
-    renderBackground: () => (
-      <FluxLines
-        colors={['#0284C7', '#0EA5E9', '#38BDF8', '#F59E0B', '#2563EB', '#60A5FA']}
-        flowDirection="down"
-        speed={1.05}
-        scale={1.4}
-        turbulence={1.15}
-        opacity={1.0}
-        lightMode={true}
-        transparent={true}
-        backgroundColor="#F0F7FF"
-      />
-    ),
-  },
-  agrim: {
-    canvasClass: 'agrim-canvas',
-    heroBg: '#F7F9F5',
-    heroBorder: '1px solid rgba(4, 120, 87, 0.22)',
-    dividerColor: '#D97706',
-    badgeDotColor: '#D97706',
-    accentColor: '#047857',
-    maskGradient:
-      'radial-gradient(ellipse 95% 85% at 50% 30%, rgba(247, 249, 245, 0.0) 0%, rgba(247, 249, 245, 0.12) 55%, rgba(247, 249, 245, 0.38) 100%)',
-    renderBackground: () => (
-      <PatternWaves
-        preset="pond"
-        wave="ripple"
-        color="#047857"
-        backgroundColor="#F7F9F5"
-        opacity={1.0}
-        spacing={8}
-        markSize={1.05}
-        depth={1.15}
-        shine={2.2}
-        speed={0.85}
-        interactive={true}
-      />
-    ),
-  },
-  sanyog: {
-    canvasClass: 'sanyog-canvas',
-    heroBg: '#F4F6FC',
-    heroBorder: '1px solid rgba(44, 94, 212, 0.22)',
-    dividerColor: '#F59E0B',
-    badgeDotColor: '#2C5ED4',
-    accentColor: '#2C5ED4',
-    maskGradient:
-      'radial-gradient(ellipse 95% 85% at 50% 30%, rgba(244, 246, 252, 0.0) 0%, rgba(244, 246, 252, 0.12) 55%, rgba(244, 246, 252, 0.40) 100%)',
-    renderBackground: () => (
-      <PatternWaves
-        preset="lines"
-        color="#2563EB"
-        backgroundColor="#F4F6FC"
-        opacity={1.0}
-        spacing={9}
-        markSize={0.75}
-        direction={30}
-        speed={0.85}
-        depth={1.2}
-        shine={2.0}
-        interactive={true}
-      />
-    ),
+/** Hairline table. `list` sets the first column in Ink, for lists of names rather than labels. */
+function SpecTable({ headers, rows, list = false }: { headers: string[]; rows: string[][]; list?: boolean }) {
+  return (
+    <div style={{ overflowX: 'auto' }}>
+      <table className={`spec-table${list ? ' is-list' : ''}`} style={{ minWidth: headers.length > 2 ? '560px' : undefined }}>
+        <thead>
+          <tr>
+            {headers.map((h) => (
+              <th key={h || 'row'} scope="col">
+                {h}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row) => (
+            <tr key={row.join('|')}>
+              {row.map((cell, i) => (
+                <td key={`${i}-${cell}`}>{cell}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function ProofBlockView({ block }: { block: ProofBlock }) {
+  switch (block.kind) {
+    case 'table':
+      return (
+        <div>
+          {block.title && <h3 style={blockTitle}>{block.title}</h3>}
+          <SpecTable headers={block.headers} rows={block.rows} />
+          {block.caption && <p className="photo-caption">{block.caption}</p>}
+        </div>
+      );
+    case 'facts':
+      return (
+        <div>
+          {block.title && <h3 style={blockTitle}>{block.title}</h3>}
+          <dl className="fact-rows">
+            {block.rows.map((row) => (
+              <div key={row.label}>
+                <dt>{row.label}</dt>
+                <dd>{row.value}</dd>
+              </div>
+            ))}
+          </dl>
+          {block.caption && <p className="photo-caption">{block.caption}</p>}
+        </div>
+      );
+    case 'note':
+      return <p className="margin-note">{block.text}</p>;
+    case 'hotels': {
+      const hotels = clientGroups().find((g) => g.id === 'hospitality');
+      return (
+        <div style={{ display: 'grid', gap: '32px' }}>
+          <p className="margin-note">{ATTRIBUTION_LINES.director}</p>
+          <div className="photo-row">
+            {block.photos.map((key) => (
+              <figure key={key} style={{ margin: 0 }}>
+                <div className="photo-frame">
+                  <Image src={PHOTOS[key].src} alt={PHOTOS[key].subject} fill sizes="(max-width: 760px) 82vw, 30vw" style={{ objectFit: 'cover' }} />
+                </div>
+                <figcaption className="photo-caption">
+                  {PHOTOS[key].subject}. {photoCredit(key)}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+          <p className="photo-caption" style={{ marginTop: '-20px' }}>
+            Photographs show the properties, not our installations.
+          </p>
+          {hotels && (
+            <div>
+              <SpecTable list headers={['Property', 'Place']} rows={hotels.clients.map((c) => [c.name, c.place ?? ''])} />
+              <p className="photo-caption">Scope at each property: HT electrical work. Hotel names are given as they are today.</p>
+            </div>
+          )}
+        </div>
+      );
+    }
+    case 'creative-credits': {
+      const creative = clientGroups().find((g) => g.id === 'creative');
+      if (!creative) return null;
+      return (
+        <div>
+          <p className="margin-note" style={{ marginBottom: '20px' }}>
+            {creative.attributionLine}
+          </p>
+          <SpecTable list headers={['Brand', 'Work']} rows={creative.clients.map((c) => [c.name, c.work])} />
+          <p className="photo-caption">
+            Credits from Manish Ajgaonkar&apos;s career in brand and packaging design. Brand names are shown for reference only.
+          </p>
+        </div>
+      );
+    }
+    case 'plants':
+      return <SolarPlants />;
+  }
+}
+
+/** "A 19-floor housing society" reads "a 19-floor housing society" mid-sentence. */
+const lower = (text: string) => text.charAt(0).toLowerCase() + text.slice(1);
+
+/** Panels on low frames against the same terrace with a pergola, drawn rather than photographed. */
+function TerraceComparison() {
+  const proposals = PROJECTS.filter((p) => p.division === 'solis' && p.kind === 'proposal' && isShowable(p.proof.status));
+  return (
+    <div style={{ display: 'grid', gap: '32px' }}>
+      <ScrollReveal>
+        <BeforeAfterSlider
+          beforeImage="/images/solis/terrace-low-frames.svg"
+          afterImage="/images/solis/terrace-pergola.svg"
+          beforeCaption="Left: panels on low frames across the terrace floor."
+          afterCaption="Right: the same terrace with the panels on an elevated pergola. Drawings for illustration, not to scale."
+        />
+      </ScrollReveal>
+      {proposals.map((p) => (
+        <p key={p.id} className="margin-note">
+          {p.title} for {lower(p.client)} in {p.location}. {p.statusNote}.
+        </p>
+      ))}
+    </div>
+  );
+}
+
+function FeatureView({ feature }: { feature: FeatureSection }) {
+  if (feature.kind === 'terrace-comparison') return <TerraceComparison />;
+  return (
+    <div>
+      <OnGridDiagram />
+      <div className="connection-cols">
+        {feature.columns.map(([title, text]) => (
+          <div key={title}>
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </div>
+        ))}
+      </div>
+      <dl className="fact-rows">
+        {feature.facts.map((row) => (
+          <div key={row.label}>
+            <dt>{row.label}</dt>
+            <dd>{row.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  );
+}
+
+const DIVISION_LOGOS: Record<string, { src: string; height: number }> = {
+  'grid-apex': { src: '/images/logos/grid-apex-official.png', height: 52 },
+  sanyog: { src: '/images/logos/sanyog-official.png', height: 56 },
+  tvasta: { src: '/images/logos/tvasta-dark.png', height: 48 },
+  emudran: { src: '/images/logos/emudran-official.png', height: 48 },
+  agrim: { src: '/images/logos/agrim-dark.png', height: 52 },
+  solis: { src: '/images/logos/solis-official.png', height: 52 },
+};
+
+// Canvas class and the second accent for the short rule beside the logo (guidelines 2.3).
+// Solis keeps its own guidelines: black, Sun Yellow and greys on Paper, set in Instrument Sans.
+const DIVISION_THEMES: Record<string, { canvasClass: string; heroBg: string; ruleColor: string; typeClass?: string }> = {
+  solis: { canvasClass: 'solis-canvas', heroBg: '#F7F6F2', ruleColor: '#FFC85A', typeClass: 'solis-type' },
+  tvasta: { canvasClass: 'tvasta-canvas', heroBg: '#F8F9FA', ruleColor: '#D72A1B' },
+  'grid-apex': { canvasClass: 'grid-apex-canvas', heroBg: '#F0F7FF', ruleColor: '#F59E0B' },
+  agrim: { canvasClass: 'agrim-canvas', heroBg: '#F7F9F5', ruleColor: '#D97706' },
+  sanyog: { canvasClass: 'sanyog-canvas', heroBg: '#F4F6FC', ruleColor: '#2C5ED4' },
+  emudran: { canvasClass: 'emudran-canvas', heroBg: '#F5F6FA', ruleColor: '#4338CA' },
+};
+const DEFAULT_THEME = { canvasClass: 'grounded-canvas', heroBg: '#F4F1EA', ruleColor: '#C29F53' };
+
+const DIVISION_HREFS: Record<string, string> = {
+  'Grid Apex': '/grid-apex',
+  Solis: '/solis',
+  Sanyog: '/sanyog',
+  Tvasta: '/tvasta',
+  eMudran: '/emudran',
+  Agrim: '/agrim',
+};
+
+const rupees = (n: number) => (n >= 100000 ? `Rs ${(n / 100000).toFixed(2)} lakh` : `Rs ${n.toLocaleString('en-IN')}`);
+
+/** The solar estimate in one sentence, as it goes into the enquiry. */
+function describeSolarEstimate(c: CalculationResult): string {
+  const parts = [
+    `${c.recommendedKwp} kWp on ${c.structureType === 'pergola' ? 'an elevated pergola' : 'standard frames'}, about ${c.panelCount} panels`,
+    `about ${c.monthlyGenerationUnits.toLocaleString('en-IN')} units a month`,
+    `savings of about ${rupees(c.monthlySavingsRs)} a month`,
+    `net cost about ${rupees(c.netInvestmentRs)}${c.subsidyRs > 0 ? ' after subsidy' : ''}`,
+    `payback in about ${c.paybackYears} years`,
+  ];
+  if (c.evOption !== 'none') parts.push('with EV charging');
+  if (c.bipvOption !== 'none') parts.push('with BIPV glass');
+  const text = parts.join('; ');
+  return `${text.charAt(0).toUpperCase()}${text.slice(1)}.`;
+}
+
+// Estimator section per division. Every figure an estimator shows is indicative.
+const ESTIMATORS: Record<string, { title: string; intro: string; render: (ctx: { onUse: (summary: string) => void }) => React.ReactNode }> = {
+  solis: {
+    title: 'Plant size, cost and savings',
+    intro: 'Enter your monthly bill or terrace area to see an indicative plant size, cost and payback. You can add the result to your enquiry.',
+    render: ({ onUse }) => <SolarCalculator onApplyCalculation={(c) => onUse(describeSolarEstimate(c))} />,
   },
   emudran: {
-    canvasClass: 'emudran-canvas',
-    heroBg: '#F5F6FA',
-    heroBorder: '1px solid rgba(0, 22, 58, 0.22)',
-    dividerColor: '#4338CA',
-    badgeDotColor: '#4338CA',
-    accentColor: '#00163A',
-    maskGradient:
-      'radial-gradient(ellipse 95% 85% at 50% 30%, rgba(245, 246, 250, 0.0) 0%, rgba(245, 246, 250, 0.12) 55%, rgba(245, 246, 250, 0.38) 100%)',
-    renderBackground: () => (
-      <CRTWarp
-        color="#3730A3"
-        backgroundColor="#F5F6FA"
-        lightMode={true}
-        curvature={0.24}
-        scanlineStrength={0.60}
-        persistence={0.55}
-        speed={0.85}
-      />
-    ),
+    title: 'Print and signage estimate',
+    intro: 'Choose the format, quantity and finish to see an indicative rate. The final price follows a written quote.',
+    render: () => <PrintCalculator />,
   },
-  solis: {
-    canvasClass: 'solis-canvas',
-    heroBg: '#F6F8FF',
-    heroBorder: '1px solid rgba(30, 63, 216, 0.20)',
-    dividerColor: '#F59E0B',
-    badgeDotColor: '#F59E0B',
-    accentColor: '#1E3FD8',
-    maskGradient:
-      'radial-gradient(ellipse 95% 85% at 50% 30%, rgba(246, 248, 255, 0.0) 0%, rgba(246, 248, 255, 0.12) 55%, rgba(246, 248, 255, 0.36) 100%)',
-    renderBackground: () => (
-      <GradientASCII
-        colors={['#1e3fd8', '#2563eb', '#0284c7', '#38bdf8', '#f59e0b', '#fbbf24']}
-        shape="horizon"
-        characters=" =+xX0S8#@"
-        cellSize={13}
-        density={1.0}
-      />
-    ),
+  tvasta: {
+    title: 'Fit-out cost estimate',
+    intro: 'Choose your layout or floor area to see indicative costs for the Standard, Premium and Luxury tiers.',
+    render: () => <InteriorCalculator />,
+  },
+  'grid-apex': {
+    title: 'Transformer and capacitor sizing',
+    intro: 'Enter your connected load, supply voltage and power factor to see an indicative transformer rating and capacitor bank size.',
+    render: () => <GridApexSubstationCalculator />,
+  },
+  sanyog: {
+    title: 'Electricity bill check',
+    intro: 'Enter your bill details to see what a wrong tariff or a power factor charge may be costing you. Any refund depends on the utility’s own records.',
+    render: () => <SanyogTariffAuditCalculator />,
+  },
+  agrim: {
+    title: 'Project cost and loan readiness',
+    intro: 'Test a project’s cost, cash flow and debt cover before it goes to a bank. The bank or lender makes every loan decision.',
+    render: () => <AgrimDprSimulator />,
   },
 };
 
-const DEFAULT_CONFIG: DivisionThemeConfig = {
-  canvasClass: 'grounded-canvas',
-  heroBg: '#F4F1EA',
-  heroBorder: '1px solid rgba(0, 0, 0, 0.10)',
-  dividerColor: '#C29F53',
-  badgeDotColor: '#C29F53',
-  accentColor: '#C29F53',
-  maskGradient:
-    'radial-gradient(ellipse 95% 85% at 50% 30%, rgba(244, 241, 234, 0.0) 0%, rgba(244, 241, 234, 0.15) 55%, rgba(244, 241, 234, 0.42) 100%)',
-  renderBackground: () => (
-    <MicroSlats count={20} opacity={0.35} color="rgba(17, 17, 17, 0.65)" showTicks={true} zIndex={1} speed={0.8} />
-  ),
-};
+/**
+ * Division page (website redesign, stage 6): hero, what we handle, proof, any sections only that
+ * division needs (Solis: the terrace comparison and the connection diagram), process, estimate,
+ * questions, who else joins, enquire. Copy comes from src/content/divisions.ts.
+ */
+export default function DivisionPage({ data, canvasClassName }: { data: DivisionContent; canvasClassName?: string }) {
+  const logo = DIVISION_LOGOS[data.slug];
+  const theme = DIVISION_THEMES[data.slug] || DEFAULT_THEME;
+  const oneLiner = DIVISION_ONE_LINERS[data.slug];
+  const estimator = ESTIMATORS[data.slug];
+  const [estimate, setEstimate] = useState<string | undefined>();
 
-export default function DivisionPage({
-  data,
-  customHeroLogo,
-  canvasClassName,
-  customHeroBackground,
-  children,
-}: {
-  data: DivisionContent;
-  customHeroLogo?: React.ReactNode;
-  canvasClassName?: string;
-  customHeroBackground?: React.ReactNode;
-  children?: React.ReactNode;
-}) {
-  const Icon = divisionIcons[data.icon];
-  const defaultLogo = OFFICIAL_DIVISION_LOGOS[data.slug];
-  const [specimenView, setSpecimenView] = useState<'grid' | 'panorama'>('grid');
-  const [activeStep, setActiveStep] = useState<number>(0);
-  const isElectricDivision = ['solis', 'sanyog', 'grid-apex'].includes(data.slug);
+  const contactRows = (
+    <dl className="fact-rows">
+      <div>
+        <dt>Email</dt>
+        <dd>
+          {data.contact.emails.map((email) => (
+            <a key={email} href={`mailto:${email}`} className="contact-link">
+              <Mail size={14} aria-hidden="true" />
+              {email}
+            </a>
+          ))}
+          {data.contact.note && <small>{data.contact.note}</small>}
+        </dd>
+      </div>
+      <div>
+        <dt>Phone and WhatsApp</dt>
+        <dd>
+          <a href="tel:+917021112664" className="contact-link">
+            <Phone size={14} aria-hidden="true" />
+            +91 70211 12664
+          </a>
+        </dd>
+      </div>
+      <div>
+        <dt>Office</dt>
+        <dd>Units 801–802, 8th Floor, Tower 1, One International Centre, Elphinstone, Mumbai 400013</dd>
+      </div>
+    </dl>
+  );
 
-  const themeConfig = DIVISION_CONFIGS[data.slug] || DEFAULT_CONFIG;
-  const canvasClass = canvasClassName || themeConfig.canvasClass;
-  const divisionAccent = themeConfig.accentColor;
-
-  const accordionSpecimens = (data.visualCards || []).map((vc, idx) => ({
-    id: `${data.slug}-spec-${idx}`,
-    title: vc.title,
-    subtitle: vc.title,
-    badge: vc.badge || vc.imageTag,
-    description: vc.description,
-    image: vc.image,
-    specs: [vc.takeaway, vc.imageTag].filter(Boolean),
-    logo: defaultLogo?.darkSrc || defaultLogo?.src,
-    division: data.slug,
-  }));
+  // Sections are numbered in the order they appear on the page.
+  let sectionCount = 0;
+  const nextNumber = () => ++sectionCount;
 
   return (
-    <main className={canvasClass} style={{ background: 'var(--color-bg)', minHeight: '100vh' }}>
+    <main className={canvasClassName || theme.canvasClass} style={{ background: 'var(--color-bg)', minHeight: '100vh' }}>
       <Navbar />
-      <Clippy />
 
-      {/* Division High-Tech Hero with Dedicated React Bits WebGL Background */}
-      <section
-        className="relative overflow-hidden"
-        style={{
-          paddingTop: '136px',
-          paddingBottom: '70px',
-          backgroundColor: themeConfig.heroBg,
-          borderBottom: themeConfig.heroBorder,
-          position: 'relative',
-        }}
-      >
-        {/* WebGL Background Layer */}
-        <div
-          className="pointer-events-auto absolute inset-0 z-0 overflow-hidden"
-          style={{ opacity: 1 }}
-          aria-hidden="true"
-        >
-          {customHeroBackground || themeConfig.renderBackground()}
-          {/* Subtle Crystalline Glass Mask for Perfect Readability */}
-          <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              background: themeConfig.maskGradient,
-              pointerEvents: 'none',
-            }}
-          />
-        </div>
-
-        <div className="container" style={{ position: 'relative', zIndex: 5 }}>
-          {/* Breadcrumb */}
-          <div
-            className="animate-fade-in-up"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              marginBottom: '20px',
-              fontSize: '0.82rem',
-              color: 'var(--color-text-muted)',
-              fontFamily: 'var(--font-sans, Inter, sans-serif)',
-            }}
+      <div className={theme.typeClass}>
+      <section style={{ paddingTop: '136px', paddingBottom: '56px', backgroundColor: theme.heroBg, borderBottom: '1px solid var(--color-border)' }}>
+        <div className="container">
+          <nav
+            aria-label="Breadcrumb"
+            style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px', fontSize: '0.82rem', color: 'var(--color-text-muted)', fontFamily: SANS }}
           >
             <Link href="/" style={{ color: 'var(--color-text-muted)', textDecoration: 'none' }}>
               Home
             </Link>
-            <ChevronRight size={13} color="var(--color-text-muted)" />
+            <ChevronRight size={13} aria-hidden="true" />
             <Link href="/#divisions" style={{ color: 'var(--color-text-muted)', textDecoration: 'none' }}>
               Divisions
             </Link>
-            <ChevronRight size={13} color="var(--color-text-muted)" />
-            <span style={{ color: 'var(--color-accent)', fontWeight: 700 }}>{data.name}</span>
-          </div>
+            <ChevronRight size={13} aria-hidden="true" />
+            <span style={{ color: 'var(--color-text-primary)', fontWeight: 600 }}>{data.name}</span>
+          </nav>
 
-          <div
-            className="page-hero-grid"
-            style={{
-              display: 'grid',
-              gridTemplateColumns: data.heroImage ? '1.15fr 0.85fr' : '1fr',
-              gap: '48px',
-              alignItems: 'center',
-            }}
-          >
-            <div
-              style={{
-                borderRadius: '28px',
-                padding: '24px 28px',
-                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.45) 100%)',
-                backdropFilter: 'blur(24px) saturate(190%)',
-                WebkitBackdropFilter: 'blur(24px) saturate(190%)',
-                border: '1px solid rgba(255, 255, 255, 0.85)',
-                boxShadow: '0 20px 48px -12px rgba(0, 0, 0, 0.06), inset 0 1.5px 1px rgba(255, 255, 255, 0.95)',
-              }}
-            >
-              {/* Header row with official division logo and discipline title */}
-              <div
-                className="animate-fade-in-up"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '20px',
-                  flexWrap: 'wrap',
-                  marginBottom: '22px',
-                }}
-              >
-                <div
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    backgroundColor: 'transparent',
-                    flexShrink: 0,
-                  }}
-                >
-                  {customHeroLogo || (
-                    <img
-                      src={defaultLogo?.src || '/images/logos/solis-official.png'}
-                      alt={defaultLogo?.alt || data.name}
-                      style={{
-                        height: `${defaultLogo?.height || 56}px`,
-                        width: 'auto',
-                        objectFit: 'contain',
-                        display: 'block',
-                      }}
-                    />
-                  )}
-                </div>
-                <span
-                  aria-hidden="true"
-                  style={{
-                    width: '2px',
-                    height: '44px',
-                    backgroundColor: themeConfig.dividerColor,
-                    display: 'inline-block',
-                    flexShrink: 0,
-                    borderRadius: '2px',
-                  }}
-                />
-
-                <h1
-                  style={{
-                    flex: 1,
-                    minWidth: '220px',
-                    fontSize: 'clamp(2rem, 3.4vw, 2.95rem)',
-                    margin: 0,
-                    fontWeight: 400,
-                    color: 'var(--color-text-primary)',
-                    lineHeight: 1.12,
-                    letterSpacing: '-0.025em',
-                    fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
-                  }}
-                >
-                  {data.laypersonBadge || data.name}
-                </h1>
+          <div className="page-hero-grid" style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: '48px', alignItems: 'start' }}>
+            <div className="flat-card sheet-frame animate-fade-in-up" style={{ padding: 'clamp(24px, 3vw, 40px)' }}>
+              <i className="corner-mark tl" />
+              <i className="corner-mark tr" />
+              <i className="corner-mark bl" />
+              <i className="corner-mark br" />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
+                {logo && <img src={logo.src} alt={data.name} style={{ height: `${logo.height}px`, width: 'auto', display: 'block', borderRadius: 0 }} />}
+                <span aria-hidden="true" style={{ width: '2px', height: '40px', backgroundColor: theme.ruleColor }} />
               </div>
-
-              <p
-                className="animate-fade-in-up delay-200"
+              <h1
                 style={{
-                  fontSize: 'clamp(1.02rem, 1.6vw, 1.18rem)',
-                  color: 'var(--color-text-secondary)',
-                  maxWidth: '680px',
-                  lineHeight: 1.68,
-                  marginBottom: '24px',
-                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
+                  fontSize: 'clamp(2.1rem, 3.6vw, 3.2rem)',
+                  margin: '0 0 18px',
+                  fontWeight: 400,
+                  color: 'var(--color-text-primary)',
+                  lineHeight: 1.1,
+                  letterSpacing: '-0.025em',
+                  fontFamily: SERIF,
                 }}
               >
-                {data.tagline}
+                {data.title}
+              </h1>
+              <p style={{ fontSize: 'clamp(1rem, 1.4vw, 1.1rem)', color: 'var(--color-text-secondary)', lineHeight: 1.68, margin: '0 0 22px', fontFamily: SANS }}>
+                {data.intro}
               </p>
-
-              {/* Stat badges & pills */}
-              <div
-                className="animate-fade-in-up delay-300"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px',
-                  flexWrap: 'wrap',
-                }}
-              >
-                {data.statPill && (
-                  <span
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      padding: '8px 16px',
-                      borderRadius: '9999px',
-                      backgroundColor: '#FFFFFF',
-                      border: '1.5px solid var(--color-border-accent)',
-                      color: 'var(--color-accent)',
-                      fontSize: '0.82rem',
-                      fontWeight: 700,
-                      boxShadow: 'var(--shadow-sm)',
-                    }}
-                  >
-                    <span
-                      style={{
-                        width: '8px',
-                        height: '8px',
-                        borderRadius: '9999px',
-                        backgroundColor: themeConfig.badgeDotColor,
-                        boxShadow: `0 0 8px ${themeConfig.badgeDotColor}`,
-                      }}
-                    />
-                    {data.statPill}
-                  </span>
-                )}
-                {data.plainTakeaway && (
-                  <span
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      padding: '8px 16px',
-                      borderRadius: '9999px',
-                      backgroundColor: 'var(--color-accent-pale)',
-                      border: '1px solid var(--color-border)',
-                      color: 'var(--color-text-primary)',
-                      fontSize: '0.82rem',
-                      fontWeight: 650,
-                    }}
-                  >
-                    {data.plainTakeaway}
-                  </span>
-                )}
+              {oneLiner && <p className="margin-note">{oneLiner}</p>}
+              {data.showProofLine && <p className="hero-proof">{PROOF_LINE}</p>}
+              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '28px' }}>
+                <SpecularButton href="#contact" variant="dark" icon={<ArrowRight size={16} />}>
+                  Enquire
+                </SpecularButton>
+                <SpecularButton href="#services" variant="light">
+                  What we handle
+                </SpecularButton>
               </div>
             </div>
 
-            {/* Right Hero Image Card */}
-            {data.heroImage && (
-              <div className="animate-fade-in-up delay-400">
-                <div
-                  style={{
-                    position: 'relative',
-                    borderRadius: '24px',
-                    overflow: 'hidden',
-                    boxShadow: 'var(--shadow-xl), 0 0 0 1px var(--color-border)',
-                    backgroundColor: '#FFFFFF',
-                  }}
-                >
-                  <div style={{ position: 'relative', height: '360px', width: '100%' }}>
-                    <ImageWithLightbox
-                      src={data.heroImage}
-                      alt={data.name}
-                      title={`${data.name} : ${data.heroImageTag || data.laypersonBadge}`}
-                      style={{ width: '100%', height: '100%' }}
-                    />
-                  </div>
-                  {data.heroImageTag && (
-                    <div
-                      style={{
-                        position: 'absolute',
-                        top: '16px',
-                        left: '16px',
-                        backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                        backdropFilter: 'blur(12px)',
-                        padding: '6px 14px',
-                        borderRadius: '9999px',
-                        fontSize: '0.72rem',
-                        fontWeight: 700,
-                        color: 'var(--color-text-primary)',
-                        border: '1px solid var(--color-border)',
-                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.06)',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '6px',
-                      }}
-                    >
-                      <span
-                        style={{
-                          width: '6px',
-                          height: '6px',
-                          borderRadius: '9999px',
-                          backgroundColor: themeConfig.badgeDotColor,
-                        }}
-                      />
-                      {data.heroImageTag.toUpperCase()}
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
+            <RevealPhoto photo={data.heroPhoto} caption={photoCaption(data.heroPhoto)} height="clamp(280px, 38vw, 460px)" hero />
           </div>
+
+          {data.facts && (
+            <dl className="hero-facts">
+              {data.facts.map((f) => (
+                <div key={f.label}>
+                  <dt>{f.label}</dt>
+                  <dd>{f.value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+
+          <ul className="title-block-line" aria-label="Page reference">
+            <li>JC Apex Ventures</li>
+            <li>{data.name}</li>
+            <li>Division of six</li>
+            <li>jcapexv.com{data.href}</li>
+          </ul>
         </div>
       </section>
 
-
-
-      {/* Visual Photo Cards Showcase with OptionWheel + AccordionGallery Switcher */}
-      {data.visualCards && data.visualCards.length > 0 && (
-        <section className="section" style={{ paddingBottom: '30px' }}>
-          <div className="container">
-            <SectionHeading
-              title="Visual Offerings & Real Specimens"
-              intro="Authentic real-world specimens and process deliverables so you can clearly see what we execute."
-              rightSlot={
-                <div className="hidden md:block">
-                  <OptionWheel
-                    options={[
-                      { label: '01 / Specimen Cards', value: 'grid' },
-                      { label: '02 / Panorama Accordion', value: 'panorama' },
-                    ]}
-                    selectedValue={specimenView}
-                    onChange={(v) => setSpecimenView(v as 'grid' | 'panorama')}
-                  />
-                </div>
-              }
-            />
-
-            {specimenView === 'panorama' ? (
-              <div className="hidden md:block">
-                <AccordionGallery items={accordionSpecimens} />
-              </div>
-            ) : null}
-
-            <div
-              className={specimenView === 'panorama' ? 'md:hidden' : ''}
-              style={{
-                display: 'grid',
-                gridTemplateColumns:
-                  data.visualCards.length === 3
-                    ? 'repeat(auto-fit, minmax(320px, 1fr))'
-                    : 'repeat(auto-fit, minmax(340px, 1fr))',
-                gap: '28px',
-              }}
-            >
-              {data.visualCards.map((vc, i) => (
-                <ScrollReveal key={vc.title} delay={i + 1}>
-                  <ElectricBorder
-                    division={data.slug}
-                    active={isElectricDivision && i === 0}
-                    borderRadius={20}
-                    glowColor={divisionAccent}
-                  >
-                    <div className="glass-panel" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                      <div style={{ position: 'relative', height: '220px', width: '100%', overflow: 'hidden' }}>
-                        <div className="editorial-pill" style={{ zIndex: 10, pointerEvents: 'none' }}>
-                          <span
-                            style={{
-                              width: '5px',
-                              height: '5px',
-                              borderRadius: '50%',
-                              backgroundColor: divisionAccent,
-                              display: 'inline-block',
-                              flexShrink: 0,
-                            }}
-                          />
-                          <span>{vc.imageTag}</span>
-                        </div>
-                        <ImageWithLightbox
-                          src={vc.image}
-                          alt={vc.title}
-                          title={vc.title}
-                          category={vc.badge || vc.imageTag}
-                          scope={vc.description}
-                          style={{ width: '100%', height: '100%' }}
-                        />
-                      </div>
-                      <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                        <div>
-                          {vc.badge && (
-                            <div
-                              style={{
-                                display: 'inline-block',
-                                padding: '3px 10px',
-                                borderRadius: '100px',
-                                background: 'var(--color-accent-pale)',
-                                color: 'var(--color-accent)',
-                                fontSize: '0.72rem',
-                                fontWeight: 700,
-                                letterSpacing: '1px',
-                                textTransform: 'uppercase',
-                                marginBottom: '10px',
-                                fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                              }}
-                            >
-                              <TechText text={vc.badge} scrambleSpeed={18} maxScrambles={4} triggerOnHover={true} />
-                            </div>
-                          )}
-                          <h3
-                            style={{
-                              fontSize: '1.3rem',
-                              marginBottom: '8px',
-                              color: 'var(--color-text-primary)',
-                              fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
-                              fontWeight: 400,
-                            }}
-                          >
-                            {vc.title}
-                          </h3>
-                          <p style={{ color: 'var(--color-accent)', fontWeight: 600, fontSize: '0.9rem', marginBottom: '12px', lineHeight: 1.5, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                            {vc.takeaway}
-                          </p>
-                          <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem', lineHeight: 1.6, margin: 0, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                            {vc.description}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </ElectricBorder>
-                </ScrollReveal>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Strategic Why Us, Why This Discipline, Why Now wrapped in MagicBento */}
-      {data.strategicWhy && (
-        <section className="section" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
-          <div className="container">
-            <SectionHeading
-              title={data.strategicWhy.heading}
-              intro={data.strategicWhy.subheading}
-            />
-            <MagicBento
-              cards={[
-                data.strategicWhy.whyUs,
-                data.strategicWhy.whyDiscipline,
-                data.strategicWhy.whyNow,
-              ].map((pillar, idx) => ({
-                id: `${data.slug}-why-${idx}`,
-                badge: `(${String(idx + 1).padStart(2, '0')}) PROTOCOL PILLAR`,
-                title: pillar.title,
-                subtitle: pillar.subtitle,
-                content: (
-                  <ul
-                    style={{
-                      listStyle: 'none',
-                      padding: 0,
-                      margin: '14px 0 0 0',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '12px',
-                    }}
-                  >
-                    {pillar.points.map((pt, pIdx) => (
-                      <li
-                        key={pIdx}
-                        style={{
-                          display: 'flex',
-                          gap: '10px',
-                          alignItems: 'flex-start',
-                          fontSize: '0.9rem',
-                          lineHeight: 1.6,
-                          color: 'var(--color-text-secondary)',
-                          fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                        }}
-                      >
-                        <CheckCircle2
-                          size={15}
-                          color="var(--color-accent)"
-                          style={{ flexShrink: 0, marginTop: '4px' }}
-                        />
-                        <span>{pt}</span>
-                      </li>
-                    ))}
-                  </ul>
-                ),
-              }))}
-            />
-          </div>
-        </section>
-      )}
-
-      {/* Plain Words Intro & Glossary */}
-      <section className="section" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
+      <section id="services" className="section" style={{ paddingBottom: '40px', scrollMarginTop: '100px' }}>
         <div className="container">
-          <div className="grid-split">
-            <ScrollReveal>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
-                <div style={{ padding: '10px', background: 'var(--color-accent-pale)', borderRadius: '12px', display: 'flex' }}>
-                  <Icon size={24} color="var(--color-accent)" />
-                </div>
-                <span className="label" style={{ margin: 0 }}>In plain words</span>
-              </div>
-              {data.intro.map((p, i) => (
-                <p key={i} style={{ color: 'var(--color-text-secondary)', fontSize: '1.05rem', lineHeight: 1.8, marginBottom: '20px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>{p}</p>
-              ))}
-              {data.notice && (
-                <div
-                  style={{
-                    display: 'flex', gap: '16px', alignItems: 'flex-start', padding: '24px', marginTop: '16px',
-                    background: 'var(--color-bg-alt)', border: '1px solid var(--color-border)', borderRadius: '16px',
-                  }}
-                >
-                  <AlertTriangle size={24} color="var(--color-accent)" style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <div>
-                    <h3 style={{ fontSize: '1.2rem', marginBottom: '6px', color: 'var(--color-text-primary)', fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif', fontWeight: 400 }}>{data.notice.title}</h3>
-                    <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.95rem', lineHeight: 1.6, margin: 0, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>{data.notice.text}</p>
-                  </div>
-                </div>
-              )}
-            </ScrollReveal>
-
-            {data.glossary && (
-              <ScrollReveal delay={1}>
-                <div className="ios-glass-card" style={{ padding: '36px', borderRadius: '24px' }}>
-                  <h3 style={{ fontSize: '1.35rem', marginBottom: '22px', color: 'var(--color-text-primary)', fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif', fontWeight: 400 }}>Words you may see</h3>
-                  <dl style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-                    {data.glossary.map((g) => (
-                      <div key={g.term}>
-                        <dt style={{ fontWeight: 600, color: 'var(--color-accent)', fontSize: '0.95rem', marginBottom: '4px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>{g.term}</dt>
-                        <dd style={{ color: 'var(--color-text-secondary)', fontSize: '0.92rem', lineHeight: 1.6, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>{g.meaning}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                </div>
-              </ScrollReveal>
-            )}
-          </div>
+          <SectionHeading number={nextNumber()} eyebrow="What we handle" title={`What ${data.name} does for you.`} />
+          <ul className="service-rows">
+            {data.services.map(([line, covers]) => (
+              <li key={line} className="service-row">
+                <h3>{line}</h3>
+                <ul>
+                  {covers.split('; ').map((item) => (
+                    <li key={item}>{item.charAt(0).toUpperCase() + item.slice(1)}</li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
-      {/* Services List wrapped in MagicBento */}
       <section className="section" style={{ paddingTop: '40px', paddingBottom: '40px', background: 'var(--color-bg-alt)', borderTop: '1px solid var(--color-border)', borderBottom: '1px solid var(--color-border)' }}>
         <div className="container">
-          <SectionHeading title={data.servicesTitle} />
-          <MagicBento
-            cards={data.services.map((s, i) => ({
-              id: `${data.slug}-svc-${i}`,
-              badge: `(${String(i + 1).padStart(2, '0')}) SCOPE`,
-              title: s.title,
-              subtitle: s.text,
-            }))}
-          />
-        </div>
-      </section>
-
-      {/* Visual Process Steps (How it works) with SvgPathAnimator CAD Flow */}
-      <section className="section" style={{ paddingTop: '60px', paddingBottom: '60px' }}>
-        <div className="container">
-          <SectionHeading
-            title="How the process works"
-            intro="A structured four-step journey designed for clarity, fixed timelines, and zero surprises."
-          />
-
-          {/* Single-Line CAD Execution Flow Schematic */}
-          <div
-            className="hidden md:block mb-6 rounded-2xl p-4"
-            style={{
-              backgroundColor: '#FFFFFF',
-              border: '1px solid var(--color-border)',
-              boxShadow: '0 4px 16px rgba(0, 0, 0, 0.03)',
-            }}
-          >
-            <div className="flex items-center justify-between mb-2">
-              <span
-                style={{
-                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                  fontSize: '0.68rem',
-                  fontWeight: 700,
-                  letterSpacing: '0.1em',
-                  textTransform: 'uppercase',
-                  color: 'var(--color-accent)',
-                }}
-              >
-                [EXECUTION SEQUENCE SCHEMATIC · {data.name.toUpperCase()}]
-              </span>
-              <span
-                style={{
-                  fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                  fontSize: '0.72rem',
-                  fontWeight: 600,
-                  color: '#555555',
-                }}
-              >
-                Active Stage: (0{activeStep + 1}) {data.steps[activeStep]?.title}
-              </span>
-            </div>
-            <SvgPathAnimator
-              viewBox="0 0 1000 36"
-              strokeColor={divisionAccent}
-              strokeWidth={2}
-              duration={2000}
-              className="w-full h-9"
-              d="M 40 18 L 960 18 M 120 8 L 120 28 M 380 8 L 380 28 M 640 8 L 640 28 M 900 8 L 900 28"
-            />
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '24px' }}>
-            {data.steps.map((s, i) => {
-              const isSelected = activeStep === i;
-              return (
-                <ScrollReveal key={s.title} delay={i + 1}>
-                  <ElectricBorder
-                    division={data.slug}
-                    active={isElectricDivision && isSelected}
-                    borderRadius={20}
-                    glowColor={divisionAccent}
-                  >
-                    <div
-                      onMouseEnter={() => setActiveStep(i)}
-                      onClick={() => setActiveStep(i)}
-                      className="ios-glass-card cursor-pointer"
-                      style={{
-                        padding: '32px 26px',
-                        height: '100%',
-                        position: 'relative',
-                        borderRadius: '20px',
-                        borderColor: isSelected ? 'var(--color-border-accent)' : undefined,
-                      }}
-                    >
-                      <div
-                        style={{
-                          fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                          fontSize: '0.84rem',
-                          fontWeight: 700,
-                          color: 'var(--color-accent)',
-                          marginBottom: '16px',
-                          letterSpacing: '0.04em',
-                        }}
-                      >
-                        {`(${String(i + 1).padStart(2, '0')})`}
-                      </div>
-                      <h3
-                        style={{
-                          fontSize: '1.35rem',
-                          marginBottom: '12px',
-                          color: 'var(--color-text-primary)',
-                          fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
-                          fontWeight: 400,
-                          letterSpacing: '-0.015em',
-                          lineHeight: 1.25,
-                        }}
-                      >
-                        {s.title}
-                      </h3>
-                      <p
-                        style={{
-                          color: 'var(--color-text-secondary)',
-                          fontSize: '0.94rem',
-                          lineHeight: 1.65,
-                          margin: 0,
-                          fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                        }}
-                      >
-                        {s.text}
-                      </p>
-                    </div>
-                  </ElectricBorder>
-                </ScrollReveal>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Portfolio & Typical requests */}
-      <section className="section" style={{ paddingTop: '40px', paddingBottom: '40px', background: 'var(--color-bg-alt)', borderTop: '1px solid var(--color-border)', borderBottom: '1px solid var(--color-border)' }}>
-        <div className="container">
-          <SectionHeading title={data.portfolioTitle} intro={data.portfolioIntro} />
-          <div className="grid-2-col">
-            {data.portfolio.map((item, i) => (
-              <ScrollReveal key={item.title} delay={(i % 2) + 1}>
-                <div
-                  className="ios-glass-card"
-                  style={{
-                    padding: '36px 32px',
-                    height: '100%',
-                    borderRadius: '20px',
-                  }}
-                >
-                  <span
-                    style={{
-                      display: 'inline-block',
-                      padding: '4px 12px',
-                      borderRadius: '100px',
-                      marginBottom: '16px',
-                      background: 'var(--color-accent-pale)',
-                      color: 'var(--color-accent)',
-                      fontSize: '0.72rem',
-                      fontWeight: 650,
-                      letterSpacing: '0.08em',
-                      textTransform: 'uppercase',
-                      fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                      border: '1px solid var(--color-border-accent-light)',
-                    }}
-                  >
-                    <TechText text={item.tag} scrambleSpeed={18} maxScrambles={4} triggerOnHover={true} />
-                  </span>
-                  <h3
-                    style={{
-                      fontSize: '1.45rem',
-                      marginBottom: '12px',
-                      color: 'var(--color-text-primary)',
-                      fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
-                      fontWeight: 400,
-                      letterSpacing: '-0.015em',
-                      lineHeight: 1.25,
-                    }}
-                  >
-                    {item.title}
-                  </h3>
-                  <p
-                    style={{
-                      color: 'var(--color-text-secondary)',
-                      fontSize: '0.96rem',
-                      lineHeight: 1.65,
-                      fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                    }}
-                  >
-                    {item.text}
-                  </p>
-                  {item.levels && (
-                    <ul style={{ listStyle: 'none', marginTop: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                      {item.levels.map((l) => (
-                        <li key={l.label} style={{ color: 'var(--color-text-secondary)', fontSize: '0.92rem', lineHeight: 1.55, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                          <strong style={{ color: 'var(--color-text-primary)', fontWeight: 600 }}>{l.label}: </strong>
-                          {l.text}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
+          <SectionHeading number={nextNumber()} eyebrow={data.proof.eyebrow} title={data.proof.title} intro={data.proof.text} />
+          <div style={{ display: 'grid', gap: '48px' }}>
+            {data.proof.blocks.map((block, i) => (
+              <ScrollReveal key={`${block.kind}-${i}`}>
+                <ProofBlockView block={block} />
               </ScrollReveal>
             ))}
           </div>
-
-          {data.tiers && (
-            <ScrollReveal>
-              <h3 style={{ fontSize: '1.5rem', margin: '56px 0 20px 0', color: 'var(--color-text-primary)', fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif', fontWeight: 400 }}>Standard, Premium or Luxury</h3>
-              <div className="glass-panel" style={{ padding: 0, overflowX: 'auto' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '640px' }}>
-                  <thead>
-                    <tr style={{ background: 'var(--color-bg-alt)', borderBottom: '1px solid var(--color-border)' }}>
-                      {['', 'Standard', 'Premium', 'Luxury'].map((h) => (
-                        <th key={h} style={{ padding: '16px 20px', fontSize: '0.82rem', textTransform: 'uppercase', letterSpacing: '1.5px', color: 'var(--color-text-muted)', fontWeight: 700, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>{h}</th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {data.tiers.rows.map((r) => (
-                      <tr key={r.label} style={{ borderBottom: '1px solid var(--color-border)' }}>
-                        <td style={{ padding: '16px 20px', fontWeight: 700, color: 'var(--color-accent)', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>{r.label}</td>
-                        <td style={{ padding: '16px 20px', color: 'var(--color-text-secondary)', fontSize: '0.92rem', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>{r.standard}</td>
-                        <td style={{ padding: '16px 20px', color: 'var(--color-text-secondary)', fontSize: '0.92rem', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>{r.premium}</td>
-                        <td style={{ padding: '16px 20px', color: 'var(--color-text-secondary)', fontSize: '0.92rem', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>{r.luxury}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </ScrollReveal>
-          )}
         </div>
       </section>
 
-      {/* Interactive Print & Packaging Estimator for eMudran */}
-      {data.slug === 'emudran' && (
-        <section className="section" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
+      {data.features?.map((feature, i) => (
+        <section
+          key={feature.kind}
+          className="section"
+          style={{
+            paddingTop: '60px',
+            paddingBottom: '60px',
+            ...(i % 2 === 1 ? { background: 'var(--color-bg-alt)', borderTop: '1px solid var(--color-border)', borderBottom: '1px solid var(--color-border)' } : {}),
+          }}
+        >
           <div className="container">
             <SectionHeading
-              title="Interactive Print & Signage Estimator"
-              intro="Select your collateral format, quantity tier, and finishing spec to calculate corporate production rates in real time."
+              number={nextNumber()}
+              eyebrow={feature.eyebrow}
+              title={feature.title}
+              intro={feature.kind === 'terrace-comparison' ? feature.text : undefined}
             />
-            <PrintCalculator />
+            <FeatureView feature={feature} />
           </div>
         </section>
-      )}
+      ))}
 
-      {/* Interactive Turnkey Interior Cost Estimator for TVASTA */}
-      {data.slug === 'tvasta' && (
-        <section className="section" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
-          <div className="container">
-            <SectionHeading
-              title="Interactive Turnkey Cost Estimator"
-              intro="Select your apartment layout or commercial footprint to compute real-time cost benchmarks across Standard, Premium, and Luxury finishing tiers."
-            />
-            <InteriorCalculator />
-          </div>
-        </section>
-      )}
-
-      {/* Interactive HT Substation & Sizing Calculator for Grid Apex */}
-      {data.slug === 'grid-apex' && (
-        <section className="section" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
-          <div className="container">
-            <SectionHeading
-              title="Interactive HT Substation & APFC Sizing Engine"
-              intro="Simulate connected industrial demand, incomer voltage level, and uncorrected power factor to compute recommended transformer ratings, APFC capacitor bank sizing, and demand penalty reversals."
-            />
-            <GridApexSubstationCalculator />
-          </div>
-        </section>
-      )}
-
-      {/* Interactive Utility Tariff Audit & CGRF Claim Calculator for Sanyog */}
-      {data.slug === 'sanyog' && (
-        <section className="section" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
-          <div className="container">
-            <SectionHeading
-              title="Interactive Utility Tariff & Grievance Claim Estimator"
-              intro="Calculate monthly power factor surcharges, wrong tariff slab financial exposure, and compute 24-month retroactive refund claims recoverable before the Consumer Grievance Redressal Forum (CGRF)."
-            />
-            <SanyogTariffAuditCalculator />
-          </div>
-        </section>
-      )}
-
-      {/* Interactive EV & Agro Infrastructure DPR Simulator for Agrim */}
-      {data.slug === 'agrim' && (
-        <section className="section" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
-          <div className="container">
-            <SectionHeading
-              title="Interactive Infrastructure CAPEX & DSCR Bankability Simulator"
-              intro="Assemble bankable techno-economic feasibility models for commercial EV charging plazas and agro-cold chain infrastructure. Test project cashflows, bank DSCR benchmarks, and statutory subsidies."
-            />
-            <AgrimDprSimulator />
-          </div>
-        </section>
-      )}
-
-      {/* People and Accountability */}
-      <section className="section" style={{ paddingBottom: '40px' }}>
+      <section className="section" style={{ paddingTop: '60px', paddingBottom: '40px' }}>
         <div className="container">
-          <div className="grid-2-col">
-            <div>
-              {data.people.length > 0 ? (
-                <>
-                  <SectionHeading title={data.peopleTitle} intro={data.peopleIntro} />
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                    {data.people.map((group) => (
-                      <ScrollReveal key={group.heading}>
-                        <h3 style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--color-accent)', marginBottom: '14px', fontWeight: 600, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                          {group.heading}
-                        </h3>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                          {group.members.map((m) => (
-                            <div key={m.name} className="ios-glass-card" style={{ padding: '22px 24px', display: 'flex', gap: '16px', alignItems: 'flex-start', borderRadius: '18px' }}>
-                              <User size={18} color="var(--color-accent)" style={{ marginTop: '3px', flexShrink: 0 }} />
-                              <div>
-                                <div style={{ fontWeight: 600, color: 'var(--color-text-primary)', fontSize: '1.05rem', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>{m.name}</div>
-                                <div style={{ color: 'var(--color-accent)', fontSize: '0.88rem', fontWeight: 500, marginTop: '2px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>{m.role}</div>
-                                {m.note && <div style={{ color: 'var(--color-text-secondary)', fontSize: '0.86rem', marginTop: '6px', lineHeight: 1.55, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>{m.note}</div>}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </ScrollReveal>
-                    ))}
-                  </div>
-                </>
-              ) : (
-                <>
-                  <SectionHeading title={data.peopleTitle || 'Advisory Governance'} />
-                  <ScrollReveal>
-                    <div className="ios-glass-card" style={{ padding: '32px 28px', borderRadius: '20px' }}>
-                      <p style={{ color: 'var(--color-text-secondary)', fontSize: '1rem', lineHeight: 1.75, margin: 0, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                        All advisory files, single line diagrams, and regulatory filings undergo verification by licensed practice directors at One International Centre, Mumbai.
-                      </p>
-                    </div>
-                  </ScrollReveal>
-                </>
-              )}
-            </div>
-
-            <div>
-              <SectionHeading title={data.whoDoesTheWork.title} />
+          <SectionHeading number={nextNumber()} eyebrow="How we work" title={data.stepsTitle} />
+          <div className={data.stepsPhoto ? 'steps-with-photo' : undefined}>
+            <ol className="division-steps">
+              {data.steps.map((s, i) => (
+                <li key={s.title}>
+                  <span className="step-number" aria-hidden="true">
+                    {i + 1}
+                  </span>
+                  <h3>{s.title}</h3>
+                  <p>{s.text}</p>
+                </li>
+              ))}
+            </ol>
+            {data.stepsPhoto && (
               <ScrollReveal>
-                <div className="ios-glass-card" style={{ padding: '32px 28px', borderRadius: '20px' }}>
-                  <p style={{ color: 'var(--color-text-secondary)', fontSize: '1rem', lineHeight: 1.75, margin: 0, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                    {data.whoDoesTheWork.text}
-                  </p>
-                </div>
+                <figure style={{ margin: 0 }}>
+                  <div className="unmask steps-photo">
+                    <Image src={data.stepsPhoto.src} alt={data.stepsPhoto.alt} fill sizes="(max-width: 900px) 100vw, 35vw" style={{ objectFit: 'cover' }} />
+                  </div>
+                  <figcaption className="photo-caption">{data.stepsPhoto.caption}</figcaption>
+                </figure>
               </ScrollReveal>
-            </div>
+            )}
           </div>
         </div>
       </section>
 
-      {/* Division-Specific Interactive Module */}
-      {children && (
-        <section className="section" style={{ paddingTop: '20px', paddingBottom: '40px' }}>
+      {estimator && (
+        <section className="section" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
           <div className="container">
-            {children}
+            <SectionHeading number={nextNumber()} eyebrow="Estimate" title={estimator.title} intro={estimator.intro} />
+            {estimator.render({ onUse: setEstimate })}
           </div>
         </section>
       )}
 
-      {/* Call to Action Card with MicroSlats and SpecularButtons */}
-      <section className="section" style={{ paddingTop: '20px', paddingBottom: '80px' }}>
+      <section className="section" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
+        <div className="container">
+          <div className="faq-grid">
+            <SectionHeading number={nextNumber()} eyebrow="Questions" title="What clients ask us." />
+            <FaqList items={data.faq} />
+          </div>
+        </div>
+      </section>
+
+      <section className="section" style={{ paddingTop: '40px', paddingBottom: '40px', background: 'var(--color-bg-alt)', borderTop: '1px solid var(--color-border)' }}>
+        <div className="container">
+          <SectionHeading number={nextNumber()} eyebrow="One desk" title="Who else joins the project." intro="A project that needs more than one division is run by a single desk." />
+          <ul className="joins-list">
+            {data.joins.map(([name, text]) => (
+              <li key={name}>
+                <Link href={DIVISION_HREFS[name] ?? '/'} className="joins-link">
+                  <span className="joins-name">
+                    {name}
+                    <ArrowUpRight size={15} aria-hidden="true" />
+                  </span>
+                  <span className="joins-text">{text}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section id="contact" className="section" style={{ paddingTop: '40px', paddingBottom: '80px', scrollMarginTop: '100px' }}>
         <div className="container">
           <ScrollReveal>
-            <div
-              className="ios-glass-card relative overflow-hidden"
-              style={{
-                borderRadius: '24px',
-                padding: 'clamp(48px, 6vw, 72px) clamp(24px, 5vw, 48px)',
-                textAlign: 'center',
-                boxShadow: 'var(--shadow-lg)',
-                position: 'relative',
-              }}
-            >
-              <MicroSlats count={16} color={divisionAccent} opacity={0.05} zIndex={1} showTicks={true} />
-              <div style={{ position: 'relative', zIndex: 2 }}>
-                <CheckCircle2 size={32} color="var(--color-accent)" style={{ marginBottom: '18px', display: 'inline-block' }} />
-                <h2
-                  style={{
-                    fontSize: 'clamp(2rem, 3.6vw, 2.8rem)',
-                    marginBottom: '14px',
-                    color: 'var(--color-text-primary)',
-                    fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
-                    fontWeight: 400,
-                    letterSpacing: '-0.02em',
-                    lineHeight: 1.15,
-                  }}
-                >
-                  Ready to discuss your project?
+            <div className={`flat-card division-contact${data.enquiryForm ? ' has-form' : ''}`} style={{ padding: 'clamp(24px, 5vw, 56px)' }}>
+              <div>
+                <SectionEyebrow>Enquire</SectionEyebrow>
+                <h2 style={{ fontSize: 'clamp(2rem, 3.6vw, 2.8rem)', margin: '0 0 14px', color: 'var(--color-text-primary)', fontFamily: SERIF, fontWeight: 400, letterSpacing: '-0.02em', lineHeight: 1.15 }}>
+                  Talk to us about your site.
                 </h2>
-                <p
-                  style={{
-                    color: 'var(--color-text-secondary)',
-                    maxWidth: '600px',
-                    margin: '0 auto 32px auto',
-                    lineHeight: 1.7,
-                    fontSize: '1.05rem',
-                    fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                  }}
-                >
-                  Reach out with your requirements. We will review what is needed and provide honest, transparent next steps.
+                <p style={{ color: 'var(--color-text-secondary)', margin: '0 0 24px', fontSize: '1.02rem', lineHeight: 1.7, fontFamily: SANS, maxWidth: '520px' }}>
+                  Tell us what you need. We reply with the next steps and the person who will handle them.
                 </p>
-                <div style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap' }}>
-                  {data.actions.map((a, i) => (
-                    <SpecularButton
-                      key={a.href}
-                      href={a.href}
-                      variant={i === 0 ? 'dark' : 'light'}
-                      icon={i === 0 ? <ArrowRight size={16} /> : undefined}
-                    >
-                      {a.label}
-                    </SpecularButton>
-                  ))}
-                </div>
+                {data.enquiryForm ? (
+                  contactRows
+                ) : (
+                  <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                    {data.actions.map((a, i) => (
+                      <SpecularButton key={a.href} href={a.href} variant={i === 0 ? 'dark' : 'light'} icon={i === 0 ? <ArrowRight size={16} /> : undefined}>
+                        {a.label}
+                      </SpecularButton>
+                    ))}
+                  </div>
+                )}
               </div>
+              {data.enquiryForm ? (
+                <SiteEnquiryForm
+                  to={data.enquiryForm.to}
+                  cc={data.enquiryForm.cc}
+                  subject={data.enquiryForm.subject}
+                  needs={data.services.map(([line]) => line)}
+                  estimate={estimate}
+                  onClearEstimate={() => setEstimate(undefined)}
+                />
+              ) : (
+                contactRows
+              )}
             </div>
           </ScrollReveal>
         </div>
       </section>
+      </div>
 
       <Footer />
     </main>

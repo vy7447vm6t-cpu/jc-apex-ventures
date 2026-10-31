@@ -91,7 +91,7 @@ export default function GridApexSubstationCalculator() {
               color: '#0284C7',
             }}
           >
-            [HT SUBSTATION LOAD &amp; APFC SIZING ENGINE]
+            Grid Apex · Transformer and capacitor sizing
           </span>
         </div>
         <h3

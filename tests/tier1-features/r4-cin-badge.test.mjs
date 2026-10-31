@@ -22,14 +22,15 @@ test({
   id: 'T1_R4_02',
   tier: 'tier1',
   feature: 'r4',
-  title: 'R4 Feature: Hero section leads with editorial category badge',
+  title: 'R4 Feature: Hero leads with the core line from the messaging framework',
   fn: () => {
-    const home = readFileSafe(PATHS.homePage);
-    assert(home !== null, 'src/app/page.tsx must exist');
-    // Must feature editorial category badge mentioning Multi-Disciplinary Engineering & Design Consortium and One International Centre
-    const hasEditorialBadge = /Multi-Disciplinary Engineering & Design Consortium/i.test(home) &&
-                              /One International Centre/i.test(home);
-    assert(hasEditorialBadge, 'Hero section must lead with architectural editorial category badge ("Multi-Disciplinary Engineering & Design Consortium | One International Centre, Mumbai")');
+    const hero = readFileSafe(PATHS.groundedHero);
+    const site = readFileSafe(PATHS.messaging);
+    const pdf = readFileSafe(PATHS.profilesLib);
+    assert(hero !== null && site !== null && pdf !== null, 'GroundedHero.tsx, messaging.ts and profiles/lib.mjs must exist');
+    assertIncludes(hero, '{CORE_LINE}', 'Hero must render CORE_LINE');
+    const line = (code) => /export const CORE_LINE =\s*\n?\s*"([^"]+)"/.exec(code)?.[1];
+    assert(line(site) && line(site) === line(pdf), 'The website core line must match the PDF profiles word for word');
   },
 });
 

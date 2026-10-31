@@ -75,7 +75,7 @@ export default function PackagingVolumeTierCurve({
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-6">
         <div>
           <span className="text-[11px] uppercase tracking-[0.14em] font-semibold text-[#8C6D23]">
-            [eMUDRAN / RUN TIER CURVE]
+            Illustrative · cost per unit by run size
           </span>
           <h4
             className="text-2xl font-normal text-[#111111] mt-1 tracking-tight"
