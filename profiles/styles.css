@@ -1,0 +1,436 @@
+/* Division profiles: A4 portrait, printed by headless Chrome.
+   Flat surfaces only: no gradients, glows, blur or shadows (guidelines 2.8). */
+
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body {
+  font-family: var(--sans);
+  font-size: var(--body);
+  line-height: var(--body-lh);
+  color: var(--ink);
+  font-kerning: normal;
+}
+
+/* ---------- Themes ---------- */
+
+/* Solis follows its own guidelines: black, Sun Yellow and greys; Instrument Sans body. */
+.theme-solis {
+  --sans: 'Instrument Sans', 'Inter', Arial, sans-serif;
+  --serif: 'Instrument Serif', Georgia, serif;
+  --ink: #111111;
+  --strong: #000000;
+  --secondary: #3D3D3D;
+  --muted: #6E6E6E;
+  --rule: #E3E3E3;
+  --panel: #F7F6F2;
+  --tint: #FFF1D6;
+  --accent: #FFC85A;
+  --accent-text: #000000;
+  --mark: rgba(17, 17, 17, 0.4);
+  --body: 10pt; --body-lh: 14.5pt;
+  --h1: 28pt; --h1-lh: 32pt;
+  --h2: 17pt; --h2-lh: 21pt;
+  --h3: 11pt; --h3-lh: 15pt;
+  --eyebrow: 8.5pt; --table: 9pt; --caption: 8pt;
+}
+
+/* The other five divisions share the master type scale (Instrument Serif and Inter)
+   and differ only in colour, taken from each division's guidelines. */
+.theme-group, .theme-grid-apex, .theme-sanyog, .theme-tvasta, .theme-emudran, .theme-agrim {
+  --sans: 'Inter', Arial, sans-serif;
+  --serif: 'Instrument Serif', Georgia, serif;
+  --night: #0B0E14;
+  --night-text: #F0F3F6;
+  --night-grey: #8B949E;
+  --body: 9.5pt; --body-lh: 14pt;
+  --h1: 26pt; --h1-lh: 30pt;
+  --h2: 16pt; --h2-lh: 20pt;
+  --h3: 10.5pt; --h3-lh: 14.5pt;
+  --eyebrow: 8pt; --table: 8.5pt; --caption: 7.5pt;
+}
+
+/* The group: Stone, Ink and Champagne Gold (master guidelines 2.2). Gold is never small text. */
+.theme-group {
+  --ink: #111111; --strong: #111111; --secondary: #4A4A46; --muted: #666666;
+  --rule: #E4DFD4; --panel: #F4F1EA; --tint: #EDE8DC;
+  --accent: #C29F53; --cover-accent: #C29F53;
+  --mark: rgba(17, 17, 17, 0.4);
+}
+.theme-grid-apex {
+  --ink: #061224; --strong: #061224; --secondary: #1E293B; --muted: #475569;
+  --rule: #D5E2EF; --panel: #F0F7FF; --tint: #E1EFFF;
+  --accent: #0284C7; --cover-accent: #0284C7;
+  --mark: rgba(6, 18, 36, 0.4);
+}
+.theme-sanyog {
+  --ink: #0B132B; --strong: #0B132B; --secondary: #243356; --muted: #516285;
+  --rule: #D9DFEE; --panel: #F4F6FC; --tint: #E9EDF8;
+  --accent: #2C5ED4; --cover-accent: #2C5ED4;
+  --mark: rgba(11, 19, 43, 0.4);
+}
+/* Tvasta muted grey is 4.45:1 on its canvas, so small text on panels uses Slate. */
+.theme-tvasta {
+  --ink: #111315; --strong: #111315; --secondary: #343A40; --muted: #6C757D;
+  --rule: #E3E5E8; --panel: #F8F9FA; --tint: #F1F3F5;
+  --accent: #D72A1B; --cover-accent: #D72A1B;
+  --mark: rgba(17, 19, 21, 0.4);
+}
+/* eMudran's accent is its ink, Press Navy; on the Night cover the motif uses Indigo. */
+.theme-emudran {
+  --ink: #00163A; --strong: #00163A; --secondary: #1E293B; --muted: #50617D;
+  --rule: #DADFEA; --panel: #F5F6FA; --tint: #ECEEF6;
+  --accent: #00163A; --cover-accent: #4338CA;
+  --mark: rgba(0, 22, 58, 0.4);
+}
+.theme-agrim {
+  --ink: #06281E; --strong: #06281E; --secondary: #264639; --muted: #527364;
+  --rule: #D6E3DA; --panel: #F7F9F5; --tint: #EEF4EC;
+  --accent: #047857; --cover-accent: #10B981;
+  --mark: rgba(6, 40, 30, 0.4);
+}
+
+/* ---------- Page ---------- */
+
+.sheet {
+  position: relative;
+  width: 210mm;
+  height: 297mm;
+  overflow: hidden;
+  background: #FFFFFF;
+  break-after: page;
+}
+.sheet:last-child { break-after: auto; }
+.content {
+  position: absolute;
+  top: 31mm;
+  left: 23mm;
+  right: 23mm;
+  bottom: 27mm;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Drawing-sheet corner marks (2.9) */
+.mark { position: absolute; width: 4mm; height: 4mm; border: 0 solid var(--mark); }
+.mark-tl { top: 9mm; left: 9mm; border-top-width: 0.75pt; border-left-width: 0.75pt; }
+.mark-tr { top: 9mm; right: 9mm; border-top-width: 0.75pt; border-right-width: 0.75pt; }
+.mark-bl { bottom: 9mm; left: 9mm; border-bottom-width: 0.75pt; border-left-width: 0.75pt; }
+.mark-br { bottom: 9mm; right: 9mm; border-bottom-width: 0.75pt; border-right-width: 0.75pt; }
+
+/* Title block (2.9) */
+.title-block {
+  position: absolute;
+  left: 23mm;
+  right: 23mm;
+  bottom: 12mm;
+  display: flex;
+  align-items: stretch;
+  border-top: 0.5pt solid var(--rule);
+  border-bottom: 0.5pt solid var(--rule);
+  font-family: var(--sans);
+  font-size: 6.5pt;
+  line-height: 8pt;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.title-block > span { padding: 1.6mm 2.6mm; border-left: 0.5pt solid var(--rule); white-space: nowrap; }
+.title-block > span:first-child { border-left: 0; padding-left: 0; display: flex; align-items: center; }
+.title-block > span:nth-child(4) { flex: 1; }
+.title-block > span:last-child { padding-right: 0; }
+
+.running-header {
+  position: absolute;
+  top: 12mm;
+  left: 23mm;
+  right: 23mm;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 2.4mm;
+  border-bottom: 0.5pt solid var(--rule);
+  font-size: 7.5pt;
+  color: var(--muted);
+}
+.running-header img { height: 5.5mm; width: auto; }
+.theme-grid-apex .running-header img { height: 7.5mm; }
+.theme-sanyog .running-header img { height: 8.5mm; }
+.theme-agrim .running-header img { height: 7.5mm; }
+
+/* Faint section number in the left margin (2.8.3) */
+.section-number {
+  position: absolute;
+  top: 29mm;
+  left: 6.5mm;
+  font-family: var(--serif);
+  font-size: 34pt;
+  line-height: 1;
+  color: var(--ink);
+  opacity: 0.1;
+}
+
+/* ---------- Type ---------- */
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 2.4mm;
+  font-family: var(--sans);
+  font-size: var(--eyebrow);
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 3.5mm;
+}
+.eyebrow::before { content: ''; width: 6.4mm; height: 0.55mm; background: var(--accent); flex: none; }
+/* Solis: the sun bar (30 x 2 mm) sits above the eyebrow instead of a short rule. */
+.theme-solis .eyebrow { flex-direction: column; align-items: flex-start; gap: 4mm; }
+.theme-solis .eyebrow::before { width: 30mm; height: 2mm; }
+
+h1 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: var(--h1);
+  line-height: var(--h1-lh);
+  color: var(--strong);
+  letter-spacing: -0.005em;
+  margin-bottom: 5mm;
+  max-width: 150mm;
+}
+h1 em { font-style: italic; }
+h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: var(--h2);
+  line-height: var(--h2-lh);
+  color: var(--strong);
+  margin: 7mm 0 2.5mm;
+}
+h3 {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: var(--h3);
+  line-height: var(--h3-lh);
+  color: var(--strong);
+}
+p { max-width: 150mm; }
+p + p { margin-top: 2.6mm; }
+.lead { font-size: calc(var(--body) * 1.12); line-height: calc(var(--body-lh) * 1.1); color: var(--secondary); }
+.lead-small { color: var(--secondary); margin-bottom: 3mm; }
+.attribution { font-family: var(--serif); font-style: italic; font-size: 12.5pt; line-height: 16pt; color: var(--secondary); }
+.caption, figcaption { font-size: var(--caption); line-height: 1.35; color: var(--muted); margin-top: 2mm; }
+
+/* ---------- Components ---------- */
+
+.fact-rows { border-top: 0.5pt solid var(--rule); }
+.fact-row {
+  display: grid;
+  grid-template-columns: 34mm 1fr;
+  gap: 4mm;
+  padding: 2.2mm 0;
+  border-bottom: 0.5pt solid var(--rule);
+}
+.fact-row dt { font-size: var(--table); color: var(--muted); }
+.fact-row dd { font-size: var(--table); color: var(--ink); line-height: 1.4; }
+.fact-row small { display: block; font-size: var(--caption); color: var(--muted); margin-top: 0.6mm; }
+
+table.spec { width: 100%; border-collapse: collapse; font-size: var(--table); line-height: 1.38; font-variant-numeric: tabular-nums; }
+table.spec th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--strong);
+  background: var(--tint);
+  padding: 2mm 2.4mm;
+}
+table.spec td { padding: 2.2mm 2.4mm; border-bottom: 0.5pt solid var(--rule); vertical-align: top; color: var(--ink); }
+table.spec td:first-child { color: var(--strong); font-weight: 500; }
+table.spec td .sub { display: block; color: var(--muted); font-weight: 400; }
+.theme-solis table.spec tbody tr:nth-child(even) td { background: var(--panel); }
+
+.steps { list-style: none; display: grid; gap: 4.2mm; }
+.steps li { display: grid; grid-template-columns: 11mm 1fr; align-items: start; }
+.step-n { font-family: var(--serif); font-size: 22pt; line-height: 1; color: var(--strong); }
+.steps h3 { margin-bottom: 0.8mm; }
+.steps p { color: var(--secondary); }
+
+.callout { background: var(--tint); border-left: 3pt solid var(--accent); padding: 4mm 5mm; }
+.callout p { max-width: none; }
+.margin-note {
+  border-left: 2px solid var(--accent);
+  padding-left: 4mm;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 13pt;
+  line-height: 17pt;
+  color: var(--secondary);
+}
+
+.big-figure { font-family: var(--serif); font-size: 64pt; line-height: 0.95; color: var(--strong); letter-spacing: -0.01em; }
+.figure-label { font-size: calc(var(--body) * 1.05); color: var(--secondary); max-width: 80mm; }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 9mm; }
+.diagram { margin-top: 5mm; }
+.diagram svg { width: 100%; height: auto; display: block; }
+.chart svg { width: 100%; height: auto; display: block; }
+.chart-title { font-family: var(--sans); font-weight: 600; font-size: var(--h3); line-height: var(--h3-lh); color: var(--strong); margin-bottom: 2.5mm; }
+
+.back-grid { display: grid; grid-template-columns: 1fr 34mm; gap: 9mm; align-items: start; margin-bottom: 2mm; }
+.qr { text-align: left; }
+.qr svg { width: 30mm; height: 30mm; display: block; }
+.group-table td:first-child { width: 28mm; }
+.legal { margin-top: auto; font-size: var(--caption); line-height: 1.45; color: var(--muted); max-width: none; }
+
+.spacer { flex: 1; }
+
+/* ---------- Covers ---------- */
+
+.cover .content { top: 22mm; bottom: 27mm; }
+.content > img, .content > figure { align-self: flex-start; }
+.content > figure.photo { align-self: stretch; }
+.cover-logo { height: 15mm; width: auto; display: block; }
+.cover h1 { font-size: 40pt; line-height: 44pt; max-width: 140mm; margin-bottom: 4mm; }
+.cover .subtitle { color: var(--muted); font-size: 10.5pt; margin-bottom: 9mm; }
+.cover .cover-details { margin-top: auto; }
+
+/* Solis cover: white, logo alone in the top margin, one Sun Yellow motif. */
+.theme-solis .cover h1 { font-size: 44pt; line-height: 46pt; }
+.solis-motif { position: absolute; top: 0; right: 0; }
+.cover-figure { display: grid; grid-template-columns: auto 1fr; align-items: end; gap: 6mm; margin: 2mm 0 10mm; }
+
+/* Night cover (every division except Solis): reversed logo, the accent shape as the motif. */
+.cover-dark { background: var(--night); color: var(--night-text); }
+.cover-dark h1, .cover-dark .big-figure { color: #FFFFFF; }
+.cover-dark .subtitle, .cover-dark .eyebrow, .cover-dark .figure-label { color: var(--night-grey); }
+.cover-dark .eyebrow::before { background: var(--cover-accent); }
+.cover-dark .fact-rows, .cover-dark .fact-row { border-color: rgba(255, 255, 255, 0.14); }
+.cover-dark .fact-row dt { color: var(--night-grey); }
+.cover-dark .fact-row dd { color: var(--night-text); }
+.cover-dark .mark { border-color: rgba(240, 243, 246, 0.35); }
+.cover-dark .title-block { color: var(--night-grey); border-color: rgba(255, 255, 255, 0.14); }
+.cover-dark .title-block > span { border-color: rgba(255, 255, 255, 0.14); }
+.cover-statement {
+  border-left: 2px solid var(--cover-accent);
+  padding-left: 5mm;
+  font-family: var(--serif);
+  font-size: 17pt;
+  line-height: 22pt;
+  color: var(--night-text);
+  max-width: 130mm;
+  margin: 2mm 0 10mm;
+}
+.group-lockup { display: flex; align-items: center; gap: 2.4mm; font-size: 7.5pt; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--night-grey); margin-bottom: 11mm; }
+.cover-motif { position: absolute; right: 0; top: 0; }
+
+/* Grid Apex track record */
+.place-columns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6mm; margin-top: 4mm; }
+.place-columns h3 { padding-bottom: 2mm; border-bottom: 1pt solid var(--accent); margin-bottom: 1mm; }
+.place-columns ul { list-style: none; }
+.place-columns li { padding: 2mm 0; border-bottom: 0.5pt solid var(--rule); font-size: var(--table); line-height: 1.35; }
+.place-columns li .place { display: block; color: var(--muted); font-size: var(--caption); padding-left: 4.2mm; }
+
+/* ---------- Photographs, fact strips, cards, maps (v1.1) ---------- */
+
+.photo { margin: 0; }
+.photo-frame { overflow: hidden; border-radius: 2.5mm; background: var(--panel); }
+.photo-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.photo figcaption { margin-top: 1.6mm; }
+.photo.bleed .photo-frame { border-radius: 0; }
+
+/* Photo cover: own photograph full-bleed, a flat Night overlay where the text sits (guidelines 2.8.3) */
+.cover-photo { position: absolute; inset: 0; }
+.cover-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cover-photo::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 62%; background: rgba(11, 14, 20, 0.82); }
+.cover-photo-caption { position: absolute; top: 14mm; right: 14mm; font-size: 7pt; color: rgba(255, 255, 255, 0.85); }
+
+.fact-strip { display: grid; gap: 0; border-top: 0.5pt solid var(--rule); border-bottom: 0.5pt solid var(--rule); margin: 5mm 0; }
+.fact-strip > div { padding: 3.5mm 3mm 3.5mm 0; border-left: 0.5pt solid var(--rule); padding-left: 4mm; }
+.fact-strip > div:first-child { border-left: 0; padding-left: 0; }
+.fs-value { display: block; font-family: var(--serif); font-size: 30pt; line-height: 1; color: var(--strong); }
+.fs-label { display: block; font-size: var(--caption); line-height: 1.35; color: var(--muted); margin-top: 1.6mm; }
+.cover-dark .fact-strip, .cover-dark .fact-strip > div { border-color: rgba(255, 255, 255, 0.16); }
+.cover-dark .fs-value { color: #FFFFFF; }
+.cover-dark .fs-label { color: var(--night-grey); }
+
+.tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm 6mm; }
+.tile h3 { margin-top: 2.6mm; }
+.tile p { color: var(--secondary); font-size: var(--table); line-height: 1.45; margin-top: 1mm; }
+.tile .photo figcaption { font-size: 6.5pt; }
+
+.cards { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; }
+.project-card { border: 0.5pt solid var(--rule); border-top: 2pt solid var(--accent); border-radius: 0 0 2.5mm 2.5mm; padding: 4mm 4.5mm; break-inside: avoid; }
+.card-tag { font-size: 7pt; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5mm; }
+.card-figure { font-family: var(--serif); font-size: 30pt; line-height: 1; color: var(--strong); margin-bottom: 2mm; }
+.project-card h3 { margin-bottom: 0.6mm; }
+.card-meta { font-size: var(--table); color: var(--muted); margin-bottom: 2.5mm; }
+.project-card dl > div { display: grid; grid-template-columns: 20mm 1fr; gap: 2mm; padding: 1.4mm 0; border-top: 0.5pt solid var(--rule); font-size: var(--caption); line-height: 1.4; }
+.project-card dt { color: var(--muted); }
+.project-card dd { color: var(--ink); }
+
+.map svg { width: 100%; height: auto; display: block; }
+.map-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7mm; align-items: start; }
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 7mm; align-items: start; }
+.split-wide { display: grid; grid-template-columns: 1.15fr 1fr; gap: 7mm; align-items: start; }
+
+.division-block { display: grid; grid-template-columns: 62mm 1fr; gap: 6mm; padding: 5mm 0; border-top: 2pt solid var(--block-accent, var(--accent)); }
+.division-block + .division-block { margin-top: 4mm; }
+.division-block .logo { height: 9mm; width: auto; display: block; margin-bottom: 2.5mm; }
+.division-block .one-line { font-family: var(--serif); font-size: 14pt; line-height: 18pt; color: var(--strong); margin-bottom: 2.5mm; }
+.division-block ul { list-style: none; columns: 2; column-gap: 5mm; }
+.division-block li { font-size: var(--table); padding: 1.1mm 0; border-bottom: 0.5pt solid var(--rule); break-inside: avoid; }
+.division-block .proof { margin-top: 3mm; font-size: var(--table); color: var(--secondary); }
+
+.group-mark { display: inline-flex; align-items: center; gap: 2mm; font-size: 8pt; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--strong); }
+.tile-logo { height: 7mm; width: auto; display: block; margin-top: 3mm; }
+.tile-logo.logo-sanyog, .division-block .logo.logo-sanyog { height: 13mm; }
+.tile-logo.logo-agrim, .division-block .logo.logo-agrim { height: 11mm; }
+.tile-logo.logo-grid-apex { height: 8.5mm; }
+.cover-photo.split { left: 0; top: 0; right: auto; bottom: auto; width: 210mm; height: 132mm; overflow: hidden; }
+.cover-photo.split img { position: absolute; left: 0; top: 0; width: 210mm; height: 132mm; object-fit: cover; object-position: 50% 80%; }
+.cover-photo.split::after { display: none; }
+.cover-photo-caption { position: static; font-size: 7pt; color: var(--night-grey); margin-bottom: 6mm; }
+.theme-group .cover .group-lockup { margin-bottom: 6mm; }
+.theme-group .cover .subtitle { margin-bottom: 5mm; }
+.cover-contact { margin-top: 5mm; font-size: 8.5pt; color: var(--night-grey); }
+table.spec.compact { font-size: var(--caption); }
+table.spec.compact th { padding: 1.5mm 2mm; }
+table.spec.compact td { padding: 1.6mm 2mm; }
+table.spec.compact td:first-child { width: 30mm; }
+.tile .tile-link { font-size: var(--caption); color: var(--muted); margin-top: 1.2mm; }
+.theme-group .cover .subtitle { color: #D9D2C2; max-width: 140mm; }
+
+.credits { margin-top: 5mm; }
+.credits h3 { font-size: 7.5pt; margin-bottom: 1mm; }
+.credits p { font-size: 6.5pt; line-height: 1.45; color: var(--muted); max-width: none; }
+
+.plain-list { list-style: none; margin-top: 1.5mm; }
+.plain-list li { padding: 1.8mm 0; border-bottom: 0.5pt solid var(--rule); font-size: var(--table); }
+
+/* Tvasta tier table: the row labels sit in the first column, the tiers across the top */
+.tiers td:first-child { width: 30mm; color: var(--secondary); font-weight: 600; }
+.tiers th:not(:first-child) { width: 44mm; }
+
+/* Solis track record table */
+.plants td:nth-child(1) { width: 40mm; }
+.plants td:nth-child(2) { width: 18mm; white-space: nowrap; }
+.plants td:nth-child(4) { width: 22mm; }
+.plants td:nth-child(5) { width: 27mm; }
+.marker { display: inline-flex; vertical-align: -0.4mm; margin-right: 1.6mm; }
+.panel { background: var(--panel); padding: 5mm 6mm; }
+
+/* Numbered map key */
+.pin-list { list-style: none; margin-top: 1.5mm; }
+.pin-list li { display: grid; grid-template-columns: 6.5mm 1fr; gap: 2mm; align-items: start; padding: 1.6mm 0; border-bottom: 0.5pt solid var(--rule); }
+.pin-key { display: inline-flex; align-items: center; justify-content: center; width: 5mm; height: 5mm; border-radius: 50%; background: var(--accent); border: 0.6pt solid var(--ink); font-size: 6.5pt; font-weight: 700; color: var(--ink); }
+.pin-list strong { display: block; font-size: var(--table); font-weight: 600; color: var(--strong); }
+.pin-list span:not(.pin-key) { display: block; font-size: var(--caption); color: var(--muted); }
+.shape-frame { display: flex; align-items: center; justify-content: center; background: var(--panel); }
+.joins { margin-top: 2mm; }
+.joins h2 { font-size: 12pt; margin: 2.5mm 0 1.5mm; }
+.joins .fact-row, .joins td, .joins th { padding-top: 1.1mm !important; padding-bottom: 1.1mm !important; }
+.joins .lead-small { font-size: 8pt; }
+.hotel-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; margin: 4mm 0 2mm; }
+.hotel-row figure { margin: 0; }

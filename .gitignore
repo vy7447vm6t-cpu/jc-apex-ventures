@@ -45,3 +45,7 @@ next-env.d.ts
 
 # agents scratch
 .agents
+
+# Generated division profiles (npm run profiles)
+/profiles/out/
+/profiles/build/

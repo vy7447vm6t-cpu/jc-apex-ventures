@@ -6,7 +6,8 @@
     "dev": "next dev --webpack",
     "build": "next build --webpack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "profiles": "node --no-warnings profiles/build.mjs"
   },
   "dependencies": {
     "@types/d3": "^7.4.3",
