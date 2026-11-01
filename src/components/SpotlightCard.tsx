@@ -75,7 +75,8 @@ export default function SpotlightCard({
     }
   }, []);
 
-  const baseGlassClass = isLight ? 'ios-liquid-glass' : 'glass-panel ios-glass';
+  // Flat surfaces (no glass blur): white with a hairline on light pages, Night Panel on dark ones.
+  const baseGlassClass = isLight ? 'spotlight-card' : 'spotlight-card is-dark';
 
   return (
     <div

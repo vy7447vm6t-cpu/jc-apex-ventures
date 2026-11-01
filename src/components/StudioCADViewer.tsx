@@ -136,7 +136,7 @@ export default function StudioCADViewer() {
               </span>
             </div>
             <div className="text-xs text-[#C9D1D9] mt-0.5 font-medium">
-              One International Centre, Tower 2, Units 801-802 | 8th Floor
+              One International Centre, Tower 1, Units 801–802 | 8th Floor
             </div>
           </div>
         </div>
@@ -237,7 +237,7 @@ export default function StudioCADViewer() {
               {/* Grid Background */}
               <rect x="0" y="0" width="880" height="480" fill="url(#cadGrid)" />
 
-              {/* Outer Suite Boundary (Tower 2, Units 801-802) */}
+              {/* Outer Suite Boundary (Tower 1, Units 801–802) */}
               <rect
                 x="25"
                 y="35"

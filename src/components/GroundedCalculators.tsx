@@ -65,7 +65,7 @@ export default function GroundedCalculators() {
       }}
     >
       <div style={{ maxWidth: '1240px', margin: '0 auto', width: '100%' }}>
-        <SectionEyebrow number={6}>Estimates</SectionEyebrow>
+        <SectionEyebrow>Estimates</SectionEyebrow>
         <div style={{ maxWidth: '760px', marginBottom: '32px' }}>
           <h2
             style={{
@@ -78,10 +78,10 @@ export default function GroundedCalculators() {
               fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
             }}
           >
-            See indicative costs and savings first.
+            Rough numbers before anyone visits.
           </h2>
           <p style={{ fontSize: '1.02rem', color: '#4A4A46', lineHeight: 1.65, margin: 0, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-            One estimator for each division. Every figure is indicative: a site visit and a written quote come first.
+            One estimator for each division. Every figure is indicative; the real number comes after a site visit, in a written quote.
           </p>
         </div>
 

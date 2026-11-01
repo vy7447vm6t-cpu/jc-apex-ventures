@@ -58,7 +58,7 @@ export const grievancesPage: DivisionContent = {
   name: 'Bill disputes and grievances',
   description:
     'Sanyog takes disputed bills, faulty meters, disconnection notices and HT complaints to BEST, Adani Electricity, Tata Power or MSEDCL, then to the CGRF and the Electricity Ombudsman if needed.',
-  title: 'When the utility gets it wrong, we take it to the forum.',
+  title: 'Disputed bills and faulty meters, taken to the CGRF if the utility will not fix them.',
   intro:
     'Sanyog handles disputed bills, faulty meters, disconnection notices and HT complaints. We complain to the utility in writing first, then take the case to its Consumer Grievance Redressal Forum (CGRF) if needed, and to the Electricity Ombudsman on appeal.',
   heroPhoto: 'grid-electrician',
@@ -82,7 +82,7 @@ export const grievancesPage: DivisionContent = {
     ],
   },
   features: sanyog.features?.filter((f) => f.kind === 'flow'),
-  stepsTitle: 'From complaint to forum.',
+  stepsTitle: 'How a complaint reaches the forum.',
   steps: [
     { title: 'Bill check', text: 'We check the bill history and gather the account number and documents.' },
     { title: 'Complaint', text: 'We complain to the utility in writing and keep a record of every step.' },

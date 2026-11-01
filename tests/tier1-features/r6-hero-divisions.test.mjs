@@ -60,11 +60,11 @@ test({
   id: 'T1_R6_04',
   tier: 'tier1',
   feature: 'r6',
-  title: 'R6 Feature: Home section numbers run 1 to 7 without gaps or repeats',
+  title: 'R6 Feature: Home sections carry sentence-case labels and no section numbers',
   fn: () => {
     const code = readAll(HOME_SECTION_FILES);
-    const numbers = [...code.matchAll(/<SectionEyebrow number=\{(\d+)\}/g)].map((m) => Number(m[1])).sort((a, b) => a - b);
-    assertEqual(numbers.join(','), '1,2,3,4,5,6,7', 'Home sections must be numbered 1 to 7 once each');
+    assert(!/<SectionEyebrow number=/.test(code), 'No home section passes a section number');
+    assert(!/section-number/.test(readFileSafe(PATHS.sectionEyebrow) ?? ''), 'SectionEyebrow renders no number');
   },
 });
 

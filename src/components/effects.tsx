@@ -20,6 +20,10 @@ export const FaultyTerminal = dynamic(() => import('./react-bits/FaultyTerminal'
 export const HoloCard = dynamic(() => import('./react-bits/HoloCard'), { ssr: false });
 export const TargetCursor = dynamic(() => import('./react-bits/TargetCursor'), { ssr: false });
 export const GlowCursor = dynamic(() => import('./react-bits/GlowCursor'), { ssr: false });
+export const NetworkGraph = dynamic(() => import('./NetworkGraph'), { ssr: false });
+export const InfiniteSpiral = dynamic(() => import('./react-bits/InfiniteSpiral'), { ssr: false });
+export const ShapeWaves = dynamic(() => import('./react-bits/ShapeWaves'), { ssr: false });
+export const ParticleText = dynamic(() => import('./react-bits/ParticleText'), { ssr: false });
 
 /** True on wide screens with a fine pointer (a mouse or trackpad). */
 export function useDesktopPointer(): boolean {

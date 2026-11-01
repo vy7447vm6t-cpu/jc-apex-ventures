@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Logo from './Logo';
-import { Phone, Mail, MapPin, ArrowUpRight } from 'lucide-react';
+import { Phone, Mail, MapPin, ArrowUpRight, Download } from 'lucide-react';
 import { SpecularButton } from '@/components/react-bits';
 import { PROOF_LINE } from '@/content/messaging';
 
@@ -169,8 +169,7 @@ export default function Footer() {
             style={{
               fontSize: '0.72rem',
               fontWeight: 700,
-              letterSpacing: '0.16em',
-              textTransform: 'uppercase',
+              letterSpacing: '0',
               color: '#999999',
               marginBottom: '18px',
             }}
@@ -226,10 +225,9 @@ export default function Footer() {
             <div
               style={{
                 fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                fontSize: '0.74rem',
-                fontWeight: 700,
-                letterSpacing: '0.14em',
-                textTransform: 'uppercase',
+                fontSize: '0.85rem',
+                fontWeight: 600,
+                letterSpacing: '0',
                 color: '#999999',
                 marginBottom: '18px',
               }}
@@ -266,10 +264,9 @@ export default function Footer() {
             <div
               style={{
                 fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                fontSize: '0.74rem',
-                fontWeight: 700,
-                letterSpacing: '0.14em',
-                textTransform: 'uppercase',
+                fontSize: '0.85rem',
+                fontWeight: 600,
+                letterSpacing: '0',
                 color: '#999999',
                 marginBottom: '18px',
               }}
@@ -308,6 +305,14 @@ export default function Footer() {
                   </span>
                 </a>
               ))}
+              <a
+                href="/profiles/JC-Apex-Ventures-Company-Profile.pdf"
+                download
+                style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'rgba(255, 255, 255, 0.85)', textDecoration: 'none', fontSize: '0.92rem' }}
+              >
+                <Download size={14} color="#C29F53" />
+                <span>Company profile (PDF)</span>
+              </a>
             </div>
           </div>
 
@@ -316,10 +321,9 @@ export default function Footer() {
             <div
               style={{
                 fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                fontSize: '0.74rem',
-                fontWeight: 700,
-                letterSpacing: '0.14em',
-                textTransform: 'uppercase',
+                fontSize: '0.85rem',
+                fontWeight: 600,
+                letterSpacing: '0',
                 color: '#999999',
                 marginBottom: '18px',
               }}
@@ -352,8 +356,7 @@ export default function Footer() {
                     fontSize: '0.72rem',
                     fontFamily: 'var(--font-sans, Inter, sans-serif)',
                     fontWeight: 700,
-                    letterSpacing: '0.1em',
-                    textTransform: 'uppercase',
+                    letterSpacing: '0',
                     color: '#C29F53',
                     marginTop: '8px',
                     display: 'flex',
@@ -373,10 +376,9 @@ export default function Footer() {
             <div
               style={{
                 fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                fontSize: '0.74rem',
-                fontWeight: 700,
-                letterSpacing: '0.14em',
-                textTransform: 'uppercase',
+                fontSize: '0.85rem',
+                fontWeight: 600,
+                letterSpacing: '0',
                 color: '#999999',
                 marginBottom: '18px',
               }}

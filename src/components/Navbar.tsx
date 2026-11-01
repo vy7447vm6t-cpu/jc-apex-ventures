@@ -8,9 +8,8 @@ import { DIVISION_ONE_LINERS, PROOF_LINE } from '@/content/messaging';
 import { Phone, ArrowUpRight, X } from 'lucide-react';
 
 // Enquiry section of each page; every other page has its enquiry block at #contact.
-const ENQUIRY_ANCHORS: Record<string, string> = {
-  '/print-management': '#enquiry-section',
-};
+// Every page's enquiry form sits in #contact (the division template, Studio and the home page).
+const ENQUIRY_ANCHORS: Record<string, string> = {};
 
 const WHATSAPP_URL = `https://wa.me/917021112664?text=${encodeURIComponent('Hello JC Apex Ventures, I would like to enquire about a project.')}`;
 
@@ -353,8 +352,7 @@ export default function Navbar() {
                   fontVariantNumeric: 'tabular-nums',
                   fontSize: '0.72rem',
                   color: '#666666',
-                  letterSpacing: '0.05em',
-                  textTransform: 'uppercase',
+                  letterSpacing: '0',
                   fontWeight: 500,
                 }}
               >
@@ -574,12 +572,12 @@ export default function Navbar() {
               {/* Popover Header */}
               <div className="flex items-center justify-between pb-3 mb-3 border-b border-black/8 px-1">
                 <div className="flex items-center gap-2">
-                  <span className="text-[11px] font-bold tracking-wider uppercase text-[#111111]">
+                  <span className="text-[11px] font-bold text-[#111111]">
                     The six divisions
                   </span>
                 </div>
                 <span className="text-[11px] text-[#666666] font-medium hidden sm:inline">
-                  One desk for every division
+                  Each with its own inbox
                 </span>
               </div>
 
@@ -767,9 +765,8 @@ export default function Navbar() {
                 fontFamily: 'var(--font-sans, Inter, sans-serif)',
                 fontVariantNumeric: 'tabular-nums',
                 fontSize: '0.76rem',
-                letterSpacing: '0.08em',
+                letterSpacing: '0',
                 color: '#888888',
-                textTransform: 'uppercase',
                 marginBottom: '20px',
               }}
             >

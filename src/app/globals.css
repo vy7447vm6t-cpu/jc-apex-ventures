@@ -2563,14 +2563,15 @@ section[id] {
   .client-list-table td:nth-child(4) { grid-row: 1; grid-column: 2; }
 }
 
-/* ========= Brand elements (brand guidelines 2.8.3) ========= */
-/* Eyebrow: a 24 x 2 px accent rule, then one uppercase label. One per section. */
+/* ========= Brand elements ========= */
+/* Section label: sentence case, led by the group's apex dot (brand guidelines 2.9). No uppercase
+   tracking, no rule and no section numbers: those read as template defaults. */
 .eyebrow-row {
   position: relative;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 .eyebrow {
   display: flex;
@@ -2578,46 +2579,21 @@ section[id] {
   gap: 10px;
   margin: 0;
   font-family: var(--font-body, Inter, sans-serif);
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 500;
   line-height: 1.4;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
   color: var(--eyebrow-ink, var(--color-text-muted, #666666));
 }
 .eyebrow::before {
   content: '';
   flex: none;
-  width: 24px;
-  height: 2px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
   background: var(--eyebrow-rule, var(--color-accent, #C29F53));
 }
 .grounded-canvas { --eyebrow-rule: #C29F53; }
 .eyebrow-row.is-dark { --eyebrow-ink: #8B949E; --eyebrow-rule: #C29F53; }
-
-/* Section number: large faint numerals in the left margin beside the headline, above it on smaller screens. */
-.section-number {
-  flex-basis: 100%;
-  margin-bottom: 4px;
-  font-family: var(--font-serif-display), 'Instrument Serif', Georgia, serif;
-  font-size: 56px;
-  font-weight: 400;
-  line-height: 0.9;
-  color: rgba(17, 17, 17, 0.1);
-  font-variant-numeric: tabular-nums;
-  user-select: none;
-}
-.eyebrow-row.is-dark .section-number { color: rgba(240, 243, 246, 0.12); }
-@media (min-width: 1400px) {
-  .section-number {
-    position: absolute;
-    right: calc(100% + 24px);
-    top: -10px;
-    margin: 0;
-    font-size: 96px;
-  }
-}
-.eyebrow-row.is-inset .section-number { position: static; margin: 0 0 4px; font-size: 56px; }
 
 /* Caption: below the photograph, never floating on it. */
 .photo-caption {
@@ -2628,15 +2604,12 @@ section[id] {
   color: var(--color-text-muted, #666666);
 }
 
-/* Margin note: replaces text set inside capsules. */
+/* Note under a headline: a plain paragraph. */
 .margin-note {
   margin: 0;
-  padding-left: 16px;
-  border-left: 2px solid var(--eyebrow-rule, var(--color-accent, #C29F53));
-  font-family: var(--font-serif-display), 'Instrument Serif', Georgia, serif;
-  font-style: italic;
-  font-size: 19px;
-  line-height: 1.45;
+  font-family: var(--font-body, Inter, sans-serif);
+  font-size: 15px;
+  line-height: 1.6;
   color: var(--color-text-secondary, #4A4A46);
 }
 
@@ -3056,7 +3029,7 @@ section[id] {
 .site-form .site-form-needs label.is-chosen { background: #111111; border-color: #111111; color: #FFFFFF; }
 .site-form .site-form-needs label:focus-within { outline: 2px solid #111111; outline-offset: 2px; }
 .site-form .site-form-needs input { position: absolute; width: 1px; height: 1px; padding: 0; opacity: 0; pointer-events: none; }
-.site-form-estimate { display: flex; justify-content: space-between; gap: 12px; padding: 14px 16px; background: var(--color-accent-pale, #F4F1EA); border-left: 3px solid var(--eyebrow-rule, var(--color-accent, #C29F53)); border-radius: 0 10px 10px 0; }
+.site-form-estimate { display: flex; justify-content: space-between; gap: 12px; padding: 14px 16px; background: var(--color-accent-pale, #F4F1EA); border: 1px solid var(--color-border, rgba(0, 0, 0, 0.1)); border-radius: 10px; }
 .site-form-estimate p { margin: 0; font-family: var(--font-body, Inter, sans-serif); font-size: 14px; line-height: 1.55; color: var(--color-text-primary, #111111); }
 .site-form-estimate .site-form-estimate-title { margin-bottom: 4px; font-weight: 600; }
 .site-form-estimate button { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: none; border: 0; border-radius: 50%; color: var(--color-text-primary, #111111); cursor: pointer; }
@@ -3192,10 +3165,11 @@ section[id] {
 .desk-steps { position: relative; margin: 0; padding: 0 0 0 48px; list-style: none; display: grid; gap: 12px; }
 .desk-steps::before { content: ''; position: absolute; left: 0; top: 24px; bottom: 24px; width: 2px; background: #C29F53; transform: scaleY(0); transform-origin: top; transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1); }
 .reveal.visible .desk-steps::before { transform: scaleY(1); }
-.desk-steps > li { position: relative; display: grid; grid-template-columns: 120px 1fr; column-gap: 20px; align-items: baseline; padding: 16px 20px; background: #FFFFFF; border: 1px solid rgba(0, 0, 0, 0.08); border-left: 3px solid var(--desk-accent, #C29F53); border-radius: 10px; opacity: 0; transform: translateX(12px); transition: opacity 400ms ease-out, transform 500ms cubic-bezier(0.16, 1, 0.3, 1); }
+.desk-steps > li { position: relative; display: grid; grid-template-columns: 120px 1fr; column-gap: 20px; align-items: baseline; padding: 16px 20px; background: #FFFFFF; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 10px; opacity: 0; transform: translateX(12px); transition: opacity 400ms ease-out, transform 500ms cubic-bezier(0.16, 1, 0.3, 1); }
 .reveal.visible .desk-steps > li { opacity: 1; transform: none; }
 .desk-steps > li::before { content: ''; position: absolute; left: -48px; top: 50%; width: 46px; height: 2px; background: #C29F53; }
-.desk-division { grid-row: span 2; font-family: var(--font-body, Inter, sans-serif); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #111111; text-decoration: none; }
+.desk-division { grid-row: span 2; display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-body, Inter, sans-serif); font-size: 14px; font-weight: 600; color: #111111; text-decoration: none; }
+.desk-division::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--desk-accent, #C29F53); }
 .desk-division:hover, .desk-division:focus-visible { text-decoration: underline; text-underline-offset: 3px; }
 .desk-steps h3 { margin: 0 0 2px; font-family: var(--font-body, Inter, sans-serif); font-size: 16px; font-weight: 600; color: #111111; }
 .desk-steps p { margin: 0; font-family: var(--font-body, Inter, sans-serif); font-size: 14px; line-height: 1.55; color: #4A4A46; }
@@ -3231,3 +3205,94 @@ section[id] {
   .reveal.visible .work-map-pin { transform: scale(1.6); }
   .reveal.visible .work-map-pin.is-active { transform: scale(1.9); }
 }
+
+/* ========= Restored components, November 2026 ========= */
+.hero-photo-credit {
+  position: relative;
+  z-index: 2;
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px 10px;
+  font-family: var(--font-body, Inter, sans-serif);
+  font-size: 12px;
+  color: rgba(240, 243, 246, 0.7);
+  text-align: right;
+}
+
+/* SpotlightCard: a flat card; the glow only follows the pointer on devices that have one. */
+.spotlight-card { background: #FFFFFF; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 16px; overflow: hidden; }
+.spotlight-card.is-dark { background: #161D2B; border-color: rgba(255, 255, 255, 0.1); }
+.why-facts-card { padding: 8px 24px; }
+.why-facts-card .fact-rows { border-top: 0; }
+.why-facts-card .fact-rows > div:last-child { border-bottom: 0; }
+
+/* LogoLoop: names in a slow loop, separated by apex dots. */
+.logo-loop-set { display: flex; align-items: baseline; margin: 0; padding: 0; list-style: none; }
+.logo-loop-set li { display: inline-flex; align-items: baseline; gap: 8px; padding: 0 22px; white-space: nowrap; position: relative; }
+.logo-loop-set li::after { content: ''; position: absolute; right: -3px; top: 50%; width: 6px; height: 6px; border-radius: 50%; background: #C29F53; transform: translateY(-50%); }
+.logo-loop-name { font-family: var(--font-serif-display), 'Instrument Serif', Georgia, serif; font-size: clamp(22px, 2.6vw, 32px); line-height: 1.2; color: #111111; }
+.logo-loop-category { font-family: var(--font-body, Inter, sans-serif); font-size: 13px; color: #666666; }
+.logo-loop-icon { color: #8C6D23; }
+.logo-loop.is-dark .logo-loop-name { color: #F0F3F6; }
+.logo-loop.is-dark .logo-loop-category { color: #8B949E; }
+.logo-loop:hover .logo-loop-track { animation-duration: 160s !important; }
+@media (prefers-reduced-motion: reduce) {
+  .logo-loop-track { animation: none !important; flex-wrap: wrap; width: 100%; }
+  .logo-loop-set[aria-hidden='true'] { display: none; }
+  .logo-loop-set { flex-wrap: wrap; row-gap: 8px; }
+}
+
+/* Clippy, the question dock: on tablets and desktops. Phones keep the WhatsApp button in that corner. */
+@media (max-width: 767px) { .clippy-dock { display: none !important; } }
+
+/* Division hero: the profile's headline figures as rows inside the hero card. */
+.hero-card-facts { margin-top: 22px; }
+.hero-card-facts > div { grid-template-columns: 1fr auto; align-items: baseline; }
+.hero-card-facts dd { font-family: var(--font-serif-display), 'Instrument Serif', Georgia, serif; font-size: 26px; line-height: 1.1; text-align: right; }
+.solis-type .hero-card-facts dd { font-family: var(--font-body); font-weight: 600; font-size: 22px; }
+@media (max-width: 520px) {
+  .hero-card-facts > div { grid-template-columns: 1fr; }
+  .hero-card-facts dd { text-align: left; }
+}
+
+/* How we work: an index of steps on the left, the chosen step on the right. */
+.steps-explorer { display: grid; grid-template-columns: minmax(220px, 0.8fr) 1.2fr; gap: clamp(24px, 4vw, 56px); align-items: start; }
+.steps-explorer-panel { padding: clamp(20px, 3vw, 32px); background: #FFFFFF; border: 1px solid var(--color-border, rgba(0, 0, 0, 0.08)); border-radius: 16px; min-height: 180px; }
+.steps-explorer-panel h3 { margin: 0 0 10px; font-family: var(--font-serif-display), 'Instrument Serif', Georgia, serif; font-size: clamp(24px, 2.6vw, 30px); font-weight: 400; line-height: 1.2; color: var(--color-text-primary, #111111); }
+.solis-type .steps-explorer-panel h3 { font-family: var(--font-body); font-weight: 600; font-size: 22px; }
+.steps-explorer-panel p { margin: 0; font-family: var(--font-body, Inter, sans-serif); font-size: 16px; line-height: 1.65; color: var(--color-text-secondary, #4A4A46); }
+.steps-explorer .steps-photo { position: relative; height: clamp(200px, 26vw, 300px); border-radius: 12px; overflow: hidden; background: #E8E4DA; }
+@media (max-width: 760px) { .steps-explorer { grid-template-columns: 1fr; } }
+.hero-card-facts dt::first-letter { text-transform: uppercase; }
+
+/* Studio: team photo beside the people, the division bento, and the general enquiry form. */
+.studio-team { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(24px, 4vw, 48px); align-items: start; }
+.studio-team-photo { position: relative; aspect-ratio: 820 / 600; border-radius: 16px; overflow: hidden; background: #161D2B; }
+.studio-team .studio-people { grid-template-columns: 1fr; gap: 14px; }
+.studio-team .studio-person { padding: 22px 24px; }
+.studio-team .studio-person h3 { font-size: 26px; }
+.studio-bento-link { display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-body, Inter, sans-serif); font-size: 14px; font-weight: 600; color: #FFFFFF; text-decoration: none; border-bottom: 1px solid rgba(255, 255, 255, 0.3); }
+.studio-bento-link:hover, .studio-bento-link:focus-visible { border-bottom-color: #C29F53; }
+.studio-bento-mail { display: block; color: #F0F3F6; text-decoration: none; word-break: break-all; }
+.studio-bento-mail:hover { text-decoration: underline; }
+.studio-contact { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
+.studio-form { padding: clamp(20px, 3vw, 32px); background: #FFFFFF; border-radius: 16px; color: #111111; --color-text-primary: #111111; --color-text-secondary: #4A4A46; --color-text-muted: #666666; --color-border: rgba(0, 0, 0, 0.1); --color-accent-pale: #F4F1EA; }
+.studio-download { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 9999px; background: #FFFFFF; color: #111111; font-family: var(--font-body, Inter, sans-serif); font-size: 14px; font-weight: 600; text-decoration: none; }
+.studio-download:hover, .studio-download:focus-visible { background: #F0F3F6; }
+@media (max-width: 900px) { .studio-team, .studio-contact { grid-template-columns: 1fr; } }
+
+/* Enquiry dialog: a flat Night overlay (no blur) and a white sheet. */
+.enquiry-overlay { position: fixed; inset: 0; z-index: 200; display: flex; align-items: flex-start; justify-content: center; padding: clamp(16px, 4vh, 48px) 16px; background: rgba(11, 14, 20, 0.6); overflow-y: auto; }
+.enquiry-dialog { position: relative; width: 100%; max-width: 760px; padding: clamp(20px, 3.5vw, 36px); background: #FFFFFF; color: #111111; border-radius: 16px; border: 1px solid rgba(0, 0, 0, 0.08); outline: none; }
+.enquiry-dialog-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 18px; }
+.enquiry-dialog-head h2 { margin: 6px 0 0; font-family: var(--font-serif-display), 'Instrument Serif', Georgia, serif; font-size: clamp(26px, 3.4vw, 34px); font-weight: 400; line-height: 1.15; }
+.enquiry-close { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(0, 0, 0, 0.12); background: #FFFFFF; color: #111111; cursor: pointer; }
+.enquiry-close:hover, .enquiry-close:focus-visible { border-color: #111111; }
+.enquiry-divisions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-bottom: 24px; }
+.enquiry-divisions button { display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; text-align: left; border-radius: 10px; border: 1px solid rgba(0, 0, 0, 0.1); background: #FFFFFF; cursor: pointer; font-family: var(--font-body, Inter, sans-serif); transition: border-color 150ms ease, background-color 150ms ease; }
+.enquiry-divisions button strong { font-size: 14px; font-weight: 600; color: #111111; }
+.enquiry-divisions button span { font-size: 12px; line-height: 1.4; color: #666666; }
+.enquiry-divisions button:hover { border-color: rgba(0, 0, 0, 0.3); }
+.enquiry-divisions button.is-chosen { border-color: #111111; background: #F4F1EA; }
+@media (max-width: 640px) { .enquiry-divisions { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

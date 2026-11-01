@@ -43,11 +43,14 @@ test({
   id: 'T2_R6_04',
   tier: 'tier2',
   feature: 'r6',
-  title: 'R6 Boundary: Section numbers move into the margin only on wide screens',
+  title: 'R6 Boundary: Section labels are sentence case, with no numbers or uppercase tracking',
   fn: () => {
     const css = readFileSafe(PATHS.globalsCss) ?? '';
-    assertMatch(css, /@media \(min-width: 1400px\) \{\s*\.section-number \{[^}]*right: calc\(100% \+ 24px\)/, 'Section numbers sit in the margin from 1400 px');
-    assertMatch(css, /\.section-number \{[^}]*font-size: 56px/, 'Section numbers are 56 px above the headline on smaller screens');
+    assert(!/\.section-number \{/.test(css), 'No section-number styles remain');
+    const eyebrow = /\n\.eyebrow \{[^}]*\}/.exec(css)?.[0] ?? '';
+    assert(eyebrow && !/text-transform: uppercase/.test(eyebrow), 'Section labels are not uppercase');
+    const note = /\.margin-note \{[^}]*\}/.exec(css)?.[0] ?? '';
+    assert(note && !/border-left/.test(note), 'Notes are plain paragraphs, not left-rule callouts');
   },
 });
 

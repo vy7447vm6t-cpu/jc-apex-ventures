@@ -67,8 +67,7 @@ export default function InteriorCalculator() {
               fontSize: '0.72rem',
               fontWeight: 700,
               color: 'var(--color-accent)',
-              textTransform: 'uppercase',
-              letterSpacing: '0.12em',
+              letterSpacing: '0',
               fontFamily: 'var(--font-sans, Inter, sans-serif)',
             }}
           >
@@ -231,8 +230,7 @@ export default function InteriorCalculator() {
                 fontSize: '0.74rem',
                 color: 'var(--color-accent)',
                 fontWeight: 700,
-                textTransform: 'uppercase',
-                letterSpacing: '0.1em',
+                letterSpacing: '0',
                 fontFamily: 'var(--font-sans, Inter, sans-serif)',
                 display: 'block',
               }}

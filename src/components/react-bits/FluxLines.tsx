@@ -497,7 +497,15 @@ const FluxLines: React.FC<FluxLinesProps> = ({
       gl.deleteProgram(program.program);
       gl.deleteBuffer(buffer);
       gl.deleteVertexArray(vao);
-      gl.getExtension('WEBGL_lose_context')?.loseContext();
+      // Free the GPU context only once the canvas has left the page. React's development double
+      // mount runs this cleanup and then reuses the same canvas, which a lost context would leave blank.
+      {
+        const loseExt = gl.getExtension('WEBGL_lose_context');
+        const glCanvas = gl.canvas as HTMLCanvasElement;
+        setTimeout(() => {
+          if (!glCanvas.isConnected) loseExt?.loseContext();
+        }, 0);
+      }
     };
   }, []);
 

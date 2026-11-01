@@ -7,9 +7,37 @@ import SectionEyebrow from './SectionEyebrow';
 import ScrollReveal from './ScrollReveal';
 import WorkMap from './WorkMap';
 import HotelGallery from './HotelGallery';
-import { ATTRIBUTION_LINES, clientGroups, keyFacts } from '@/content/track-record';
+import { ScrollStack, type ScrollStackCard } from '@/components/react-bits';
+import {
+  ATTRIBUTION_LINES,
+  PROJECTS,
+  clientGroups,
+  formatCapacity,
+  formatProjectDate,
+  keyFacts,
+  trackRecord,
+  type Project,
+} from '@/content/track-record';
 
 const SERIF = 'var(--font-serif-display), "Instrument Serif", Georgia, serif';
+
+/** One stacked card per plant, with the figures from its certificate; a proposal says so in its badge. */
+function plantCard(p: Project): ScrollStackCard {
+  return {
+    id: p.id,
+    title: p.title,
+    subtitle: `${p.client}, ${p.location}`,
+    description: `${p.scope}.`,
+    badge: p.kind === 'completed' ? `Completed ${formatProjectDate(p.date)}` : p.statusNote,
+    specs: [
+      ...(p.capacity ? [`Capacity: ${formatCapacity(p.capacity)}`] : []),
+      ...(p.valueBracket ? [`Value: ${p.valueBracket}`] : []),
+      ...(p.equipment ? [`Modules: ${p.equipment}`] : []),
+      // Never the certificate's issuer: who held which contract stays private (brand guidelines 5.2).
+      p.kind === 'completed' ? 'Source: Completion certificate on file' : `Source: ${p.proof.note}`,
+    ],
+  };
+}
 
 /**
  * Clients and projects (company profile, pages 3 and 4): the map of where we have worked with
@@ -20,6 +48,8 @@ export default function GroundedProjectTrack() {
   const solar = keyFacts().find((f) => f.id === 'solar-capacity');
   const sites = keyFacts().find((f) => f.id === 'hospitality-sites');
   const creative = clientGroups().find((g) => g.id === 'creative');
+  const proposal = PROJECTS.find((p) => p.id === 'solis-charkop-pergola-proposal-2026');
+  const plants = [...trackRecord('solis'), ...(proposal ? [proposal] : [])].map(plantCard);
 
   return (
     <section
@@ -35,7 +65,7 @@ export default function GroundedProjectTrack() {
       <div id="builds" className="absolute top-0 pointer-events-none" style={{ scrollMarginTop: '104px' }} aria-hidden="true" />
 
       <div style={{ maxWidth: '1240px', margin: '0 auto', width: '100%' }}>
-        <SectionEyebrow number={2}>Clients and projects</SectionEyebrow>
+        <SectionEyebrow>Clients and projects</SectionEyebrow>
         <div style={{ maxWidth: '820px', marginBottom: '48px' }}>
           <h2
             style={{
@@ -47,18 +77,29 @@ export default function GroundedProjectTrack() {
               fontFamily: SERIF,
             }}
           >
-            {solar?.value} of solar, and HT work at {sites?.value} hotels.
+            {solar?.value} of solar, and HT electrical work at {sites?.value} hotels.
           </h2>
           <p style={{ fontSize: '1.05rem', lineHeight: 1.65, color: '#4A4A46', margin: '0 0 20px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-            Every client below is named as they are today. Solar capacities come from completion certificates on file; the hotel work is
-            from our company records.
+            Every client below is named as they are today. The solar figures come from completion certificates we hold; the hotel
+            work is from our company records.
           </p>
-          <p className="margin-note" style={{ fontSize: '18px' }}>
+          <p className="margin-note">
             {ATTRIBUTION_LINES.director}
           </p>
         </div>
 
         <WorkMap />
+
+        <div className="clients-block">
+          <h3 className="clients-block-title">The solar plants, newest first.</h3>
+          <p className="margin-note">
+            The last card is a proposal for a housing society in Charkop, not completed work.
+          </p>
+          <ScrollStack cards={plants} />
+          <Link href="/solis" className="work-key-link" style={{ display: 'inline-flex' }}>
+            Solis <ArrowUpRight size={14} aria-hidden="true" />
+          </Link>
+        </div>
 
         <div className="clients-block">
           <h3 className="clients-block-title">Client hotels.</h3>

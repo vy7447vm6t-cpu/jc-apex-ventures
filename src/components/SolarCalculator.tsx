@@ -233,7 +233,7 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
               style={{ height: '36px', width: 'auto', objectFit: 'contain', display: 'block' }}
             />
             <span style={{ width: '1.5px', height: '24px', backgroundColor: 'var(--color-solis-amber, #F59E0B)', display: 'inline-block' }} />
-            <span style={{ fontSize: '0.76rem', color: 'var(--color-accent, #1E3FD8)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+            <span style={{ fontSize: '0.76rem', color: 'var(--color-accent, #1E3FD8)', letterSpacing: '0', fontWeight: 700, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
               Solis · Illustrative estimate
             </span>
           </div>
@@ -605,7 +605,7 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
               borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
             }}>
               <div>
-                <span style={{ fontSize: '0.72rem', color: '#777777', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 600, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+                <span style={{ fontSize: '0.72rem', color: '#777777', letterSpacing: '0', fontWeight: 600, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                   Recommended Size
                 </span>
                 <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2.2rem)', fontWeight: 400, color: '#111111', fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif', marginTop: '2px', lineHeight: 1.1 }}>
@@ -613,7 +613,7 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
                 </div>
               </div>
               <div>
-                <span style={{ fontSize: '0.72rem', color: '#777777', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 600, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+                <span style={{ fontSize: '0.72rem', color: '#777777', letterSpacing: '0', fontWeight: 600, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                   Panels (550W)
                 </span>
                 <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2.2rem)', fontWeight: 400, color: '#111111', fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif', marginTop: '2px', lineHeight: 1.1 }}>
@@ -621,7 +621,7 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
                 </div>
               </div>
               <div>
-                <span style={{ fontSize: '0.72rem', color: '#777777', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 600, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+                <span style={{ fontSize: '0.72rem', color: '#777777', letterSpacing: '0', fontWeight: 600, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                   Shadow-Free Area
                 </span>
                 <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2.2rem)', fontWeight: 400, color: '#111111', fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif', marginTop: '2px', lineHeight: 1.1 }}>

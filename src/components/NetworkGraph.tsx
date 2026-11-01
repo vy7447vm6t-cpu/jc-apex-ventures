@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useMemo } from 'react';
-import * as d3 from 'd3';
+import React, { useEffect, useRef } from 'react';
 
 interface Node {
   x: number;
@@ -12,7 +11,8 @@ interface Node {
   opacity: number;
 }
 
-export default function NetworkGraph() {
+/** Drifting nodes that link up when close and part around the pointer. `color` is a hex colour. */
+export default function NetworkGraph({ color = '#D4AF37' }: { color?: string } = {}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number>(0);
   const nodesRef = useRef<Node[]>([]);
@@ -44,7 +44,7 @@ export default function NetworkGraph() {
     // Initialize nodes
     const w = window.innerWidth;
     const h = window.innerHeight;
-    nodesRef.current = d3.range(nodeCount).map(() => ({
+    nodesRef.current = Array.from({ length: nodeCount }, () => ({
       x: Math.random() * w,
       y: Math.random() * h,
       vx: (Math.random() - 0.5) * 0.4,
@@ -58,7 +58,8 @@ export default function NetworkGraph() {
     };
     window.addEventListener('mousemove', handleMouse);
 
-    const accentRGB = { r: 212, g: 175, b: 55 };
+    const hex = color.replace('#', '');
+    const accentRGB = { r: parseInt(hex.slice(0, 2), 16), g: parseInt(hex.slice(2, 4), 16), b: parseInt(hex.slice(4, 6), 16) };
 
     const animate = () => {
       const currentW = window.innerWidth;
@@ -142,7 +143,7 @@ export default function NetworkGraph() {
       window.removeEventListener('resize', resize);
       window.removeEventListener('mousemove', handleMouse);
     };
-  }, []);
+  }, [color]);
 
   return (
     <canvas

@@ -33,12 +33,12 @@ test({
   id: 'T2_R8_03',
   tier: 'tier2',
   feature: 'r8',
-  title: 'R8 Boundary: ImageLightbox checks Escape key explicitly in keydown listener',
+  title: 'R8 Boundary: Clippy falls back to WhatsApp for a question it cannot match',
   fn: () => {
-    const code = readFileSafe(PATHS.imageLightbox);
-    assert(code !== null, 'src/components/ImageLightbox.tsx must exist');
-    const hasEscapeCheck = /e\.key\s*===\s*['"]Escape['"]/i.test(code) || /key\s*===\s*['"]Escape['"]/i.test(code);
-    assert(hasEscapeCheck, 'ImageLightbox must attach keydown listener checking e.key === "Escape"');
+    const code = readFileSafe(PATHS.clippy) ?? '';
+    assertIncludes(code, 'bestScore >= 3', 'Only a reasonable match counts as an answer');
+    assertIncludes(code, 'https://wa.me/917021112664', 'Unmatched questions go to WhatsApp, already written out');
+    assertIncludes(code, 'encodeURIComponent', 'The question is encoded into the WhatsApp link');
   },
 });
 
@@ -46,12 +46,12 @@ test({
   id: 'T2_R8_04',
   tier: 'tier2',
   feature: 'r8',
-  title: 'R8 Boundary: ImageLightbox backdrop click guards against inner modal event bubbling',
+  title: 'R8 Boundary: Choosing another division in the dialog swaps the form and its inbox',
   fn: () => {
-    const code = readFileSafe(PATHS.imageLightbox);
-    assert(code !== null, 'src/components/ImageLightbox.tsx must exist');
-    const hasStopPropagation = /stopPropagation\(\)/i.test(code) || /e\.target\s*===\s*e\.currentTarget/i.test(code);
-    assert(hasStopPropagation, 'ImageLightbox must guard inner card clicks against closing modal');
+    const code = readFileSafe(PATHS.consultationModal) ?? '';
+    assertIncludes(code, 'key={division.slug}', 'The form resets when the division changes');
+    assertIncludes(code, 'role="radiogroup"', 'The division choice is a radio group');
+    assertIncludes(code, 'aria-checked', 'The chosen division is announced');
   },
 });
 
@@ -59,12 +59,12 @@ test({
   id: 'T2_R8_05',
   tier: 'tier2',
   feature: 'r8',
-  title: 'R8 Boundary: ImageLightbox renders safely when caption is empty or undefined',
+  title: 'R8 Boundary: The enquiry form says sent only when the server sent it',
   fn: () => {
-    const code = readFileSafe(PATHS.imageLightbox);
-    assert(code !== null, 'src/components/ImageLightbox.tsx must exist');
-    const hasSafeCaption = /caption\s*&&/i.test(code) || /caption\s*\|\|/i.test(code) || /specs\s*&&/i.test(code);
-    assert(hasSafeCaption, 'ImageLightbox must safely guard optional caption/specifications props');
+    const code = readFileSafe(PATHS.siteEnquiryForm) ?? '';
+    assertIncludes(code, "setStatus(res.ok ? 'sent' : 'failed')", 'Sent only on a successful response');
+    assertIncludes(code, 'href={mailto}', 'On failure it offers the same message by email');
+    assertIncludes(code, 'href={whatsapp}', 'and by WhatsApp');
   },
 });
 

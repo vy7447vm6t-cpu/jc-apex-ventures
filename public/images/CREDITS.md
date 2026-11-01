@@ -29,6 +29,7 @@ Licensed photographs on jcapexv.com. Each is captioned "Representative image" on
 | licensed/solis-ev.jpg | Public EV charging post | Retired electrician | CC0 | https://commons.wikimedia.org/wiki/File:Moscow,_Bersenevskaya_Embankment,_EV_charger_Nov_2025_02.jpg |
 | licensed/solis-install.jpg | Installers fitting solar modules on a roof | National Institute of Standards and Technology | Public domain | https://commons.wikimedia.org/wiki/File:NZERTF_Roof_(8621832515).jpg |
 | licensed/grid-transformer.jpg | Power transformer | Novoklimov | CC0 | https://commons.wikimedia.org/wiki/File:High-voltage_transformer_750_kV_%D0%A2%D1%80%D0%B0%D0%BD%D1%81%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D0%BE%D1%80_750_%D0%BA%D0%92.jpg |
+| licensed/hero-mumbai-worli-sea-link.jpg | Worli skyline and the Bandra–Worli Sea Link, Mumbai (resized) | Woodysworldtv | CC BY 2.0 | https://commons.wikimedia.org/wiki/File:Worli_skyline_with_BSWL_(cropped).jpg |
 
 Older images in `public/images/` have no recorded source. Replace them with licensed or own photos before reuse.
 
@@ -37,5 +38,6 @@ Older images in `public/images/` have no recorded source. Replace them with lice
 | File | Subject | Author |
 | --- | --- | --- |
 | own/terrace-survey.jpg | A terrace survey by our team, Mumbai, October 2026 | JC Apex Ventures |
+| own/team.jpg | Our Director (right) with members of the team, Mumbai, October 2026 | JC Apex Ventures |
 | solis/terrace-low-frames.svg | Section drawing: panels on low frames across a terrace | JC Apex Ventures |
 | solis/terrace-pergola.svg | Section drawing: the same terrace with the panels on an elevated pergola | JC Apex Ventures |

@@ -17,12 +17,16 @@ export interface BentoCardData {
 interface MagicBentoProps {
   cards: BentoCardData[];
   className?: string;
+  /** Flat white cards on light pages, Night Panel cards on dark ones. */
+  tone?: 'light' | 'dark';
 }
 
 export default function MagicBento({
   cards,
   className = '',
+  tone = 'light',
 }: MagicBentoProps) {
+  const dark = tone === 'dark';
   const containerRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const rafRef = useRef<number | null>(null);
@@ -125,28 +129,16 @@ export default function MagicBento({
             ref={(el) => {
               cardRefs.current[idx] = el;
             }}
-            className={`group relative rounded-3xl p-8 backdrop-blur-xl transition-all duration-400 hover:-translate-y-1.5 overflow-hidden flex flex-col justify-between ${colClass} ${rowClass} focus-within:ring-2 focus-within:ring-[#C29F53]/60`}
+            className={`group relative rounded-2xl p-7 transition-all duration-400 hover:-translate-y-1 overflow-hidden flex flex-col justify-between ${colClass} ${rowClass} focus-within:ring-2 focus-within:ring-[#C29F53]/60`}
             style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.84)',
-              backdropFilter: 'blur(20px) saturate(180%)',
-              WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-              border: '1px solid rgba(194, 159, 83, 0.22)',
-              boxShadow: '0 12px 32px -4px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.95)',
+              backgroundColor: dark ? '#161D2B' : '#FFFFFF',
+              border: dark ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(0, 0, 0, 0.08)',
               // Fallback initial center coordinates
               ['--mouse-x' as string]: '50%',
               ['--mouse-y' as string]: '50%',
               ['--proximity' as string]: '0',
             }}
           >
-            {/* Top Specular Hairline Highlight */}
-            <div
-              className="pointer-events-none absolute top-0 left-6 right-6 h-px z-10"
-              style={{
-                background:
-                  'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.95), transparent)',
-              }}
-              aria-hidden="true"
-            />
 
             {/* Proximity border illumination */}
             <div
@@ -180,15 +172,9 @@ export default function MagicBento({
                   <span
                     style={{
                       fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                      fontSize: '0.68rem',
-                      fontWeight: 650,
-                      letterSpacing: '0.06em',
-                      textTransform: 'uppercase',
-                      color: '#8C733E',
-                      backgroundColor: 'rgba(194, 159, 83, 0.12)',
-                      border: '1px solid rgba(194, 159, 83, 0.28)',
-                      padding: '4px 10px',
-                      borderRadius: '9999px',
+                      fontSize: '0.8rem',
+                      fontWeight: 600,
+                      color: dark ? '#C29F53' : '#8C6D23',
                     }}
                   >
                     {card.badge}
@@ -210,7 +196,7 @@ export default function MagicBento({
 
               <h4
                 style={{
-                  color: '#111111',
+                  color: dark ? '#FFFFFF' : '#111111',
                   fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
                   fontWeight: 400,
                   letterSpacing: '-0.015em',
@@ -223,10 +209,10 @@ export default function MagicBento({
               </h4>
               <p
                 style={{
-                  color: '#555555',
+                  color: dark ? '#C9D1D9' : '#4A4A46',
                   fontFamily: 'var(--font-sans, Inter, sans-serif)',
                   lineHeight: 1.6,
-                  fontSize: '0.9rem',
+                  fontSize: '0.95rem',
                   margin: 0,
                 }}
               >
@@ -240,11 +226,11 @@ export default function MagicBento({
               <div
                 style={{
                   fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                  fontSize: '0.76rem',
-                  color: '#666666',
+                  fontSize: '0.85rem',
+                  color: dark ? '#8B949E' : '#666666',
                   fontWeight: 500,
                 }}
-                className="relative z-10 mt-6 pt-4 border-t border-black/8"
+                className={`relative z-10 mt-6 pt-4 border-t ${dark ? 'border-white/10' : 'border-black/8'}`}
               >
                 {card.footer}
               </div>

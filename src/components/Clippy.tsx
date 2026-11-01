@@ -3,6 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Logo } from './Logo';
+import { divisions } from '@/content/divisions';
+import { DIVISION_ONE_LINERS, PROOF_LINE } from '@/content/messaging';
+
+const OFFICE_ADDRESS = 'Units 801–802, 8th Floor, Tower 1, One International Centre, Senapati Bapat Marg, Elphinstone, Mumbai 400013';
 import {
   X,
   ArrowUpRight,
@@ -31,100 +35,62 @@ interface KnowledgeItem {
   isExternal?: boolean;
 }
 
-const KNOWLEDGE_BASE: KnowledgeItem[] = [
+// Company questions first, then every division's FAQ from src/content/divisions.ts, so the answers
+// here are the same words as the division pages and the PDF profiles. Nothing else is said.
+const COMPANY_QA: KnowledgeItem[] = [
   {
-    shortQ: 'Walkable Pergola',
-    keywords: ['pergola', 'solar', 'terrace', 'walkable', 'suburban', 'kandivali', 'roof', 'rooftop', 'elevation'],
-    q: 'How does the rooftop solar pergola preserve terrace space?',
-    a: 'Solis elevates high-wattage bi-facial solar panels 10.5 ft overhead on hot-dip galvanized steel framing. This creates cool, shaded shelter while leaving 100% of the terrace footprint completely open for morning walks, children, and society gatherings (as engineered in our feasibility study and proposal framework for a premier Kandivali West cooperative housing society).',
-    actionHref: '/solis#calculator',
-    actionLabel: 'Calculate Solar Sizing & Savings',
-  },
-  {
-    shortQ: 'Office Location',
-    keywords: ['office', 'location', 'address', 'directions', 'maps', 'where', 'headquarters', 'elphinstone', 'lower parel', 'mumbai', 'find'],
-    q: 'Where is your corporate office located in Mumbai?',
-    a: 'Our corporate headquarters is located at One International Centre, Tower 2, Units 801-802, Senapati Bapat Marg, Elphinstone, Lower Parel, Mumbai 400013. Visitors can easily reach us via Western or Central Railway lines.',
-    actionHref:
-      'https://www.google.com/maps/search/?api=1&query=One+International+Centre+Senapati+Bapat+Marg+Elphinstone+Mumbai+400013',
-    actionLabel: 'Open Office in Google Maps',
+    shortQ: 'Office address',
+    keywords: ['office', 'address', 'where', 'location', 'visit', 'elphinstone', 'lower', 'parel', 'tower'],
+    q: 'Where is your office?',
+    a: `${OFFICE_ADDRESS}. Phone or WhatsApp +91 70211 12664.`,
+    actionHref: 'https://maps.google.com/?q=One+International+Centre+Tower+1+Elphinstone+Mumbai',
+    actionLabel: 'Open in Maps',
     isExternal: true,
   },
   {
-    shortQ: '3,900 EV Network',
-    keywords: ['ev', 'charger', 'chargers', '3900', 'charging', 'maharashtra', 'network', 'roi', 'npv', 'capex', 'payback'],
-    q: 'What is the 3,900 EV Charging Network project?',
-    a: 'Agrim developed the ROI assessment framework for deploying 3,900 EV chargers in Maharashtra housing societies. Standard sites feature a 60 kW DC fast charger and dual AC chargers under a 100 kW sanctioned load with Rs 40L site CAPEX, 10-year NPV modeling, and a 6 to 7 year payback schedule.',
-    actionHref: '/agrim',
-    actionLabel: 'Review EV Network Project Dossier',
+    shortQ: 'Who leads the work',
+    keywords: ['director', 'who', 'lead', 'leads', 'jitendra', 'chavan', 'experience', 'years', 'best'],
+    q: 'Who leads the work?',
+    a: `${PROOF_LINE} Each division is run by people who do that work every day.`,
+    actionHref: '/studio',
+    actionLabel: 'Meet the team',
   },
   {
-    shortQ: 'PM Surya Ghar Subsidy',
-    keywords: ['subsidy', 'pm surya ghar', 'surya ghar', 'central subsidy', 'grant', 'discount', 'rebate', 'cost'],
-    q: 'How much subsidy is available under PM Surya Ghar Muft Bijli Yojana?',
-    a: 'Individual residential homes receive up to Rs 78,000 credited directly to their bank account post DISCOM meter commissioning. Housing societies receive Rs 18,000 per kW (up to Rs 90 Lakhs statutory ceiling for 500 kW) for common meters, lifts, pumps, and EV charging.',
-    actionHref: '/solis#calculator',
-    actionLabel: 'Estimate Your Society Subsidy',
-  },
-  {
-    shortQ: 'Bill Grievances',
-    keywords: ['bill', 'dispute', 'grievance', 'cgrf', 'tariff', 'sanyog', 'jitendra', 'chavan', 'best', 'adani', 'tata', 'msedcl', 'electricity'],
-    q: 'How does Sanyog resolve power bill disputes and load sanctions?',
-    a: 'Led by Jitendra Chavan with 36 years of direct utility engineering experience, Sanyog resolves erroneous commercial tariffs, delayed net metering, and sanctioned load upgrades before CGRF, the Electricity Ombudsman, and Mumbai DISCOMs (BEST, Adani Electricity, Tata Power, MSEDCL).',
-    actionHref: '/sanyog',
-    actionLabel: 'Explore Sanyog Utility Services',
-  },
-  {
-    shortQ: 'Patented Waste Tech',
-    keywords: ['waste', 'solid waste', 'patented', 'zero power', 'magnetic', 'mpcb', 'decomposition', 'ash', 'green coal', 'manoj chavan', 'kabnurkar'],
-    q: 'What is the patented zero-power solid waste machine?',
-    a: 'Developed by Dr. Manoj Chavan and Mahendra Kabnurkar, our system holds a Central Government patent and Maharashtra Pollution Control Board (MPCB) certification. It operates at 350°C using magnetic thermal decomposition with zero external electricity or fuel after ignition, reducing waste by 96% into mineral ash for paver blocks.',
-    actionHref: '/agrim',
-    actionLabel: 'Review Clean Tech Patent Dossier',
-  },
-  {
-    shortQ: 'Turnkey Interiors',
-    keywords: ['tvasta', 'interior', 'fit-out', 'fitout', 'architecture', 'space planning', 'commercial', 'office interior', 'design'],
-    q: 'What interior design and space planning tiers does Tvasta provide?',
-    a: 'Tvasta executes turnkey commercial and residential spaces across three transparent tiers: Standard (durable essentials), Premium (curated modular finishes), and Luxury (bespoke architectural craftsmanship), backed by CAD space planning and zero contractor abandonment.',
-    actionHref: '/tvasta',
-    actionLabel: 'Explore Tvasta Fit-Out Tiers',
-  },
-  {
-    shortQ: 'Branding & Packaging',
-    keywords: ['emudran', 'packaging', 'print', 'printing', 'boxes', 'rigid', 'brochure', 'signage', 'manish ajgaonkar', 'hemangi patil'],
-    q: 'What packaging and printing capabilities does eMudran offer?',
-    a: 'Headed by Manish Ajgaonkar and Hemangi Patil (22+ years experience), eMudran produces custom rigid luxury boxes, thermal foil-stamped cartons, annual reports, corporate brochures, and architectural outdoor signage with precise CMYK press pass quality.',
-    actionHref: '/emudran',
-    actionLabel: 'Explore Packaging & Print Services',
-  },
-  {
-    shortQ: 'Industrial Substations',
-    keywords: ['grid apex', 'substation', 'transformer', 'switchgear', 'ht', 'lt', 'panel', 'pwd', 'inspectorate', 'power'],
-    q: 'What electrical engineering services does Grid Apex deliver?',
-    a: 'Grid Apex executes turnkey 33kV and 11kV electrical substations, industrial LT switchboards, busbar trunking, and capacitor banks with full PWD Electrical Inspectorate testing and compliance clearances.',
-    actionHref: '/grid-apex',
-    actionLabel: 'Explore Substation EPC',
-  },
-  {
-    shortQ: 'Direct Consultation',
-    keywords: ['contact', 'phone', 'whatsapp', 'call', 'talk', 'enquiry', 'consult', 'chat', 'timing', 'hours', 'speak'],
-    q: 'How can I speak directly with an engineer?',
-    a: 'You can call our engineering desk at +91 70211 12664 or message us directly on WhatsApp. Our office hours are Monday to Saturday, 9:30 AM to 6:30 PM IST at One International Centre, Mumbai.',
-    actionHref: 'https://wa.me/917021112664?text=Hello%20JC%20Apex%2C%20I%20would%20like%20to%20consult%20an%20engineer',
-    actionLabel: 'Chat on WhatsApp Now',
+    shortQ: 'Which inbox',
+    keywords: ['email', 'inbox', 'mail', 'contact', 'enquiry', 'send'],
+    q: 'Which email address should I write to?',
+    a: divisions.map((d) => `${d.name}: ${d.contact.emails.join(' or ')}`).join('. ') + '. Anything else goes to admin@jcapexv.com.',
+    actionHref: 'mailto:admin@jcapexv.com',
+    actionLabel: 'Email admin@jcapexv.com',
     isExternal: true,
   },
 ];
 
-const divisionShortcuts = [
-  { label: 'Solis Rooftop Solar & Pergola', href: '/solis', icon: Sun, desc: 'Calculate solar savings, pergola feasibility & subsidy' },
-  { label: 'Sanyog Utility & CGRF Liaison', href: '/sanyog', icon: FileText, desc: 'Resolve power tariff disputes & sanctioned load changes' },
-  { label: 'Grid Apex HT/LT & Waste Tech', href: '/grid-apex', icon: Wrench, desc: 'Heavy industrial power setups & patented zero-energy waste' },
-  { label: 'Tvasta Turnkey Interior Fit-out', href: '/tvasta', icon: Palette, desc: 'Space planning, CAD drawings & 3-tier finishing' },
-  { label: 'eMudran Branding & Packaging', href: '/emudran', icon: Sparkles, desc: 'Corporate brochures, box cartons & architectural signage' },
-  { label: 'Agrim Project Economics & DPR', href: '/agrim', icon: Flame, desc: 'Non-lender financial models, CAPEX vs NPV & bank dossiers' },
+const KNOWLEDGE_BASE: KnowledgeItem[] = [
+  ...COMPANY_QA,
+  ...divisions.flatMap((d) =>
+    d.faq.map((f) => ({
+      shortQ: f.q,
+      keywords: [d.name, d.slug, ...f.q.toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length > 3)],
+      q: f.q,
+      a: f.a,
+      actionHref: d.href,
+      actionLabel: `More on ${d.name}`,
+    })),
+  ),
 ];
+
+// The quick questions shown first: one per kind of enquiry we get most.
+const QUICK = ['Office address', 'Can we still use the terrace after the panels go up?', 'My bill looks wrong. What can you do?', 'Which tier is right for us?', 'Does Agrim lend money?', 'Who leads the work'];
+
+const DIVISION_ICONS: Record<string, typeof Sun> = { 'grid-apex': Wrench, solis: Sun, sanyog: FileText, tvasta: Palette, emudran: Sparkles, agrim: Flame };
+
+const divisionShortcuts = divisions.map((d) => ({
+  label: d.name,
+  href: d.href,
+  icon: DIVISION_ICONS[d.slug] ?? Layers,
+  desc: DIVISION_ONE_LINERS[d.slug] ?? d.description,
+}));
 
 function scoreMatch(query: string, item: KnowledgeItem): number {
   const stopWords = new Set(['what', 'is', 'the', 'a', 'an', 'in', 'to', 'for', 'of', 'and', 'how', 'does', 'can', 'i', 'you', 'your', 'we', 'our', 'are', 'tell', 'me', 'about']);
@@ -188,12 +154,12 @@ export default function Clippy() {
       setSelectedQA(bestItem);
     } else {
       setSelectedQA({
-        shortQ: 'Engineering Consultation',
+        shortQ: 'Your question',
         keywords: [],
         q: userQuery,
-        a: 'Our engineering partners at One International Centre are ready to assist with your specific query. Connect with our desk directly on WhatsApp or phone for immediate review.',
+        a: 'That is not one of the questions answered here. Send it to us on WhatsApp and we reply with the person who handles it.',
         actionHref: `https://wa.me/917021112664?text=${encodeURIComponent('Hello JC Apex, regarding: ' + userQuery)}`,
-        actionLabel: 'Ask Engineering Desk on WhatsApp',
+        actionLabel: 'Ask on WhatsApp',
         isExternal: true,
       });
     }
@@ -202,7 +168,7 @@ export default function Clippy() {
 
   return (
     <div
-      className="fixed bottom-6 right-6 z-50"
+      className="clippy-dock fixed bottom-6 right-6 z-50"
       style={{
         position: 'fixed',
         bottom: '24px',
@@ -270,7 +236,7 @@ export default function Clippy() {
                     lineHeight: 1.1,
                   }}
                 >
-                  JC Apex Concierge
+                  Ask JC Apex
                 </span>
                 <span
                   style={{
@@ -281,7 +247,7 @@ export default function Clippy() {
                     fontVariantNumeric: 'tabular-nums',
                   }}
                 >
-                  [direct visitor desk]
+                  Answers from our division profiles
                 </span>
               </div>
             </div>
@@ -333,7 +299,7 @@ export default function Clippy() {
                 transition: 'all 0.2s ease',
               }}
             >
-              Interactive Q&amp;A
+              Questions
             </button>
             <button
               type="button"
@@ -351,7 +317,7 @@ export default function Clippy() {
                 transition: 'all 0.2s ease',
               }}
             >
-              Practice Divisions
+              Divisions
             </button>
           </div>
 
@@ -366,15 +332,14 @@ export default function Clippy() {
                     color: '#777777',
                     fontFamily: 'var(--font-sans, Inter, sans-serif)',
                     fontVariantNumeric: 'tabular-nums',
-                    textTransform: 'uppercase',
                     display: 'block',
                     marginBottom: '6px',
                   }}
                 >
-                  Frequent Questions:
+                  Common questions
                 </span>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                  {KNOWLEDGE_BASE.slice(0, 6).map((item) => {
+                  {QUICK.map((key) => KNOWLEDGE_BASE.find((k) => k.shortQ === key)).filter((item): item is KnowledgeItem => Boolean(item)).map((item) => {
                     const isSel = selectedQA?.shortQ === item.shortQ;
                     return (
                       <button
@@ -477,7 +442,8 @@ export default function Clippy() {
               <form onSubmit={handleQuerySubmit} style={{ marginTop: 'auto', display: 'flex', gap: '8px' }}>
                 <input
                   type="text"
-                  placeholder="Ask e.g. office address, subsidy, EV..."
+                  aria-label="Your question"
+                  placeholder="For example: net metering, CGRF, proofs"
                   value={userQuery}
                   onChange={(e) => setUserQuery(e.target.value)}
                   style={{
@@ -558,7 +524,7 @@ export default function Clippy() {
                   }}
                 >
                   <Phone size={13} />
-                  <span>Call Desk</span>
+                  <span>Call us</span>
                 </a>
               </div>
             </div>
@@ -643,20 +609,16 @@ export default function Clippy() {
           cursor: 'pointer',
           transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
         }}
-        aria-label="Toggle JC Apex assistant concierge"
+        aria-label={isOpen ? 'Close questions' : 'Ask JC Apex a question'}
         aria-expanded={isOpen}
         aria-haspopup="dialog"
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <Logo width={20} height={20} />
           <span style={{ fontSize: '0.85rem', fontWeight: 600, letterSpacing: '-0.01em' }}>
-            {isOpen ? 'Close Concierge' : 'Ask Concierge'}
+            {isOpen ? 'Close' : 'Ask a question'}
           </span>
         </div>
-        <span
-          className="rounded-full animate-pulse bg-amber-400"
-          style={{ width: '7px', height: '7px', display: 'inline-block' }}
-        />
       </button>
     </div>
   );

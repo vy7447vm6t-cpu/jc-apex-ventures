@@ -78,6 +78,7 @@ export default function LineSidebar({
               buttonRefs.current[idx] = el;
             }}
             type="button"
+            aria-pressed={isActive}
             onClick={() => onSelect(item.id)}
             className={`relative flex items-center gap-3.5 py-2.5 px-2 rounded-xl text-left cursor-pointer group transition-all duration-200 ${
               isActive
@@ -118,14 +119,14 @@ export default function LineSidebar({
                 style={{
                   fontFamily: 'var(--font-sans, Inter, sans-serif)',
                 }}
-                className={`text-xs tracking-[0.06em] uppercase transition-colors duration-200 ${
+                className={`text-[15px] transition-colors duration-200 ${
                   isActive
                     ? variant === 'dark'
-                      ? 'font-bold text-[#FFFFFF]'
-                      : 'font-bold text-[#111111]'
+                      ? 'font-semibold text-[#FFFFFF]'
+                      : 'font-semibold text-[#111111]'
                     : variant === 'dark'
-                    ? 'font-semibold text-[#8B949E] group-hover:text-[#FFFFFF]'
-                    : 'font-semibold text-[#666666] group-hover:text-[#111111]'
+                    ? 'font-medium text-[#8B949E] group-hover:text-[#FFFFFF]'
+                    : 'font-medium text-[#4A4A46] group-hover:text-[#111111]'
                 }`}
               >
                 {item.label}

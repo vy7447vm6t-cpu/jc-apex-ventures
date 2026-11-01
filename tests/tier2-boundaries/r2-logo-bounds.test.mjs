@@ -40,7 +40,7 @@ test({
   fn: () => {
     const code = readFileSafe(PATHS.divisionPage);
     assert(code !== null, 'DivisionPage.tsx must exist');
-    assert(/DIVISION_THEMES\[data\.slug\] \|\| DEFAULT_THEME/.test(code), 'Unknown slugs must fall back to DEFAULT_THEME');
+    assert(/DIVISION_THEMES\[(data\.slug|key)\] \|\| DEFAULT_THEME/.test(code), 'Unknown slugs must fall back to DEFAULT_THEME');
     assert(/canvasClass: 'grounded-canvas'/.test(code), 'The fallback must be the group canvas');
   },
 });

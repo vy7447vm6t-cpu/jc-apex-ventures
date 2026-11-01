@@ -144,6 +144,7 @@ function ScrambleTechText({
 
   const startScramble = React.useCallback(() => {
     if (isScramblingRef.current) return;
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
     isScramblingRef.current = true;
 
     let step = 0;
@@ -218,7 +219,9 @@ function ScrambleTechText({
         setDisplayText(text);
       }}
     >
-      {displayText}
+      {/* Screen readers get the real words, never the scrambled characters. */}
+      <span className="sr-only">{text}</span>
+      <span aria-hidden="true">{displayText}</span>
     </span>
   );
 }
