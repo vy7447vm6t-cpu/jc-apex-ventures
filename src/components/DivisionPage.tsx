@@ -8,7 +8,7 @@ import Footer from '@/components/Footer';
 import ScrollReveal from '@/components/ScrollReveal';
 import SectionEyebrow from '@/components/SectionEyebrow';
 import FaqList from '@/components/FaqList';
-import type { DivisionContent, FeatureSection, ProofBlock } from '@/content/divisions';
+import { divisions, type DivisionContent, type FeatureSection, type ProofBlock } from '@/content/divisions';
 import { DIVISION_ONE_LINERS, PROOF_LINE } from '@/content/messaging';
 import { ATTRIBUTION_LINES, PROJECTS, clientGroups, isShowable } from '@/content/track-record';
 import { PHOTOS, photoCaption, photoCredit, type PhotoKey } from '@/content/photos';
@@ -324,12 +324,18 @@ const ESTIMATORS: Record<string, { title: string; intro: string; render: (ctx: {
  * questions, who else joins, enquire. Copy comes from src/content/divisions.ts.
  */
 export default function DivisionPage({ data, canvasClassName }: { data: DivisionContent; canvasClassName?: string }) {
-  const logo = DIVISION_LOGOS[data.slug];
-  const theme = DIVISION_THEMES[data.slug] || DEFAULT_THEME;
-  const oneLiner = DIVISION_ONE_LINERS[data.slug];
-  const estimator = ESTIMATORS[data.slug];
+  // A detail page (for example /licenses) wears its parent division's theme, logo and estimator.
+  const key = data.parent ?? data.slug;
+  const parent = data.parent ? divisions.find((d) => d.slug === data.parent) : undefined;
+  const logo = DIVISION_LOGOS[key];
+  const theme = DIVISION_THEMES[key] || DEFAULT_THEME;
+  const oneLiner = DIVISION_ONE_LINERS[key];
+  const estimator = data.noEstimator ? undefined : ESTIMATORS[key];
   const [estimate, setEstimate] = useState<string | undefined>();
   const tilePhotos = (data.tiles?.items ?? []).flatMap((tile) => (tile.photo ? [tile.photo] : []));
+
+  // Links to this division's own detail pages; email actions are covered by the form.
+  const pageLinks = data.actions.filter((a) => a.href.startsWith('/'));
 
   const contactRows = (
     <dl className="fact-rows">
@@ -384,6 +390,14 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
               Divisions
             </Link>
             <ChevronRight size={13} aria-hidden="true" />
+            {parent && (
+              <>
+                <Link href={parent.href} style={{ color: 'var(--color-text-muted)', textDecoration: 'none' }}>
+                  {parent.name}
+                </Link>
+                <ChevronRight size={13} aria-hidden="true" />
+              </>
+            )}
             <span style={{ color: 'var(--color-text-primary)', fontWeight: 600 }}>{data.name}</span>
           </nav>
 
@@ -394,7 +408,7 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
               <i className="corner-mark bl" />
               <i className="corner-mark br" />
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
-                {logo && <img src={logo.src} alt={data.name} style={{ height: `${logo.height}px`, width: 'auto', display: 'block', borderRadius: 0 }} />}
+                {logo && <img src={logo.src} alt={parent?.name ?? data.name} style={{ height: `${logo.height}px`, width: 'auto', display: 'block', borderRadius: 0 }} />}
                 <span aria-hidden="true" style={{ width: '2px', height: '40px', backgroundColor: theme.ruleColor }} />
               </div>
               <h1
@@ -441,8 +455,8 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
 
           <ul className="title-block-line" aria-label="Page reference">
             <li>JC Apex Ventures</li>
-            <li>{data.name}</li>
-            <li>Division of six</li>
+            <li>{parent ? parent.name : data.name}</li>
+            <li>{parent ? data.name : 'Division of six'}</li>
             <li>jcapexv.com{data.href}</li>
           </ul>
         </div>
@@ -450,7 +464,7 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
 
       <section id="services" className="section" style={{ paddingBottom: '40px', scrollMarginTop: '100px' }}>
         <div className="container">
-          <SectionHeading number={nextNumber()} eyebrow="What we handle" title={`What ${data.name} does for you.`} />
+          <SectionHeading number={nextNumber()} eyebrow="What we handle" title={parent ? 'What this covers.' : `What ${data.name} does for you.`} />
           <ul className="service-rows">
             {data.services.map(([line, covers]) => (
               <li key={line} className="service-row">
@@ -611,7 +625,20 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
                   Tell us what you need. We reply with the next steps and the person who will handle them.
                 </p>
                 {data.enquiryForm ? (
-                  contactRows
+                  <>
+                    {pageLinks.length > 0 && (
+                      <p className="contact-more">
+                        <span>More detail:</span>
+                        {pageLinks.map((a) => (
+                          <Link key={a.href} href={a.href} className="contact-link">
+                            {a.label}
+                            <ArrowUpRight size={14} aria-hidden="true" />
+                          </Link>
+                        ))}
+                      </p>
+                    )}
+                    {contactRows}
+                  </>
                 ) : (
                   <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                     {data.actions.map((a, i) => (
@@ -627,6 +654,8 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
                   to={data.enquiryForm.to}
                   cc={data.enquiryForm.cc}
                   subject={data.enquiryForm.subject}
+                  askUtility={data.enquiryForm.askUtility}
+                  submitLabel={data.enquiryForm.submitLabel}
                   needs={data.services.map(([line]) => line)}
                   estimate={estimate}
                   onClearEstimate={() => setEstimate(undefined)}

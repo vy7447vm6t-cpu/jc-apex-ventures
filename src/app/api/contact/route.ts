@@ -11,22 +11,22 @@ const ourInbox = (address: unknown) => {
 };
 const looksLikeEmail = (address: unknown) => typeof address === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(address.trim());
 const oneLine = (text: string, max: number) => text.replace(/[\r\n]+/g, ' ').slice(0, max);
+const short = (value: unknown, max: number) => (typeof value === 'string' ? oneLine(value.trim(), max) : '');
 
 export async function POST(request: Request) {
   try {
     const data = await request.json();
-    const {
-      name,
-      email,
-      phone,
-      subject = 'New Enquiry from Website',
-      body,
-      to,
-      cc,
-      details,
-    } = data;
+    const { subject = 'New Enquiry from Website', body, to, cc, details, website } = data;
+    const name = short(data.name, 120);
+    const email = short(data.email, 160);
+    const phone = short(data.phone, 40);
     const recipient = ourInbox(to) ?? MAIN_INBOX;
     const copy = ourInbox(cc);
+
+    // The forms carry a "website" field people never see; only bots fill it in. Drop those quietly.
+    if (typeof website === 'string' && website.trim()) {
+      return NextResponse.json({ success: true });
+    }
 
     if (!name && !email && !phone && !body) {
       return NextResponse.json(

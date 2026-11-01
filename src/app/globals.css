@@ -3065,6 +3065,13 @@ section[id] {
 .site-form-submit:hover { background: #000000; }
 .site-form-submit:focus-visible { outline: 2px solid #111111; outline-offset: 3px; }
 .site-form-status { margin: -8px 0 0; font-family: var(--font-body, Inter, sans-serif); font-size: 13px; line-height: 1.5; color: var(--color-text-muted, #666666); }
+.site-form-status p { margin: 0 0 6px; }
+.contact-more { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 4px; margin: 0 0 24px; font-family: var(--font-body, Inter, sans-serif); font-size: 14px; color: var(--color-text-muted, #666666); }
+.site-form-fallback { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 4px; }
+.site-form-fallback span { color: var(--color-text-muted, #666666); }
+.site-form-submit:disabled { opacity: 0.6; cursor: progress; }
+/* Honeypot: off screen for people, still in the form for bots. */
+.site-form-trap { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 @media (max-width: 900px) {
   .division-contact.has-form { grid-template-columns: 1fr; }
 }

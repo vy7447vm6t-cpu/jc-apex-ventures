@@ -7,49 +7,59 @@ import { Phone, Mail, MapPin, ArrowUpRight } from 'lucide-react';
 import { SpecularButton } from '@/components/react-bits';
 import { PROOF_LINE } from '@/content/messaging';
 
+// Labels are the division page titles.
 const DIVISION_FOOTER_LOGOS = [
   {
     name: 'Solis',
-    role: 'Solar & Pergolas',
+    role: 'Solar, pergolas and EV charging',
     href: '/solis',
     logo: '/images/logos/solis-logo-white.png',
     bg: 'rgba(255, 255, 255, 0.08)',
   },
   {
     name: 'Sanyog',
-    role: 'Utility Liaison',
+    role: 'Power connections and bill disputes',
     href: '/sanyog',
     logo: '/images/logos/sanyog-official.png',
     bg: 'rgba(255, 255, 255, 0.08)',
   },
   {
     name: 'Grid Apex',
-    role: 'HT/LT & Waste',
+    role: 'HT and LT electrical work',
     href: '/grid-apex',
     logo: '/images/logos/grid-apex-white.png',
     bg: 'rgba(255, 255, 255, 0.08)',
   },
   {
     name: 'Tvasta',
-    role: 'Spatial Fit-Out',
+    role: 'Interior design and fit-out',
     href: '/tvasta',
     logo: '/images/logos/tvasta-official.png',
     bg: 'rgba(255, 255, 255, 0.08)',
   },
   {
     name: 'eMudran',
-    role: 'Print & Packaging',
+    role: 'Brand, packaging, signage and print',
     href: '/emudran',
     logo: '/images/logos/emudran-white.png',
     bg: 'rgba(255, 255, 255, 0.08)',
   },
   {
     name: 'Agrim',
-    role: 'Project Finance DPR',
+    role: 'Project loan coordination',
     href: '/agrim',
     logo: '/images/logos/agrim-official.png',
     bg: 'rgba(255, 255, 255, 0.08)',
   },
+];
+
+// Division inboxes, as the company profile lists them (page 9).
+const INBOXES: [string, string][] = [
+  ['admin@jcapexv.com', 'General, Grid Apex, eMudran (WhatsApp preferred), Agrim'],
+  ['solis@jcapexv.com', 'Solis'],
+  ['licenses@jcapexv.com', 'Sanyog: connections and licences'],
+  ['consumercmpl@jcapexv.com', 'Sanyog: bill disputes and complaints'],
+  ['spacemgmt@jcapexv.com', 'Tvasta'],
 ];
 
 export default function Footer() {
@@ -173,17 +183,8 @@ export default function Footer() {
                 key={div.name}
                 href={div.href}
                 className="group relative flex flex-col justify-between rounded-2xl p-4 border border-white/10 hover:border-[#C29F53]/70 transition-all duration-300 no-underline overflow-hidden"
-                style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.035)',
-                  backdropFilter: 'blur(16px)',
-                  WebkitBackdropFilter: 'blur(16px)',
-                  boxShadow: '0 8px 24px -4px rgba(0, 0, 0, 0.35), inset 0 1px 1px 0 rgba(255, 255, 255, 0.08)',
-                }}
+                style={{ backgroundColor: 'rgba(255, 255, 255, 0.035)' }}
               >
-                {/* Subtle top edge liquid glass specular sheen */}
-                <div
-                  className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                />
                 <div
                   className="h-12 rounded-xl flex items-center justify-center px-3 mb-3 overflow-hidden border border-white/10 group-hover:border-[#C29F53]/30 transition-all"
                   style={{ backgroundColor: 'rgba(255, 255, 255, 0.06)' }}
@@ -273,7 +274,7 @@ export default function Footer() {
                 marginBottom: '18px',
               }}
             >
-              Direct Channels
+              Contact
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <div style={{ fontSize: '0.94rem', color: '#FFFFFF', fontWeight: 600 }}>
@@ -294,34 +295,19 @@ export default function Footer() {
                 <Phone size={14} color="#C29F53" />
                 <span>+91 70211 12664</span>
               </a>
-              <a
-                href="mailto:solis@jcapexv.com"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  color: 'rgba(255, 255, 255, 0.85)',
-                  textDecoration: 'none',
-                  fontSize: '0.92rem',
-                }}
-              >
-                <Mail size={14} color="#C29F53" />
-                <span>solis@jcapexv.com</span>
-              </a>
-              <a
-                href="mailto:admin@jcapexv.com"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  color: 'rgba(255, 255, 255, 0.85)',
-                  textDecoration: 'none',
-                  fontSize: '0.92rem',
-                }}
-              >
-                <Mail size={14} color="#C29F53" />
-                <span>admin@jcapexv.com</span>
-              </a>
+              {INBOXES.map(([email, who]) => (
+                <a
+                  key={email}
+                  href={`mailto:${email}`}
+                  style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', color: 'rgba(255, 255, 255, 0.85)', textDecoration: 'none', fontSize: '0.92rem' }}
+                >
+                  <Mail size={14} color="#C29F53" style={{ marginTop: '4px', flexShrink: 0 }} />
+                  <span>
+                    {email}
+                    <span style={{ display: 'block', fontSize: '0.78rem', color: 'rgba(255, 255, 255, 0.55)' }}>{who}</span>
+                  </span>
+                </a>
+              ))}
             </div>
           </div>
 
@@ -428,7 +414,7 @@ export default function Footer() {
           className="text-xs text-muted"
         >
           <div>
-            &copy; 2026 JC Apex Ventures (OPC) Private Limited. All rights reserved.
+            &copy; 2026 JC Apex Ventures (OPC) Pvt. Ltd. All rights reserved.
           </div>
           <div style={{ fontVariantNumeric: 'tabular-nums' }}>
             CIN (MCA): U70200MH2023OPC411326
@@ -479,10 +465,6 @@ export default function Footer() {
                 cy="18"
                 r="10"
                 fill="#D4AF37"
-                style={{
-                  filter: revealProgress > 0.6 ? 'drop-shadow(0 0 12px rgba(212, 175, 55, 0.8))' : 'none',
-                  transition: 'filter 0.3s ease',
-                }}
               />
               <path
                 d="M15 55 Q 50 15 85 55"

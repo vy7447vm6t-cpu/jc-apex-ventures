@@ -71,6 +71,10 @@ export type FeatureSection =
 
 export interface DivisionContent {
   slug: string;
+  /** Set on a detail page: the division it belongs to, whose theme, logo and estimator it uses. */
+  parent?: string;
+  /** Detail pages without an estimator. */
+  noEstimator?: boolean;
   name: string;
   href: string;
   icon: IconKey;
@@ -99,8 +103,8 @@ export interface DivisionContent {
   features?: FeatureSection[];
   /** Our own photograph beside the process, when we have one. */
   stepsPhoto?: { src: string; width: number; height: number; alt: string; caption: string };
-  /** An enquiry form in place of the contact buttons; the estimate fills it in. */
-  enquiryForm?: { to: string; cc: string; subject: string };
+  /** The enquiry form in the contact section, sent to the division's inbox; the estimate fills it in. */
+  enquiryForm?: { to: string; cc?: string; subject: string; askUtility?: boolean; submitLabel?: string };
 }
 
 export const gridApex: DivisionContent = {
@@ -197,6 +201,7 @@ export const gridApex: DivisionContent = {
   ],
   contact: { emails: ['admin@jcapexv.com'] },
   actions: [{ label: 'Email Grid Apex', href: 'mailto:admin@jcapexv.com?subject=Grid%20Apex%20enquiry' }],
+  enquiryForm: { to: 'admin@jcapexv.com', subject: 'Grid Apex enquiry', askUtility: true },
 };
 
 export const sanyog: DivisionContent = {
@@ -311,9 +316,10 @@ export const sanyog: DivisionContent = {
   ],
   contact: { emails: ['licenses@jcapexv.com', 'consumercmpl@jcapexv.com'] },
   actions: [
-    { label: 'Report a bill or supply problem', href: '/electricity-grievances' },
-    { label: 'Licences and registrations', href: '/licenses' },
+    { label: 'Bill disputes and grievances', href: '/electricity-grievances' },
+    { label: 'Connections and licences', href: '/licenses' },
   ],
+  enquiryForm: { to: 'licenses@jcapexv.com', cc: 'consumercmpl@jcapexv.com', subject: 'Sanyog enquiry', askUtility: true },
 };
 
 export const tvasta: DivisionContent = {
@@ -410,7 +416,8 @@ export const tvasta: DivisionContent = {
     ['Agrim', 'Coordinating project loan requirements'],
   ],
   contact: { emails: ['spacemgmt@jcapexv.com'] },
-  actions: [{ label: 'Send a design enquiry', href: '/space-planning' }],
+  actions: [{ label: 'Space planning and fit-out', href: '/space-planning' }],
+  enquiryForm: { to: 'spacemgmt@jcapexv.com', cc: 'admin@jcapexv.com', subject: 'Tvasta enquiry' },
 };
 
 export const emudran: DivisionContent = {
@@ -513,7 +520,8 @@ export const emudran: DivisionContent = {
     ['Agrim', 'Coordinating project loan requirements'],
   ],
   contact: { emails: ['admin@jcapexv.com'], note: 'WhatsApp preferred' },
-  actions: [{ label: 'See rates and get an estimate', href: '/print-management' }],
+  actions: [{ label: 'Print and signage orders', href: '/print-management' }],
+  enquiryForm: { to: 'admin@jcapexv.com', subject: 'eMudran enquiry' },
 };
 
 export const agrim: DivisionContent = {
@@ -635,6 +643,7 @@ export const agrim: DivisionContent = {
   ],
   contact: { emails: ['admin@jcapexv.com'] },
   actions: [{ label: 'Email Agrim', href: 'mailto:admin@jcapexv.com?subject=Agrim%20enquiry' }],
+  enquiryForm: { to: 'admin@jcapexv.com', subject: 'Agrim enquiry' },
 };
 
 const solarPlants = trackRecord('solis');
@@ -747,7 +756,7 @@ export const solis: DivisionContent = {
   ],
   contact: { emails: ['solis@jcapexv.com'] },
   actions: [{ label: 'Email Solis', href: 'mailto:solis@jcapexv.com?subject=Solis%20enquiry' }],
-  enquiryForm: { to: 'solis@jcapexv.com', cc: 'admin@jcapexv.com', subject: 'Solis site survey request' },
+  enquiryForm: { to: 'solis@jcapexv.com', cc: 'admin@jcapexv.com', subject: 'Solis site survey request', askUtility: true, submitLabel: 'Request a site survey' },
 };
 
 export const divisions: DivisionContent[] = [gridApex, solis, sanyog, tvasta, emudran, agrim];
