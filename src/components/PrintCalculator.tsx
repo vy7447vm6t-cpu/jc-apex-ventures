@@ -312,7 +312,7 @@ export default function PrintCalculator({ onLiveChange }: PrintCalculatorProps =
           </div>
 
           <a
-            href="mailto:printmgmt@jcapexv.com?subject=Print%20Quotation%20Inquiry"
+            href="mailto:admin@jcapexv.com?subject=Print%20quotation%20enquiry"
             style={{
               marginTop: '28px',
               padding: '14px 20px',

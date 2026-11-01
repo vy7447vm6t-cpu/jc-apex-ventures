@@ -111,3 +111,25 @@ test({
     assert(cta.includes('divisions.map((d)') && cta.includes('d.contact.emails'), 'The home enquiry lists every division inbox from divisions.ts');
   },
 });
+
+test({
+  id: 'T1_R14_05',
+  tier: 'tier1',
+  feature: 'r14',
+  title: 'R14 Feature: Enquiries reach only our inboxes, labels match the pages, and unconfirmed studies stay off the site',
+  fn: () => {
+    const api = readFileSafe(PATHS.apiContact) || '';
+    assertIncludes(api, 'const recipient = ourInbox(to) ?? MAIN_INBOX;', 'The contact API must not send to an address the visitor supplies');
+    assertIncludes(api, 'to: recipient,', 'Mail goes to the checked recipient');
+    assert(!/mode: 'simulated'/.test(api), 'The API must not report an unsent enquiry as sent');
+    const sources = ['ConsultationModal.tsx', 'PrintCalculator.tsx', 'Footer.tsx']
+      .map((f) => readFileSafe(path.join(PROJECT_ROOT, 'src', 'components', f)) || '')
+      .concat(readFileSafe(PATHS.routePrintMgmt) || '');
+    for (const code of sources) {
+      assert(!code.includes('printmgmt@'), 'eMudran enquiries go to admin@jcapexv.com (client decision, October 2026)');
+      assert(!/Luxury Packaging|Clean Tech|Project DPR|Substations &amp; Switchgear|Corporate Interior/.test(code), 'Division labels follow the division pages');
+    }
+    const calculators = readFileSafe(PATHS.groundedCalculators) || '';
+    assert(!/EvNetwork|3,900|value: 'ev'/.test(calculators), 'The unconfirmed EV network study stays off the home page');
+  },
+});

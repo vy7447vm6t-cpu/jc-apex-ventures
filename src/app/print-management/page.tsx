@@ -253,7 +253,7 @@ export default function PrintManagementPage() {
     body += `Note: Final rates are subject to artwork verification and site conditions.\n`;
     body += `---\nSent from JC Apex Ventures Website (eMudran Division)`;
 
-    const mailtoUrl = `mailto:printmgmt@jcapexv.com?subject=${encodeURIComponent(`New eMudran Enquiry: ${formData.jobType}`)}&body=${encodeURIComponent(body)}`;
+    const mailtoUrl = `mailto:admin@jcapexv.com?subject=${encodeURIComponent(`New eMudran Enquiry: ${formData.jobType}`)}&body=${encodeURIComponent(body)}`;
     window.location.href = mailtoUrl;
   };
 

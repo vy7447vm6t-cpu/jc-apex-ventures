@@ -9,7 +9,6 @@ import {
   SolarGenerationCurve,
   CashflowPaybackSchedule,
   PackagingVolumeTierCurve,
-  EvNetworkCapexRevenueChart,
   InteriorSpecBreakdownChart,
 } from '@/components/bklit';
 import { SpecularButton } from '@/components/react-bits';
@@ -21,12 +20,11 @@ import { ArrowUpRight } from 'lucide-react';
 const CALCULATOR_TABS = [
   { value: 'solar', label: 'Solar savings', note: 'Solis' },
   { value: 'tariff', label: 'Bill check', note: 'Sanyog' },
-  { value: 'ev', label: 'EV charging', note: 'Agrim' },
   { value: 'interior', label: 'Fit-out cost', note: 'Tvasta' },
   { value: 'print', label: 'Print run', note: 'eMudran' },
   { value: 'substation', label: 'Transformer sizing', note: 'Grid Apex' },
 ];
-type CalculatorTab = 'solar' | 'tariff' | 'ev' | 'interior' | 'print' | 'substation';
+type CalculatorTab = 'solar' | 'tariff' | 'interior' | 'print' | 'substation';
 
 export default function GroundedCalculators() {
   const [activeTab, setActiveTab] = useState<CalculatorTab>('solar');
@@ -48,12 +46,6 @@ export default function GroundedCalculators() {
   const [tariffMonthlyUnits, setTariffMonthlyUnits] = useState<number>(8500);
   const [tariffCurrentLoadKva, setTariffCurrentLoadKva] = useState<number>(125);
   const [tariffPowerFactor, setTariffPowerFactor] = useState<number>(0.84);
-
-  // Agrim EV Simulator State
-  const [evSites, setEvSites] = useState<number>(4);
-  const [evDcChargers, setEvDcChargers] = useState<number>(2);
-  const [evAcChargers, setEvAcChargers] = useState<number>(6);
-  const [evDailySessions, setEvDailySessions] = useState<number>(8);
 
   // Tvasta Fit-Out Chart Controls State
   const [tvastaTier, setTvastaTier] = useState<'standard' | 'premium' | 'luxury'>('premium');
@@ -78,17 +70,6 @@ export default function GroundedCalculators() {
   const monthlyPfPenalty = tariffMonthlyUnits * commercialRate * (pfPenaltySteps * 0.005);
   const totalMonthlyDispute = monthlyTariffDiff + monthlyPfPenalty;
   const annualDisputeLakhs = (totalMonthlyDispute * 12) / 100000;
-
-  // Agrim EV calculations
-  const capexPerSiteLakhs = (evDcChargers * 11.5) + (evAcChargers * 1.2) + 8.5 + 3.5;
-  const totalEvCapexLakhs = evSites * capexPerSiteLakhs;
-  const totalChargeGuns = evSites * (evDcChargers * 2 + evAcChargers);
-  const dailyKwhDispensed = evSites * (
-    (evDcChargers * 2 * 30 * evDailySessions) +
-    (evAcChargers * 15 * (evDailySessions * 0.5))
-  );
-  const annualMarginLakhs = (dailyKwhDispensed * 4.5 * 365) / 100000;
-  const evPaybackYears = annualMarginLakhs > 0 ? (totalEvCapexLakhs / (annualMarginLakhs * 0.78)).toFixed(1) : '3.8';
 
   return (
     <section
@@ -345,239 +326,6 @@ export default function GroundedCalculators() {
             </div>
           )}
 
-          {/* Tab 3: Agrim EV Network CAPEX & DPR */}
-          {activeTab === 'ev' && (
-            <div
-              style={{
-                borderRadius: '24px',
-                padding: 'clamp(24px, 4vw, 44px)',
-                background: '#FFFFFF',
-                border: '1px solid rgba(0, 0, 0, 0.08)',
-                boxShadow: '0 20px 48px rgba(0, 0, 0, 0.06)',
-                maxWidth: '1040px',
-                margin: '0 auto',
-              }}
-            >
-              <div style={{ textAlign: 'center', marginBottom: '36px' }}>
-                <div
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '14px',
-                    marginBottom: '16px',
-                    flexWrap: 'wrap',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <img
-                    src="/images/logos/agrim-dark.png"
-                    alt="Agrim Official Brand Mark"
-                    style={{ height: '34px', width: 'auto', objectFit: 'contain', display: 'block' }}
-                  />
-                  <span style={{ width: '1.5px', height: '22px', backgroundColor: 'rgba(194, 159, 83, 0.55)', display: 'inline-block' }} />
-                  <span
-                    style={{
-                      fontSize: '0.74rem',
-                      fontWeight: 700,
-                      color: '#8C6D23',
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.12em',
-                      fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                    }}
-                  >
-                    Agrim · EV charging project estimate
-                  </span>
-                </div>
-                <h3
-                  style={{
-                    fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
-                    fontSize: 'clamp(1.8rem, 3.2vw, 2.5rem)',
-                    fontWeight: 400,
-                    color: '#111111',
-                    letterSpacing: '-0.02em',
-                    margin: '0 0 8px 0',
-                    lineHeight: 1.15,
-                  }}
-                >
-                  EV Charging Hub Network CAPEX &amp; 10-Year DPR Model
-                </h3>
-                <p
-                  style={{
-                    fontFamily: 'var(--font-sans, Inter, sans-serif)',
-                    fontSize: '0.96rem',
-                    color: '#555555',
-                    maxWidth: '680px',
-                    margin: '0 auto',
-                    lineHeight: 1.6,
-                  }}
-                >
-                  Simulate commercial and cooperative housing society EV charging station networks: 60kW DC dual-gun fast chargers, 22kW AC destination chargers, and debt syndication metrics.
-                </p>
-              </div>
-
-              {/* Sliders Grid */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '28px', marginBottom: '36px' }}>
-                {/* Slider 1: Hub Sites */}
-                <div style={{ background: '#F8F6F0', padding: '20px', borderRadius: '16px', border: '1px solid rgba(0, 0, 0, 0.06)' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                    <span style={{ fontSize: '0.82rem', fontWeight: 650, color: '#333333', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                      Hub Locations / Society Clusters
-                    </span>
-                    <span style={{ fontSize: '0.92rem', fontWeight: 700, color: '#8C6D23', fontVariantNumeric: 'tabular-nums', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                      {evSites} Sites
-                    </span>
-                  </div>
-                  <input
-                    type="range"
-                    min={1}
-                    max={20}
-                    step={1}
-                    value={evSites}
-                    onChange={(e) => setEvSites(Number(e.target.value))}
-                    className="w-full accent-[#C29F53] cursor-pointer"
-                  />
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '6px', fontSize: '0.7rem', color: '#777777', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                    <span>1 Pilot Site</span>
-                    <span>20 Cluster Hubs</span>
-                  </div>
-                </div>
-
-                {/* Slider 2: 60kW DC Fast Chargers */}
-                <div style={{ background: '#F8F6F0', padding: '20px', borderRadius: '16px', border: '1px solid rgba(0, 0, 0, 0.06)' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                    <span style={{ fontSize: '0.82rem', fontWeight: 650, color: '#333333', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                      60kW DC Dual-Gun Fast Chargers
-                    </span>
-                    <span style={{ fontSize: '0.92rem', fontWeight: 700, color: '#8C6D23', fontVariantNumeric: 'tabular-nums', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                      {evDcChargers} per Site ({evSites * evDcChargers * 2} Guns)
-                    </span>
-                  </div>
-                  <input
-                    type="range"
-                    min={1}
-                    max={8}
-                    step={1}
-                    value={evDcChargers}
-                    onChange={(e) => setEvDcChargers(Number(e.target.value))}
-                    className="w-full accent-[#C29F53] cursor-pointer"
-                  />
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '6px', fontSize: '0.7rem', color: '#777777', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                    <span>1 Unit (2 Guns)</span>
-                    <span>8 Units (16 Guns)</span>
-                  </div>
-                </div>
-
-                {/* Slider 3: 22kW AC Chargers */}
-                <div style={{ background: '#F8F6F0', padding: '20px', borderRadius: '16px', border: '1px solid rgba(0, 0, 0, 0.06)' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                    <span style={{ fontSize: '0.82rem', fontWeight: 650, color: '#333333', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                      22kW AC Destination Chargers
-                    </span>
-                    <span style={{ fontSize: '0.92rem', fontWeight: 700, color: '#8C6D23', fontVariantNumeric: 'tabular-nums', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                      {evAcChargers} per Site ({evSites * evAcChargers} Points)
-                    </span>
-                  </div>
-                  <input
-                    type="range"
-                    min={2}
-                    max={16}
-                    step={2}
-                    value={evAcChargers}
-                    onChange={(e) => setEvAcChargers(Number(e.target.value))}
-                    className="w-full accent-[#C29F53] cursor-pointer"
-                  />
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '6px', fontSize: '0.7rem', color: '#777777', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                    <span>2 Chargers</span>
-                    <span>16 Chargers</span>
-                  </div>
-                </div>
-
-                {/* Slider 4: Daily Sessions */}
-                <div style={{ background: '#F8F6F0', padding: '20px', borderRadius: '16px', border: '1px solid rgba(0, 0, 0, 0.06)' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                    <span style={{ fontSize: '0.82rem', fontWeight: 650, color: '#333333', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                      Daily Utilization / Sessions
-                    </span>
-                    <span style={{ fontSize: '0.92rem', fontWeight: 700, color: '#8C6D23', fontVariantNumeric: 'tabular-nums', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                      {evDailySessions} Sessions / Day
-                    </span>
-                  </div>
-                  <input
-                    type="range"
-                    min={4}
-                    max={18}
-                    step={1}
-                    value={evDailySessions}
-                    onChange={(e) => setEvDailySessions(Number(e.target.value))}
-                    className="w-full accent-[#C29F53] cursor-pointer"
-                  />
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '6px', fontSize: '0.7rem', color: '#777777', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                    <span>4 (Off-Peak)</span>
-                    <span>18 (Highway / Depot)</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* KPI Summary Tiles */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px', marginBottom: '28px' }}>
-                <div style={{ background: '#111111', color: '#FFFFFF', padding: '18px', borderRadius: '16px', textAlign: 'left' }}>
-                  <div style={{ fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#C29F53', marginBottom: '6px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                    Total Network CAPEX
-                  </div>
-                  <div style={{ fontSize: '1.45rem', fontWeight: 700, color: '#C29F53', fontVariantNumeric: 'tabular-nums', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                    ₹{totalEvCapexLakhs >= 100 ? `${(totalEvCapexLakhs / 100).toFixed(2)} Cr` : `${totalEvCapexLakhs.toFixed(1)} Lakhs`}
-                  </div>
-                  <div style={{ fontSize: '0.7rem', color: 'rgba(255, 255, 255, 0.65)', marginTop: '4px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                    Across {evSites} sites (₹{capexPerSiteLakhs.toFixed(1)}L/site)
-                  </div>
-                </div>
-
-                <div style={{ background: '#111111', color: '#FFFFFF', padding: '18px', borderRadius: '16px', textAlign: 'left' }}>
-                  <div style={{ fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#C29F53', marginBottom: '6px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                    Connected Charge Bays
-                  </div>
-                  <div style={{ fontSize: '1.45rem', fontWeight: 700, fontVariantNumeric: 'tabular-nums', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                    {totalChargeGuns} Active Ports
-                  </div>
-                  <div style={{ fontSize: '0.7rem', color: 'rgba(255, 255, 255, 0.65)', marginTop: '4px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                    {evSites * evDcChargers * 2} DC Fast + {evSites * evAcChargers} AC Ports
-                  </div>
-                </div>
-
-                <div style={{ background: '#111111', color: '#FFFFFF', padding: '18px', borderRadius: '16px', textAlign: 'left' }}>
-                  <div style={{ fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#C29F53', marginBottom: '6px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                    Projected Payback Horizon
-                  </div>
-                  <div style={{ fontSize: '1.45rem', fontWeight: 700, color: '#34D399', fontVariantNumeric: 'tabular-nums', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                    {evPaybackYears} Years
-                  </div>
-                  <div style={{ fontSize: '0.7rem', color: 'rgba(255, 255, 255, 0.65)', marginTop: '4px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                    Target DSCR: 1.55x bank compliance
-                  </div>
-                </div>
-
-                <div style={{ background: '#111111', color: '#FFFFFF', padding: '18px', borderRadius: '16px', textAlign: 'left' }}>
-                  <div style={{ fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#C29F53', marginBottom: '6px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                    Advisory Status
-                  </div>
-                  <div style={{ fontSize: '1.15rem', fontWeight: 700, color: '#FFFFFF', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                    Bankable DPR
-                  </div>
-                  <div style={{ fontSize: '0.7rem', color: 'rgba(255, 255, 255, 0.65)', marginTop: '4px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                    Pure Advisory (Non-Lender / Non-NBFC)
-                  </div>
-                </div>
-              </div>
-
-              {/* Action Strip */}
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <SpecularButton href="/agrim" variant="dark" icon={<ArrowUpRight size={15} />}>
-                  Explore Agrim Project Finance Scope
-                </SpecularButton>
-              </div>
-            </div>
-          )}
-
           {/* Tab 4: Tvasta Commercial Interior Fit-Out */}
           {activeTab === 'interior' && <InteriorCalculator />}
 
@@ -666,13 +414,6 @@ export default function GroundedCalculators() {
                   </div>
                 </div>
               </div>
-            </div>
-          )}
-
-          {/* Agrim EV Network CAPEX / Revenue Chart */}
-          {activeTab === 'ev' && (
-            <div style={{ maxWidth: '840px', margin: '0 auto' }}>
-              <EvNetworkCapexRevenueChart siteCapex={Math.max(10, Math.round(totalEvCapexLakhs))} />
             </div>
           )}
 

@@ -233,29 +233,29 @@ export default function Footer() {
                 marginBottom: '18px',
               }}
             >
-              Practice Divisions
+              Divisions
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               <Link href="/solis" style={{ color: '#FFFFFF', textDecoration: 'none', fontSize: '0.94rem' }}>
-                Solis (Rooftop Solar &amp; Pergolas)
+                Solis · Solar, pergolas and EV charging
               </Link>
               <Link href="/sanyog" style={{ color: 'rgba(255, 255, 255, 0.75)', textDecoration: 'none', fontSize: '0.94rem' }}>
-                Sanyog (Utility Liaisoning &amp; CGRF)
+                Sanyog · Power connections and bill disputes
               </Link>
               <Link href="/grid-apex" style={{ color: 'rgba(255, 255, 255, 0.75)', textDecoration: 'none', fontSize: '0.94rem' }}>
-                Grid Apex (Substations &amp; Switchgear)
+                Grid Apex · HT and LT electrical work
               </Link>
               <Link href="/tvasta" style={{ color: 'rgba(255, 255, 255, 0.75)', textDecoration: 'none', fontSize: '0.94rem' }}>
-                Tvasta (Corporate Interior Fit-outs)
+                Tvasta · Interior design and fit-out
               </Link>
               <Link href="/emudran" style={{ color: 'rgba(255, 255, 255, 0.75)', textDecoration: 'none', fontSize: '0.94rem' }}>
-                eMudran (Luxury Packaging &amp; Print)
+                eMudran · Brand, packaging, signage and print
               </Link>
               <Link href="/agrim" style={{ color: 'rgba(255, 255, 255, 0.75)', textDecoration: 'none', fontSize: '0.94rem' }}>
-                Agrim (Project Finance Advisory)
+                Agrim · Project loan coordination
               </Link>
               <Link href="/studio" style={{ color: '#D4B56A', textDecoration: 'none', fontSize: '0.94rem', fontWeight: 500 }}>
-                Studio Practice &amp; Leadership
+                Our studio
               </Link>
             </div>
           </div>

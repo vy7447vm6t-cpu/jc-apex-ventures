@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { X, Send, MessageSquare, CheckCircle2, AlertCircle, Phone } from 'lucide-react';
 import Logo from './Logo';
+import { divisions } from '@/content/divisions';
 
 export interface ConsultationModalProps {
   isOpen: boolean;
@@ -17,14 +18,19 @@ interface DivisionOption {
   email: string;
 }
 
-const DIVISIONS: DivisionOption[] = [
-  { id: 'solis', name: 'Solis', tag: 'Solar & Walkable Pergolas', email: 'solis@jcapexv.com' },
-  { id: 'sanyog', name: 'Sanyog', tag: 'Utility Liaison & CGRF', email: 'Consumercmpl@jcapexv.com' },
-  { id: 'grid-apex', name: 'Grid Apex', tag: 'HT/LT Substations', email: 'admin@jcapexv.com' },
-  { id: 'tvasta', name: 'Tvasta', tag: 'Turnkey Architectural Interiors', email: 'spacemgmt@jcapexv.com' },
-  { id: 'emudran', name: 'eMudran', tag: 'Luxury Packaging & Press', email: 'printmgmt@jcapexv.com' },
-  { id: 'agrim', name: 'Agrim', tag: 'Clean Tech & Project DPR', email: 'admin@jcapexv.com' },
-];
+// What each division does, in the words of its page title; the inbox comes from divisions.ts.
+const TAGS: Record<string, string> = {
+  solis: 'Solar, pergolas and EV charging',
+  sanyog: 'Power connections and bill disputes',
+  'grid-apex': 'HT and LT electrical work',
+  tvasta: 'Interior design and fit-out',
+  emudran: 'Brand, packaging, signage and print',
+  agrim: 'Project loan coordination',
+};
+const DIVISIONS: DivisionOption[] = ['solis', 'sanyog', 'grid-apex', 'tvasta', 'emudran', 'agrim'].map((id) => {
+  const d = divisions.find((x) => x.slug === id)!;
+  return { id, name: d.name, tag: TAGS[id], email: d.contact.emails[0] };
+});
 
 const MUMBAI_ZONES = [
   'South Mumbai',

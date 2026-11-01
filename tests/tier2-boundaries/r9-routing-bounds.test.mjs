@@ -33,15 +33,15 @@ test({
   id: 'T2_R9_03',
   tier: 'tier2',
   feature: 'r9',
-  title: 'R9 Boundary: Contact API route provides safe simulated mode when SMTP env vars unset',
+  title: 'R9 Boundary: Contact API says plainly when email is not set up, instead of reporting a sent message',
   fn: () => {
     const code = readFileSafe(PATHS.apiContact);
     assert(code !== null, 'src/app/api/contact/route.ts must exist');
-    // Must handle missing process.env.SMTP_USER without uncaught crash
+    // Must handle missing process.env.SMTP_USER without an uncaught crash, and without a false "sent".
     const hasEnvCheck = /process\.env\.SMTP_USER/i.test(code) || /process\.env\.EMAIL_USER/i.test(code) || /!process\.env/i.test(code);
-    const hasSimulatedMode = /simulated/i.test(code) || /status:\s*200/i.test(code);
     assert(hasEnvCheck, 'Contact API must check for environment variables');
-    assert(hasSimulatedMode, 'Contact API must provide safe simulated fallback instead of throwing unhandled 500 error');
+    assert(/mode: 'not-configured'/.test(code) && /status: 503/.test(code), 'Contact API must answer 503 when email is not set up');
+    assert(!/simulated/i.test(code), 'Contact API must not report an unsent enquiry as sent');
   },
 });
 
