@@ -19,7 +19,7 @@ import { agrimProfile, agrimShape } from './agrim.mjs';
 import { companyProfile, companyShape } from './company.mjs';
 
 // Revision of each document. Raise a profile's number when its content or layout changes.
-const REVS = { company: '1.4', solis: '1.4', 'grid-apex': '1.5', sanyog: '1.3', tvasta: '1.3', emudran: '1.3', agrim: '1.3' };
+const REVS = { company: '1.5', solis: '1.5', 'grid-apex': '1.6', sanyog: '1.4', tvasta: '1.4', emudran: '1.3', agrim: '1.3' };
 const WEB = { company: 'jcapexv.com', solis: 'jcapexv.com/solis', 'grid-apex': 'jcapexv.com/grid-apex', sanyog: 'jcapexv.com/sanyog', tvasta: 'jcapexv.com/tvasta', emudran: 'jcapexv.com/emudran', agrim: 'jcapexv.com/agrim' };
 const here = path.dirname(fileURLToPath(import.meta.url));
 

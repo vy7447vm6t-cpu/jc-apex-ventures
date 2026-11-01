@@ -95,7 +95,6 @@ export const SOLIS_SERVICES = [
       ['BIPV glass', 'Solar glass for canopies, skylights and facades that generates power and lets in daylight'],
       ['EV charging', 'AC and DC chargers for housing societies, offices and commercial sites, with the load extension handled through Sanyog'],
       ['Net metering and subsidies', 'Net-metering applications with the utility, and PM Surya Ghar subsidy paperwork for homes and housing societies'],
-      ['Advice for public bodies', 'Feasibility, planning and procurement advice for clean-energy projects'],
       ['On-site waste treatment', 'Segregation, collection and on-site treatment of organic and inorganic waste for housing societies, campuses and businesses'],
 ];
 
