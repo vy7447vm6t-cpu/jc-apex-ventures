@@ -97,29 +97,15 @@ test({
   id: 'T4_SCEN_04',
   tier: 'tier4',
   feature: 'scenario',
-  title: 'T4 Scenario 4: End-to-end electricity consumer grievance filing & liaisoning (SANYOG)',
+  title: 'T4 Scenario 4: A consumer with a disputed bill reaches Sanyog\'s grievance inbox (SANYOG)',
   fn: () => {
-    const grievancesPage = readFileSafe(PATHS.routeGrievances) || '';
-    assert(grievancesPage.length > 0, 'Electricity grievances page must exist');
-    
-    // Verify CGRF / MERC framework reference
-    assert(
-      grievancesPage.includes('CGRF') || grievancesPage.includes('Consumer') || grievancesPage.includes('Grievance'),
-      'Grievance workflow must reference statutory CGRF / utility grievance framework'
-    );
-    
-    // Verify ₹50 consultation fee
-    assert(
-      grievancesPage.includes('50'),
-      'Grievance workflow must state nominal consultation fee of ₹50'
-    );
-    
-    // Verify routing email
-    const divisions = readFileSafe(PATHS.divisionsContent) || '';
-    assert(
-      divisions.includes('licenses@jcapexv.com') || divisions.includes('Consumercmpl@jcapexv.com'),
-      'Grievance filing must route to licenses@jcapexv.com or Consumercmpl@jcapexv.com'
-    );
+    const route = readFileSafe(PATHS.routeGrievances) || '';
+    assert(route.includes('grievancesPage'), 'The grievances route renders grievancesPage');
+    const pages = readFileSafe(PATHS.servicePages) || '';
+    const block = pages.slice(pages.indexOf('export const grievancesPage'), pages.indexOf('export const spacePlanningPage'));
+    assert(block.includes('CGRF'), 'The page explains the CGRF route');
+    assert(!/₹\s*50\b/.test(block), 'No fee is invented');
+    assert(block.includes("to: 'consumercmpl@jcapexv.com'"), 'Grievances go to consumercmpl@jcapexv.com');
   },
 });
 

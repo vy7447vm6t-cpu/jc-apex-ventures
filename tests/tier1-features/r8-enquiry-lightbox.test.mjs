@@ -7,12 +7,18 @@ test({
   id: 'T1_R8_01',
   tier: 'tier1',
   feature: 'r8',
-  title: 'R8 Feature: The concierge mascot is retired from every page',
+  title: 'R8 Feature: Clippy answers only from the division profiles and stays off phones',
   fn: () => {
-    assert(!fileExists(path.join(COMPONENTS_DIR, 'Clippy.tsx')), 'Clippy.tsx must be deleted (guidelines 2.8.2)');
-    for (const page of [PATHS.homePage, PATHS.routeSolis, PATHS.routeStudio, PATHS.divisionPage]) {
-      assert(!/Clippy/.test(readFileSafe(page) ?? ''), `${path.basename(page)} must not render the concierge`);
+    const code = readFileSafe(PATHS.clippy);
+    assert(code !== null, 'Clippy.tsx must exist (the user asked for the components back)');
+    assertIncludes(code, "from '@/content/divisions'", 'Answers must come from the division FAQs');
+    assertIncludes(code, 'd.faq.map', 'Every division FAQ must feed the answers');
+    for (const banned of ['Tower 2', 'patent', '3,900', 'Kabnurkar', 'Manoj', 'zero contractor abandonment', '33kV']) {
+      assert(!code.includes(banned), `Clippy must not say "${banned}"`);
     }
+    assert(!/animate-pulse/.test(code), 'No pulsing status dot');
+    assertMatch(readFileSafe(PATHS.globalsCss) ?? '', /@media \(max-width: 767px\) \{ \.clippy-dock \{ display: none !important; \} \}/, 'Clippy must stay off phones, where the WhatsApp button sits');
+    assertIncludes(readFileSafe(PATHS.layoutTsx) ?? '', '<Clippy />', 'The root layout must mount Clippy on every page');
   },
 });
 
@@ -26,9 +32,8 @@ test({
     assert(nav !== null, 'Navbar.tsx must exist');
     assertMatch(nav, />\s*Enquire\s*</, 'Navigation must show an Enquire link');
     const anchors = /const ENQUIRY_ANCHORS[^}]*\}/.exec(nav)?.[0] ?? '';
-    assert(!anchors.includes("'/solis'"), 'Solis uses the division template, so its Enquire link falls back to #contact');
-    assertIncludes(nav, "'/print-management': '#enquiry-section'", 'Print rates must map to their enquiry form');
-    assertIncludes(nav, "?? '#contact'", 'Every other page falls back to #contact');
+    assert(!anchors.includes('#enquiry-section'), 'The old print page anchor is gone; print-management uses the division template');
+    assertIncludes(nav, "?? '#contact'", 'Every page falls back to #contact');
   },
 });
 
@@ -38,17 +43,12 @@ test({
   feature: 'r8',
   title: 'R8 Feature: Every page with the navigation has the enquiry anchor the link points to',
   fn: () => {
-    const anchors = [
-      [PATHS.groundedCta, 'id="contact"'],
-      [PATHS.divisionPage, 'id="contact"'],
-      [PATHS.routeStudio, 'id="contact"'],
-      [PATHS.routePrintMgmt, 'id="enquiry-section"'],
-      [PATHS.routeGrievances, 'id="contact"'],
-      [PATHS.routeLicenses, 'id="contact"'],
-      [PATHS.routeSpacePlanning, 'id="contact"'],
-    ];
-    for (const [file, anchor] of anchors) {
-      assertIncludes(readFileSafe(file) ?? '', anchor, `${path.basename(path.dirname(file))}/${path.basename(file)} must contain ${anchor}`);
+    for (const file of [PATHS.groundedCta, PATHS.divisionPage, PATHS.routeStudio]) {
+      assertIncludes(readFileSafe(file) ?? '', 'id="contact"', `${path.basename(file)} must contain id="contact"`);
+    }
+    // The four service pages render the division template, which carries id="contact".
+    for (const file of [PATHS.routePrintMgmt, PATHS.routeGrievances, PATHS.routeLicenses, PATHS.routeSpacePlanning]) {
+      assertIncludes(readFileSafe(file) ?? '', '<DivisionPage', `${path.basename(path.dirname(file))}/page.tsx must render DivisionPage`);
     }
   },
 });
@@ -71,13 +71,17 @@ test({
   id: 'T1_R8_05',
   tier: 'tier1',
   feature: 'r8',
-  title: 'R8 Feature: ImageLightbox component exists and implements modal dialog',
+  title: 'R8 Feature: The enquiry dialog uses the shared form on a flat overlay, with no blur',
   fn: () => {
-    const exists = fileExists(PATHS.imageLightbox);
-    assert(exists, 'src/components/ImageLightbox.tsx must exist');
-    const code = readFileSafe(PATHS.imageLightbox);
-    const hasModal = /fixed\s+inset-0/i.test(code) || /backdrop/i.test(code) || /dialog/i.test(code);
-    assert(hasModal, 'ImageLightbox must render a full-screen fixed backdrop modal overlay');
+    const code = readFileSafe(PATHS.consultationModal);
+    assert(code !== null, 'ConsultationModal.tsx must exist');
+    assertIncludes(code, '<SiteEnquiryForm', 'The dialog must use the same form as the division pages');
+    assertIncludes(code, 'role="dialog"', 'It must be a dialog');
+    assertIncludes(code, 'aria-modal="true"', 'It must be modal');
+    assert(!/backdrop-blur|backdropFilter/.test(code), 'No glass blur in the dialog');
+    const css = readFileSafe(PATHS.globalsCss) ?? '';
+    const overlay = /\.enquiry-overlay \{[^}]*\}/.exec(css)?.[0] ?? '';
+    assert(overlay && !/backdrop-filter/.test(overlay), 'The overlay is flat Night, not blurred');
   },
 });
 
@@ -85,11 +89,12 @@ test({
   id: 'T1_R8_06',
   tier: 'tier1',
   feature: 'r8',
-  title: 'R8 Feature: ImageLightbox displays specifications and supports dismiss interactions',
+  title: 'R8 Feature: The enquiry dialog closes on Escape or the backdrop and returns focus',
   fn: () => {
-    const code = readFileSafe(PATHS.imageLightbox);
-    assert(code !== null, 'ImageLightbox.tsx must exist');
-    const hasCloseHandling = /onClose/i.test(code) || /Escape/i.test(code) || /close/i.test(code);
-    assert(hasCloseHandling, 'ImageLightbox must support dismissal via close action or Escape key');
+    const code = readFileSafe(PATHS.consultationModal) ?? '';
+    assertIncludes(code, "e.key === 'Escape'", 'Escape must close the dialog');
+    assertIncludes(code, 'e.target === e.currentTarget', 'Only a click on the backdrop itself closes it');
+    assertIncludes(code, 'opener?.focus()', 'Focus must return to the button that opened it');
+    assertIncludes(code, 'division.enquiryForm', 'Each division sends to its own inbox');
   },
 });

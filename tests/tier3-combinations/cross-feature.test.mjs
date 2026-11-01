@@ -40,11 +40,14 @@ test({
     const hero = readFileSafe(PATHS.groundedHero) || '';
     const services = readFileSafe(PATHS.groundedServices) || '';
     const studio = readFileSafe(PATHS.routeStudio) || '';
+    const content = readFileSafe(PATHS.divisionsContent) || '';
     for (const r of routes) {
       assert(hero.includes(`'/${r}'`), `Hero must link to /${r}`);
       assert(services.includes(`'/${r}'`), `Services must link to /${r}`);
-      assert(studio.includes(`slug: '${r}'`), `Studio must link to /${r}`);
+      assert(content.includes(`href: '/${r}'`), `divisions.ts must give /${r}`);
     }
+    assertIncludes(studio, 'divisions.map', 'Studio lists every division from divisions.ts');
+    assertIncludes(studio, 'href={d.href}', 'and links each one to its page');
   },
 });
 
@@ -52,14 +55,15 @@ test({
   id: 'T3_COMB_04',
   tier: 'tier3',
   feature: 'cross',
-  title: 'T3 Cross-Feature: SolarCalculator callback connects calculation summary to EnquiryForm',
+  title: 'T3 Cross-Feature: The solar estimate can be added to the Solis enquiry form',
   fn: () => {
-    const calc = readFileSafe(PATHS.solarCalculator);
-    const form = readFileSafe(PATHS.enquiryForm);
-    assert(calc !== null && form !== null, 'SolarCalculator and EnquiryForm must exist');
-    // Calculator must support onApplyCalculation or scroll to form
-    const hasApplyAction = calc.includes('onApplyCalculation') || calc.includes('enquiry') || calc.includes('handleApplyToForm');
-    assert(hasApplyAction, 'SolarCalculator must support transferring quotation details to EnquiryForm');
+    const calc = readFileSafe(PATHS.solarCalculator) ?? '';
+    const page = readFileSafe(PATHS.divisionPage) ?? '';
+    const form = readFileSafe(PATHS.siteEnquiryForm) ?? '';
+    assertIncludes(calc, 'onApplyCalculation', 'The calculator hands its result on');
+    assertIncludes(page, 'onApplyCalculation={(c) => onUse(describeSolarEstimate(c))}', 'The page turns it into one sentence');
+    assertIncludes(page, 'estimate={estimate}', 'and passes it to the form');
+    assertIncludes(form, 'Illustrative estimate from the website:', 'The form sends it, labelled illustrative');
   },
 });
 
@@ -67,12 +71,14 @@ test({
   id: 'T3_COMB_05',
   tier: 'tier3',
   feature: 'cross',
-  title: 'T3 Cross-Feature: eMudran print estimator itemized quotation connects to print enquiry',
+  title: 'T3 Cross-Feature: The print page carries the print estimator and an enquiry to admin@ (WhatsApp preferred)',
   fn: () => {
-    const printRoute = readFileSafe(PATHS.routePrintMgmt) || readFileSafe(PATHS.printEstimator) || '';
-    assert(printRoute.length > 0, 'Print management page or estimator must exist');
-    const hasQuotationDispatch = printRoute.includes('enquiry') || printRoute.includes('mailto') || printRoute.includes('calculate');
-    assert(hasQuotationDispatch, 'Print estimator must allow dispatching calculated print quote into enquiry');
+    const pages = readFileSafe(PATHS.servicePages) ?? '';
+    const block = pages.slice(pages.indexOf('export const printPage'));
+    assertIncludes(block, '...emudran', 'The print page is built from eMudran');
+    assertIncludes(block, "enquiryForm: { to: 'admin@jcapexv.com'", 'Its enquiries go to admin@');
+    assertIncludes(block, "note: 'WhatsApp preferred'", 'and say WhatsApp is preferred');
+    assertIncludes(readFileSafe(PATHS.divisionPage) ?? '', '<PrintCalculator', 'The eMudran estimator is the print calculator');
   },
 });
 
@@ -80,12 +86,14 @@ test({
   id: 'T3_COMB_06',
   tier: 'tier3',
   feature: 'cross',
-  title: 'T3 Cross-Feature: TVASTA 3-tier space planning estimator connects to space enquiry',
+  title: 'T3 Cross-Feature: The space-planning page keeps the three Tvasta tiers and its own inbox',
   fn: () => {
-    const spaceRoute = readFileSafe(PATHS.routeSpacePlanning) || readFileSafe(PATHS.spaceEstimator) || '';
-    assert(spaceRoute.length > 0, 'Space planning page or estimator must exist');
-    const hasTierSelection = spaceRoute.includes('standard') || spaceRoute.includes('premium') || spaceRoute.includes('luxury') || spaceRoute.includes('tier');
-    assert(hasTierSelection, 'Space planning must support 3-tier selection');
+    const pages = readFileSafe(PATHS.servicePages) ?? '';
+    const block = pages.slice(pages.indexOf('export const spacePlanningPage'), pages.indexOf('const PRINT_LINES'));
+    assertIncludes(block, '...tvasta', 'The page is built from Tvasta');
+    assertIncludes(block, "to: 'spacemgmt@jcapexv.com'", 'Its enquiries go to spacemgmt@');
+    const tvasta = readFileSafe(PATHS.divisionsContent) ?? '';
+    for (const tier of ['Standard', 'Premium', 'Luxury']) assertIncludes(tvasta, tier, `Tvasta names the ${tier} tier`);
   },
 });
 
@@ -134,13 +142,16 @@ test({
   id: 'T3_COMB_09',
   tier: 'tier3',
   feature: 'cross',
-  title: 'T3 Cross-Feature: Division project photos pass metadata to shared ImageLightbox modal',
+  title: 'T3 Cross-Feature: Each division hero has its own effect, lazy-loaded and off for reduced motion',
   fn: () => {
-    const lightbox = readFileSafe(PATHS.imageLightbox);
-    assert(lightbox !== null, 'ImageLightbox.tsx must exist');
-    // Lightbox must accept src and optional caption/alt props
-    const acceptsSrc = lightbox.includes('src') && (lightbox.includes('alt') || lightbox.includes('caption'));
-    assert(acceptsSrc, 'ImageLightbox must accept image src and descriptive captions from division photo grids');
+    const page = readFileSafe(PATHS.divisionPage) ?? '';
+    for (const slug of ['grid-apex', 'solis', 'sanyog', 'tvasta', 'emudran', 'agrim']) {
+      assertIncludes(page, `case '${slug}':`, `${slug} has a hero effect`);
+    }
+    const effects = readFileSafe(PATHS.effects) ?? '';
+    assertIncludes(effects, 'useReducedMotion', 'Effects stay off for reduced motion');
+    assertIncludes(effects, 'IntersectionObserver', 'Effects mount only near the viewport');
+    assertIncludes(effects, "dynamic(() => import('./react-bits/GridScan')", 'WebGL effects are code-split');
   },
 });
 

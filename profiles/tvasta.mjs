@@ -23,10 +23,10 @@ const RED = '#D72A1B';
 
 const TIERS = [
   ['Finishes', 'Laminate', 'Acrylic, PU or veneer', 'Natural stone, veneer, bespoke'],
-  ['Hardware', 'Quality basic fittings', 'Soft-close, branded', 'Premium imported, automated'],
+  ['Hardware', 'Quality basic fittings', 'Soft-close, branded', 'Premium fittings, with automation if wanted'],
   ['Lighting', 'Functional', 'Layered and cove', 'Architectural and scene-based'],
   ['Design input', 'Standard layouts', 'Custom layouts', 'Fully bespoke design'],
-  ['Best for', 'Value-focused homes', 'Modern family homes', 'Signature residences'],
+  ['Best for', 'Rental and first homes', 'Family homes and offices', 'Homes where every detail is custom'],
 ];
 
 /** What the division does: [line of work, what it covers]. The company profile reads this too. */

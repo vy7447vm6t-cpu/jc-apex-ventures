@@ -106,8 +106,7 @@ export default function AgrimDprSimulator() {
             style={{
               fontSize: '0.72rem',
               fontWeight: 700,
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
+              letterSpacing: '0',
               color: '#047857',
             }}
           >
@@ -331,7 +330,7 @@ export default function AgrimDprSimulator() {
         >
           <div>
             <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#047857]/20">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-[#047857]">
+              <span className="text-[11px] font-bold text-[#047857]">
                 Bank Appraisal Benchmark Summary
               </span>
               <span className="text-[11px] text-[#555555] font-medium">
@@ -341,7 +340,7 @@ export default function AgrimDprSimulator() {
 
             {/* Total Estimated CAPEX */}
             <div style={{ marginBottom: '20px' }}>
-              <div style={{ fontSize: '0.76rem', color: '#666666', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+              <div style={{ fontSize: '0.76rem', color: '#666666', letterSpacing: '0.04em' }}>
                 Total Estimated Project CAPEX
               </div>
               <div
@@ -364,7 +363,7 @@ export default function AgrimDprSimulator() {
             {/* Grid Metrics */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', marginBottom: '18px' }}>
               <div style={{ backgroundColor: '#FFFFFF', padding: '12px 14px', borderRadius: '12px', border: '1px solid rgba(4, 120, 87, 0.15)' }}>
-                <div style={{ fontSize: '0.70rem', color: '#777777', textTransform: 'uppercase' }}>Bankable DSCR</div>
+                <div style={{ fontSize: '0.70rem', color: '#777777' }}>Bankable DSCR</div>
                 <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#047857', marginTop: '2px' }}>
                   {modeling.dscr}x
                 </div>
@@ -372,7 +371,7 @@ export default function AgrimDprSimulator() {
               </div>
 
               <div style={{ backgroundColor: '#FFFFFF', padding: '12px 14px', borderRadius: '12px', border: '1px solid rgba(4, 120, 87, 0.15)' }}>
-                <div style={{ fontSize: '0.70rem', color: '#777777', textTransform: 'uppercase' }}>Annual EBITDA</div>
+                <div style={{ fontSize: '0.70rem', color: '#777777' }}>Annual EBITDA</div>
                 <div style={{ fontSize: '1.20rem', fontWeight: 700, color: '#111111', marginTop: '2px' }}>
                   Rs {(modeling.annualEbitda / 100000).toFixed(1)} Lakhs
                 </div>
@@ -380,7 +379,7 @@ export default function AgrimDprSimulator() {
               </div>
 
               <div style={{ backgroundColor: '#FFFFFF', padding: '12px 14px', borderRadius: '12px', border: '1px solid rgba(4, 120, 87, 0.15)', gridColumn: 'span 2' }}>
-                <div style={{ fontSize: '0.70rem', color: '#777777', textTransform: 'uppercase' }}>Eligible Statutory Subsidies</div>
+                <div style={{ fontSize: '0.70rem', color: '#777777' }}>Eligible Statutory Subsidies</div>
                 <div style={{ fontSize: '1.20rem', fontWeight: 700, color: '#D97706', marginTop: '2px' }}>
                   Rs {(modeling.subsidyRs / 100000).toFixed(1)} Lakhs Subvention
                 </div>

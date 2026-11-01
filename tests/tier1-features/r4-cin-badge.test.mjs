@@ -22,13 +22,17 @@ test({
   id: 'T1_R4_02',
   tier: 'tier1',
   feature: 'r4',
-  title: 'R4 Feature: Hero leads with the core line from the messaging framework',
+  title: 'R4 Feature: The hero leads with named work from the track record; the core line still matches the PDFs',
   fn: () => {
     const hero = readFileSafe(PATHS.groundedHero);
     const site = readFileSafe(PATHS.messaging);
     const pdf = readFileSafe(PATHS.profilesLib);
+    const record = readFileSafe(PATHS.trackRecord) ?? '';
     assert(hero !== null && site !== null && pdf !== null, 'GroundedHero.tsx, messaging.ts and profiles/lib.mjs must exist');
-    assertIncludes(hero, '{CORE_LINE}', 'Hero must render CORE_LINE');
+    assertIncludes(hero, 'Taj Mahal Palace', 'The headline names a client no competitor can claim');
+    assertIncludes(hero, '691.20 kWp', 'and a plant from a completion certificate');
+    assertIncludes(record, "'The Taj Mahal Palace'", 'The hotel is in the client roster');
+    assertIncludes(record, 'value: 691.2', 'The plant is in the track record');
     const line = (code) => /export const CORE_LINE =\s*\n?\s*"([^"]+)"/.exec(code)?.[1];
     assert(line(site) && line(site) === line(pdf), 'The website core line must match the PDF profiles word for word');
   },

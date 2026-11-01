@@ -56,6 +56,11 @@ export const PATHS = {
   printEstimator: path.join(COMPONENTS_DIR, 'PrintEstimator.tsx'),
   spaceEstimator: path.join(COMPONENTS_DIR, 'SpaceEstimator.tsx'),
   imageLightbox: path.join(COMPONENTS_DIR, 'ImageLightbox.tsx'),
+  consultationModal: path.join(COMPONENTS_DIR, 'ConsultationModal.tsx'),
+  clippy: path.join(COMPONENTS_DIR, 'Clippy.tsx'),
+  effects: path.join(COMPONENTS_DIR, 'effects.tsx'),
+  servicePages: path.join(CONTENT_DIR, 'service-pages.ts'),
+  companyProfilePdf: path.join(PUBLIC_DIR, 'profiles', 'JC-Apex-Ventures-Company-Profile.pdf'),
   
   // Routes
   routeSolis: path.join(APP_DIR, 'solis', 'page.tsx'),

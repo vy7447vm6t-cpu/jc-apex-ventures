@@ -15,30 +15,25 @@ export default function PrintCalculator({ onLiveChange }: PrintCalculatorProps =
 
   const estimate = useMemo(() => {
     let baseTotal = 0;
-    let turnaround = '3 to 5 business days';
     let unitLabel = '';
 
     if (jobType === 'brochure') {
       const perUnitBase = finishOption === 'standard' ? 24 : finishOption === 'premium' ? 38 : 55;
       baseTotal = quantity * perUnitBase;
       unitLabel = `Rs ${(baseTotal / quantity).toFixed(1)} / copy`;
-      turnaround = quantity > 2000 ? '5 to 7 business days' : '3 to 4 business days';
     } else if (jobType === 'packaging') {
       const perBoxBase = finishOption === 'standard' ? 42 : finishOption === 'premium' ? 68 : 110;
       baseTotal = quantity * perBoxBase;
       unitLabel = `Rs ${(baseTotal / quantity).toFixed(1)} / carton`;
-      turnaround = '7 to 10 business days';
     } else {
       const perSqftRate = finishOption === 'standard' ? 140 : finishOption === 'premium' ? 260 : 420;
       baseTotal = sqft * perSqftRate;
       unitLabel = `Rs ${perSqftRate} / sq.ft.`;
-      turnaround = '4 to 6 business days';
     }
 
     return {
       total: baseTotal,
       unitLabel,
-      turnaround,
     };
   }, [jobType, quantity, finishOption, sqft]);
 
@@ -83,8 +78,7 @@ export default function PrintCalculator({ onLiveChange }: PrintCalculatorProps =
               fontSize: '0.72rem',
               fontWeight: 700,
               color: 'var(--color-accent)',
-              textTransform: 'uppercase',
-              letterSpacing: '0.12em',
+              letterSpacing: '0',
               fontFamily: 'var(--font-sans, Inter, sans-serif)',
             }}
           >
@@ -268,8 +262,7 @@ export default function PrintCalculator({ onLiveChange }: PrintCalculatorProps =
                 fontSize: '0.74rem',
                 color: 'var(--color-accent)',
                 fontWeight: 700,
-                textTransform: 'uppercase',
-                letterSpacing: '0.1em',
+                letterSpacing: '0',
                 fontFamily: 'var(--font-sans, Inter, sans-serif)',
                 display: 'block',
               }}
@@ -298,11 +291,11 @@ export default function PrintCalculator({ onLiveChange }: PrintCalculatorProps =
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.86rem', color: 'var(--color-text-secondary)', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                 <CheckCircle2 size={16} color="var(--color-accent)" />
-                <span>Production Turnaround: <strong style={{ color: 'var(--color-text-primary)' }}>{estimate.turnaround}</strong></span>
+                <span>Timing is confirmed in the written quote</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.86rem', color: 'var(--color-text-secondary)', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                 <CheckCircle2 size={16} color="var(--color-accent)" />
-                <span>Direct press-pass color calibration included</span>
+                <span>A physical proof before any long run</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.86rem', color: 'var(--color-text-secondary)', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                 <CheckCircle2 size={16} color="var(--color-accent)" />

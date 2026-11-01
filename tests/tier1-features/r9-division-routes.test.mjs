@@ -57,15 +57,13 @@ test({
   id: 'T1_R9_04',
   tier: 'tier1',
   feature: 'r9',
-  title: 'R9 Feature: EnquiryForm component handles division tailoring & mailto fallback',
+  title: 'R9 Feature: The enquiry form is tailored to the division and falls back to email or WhatsApp',
   fn: () => {
-    const code = readFileSafe(PATHS.enquiryForm);
-    assert(code !== null, 'src/components/EnquiryForm.tsx must exist');
-    // Must feature division selection or props and mailto: fallback
-    const hasDivisionLogic = /division/i.test(code);
-    const hasMailto = /mailto:/i.test(code);
-    assert(hasDivisionLogic, 'EnquiryForm must tailor fields by division');
-    assert(hasMailto, 'EnquiryForm must include mailto fallback for direct client mail dispatch');
+    const code = readFileSafe(PATHS.siteEnquiryForm);
+    assert(code !== null, 'src/components/SiteEnquiryForm.tsx must exist');
+    assertIncludes(code, 'needs: string[]', 'The checkboxes are the division\'s own lines of work');
+    assertIncludes(code, 'askUtility', 'Power enquiries ask which utility supplies the site');
+    assertMatch(code, /mailto:\$\{to\}/, 'It falls back to an email already written out');
   },
 });
 

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { AccordionGallery } from '@/components/react-bits';
 import SectionEyebrow from './SectionEyebrow';
+import { Ambient, ShapeWaves } from './effects';
 import { DIVISION_ONE_LINERS } from '@/content/messaging';
 import { PHOTOS, type PhotoKey } from '@/content/photos';
 
@@ -19,8 +20,8 @@ const DIVISIONS = [
 ];
 
 /**
- * The six divisions: expanding photo panels on large screens, a plain list on smaller ones.
- * One view only; the view switcher is retired (brand guidelines 2.8.2).
+ * The six divisions: expanding photo panels on large screens, a list on smaller ones, under three
+ * gold sine waves.
  */
 export default function GroundedServices() {
   const items = DIVISIONS.map((d) => ({ ...d, image: PHOTOS[d.photo].src, title: d.name, description: DIVISION_ONE_LINERS[d.id] }));
@@ -40,13 +41,18 @@ export default function GroundedServices() {
         scrollMarginTop: '104px',
       }}
     >
+      {/* Three gold sine waves drifting along the top of the section, like an AC trace. */}
+      <Ambient opacity={0.45}>
+        <div style={{ position: 'absolute', left: 0, right: 0, top: 'clamp(24px, 4vh, 48px)' }}>
+          <ShapeWaves color="#C29F53" height={200} waveCount={3} />
+        </div>
+      </Ambient>
+
       {/* Anchor for backward compatibility with #divisions */}
       <div id="divisions" className="absolute -top-24 pointer-events-none" aria-hidden="true" />
 
-      <div style={{ maxWidth: '1240px', margin: '0 auto', width: '100%' }}>
-        <SectionEyebrow number={3} tone="dark">
-          The six divisions
-        </SectionEyebrow>
+      <div style={{ maxWidth: '1240px', margin: '0 auto', width: '100%', position: 'relative', zIndex: 1 }}>
+        <SectionEyebrow tone="dark">The six divisions</SectionEyebrow>
         <div style={{ maxWidth: '760px', marginBottom: '48px' }}>
           <h2
             style={{
@@ -59,11 +65,11 @@ export default function GroundedServices() {
               fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
             }}
           >
-            Six divisions, one desk.
+            Who does what.
           </h2>
           <p style={{ fontSize: 'clamp(1.02rem, 1.35vw, 1.15rem)', color: 'rgba(240, 243, 246, 0.85)', lineHeight: 1.65, margin: 0, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-            Each division handles one part of a building&apos;s power, energy or fit-out. A project that needs more than one is
-            run by a single desk.
+            Grid Apex wires and maintains, Solis builds solar plants and EV chargers, Sanyog files with the utilities, Tvasta
+            designs and fits out interiors, eMudran prints and makes signs, and Agrim prepares loan files for your bank.
           </p>
         </div>
 

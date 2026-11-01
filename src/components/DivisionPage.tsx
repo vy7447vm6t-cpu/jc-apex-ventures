@@ -8,7 +8,7 @@ import Footer from '@/components/Footer';
 import ScrollReveal from '@/components/ScrollReveal';
 import SectionEyebrow from '@/components/SectionEyebrow';
 import FaqList from '@/components/FaqList';
-import type { DivisionContent, FeatureSection, ProofBlock } from '@/content/divisions';
+import { divisions, type DivisionContent, type FeatureSection, type ProofBlock } from '@/content/divisions';
 import { DIVISION_ONE_LINERS, PROOF_LINE } from '@/content/messaging';
 import { ATTRIBUTION_LINES, PROJECTS, clientGroups, isShowable } from '@/content/track-record';
 import { PHOTOS, photoCaption, photoCredit, type PhotoKey } from '@/content/photos';
@@ -25,18 +25,21 @@ import SiteEnquiryForm from '@/components/SiteEnquiryForm';
 import HotelGallery from '@/components/HotelGallery';
 import WorkMap from '@/components/WorkMap';
 import FlowDiagram from '@/components/FlowDiagram';
-import { SpecularButton } from '@/components/react-bits';
+import { ElectricBorder, LineSidebar, SpecularButton } from '@/components/react-bits';
+import AnimatedCounter from '@/components/AnimatedCounter';
+import { Ambient, GradientASCII, GridScan, MicroSlats, NetworkGraph, PatternWaves, ShapeWaves } from '@/components/effects';
+import { formatCount } from '@/content/track-record';
 import { ArrowRight, ArrowUpRight, ChevronRight, Mail, Phone } from 'lucide-react';
 
 const SERIF = 'var(--font-serif-display), "Instrument Serif", Georgia, serif';
 const SANS = 'var(--font-sans, Inter, sans-serif)';
 
-/** Section head: eyebrow with its faint number, headline, optional intro (brand guidelines 2.8.3). */
-function SectionHeading({ number, eyebrow, title, intro }: { number?: number; eyebrow: string; title: string; intro?: string }) {
+/** Section head: a sentence-case label, the headline and an optional intro. */
+function SectionHeading({ eyebrow, title, intro }: { eyebrow: string; title: string; intro?: string }) {
   return (
     <ScrollReveal>
       <div style={{ maxWidth: '760px', marginBottom: '32px' }}>
-        <SectionEyebrow number={number}>{eyebrow}</SectionEyebrow>
+        <SectionEyebrow>{eyebrow}</SectionEyebrow>
         <h2
           style={{
             fontSize: 'clamp(2rem, 3.4vw, 2.8rem)',
@@ -248,15 +251,114 @@ const DIVISION_LOGOS: Record<string, { src: string; height: number }> = {
 
 // Canvas class and the second accent for the short rule beside the logo (guidelines 2.3).
 // Solis keeps its own guidelines: black, Sun Yellow and greys on Paper, set in Instrument Sans.
-const DIVISION_THEMES: Record<string, { canvasClass: string; heroBg: string; ruleColor: string; typeClass?: string }> = {
-  solis: { canvasClass: 'solis-canvas', heroBg: '#F7F6F2', ruleColor: '#FFC85A', typeClass: 'solis-type' },
-  tvasta: { canvasClass: 'tvasta-canvas', heroBg: '#F8F9FA', ruleColor: '#D72A1B' },
-  'grid-apex': { canvasClass: 'grid-apex-canvas', heroBg: '#F0F7FF', ruleColor: '#F59E0B' },
-  agrim: { canvasClass: 'agrim-canvas', heroBg: '#F7F9F5', ruleColor: '#D97706' },
-  sanyog: { canvasClass: 'sanyog-canvas', heroBg: '#F4F6FC', ruleColor: '#2C5ED4' },
-  emudran: { canvasClass: 'emudran-canvas', heroBg: '#F5F6FA', ruleColor: '#4338CA' },
+const DIVISION_THEMES: Record<string, { canvasClass: string; heroBg: string; ruleColor: string; accent: string; typeClass?: string }> = {
+  solis: { canvasClass: 'solis-canvas', heroBg: '#F7F6F2', ruleColor: '#FFC85A', accent: '#111111', typeClass: 'solis-type' },
+  tvasta: { canvasClass: 'tvasta-canvas', heroBg: '#F8F9FA', ruleColor: '#D72A1B', accent: '#D72A1B' },
+  'grid-apex': { canvasClass: 'grid-apex-canvas', heroBg: '#F0F7FF', ruleColor: '#F59E0B', accent: '#0284C7' },
+  agrim: { canvasClass: 'agrim-canvas', heroBg: '#F7F9F5', ruleColor: '#D97706', accent: '#047857' },
+  sanyog: { canvasClass: 'sanyog-canvas', heroBg: '#F4F6FC', ruleColor: '#2C5ED4', accent: '#2C5ED4' },
+  emudran: { canvasClass: 'emudran-canvas', heroBg: '#F5F6FA', ruleColor: '#4338CA', accent: '#4338CA' },
 };
-const DEFAULT_THEME = { canvasClass: 'grounded-canvas', heroBg: '#F4F1EA', ruleColor: '#C29F53' };
+const DEFAULT_THEME = { canvasClass: 'grounded-canvas', heroBg: '#F4F1EA', ruleColor: '#C29F53', accent: '#C29F53' };
+
+/**
+ * One background effect per division, behind the hero, each taken from the work itself: an AC
+ * waveform for Grid Apex, pergola louvres for Solis, a network of connections for Sanyog (the name
+ * means connection), a room in perspective for Tvasta, a print halftone for eMudran and a field of
+ * figures for Agrim. Off for reduced motion; the WebGL ones stay off phones.
+ */
+function HeroEffect({ division, accent }: { division: string; accent: string }) {
+  switch (division) {
+    case 'grid-apex':
+      return (
+        <Ambient opacity={0.5}>
+          <div style={{ position: 'absolute', left: 0, right: 0, bottom: '72px' }}>
+            <ShapeWaves color={accent} height={220} waveCount={3} />
+          </div>
+        </Ambient>
+      );
+    case 'solis':
+      return (
+        <Ambient>
+          <MicroSlats count={28} color="#111111" opacity={0.06} zIndex={0} showTicks />
+        </Ambient>
+      );
+    case 'sanyog':
+      return (
+        <Ambient desktopOnly>
+          <NetworkGraph color={accent} />
+        </Ambient>
+      );
+    case 'tvasta':
+      return (
+        <Ambient desktopOnly opacity={0.55}>
+          <GridScan lightMode linesColor="#C9CDD2" scanColor={accent} cells={8} depth={3} scanDuration={3.2} scanDelay={2.4} clickEffect="none" className="w-full h-full" />
+        </Ambient>
+      );
+    case 'emudran':
+      return (
+        <Ambient desktopOnly opacity={0.18} blend="multiply">
+          <PatternWaves preset="mesh" color={accent} backgroundColor="#FFFFFF" fade="edges" interactive cursorSize={40} cursorStrength={0.5} />
+        </Ambient>
+      );
+    case 'agrim':
+      return (
+        <Ambient desktopOnly opacity={0.4}>
+          <GradientASCII lightMode characters="0123456789%" colors={[accent, '#06281E', accent]} shape="waves" cellSize={14} gradientOpacity={0} glyphOpacity={0.9} grain={0} mouseInteraction />
+        </Ambient>
+      );
+    default:
+      return null;
+  }
+}
+
+/** "36+ years" counts up to 36; short or non-numeric values stay as they are. */
+function FactValue({ value }: { value: string }) {
+  const match = value.match(/^(\d+)(\D.*)?$/);
+  const end = match ? Number(match[1]) : 0;
+  if (!match || end < 10) return <>{value}</>;
+  return <AnimatedCounter end={end} suffix={match[2] ?? ''} duration={1400} />;
+}
+
+/**
+ * The steps as an index: pick a step on the left and it opens on the right (with the division's
+ * photo where it has one). Replaces a numbered row of identical cards.
+ */
+function StepsExplorer({ steps, photo }: { steps: DivisionContent['steps']; photo?: DivisionContent['stepsPhoto'] }) {
+  const [active, setActive] = useState(steps[0]?.title ?? '');
+  const current = steps.find((s) => s.title === active) ?? steps[0];
+  return (
+    <div className="steps-explorer">
+      <LineSidebar items={steps.map((s) => ({ id: s.title, label: s.title }))} activeId={current?.title ?? ''} onSelect={setActive} />
+      <div className="steps-explorer-panel" aria-live="polite">
+        {current && (
+          <>
+            <h3>{current.title}</h3>
+            <p>{current.text}</p>
+          </>
+        )}
+        {photo && (
+          <figure style={{ margin: '24px 0 0' }}>
+            <div className="steps-photo">
+              <Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 900px) 100vw, 40vw" style={{ objectFit: 'cover' }} />
+            </div>
+            <figcaption className="photo-caption">{photo.caption}</figcaption>
+          </figure>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// What to send with an enquiry, per division: the one thing that gets a useful first answer.
+const ENQUIRY_ASK: Record<string, string> = {
+  'grid-apex': 'Send us the site address and the single-line diagram, or a recent HT bill.',
+  solis: 'Send us the site address and a recent electricity bill.',
+  sanyog: 'Send us the account number and the bill or notice you are dealing with.',
+  tvasta: 'Send us the floor plan, or the address and the carpet area.',
+  emudran: 'Send us the artwork, the quantity and the date you need it by.',
+  agrim: 'Send us the project cost and what the bank has asked for.',
+};
 
 const DIVISION_HREFS: Record<string, string> = {
   'Grid Apex': '/grid-apex',
@@ -324,12 +426,18 @@ const ESTIMATORS: Record<string, { title: string; intro: string; render: (ctx: {
  * questions, who else joins, enquire. Copy comes from src/content/divisions.ts.
  */
 export default function DivisionPage({ data, canvasClassName }: { data: DivisionContent; canvasClassName?: string }) {
-  const logo = DIVISION_LOGOS[data.slug];
-  const theme = DIVISION_THEMES[data.slug] || DEFAULT_THEME;
-  const oneLiner = DIVISION_ONE_LINERS[data.slug];
-  const estimator = ESTIMATORS[data.slug];
+  // A detail page (for example /licenses) wears its parent division's theme, logo and estimator.
+  const key = data.parent ?? data.slug;
+  const parent = data.parent ? divisions.find((d) => d.slug === data.parent) : undefined;
+  const logo = DIVISION_LOGOS[key];
+  const theme = DIVISION_THEMES[key] || DEFAULT_THEME;
+  const oneLiner = DIVISION_ONE_LINERS[key];
+  const estimator = data.noEstimator ? undefined : ESTIMATORS[key];
   const [estimate, setEstimate] = useState<string | undefined>();
   const tilePhotos = (data.tiles?.items ?? []).flatMap((tile) => (tile.photo ? [tile.photo] : []));
+
+  // Links to this division's own detail pages; email actions are covered by the form.
+  const pageLinks = data.actions.filter((a) => a.href.startsWith('/'));
 
   const contactRows = (
     <dl className="fact-rows">
@@ -361,17 +469,14 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
     </dl>
   );
 
-  // Sections are numbered in the order they appear on the page.
-  let sectionCount = 0;
-  const nextNumber = () => ++sectionCount;
-
   return (
     <main className={canvasClassName || theme.canvasClass} style={{ background: 'var(--color-bg)', minHeight: '100vh' }}>
       <Navbar />
 
       <div className={theme.typeClass}>
-      <section style={{ paddingTop: '136px', paddingBottom: '56px', backgroundColor: theme.heroBg, borderBottom: '1px solid var(--color-border)' }}>
-        <div className="container">
+      <section style={{ paddingTop: '136px', paddingBottom: '56px', backgroundColor: theme.heroBg, borderBottom: '1px solid var(--color-border)', position: 'relative', overflow: 'hidden' }}>
+        <HeroEffect division={key} accent={theme.accent} />
+        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <nav
             aria-label="Breadcrumb"
             style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px', fontSize: '0.82rem', color: 'var(--color-text-muted)', fontFamily: SANS }}
@@ -384,6 +489,14 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
               Divisions
             </Link>
             <ChevronRight size={13} aria-hidden="true" />
+            {parent && (
+              <>
+                <Link href={parent.href} style={{ color: 'var(--color-text-muted)', textDecoration: 'none' }}>
+                  {parent.name}
+                </Link>
+                <ChevronRight size={13} aria-hidden="true" />
+              </>
+            )}
             <span style={{ color: 'var(--color-text-primary)', fontWeight: 600 }}>{data.name}</span>
           </nav>
 
@@ -394,7 +507,7 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
               <i className="corner-mark bl" />
               <i className="corner-mark br" />
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
-                {logo && <img src={logo.src} alt={data.name} style={{ height: `${logo.height}px`, width: 'auto', display: 'block', borderRadius: 0 }} />}
+                {logo && <img src={logo.src} alt={parent?.name ?? data.name} style={{ height: `${logo.height}px`, width: 'auto', display: 'block', borderRadius: 0 }} />}
                 <span aria-hidden="true" style={{ width: '2px', height: '40px', backgroundColor: theme.ruleColor }} />
               </div>
               <h1
@@ -415,6 +528,18 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
               </p>
               {oneLiner && <p className="margin-note">{oneLiner}</p>}
               {data.showProofLine && <p className="hero-proof">{PROOF_LINE}</p>}
+              {data.facts && (
+                <dl className="fact-rows hero-card-facts">
+                  {data.facts.map((f) => (
+                    <div key={f.label}>
+                      <dt>{f.label}</dt>
+                      <dd>
+                        <FactValue value={f.value} />
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              )}
               <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '28px' }}>
                 <SpecularButton href="#contact" variant="dark" icon={<ArrowRight size={16} />}>
                   Enquire
@@ -428,21 +553,10 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
             <RevealPhoto photo={data.heroPhoto} caption={photoCaption(data.heroPhoto)} height="clamp(280px, 38vw, 460px)" hero />
           </div>
 
-          {data.facts && (
-            <dl className="hero-facts" style={{ gridTemplateColumns: `repeat(${data.facts.length}, minmax(0, 1fr))` }}>
-              {data.facts.map((f) => (
-                <div key={f.label}>
-                  <dt>{f.label}</dt>
-                  <dd>{f.value}</dd>
-                </div>
-              ))}
-            </dl>
-          )}
-
           <ul className="title-block-line" aria-label="Page reference">
             <li>JC Apex Ventures</li>
-            <li>{data.name}</li>
-            <li>Division of six</li>
+            <li>{parent ? parent.name : data.name}</li>
+            <li>{parent ? data.name : 'Division of six'}</li>
             <li>jcapexv.com{data.href}</li>
           </ul>
         </div>
@@ -450,7 +564,7 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
 
       <section id="services" className="section" style={{ paddingBottom: '40px', scrollMarginTop: '100px' }}>
         <div className="container">
-          <SectionHeading number={nextNumber()} eyebrow="What we handle" title={`What ${data.name} does for you.`} />
+          <SectionHeading eyebrow="What we handle" title={parent ? `What ${data.name.toLowerCase()} covers.` : `What ${data.name} handles.`} />
           <ul className="service-rows">
             {data.services.map(([line, covers]) => (
               <li key={line} className="service-row">
@@ -469,7 +583,7 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
       {data.tiles && (
         <section className="section" style={{ paddingTop: '40px', paddingBottom: '64px' }}>
           <div className="container">
-            <SectionHeading number={nextNumber()} eyebrow={data.tiles.eyebrow} title={data.tiles.title} />
+            <SectionHeading eyebrow={data.tiles.eyebrow} title={data.tiles.title} />
             <ScrollReveal>
               <ul className="tile-grid">
                 {data.tiles.items.map((tile, i) => (
@@ -499,7 +613,7 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
 
       <section className="section" style={{ paddingTop: '40px', paddingBottom: '40px', background: 'var(--color-bg-alt)', borderTop: '1px solid var(--color-border)', borderBottom: '1px solid var(--color-border)' }}>
         <div className="container">
-          <SectionHeading number={nextNumber()} eyebrow={data.proof.eyebrow} title={data.proof.title} intro={data.proof.text} />
+          <SectionHeading eyebrow={data.proof.eyebrow} title={data.proof.title} intro={data.proof.text} />
           <div style={{ display: 'grid', gap: '48px' }}>
             {data.proof.blocks.map((block, i) => (
               <ScrollReveal key={`${block.kind}-${i}`}>
@@ -522,7 +636,7 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
         >
           <div className="container">
             <SectionHeading
-              number={nextNumber()}
+             
               eyebrow={feature.eyebrow}
               title={feature.title}
               intro={feature.kind === 'terrace-comparison' ? feature.text : feature.kind === 'flow' ? feature.intro : undefined}
@@ -534,37 +648,15 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
 
       <section className="section" style={{ paddingTop: '60px', paddingBottom: '40px' }}>
         <div className="container">
-          <SectionHeading number={nextNumber()} eyebrow="How we work" title={data.stepsTitle} />
-          <div className={data.stepsPhoto ? 'steps-with-photo' : undefined}>
-            <ol className="division-steps">
-              {data.steps.map((s, i) => (
-                <li key={s.title}>
-                  <span className="step-number" aria-hidden="true">
-                    {i + 1}
-                  </span>
-                  <h3>{s.title}</h3>
-                  <p>{s.text}</p>
-                </li>
-              ))}
-            </ol>
-            {data.stepsPhoto && (
-              <ScrollReveal>
-                <figure style={{ margin: 0 }}>
-                  <div className="unmask steps-photo">
-                    <Image src={data.stepsPhoto.src} alt={data.stepsPhoto.alt} fill sizes="(max-width: 900px) 100vw, 35vw" style={{ objectFit: 'cover' }} />
-                  </div>
-                  <figcaption className="photo-caption">{data.stepsPhoto.caption}</figcaption>
-                </figure>
-              </ScrollReveal>
-            )}
-          </div>
+          <SectionHeading eyebrow="How we work" title={data.stepsTitle} />
+          <StepsExplorer steps={data.steps} photo={data.stepsPhoto} />
         </div>
       </section>
 
       {estimator && (
         <section className="section" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
           <div className="container">
-            <SectionHeading number={nextNumber()} eyebrow="Estimate" title={estimator.title} intro={estimator.intro} />
+            <SectionHeading eyebrow="Estimate" title={estimator.title} intro={estimator.intro} />
             {estimator.render({ onUse: setEstimate })}
           </div>
         </section>
@@ -573,7 +665,7 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
       <section className="section" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
         <div className="container">
           <div className="faq-grid">
-            <SectionHeading number={nextNumber()} eyebrow="Questions" title="What clients ask us." />
+            <SectionHeading eyebrow="Questions" title={`${formatCount(data.faq.length).replace(/^./, (c) => c.toUpperCase())} questions we get about ${parent?.name ?? data.name}.`} />
             <FaqList items={data.faq} />
           </div>
         </div>
@@ -581,7 +673,7 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
 
       <section className="section" style={{ paddingTop: '40px', paddingBottom: '40px', background: 'var(--color-bg-alt)', borderTop: '1px solid var(--color-border)' }}>
         <div className="container">
-          <SectionHeading number={nextNumber()} eyebrow="One desk" title="Who else joins the project." intro="A project that needs more than one division is run by a single desk." />
+          <SectionHeading eyebrow="Other divisions" title="Who joins when the job grows." intro="Another division joins through the same contact, so you never start again with someone new." />
           <ul className="joins-list">
             {data.joins.map(([name, text]) => (
               <li key={name}>
@@ -601,17 +693,32 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
       <section id="contact" className="section" style={{ paddingTop: '40px', paddingBottom: '80px', scrollMarginTop: '100px' }}>
         <div className="container">
           <ScrollReveal>
+            {/* A current runs round the card on the electrical divisions' pages (ElectricBorder skips the others). */}
+            <ElectricBorder division={key} color={theme.accent} borderRadius={16} duration={6}>
             <div className={`flat-card division-contact${data.enquiryForm ? ' has-form' : ''}`} style={{ padding: 'clamp(24px, 5vw, 56px)' }}>
               <div>
                 <SectionEyebrow>Enquire</SectionEyebrow>
                 <h2 style={{ fontSize: 'clamp(2rem, 3.6vw, 2.8rem)', margin: '0 0 14px', color: 'var(--color-text-primary)', fontFamily: SERIF, fontWeight: 400, letterSpacing: '-0.02em', lineHeight: 1.15 }}>
-                  Talk to us about your site.
+                  {ENQUIRY_ASK[key] ?? 'Tell us about the job.'}
                 </h2>
                 <p style={{ color: 'var(--color-text-secondary)', margin: '0 0 24px', fontSize: '1.02rem', lineHeight: 1.7, fontFamily: SANS, maxWidth: '520px' }}>
-                  Tell us what you need. We reply with the next steps and the person who will handle them.
+                  We reply with the next steps and the name of the person who will handle them.
                 </p>
                 {data.enquiryForm ? (
-                  contactRows
+                  <>
+                    {pageLinks.length > 0 && (
+                      <p className="contact-more">
+                        <span>More detail:</span>
+                        {pageLinks.map((a) => (
+                          <Link key={a.href} href={a.href} className="contact-link">
+                            {a.label}
+                            <ArrowUpRight size={14} aria-hidden="true" />
+                          </Link>
+                        ))}
+                      </p>
+                    )}
+                    {contactRows}
+                  </>
                 ) : (
                   <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                     {data.actions.map((a, i) => (
@@ -627,6 +734,8 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
                   to={data.enquiryForm.to}
                   cc={data.enquiryForm.cc}
                   subject={data.enquiryForm.subject}
+                  askUtility={data.enquiryForm.askUtility}
+                  submitLabel={data.enquiryForm.submitLabel}
                   needs={data.services.map(([line]) => line)}
                   estimate={estimate}
                   onClearEstimate={() => setEstimate(undefined)}
@@ -635,6 +744,7 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
                 contactRows
               )}
             </div>
+            </ElectricBorder>
           </ScrollReveal>
         </div>
       </section>

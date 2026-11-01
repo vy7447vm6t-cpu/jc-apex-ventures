@@ -1,10 +1,11 @@
 'use client';
 
 import React from 'react';
-import { Phone, Mail } from 'lucide-react';
+import { Phone, Mail, Download } from 'lucide-react';
 import { SpecularButton } from '@/components/react-bits';
 import { divisions } from '@/content/divisions';
 import SectionEyebrow from './SectionEyebrow';
+import { Ambient, GridScan } from './effects';
 
 // Enquiry routing, in the messaging framework's order of divisions.
 const DIVISIONS = [
@@ -20,7 +21,7 @@ interface GroundedCTAProps {
   onOpenConsultation?: (divisionId?: string) => void;
 }
 
-/** Closing enquiry panel: plain Night panel, no scanning grid or animated headline (brand guidelines 2.8.2). */
+/** Closing enquiry panel: a Night panel with a gold scan sweeping a drawing grid behind the text (desktop only). */
 export default function GroundedCTA({ onOpenConsultation }: GroundedCTAProps) {
   return (
     <section
@@ -42,9 +43,15 @@ export default function GroundedCTA({ onOpenConsultation }: GroundedCTAProps) {
           borderRadius: '16px',
           padding: 'clamp(40px, 5.5vw, 72px) clamp(24px, 4.5vw, 56px)',
           border: '1px solid rgba(255, 255, 255, 0.12)',
+          position: 'relative',
+          overflow: 'hidden',
         }}
       >
-        <SectionEyebrow number={7} tone="dark" inset>
+        <Ambient desktopOnly opacity={0.85}>
+          <GridScan linesColor="#2B3445" scanColor="#C29F53" cells={8} depth={3} scanDuration={2.8} scanDelay={2} clickEffect="none" className="w-full h-full" />
+        </Ambient>
+        <div style={{ position: 'relative', zIndex: 1 }}>
+        <SectionEyebrow tone="dark" inset>
           Enquire
         </SectionEyebrow>
         <h2
@@ -58,11 +65,11 @@ export default function GroundedCTA({ onOpenConsultation }: GroundedCTAProps) {
             fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
           }}
         >
-          Talk to us about your site.
+          Send us the site address and a recent electricity bill.
         </h2>
         <p style={{ fontSize: '1.05rem', color: 'rgba(240, 243, 246, 0.85)', maxWidth: '620px', margin: '0 0 32px', lineHeight: 1.65, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-          Call us, or send an enquiry and choose the division it is for. We reply with the next steps and the person who will handle
-          them.
+          That is enough for a first answer on solar, a load change or a bill dispute. For interiors or print, a floor plan or a
+          sample does the same job. We reply with the next steps and the name of the person who will handle them.
         </p>
 
         <p style={{ margin: '0 0 12px', fontSize: '13px', fontWeight: 600, color: '#8B949E', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
@@ -87,6 +94,10 @@ export default function GroundedCTA({ onOpenConsultation }: GroundedCTAProps) {
           <a href="mailto:admin@jcapexv.com" className="cta-contact-link">
             <Mail size={15} aria-hidden="true" />
             admin@jcapexv.com
+          </a>
+          <a href="/profiles/JC-Apex-Ventures-Company-Profile.pdf" className="cta-contact-link" download>
+            <Download size={15} aria-hidden="true" />
+            Company profile (PDF, 5.6 MB)
           </a>
         </div>
 
@@ -113,6 +124,7 @@ export default function GroundedCTA({ onOpenConsultation }: GroundedCTAProps) {
             <p className="cta-details-title">Office</p>
             <p className="cta-office">Units 801–802, 8th Floor, Tower 1, One International Centre, Senapati Bapat Marg, Elphinstone, Mumbai 400013</p>
           </div>
+        </div>
         </div>
       </div>
     </section>

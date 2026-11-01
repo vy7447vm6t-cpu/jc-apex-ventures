@@ -4,13 +4,14 @@ import React from 'react';
 import Link from 'next/link';
 import SectionEyebrow from './SectionEyebrow';
 import ScrollReveal from './ScrollReveal';
+import { Ambient, NetworkGraph } from './effects';
 
-// How we work with clients, as on page 2 of the company profile.
+// How we work with clients (company profile, page 2), said the way a client would ask it.
 const PRINCIPLES = [
-  { label: 'One point of contact', value: 'You deal with one person, whichever divisions the project needs.' },
-  { label: 'Specialists', value: 'Each division is led by people who do that work every day.' },
-  { label: 'Facts we can show', value: 'Capacities, dates and sites come from documents on file.' },
-  { label: 'Clear scope', value: 'Every quote says what is included and what is not.' },
+  { label: 'Who do I call?', value: 'One person at our Elphinstone office, whichever divisions the job needs.' },
+  { label: 'Who does the work?', value: 'The division that does it every day: Tvasta’s architects for a layout, Grid Apex for a substation.' },
+  { label: 'What do you show me?', value: 'Capacities, dates and sites from documents we hold. No round-number claims.' },
+  { label: 'What does the quote say?', value: 'What is included and what is not, line by line.' },
 ];
 
 // The company profile's illustrative example (page 8): a housing society adding rooftop solar and EV charging.
@@ -23,8 +24,9 @@ const EXAMPLE = [
 ];
 
 /**
- * One desk (company profile, pages 2 and 8): how we work with clients, then an illustrative
- * project that needs five divisions and still has one point of contact.
+ * How a job with several divisions runs (company profile, pages 2 and 8): the questions clients
+ * ask, then an illustrative housing-society project that needs five divisions and one contact,
+ * over a drifting network of gold nodes.
  */
 export default function GroundedProcess() {
   return (
@@ -36,10 +38,15 @@ export default function GroundedProcess() {
         borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
         textAlign: 'left',
         scrollMarginTop: '88px',
+        position: 'relative',
+        overflow: 'hidden',
       }}
     >
-      <div style={{ maxWidth: '1240px', margin: '0 auto', width: '100%' }}>
-        <SectionEyebrow number={5}>One desk</SectionEyebrow>
+      <Ambient desktopOnly opacity={0.8}>
+        <NetworkGraph />
+      </Ambient>
+      <div style={{ maxWidth: '1240px', margin: '0 auto', width: '100%', position: 'relative', zIndex: 1 }}>
+        <SectionEyebrow>A job with several divisions</SectionEyebrow>
         <h2
           style={{
             fontSize: 'clamp(2.1rem, 3.8vw, 3.2rem)',
@@ -52,7 +59,7 @@ export default function GroundedProcess() {
             fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
           }}
         >
-          When a project needs several divisions, you still have one point of contact.
+          A housing society wants solar on the roof and chargers in the car park. Five divisions work on it; the society calls one person.
         </h2>
 
         <dl className="fact-rows desk-principles">
@@ -64,7 +71,7 @@ export default function GroundedProcess() {
           ))}
         </dl>
 
-        <p className="desk-example-lead">An illustrative example: a housing society that wants rooftop solar and EV charging for its residents.</p>
+        <p className="desk-example-lead">How that job runs, division by division.</p>
         <ScrollReveal>
           <div className="desk-example">
             <div className="desk-hub">

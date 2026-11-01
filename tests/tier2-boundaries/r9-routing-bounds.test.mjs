@@ -1,5 +1,5 @@
 import { test } from '../helpers/test-context.mjs';
-import { assert, assertEqual, assertMatch } from '../helpers/assertions.mjs';
+import { assert, assertEqual, assertMatch, assertIncludes } from '../helpers/assertions.mjs';
 import { PATHS, fileExists, readFileSafe } from '../helpers/project-paths.mjs';
 
 test({
@@ -49,12 +49,11 @@ test({
   id: 'T2_R9_04',
   tier: 'tier2',
   feature: 'r9',
-  title: 'R9 Boundary: EnquiryForm encodes special characters in mailto URI query string',
+  title: 'R9 Boundary: The enquiry form encodes special characters in its email and WhatsApp links',
   fn: () => {
-    const code = readFileSafe(PATHS.enquiryForm);
-    assert(code !== null, 'src/components/EnquiryForm.tsx must exist');
-    const hasEncoding = /encodeURIComponent/i.test(code);
-    assert(hasEncoding, 'EnquiryForm must use encodeURIComponent when building mailto: link parameters');
+    const code = readFileSafe(PATHS.siteEnquiryForm);
+    assert(code !== null, 'src/components/SiteEnquiryForm.tsx must exist');
+    assert((code.match(/encodeURIComponent/g) || []).length >= 3, 'Subject, body and WhatsApp text must all be encoded');
   },
 });
 
@@ -62,12 +61,14 @@ test({
   id: 'T2_R9_05',
   tier: 'tier2',
   feature: 'r9',
-  title: 'R9 Boundary: Electricity grievance dossier enforces exact nominal ₹50 administrative intake fee',
+  title: 'R9 Boundary: The grievance page states no fee and follows the CGRF and Ombudsman route',
   fn: () => {
-    const code = readFileSafe(PATHS.routeGrievances);
-    assert(code !== null, 'src/app/electricity-grievances/page.tsx must exist');
-    const hasFee50 = /₹\s*50\b/i.test(code) || /Rs\.?\s*50\b/i.test(code) || /50\s*(?:consultation|fee|nominal)/i.test(code);
-    assert(hasFee50, 'Electricity grievance page must state exact nominal fee of ₹50');
+    const code = readFileSafe(PATHS.servicePages) ?? '';
+    const block = code.slice(code.indexOf('export const grievancesPage'), code.indexOf('export const spacePlanningPage'));
+    assert(block.length > 0, 'service-pages.ts must define grievancesPage');
+    assert(!/₹\s*50\b|Rs\.?\s*50\b|fee of/i.test(block), 'No fee is stated: none is in the Sanyog profile');
+    assertIncludes(block, 'Consumer Grievance Redressal Forum', 'The CGRF is named');
+    assertIncludes(block, 'Electricity Ombudsman', 'The appeal route is named');
   },
 });
 

@@ -1,12 +1,14 @@
 "use client";
 
-import React from 'react';
+import React, { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import ClientMarquee from './ClientMarquee';
-import { SpecularButton } from '@/components/react-bits';
-import { CORE_LINE, DIVISION_ONE_LINERS } from '@/content/messaging';
+import { SpecularButton, TechText } from '@/components/react-bits';
+import { Ambient, MicroSlats, PatternWaves, TargetCursor, useDesktopPointer } from '@/components/effects';
+import { DIVISION_ONE_LINERS } from '@/content/messaging';
+import { PHOTOS, photoCredit } from '@/content/photos';
 
 // The six divisions in the messaging framework's order. A plain list replaces the "_01 to _06"
 // logo strip, which was unreadable on phones (brand guidelines 2.8.2).
@@ -24,8 +26,11 @@ export interface GroundedHeroProps {
 }
 
 export default function GroundedHero({ onOpenConsultation }: GroundedHeroProps = {}) {
+  const heroRef = useRef<HTMLElement>(null);
+  const desktop = useDesktopPointer();
   return (
     <section
+      ref={heroRef}
       style={{
         position: 'relative',
         minHeight: '100vh',
@@ -37,10 +42,10 @@ export default function GroundedHero({ onOpenConsultation }: GroundedHeroProps =
         justifyContent: 'space-between',
       }}
     >
-      {/* Photograph with a flat Night overlay where text sits on it (2.8.1). */}
+      {/* Worli and the Sea Link under a flat Night overlay, so the headline reads on phones too. */}
       <div aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: 1 }}>
         <Image
-          src="/images/hero-architectural-facade.jpg"
+          src={PHOTOS['hero-mumbai'].src}
           alt=""
           fill
           priority
@@ -49,6 +54,15 @@ export default function GroundedHero({ onOpenConsultation }: GroundedHeroProps =
         />
         <div style={{ position: 'absolute', inset: 0, background: 'rgba(11, 14, 20, 0.45)' }} />
       </div>
+
+      {/* Silk waves over the photo that follow the pointer, and louvre slats with datum ticks like a drawing sheet. */}
+      <Ambient opacity={0.28} blend="screen" zIndex={1}>
+        <PatternWaves preset="silk" color="#ffffff" backgroundColor="#000000" fade="edges" interactive cursorSize={50} cursorStrength={0.6} />
+      </Ambient>
+      <Ambient zIndex={1}>
+        <MicroSlats count={24} color="#FFFFFF" opacity={0.08} zIndex={1} showTicks />
+      </Ambient>
+      {desktop && <TargetCursor containerRef={heroRef} color="#C29F53" />}
 
       <div
         style={{
@@ -73,7 +87,8 @@ export default function GroundedHero({ onOpenConsultation }: GroundedHeroProps =
             maxWidth: '980px',
           }}
         >
-          Engineering <span className="italic-span" style={{ fontStyle: 'italic', color: '#E8E4DA' }}>that operates.</span>
+          <TechText text="From HT electrical work at the Taj Mahal Palace" scrambleSpeed={28} maxScrambles={6} triggerOnHover style={{ fontFamily: 'inherit', display: 'inline' }} />{' '}
+          <TechText text="to a 691.20 kWp solar plant in Bhiwandi." scrambleSpeed={28} maxScrambles={6} triggerOnHover style={{ fontFamily: 'inherit', display: 'inline', color: '#E8E4DA' }} />
         </h1>
 
         <p
@@ -88,7 +103,8 @@ export default function GroundedHero({ onOpenConsultation }: GroundedHeroProps =
             letterSpacing: '-0.01em',
           }}
         >
-          {CORE_LINE}
+          Six divisions in one office at Elphinstone, Mumbai: electrical, solar, utility paperwork, interiors, print and project
+          loans. Whichever of them your building needs, you deal with one person.
         </p>
 
         <div className="hero-cta-group" style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', alignItems: 'center' }}>
@@ -122,6 +138,10 @@ export default function GroundedHero({ onOpenConsultation }: GroundedHeroProps =
           ))}
         </ul>
       </nav>
+
+      <p className="hero-photo-credit">
+        {PHOTOS['hero-mumbai'].subject}. {photoCredit('hero-mumbai')}
+      </p>
 
       {/* Client marquee: text only, opens into the full client list (brand guidelines 2.6) */}
       <div

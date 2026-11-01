@@ -11,7 +11,7 @@ export default function SanyogTariffAuditCalculator() {
   const [category, setCategory] = useState<'commercial' | 'industrial' | 'chs'>('commercial');
 
   const audit = useMemo(() => {
-    // Utility energy rate benchmarks
+    // Example energy rates for the estimate, not the utilities' current tariff schedules
     const rates: Record<string, { comm: number; ind: number; chs: number }> = {
       BEST: { comm: 12.45, ind: 10.15, chs: 7.25 },
       AEML: { comm: 12.95, ind: 10.45, chs: 7.65 },
@@ -22,7 +22,7 @@ export default function SanyogTariffAuditCalculator() {
     const currentRate = category === 'commercial' ? rates[utility].comm : category === 'industrial' ? rates[utility].ind : rates[utility].chs;
     const monthlyEnergyBill = units * currentRate;
 
-    // Power Factor Adjustment under MERC Tariff Schedules:
+    // Power factor adjustment, in the usual MERC shape:
     // If PF < 0.90: Penalty of 1% to 8% on total energy charges
     // If PF > 0.95: Incentive rebate of +0.5% to +7%
     let pfMultiplier = 0;
@@ -57,7 +57,7 @@ export default function SanyogTariffAuditCalculator() {
     const demandChargePerKva = 450;
     const maxDemandPenaltyRisk = Math.round(loadKva * demandChargePerKva * 0.5);
 
-    // Statutory CGRF Financial Recovery Potential (capped at 24 months statutory limitation under Section 56(2))
+    // What the overcharge adds up to over 18 months, if the utility's records confirm it
     const statutoryRecoveryPotential = (pfAdjustmentMonthly + monthlyMisclassificationExposure) * 18;
 
     return {
@@ -105,8 +105,7 @@ export default function SanyogTariffAuditCalculator() {
             style={{
               fontSize: '0.72rem',
               fontWeight: 700,
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
+              letterSpacing: '0',
               color: '#2C5ED4',
             }}
           >
@@ -123,10 +122,10 @@ export default function SanyogTariffAuditCalculator() {
             margin: '0 0 10px 0',
           }}
         >
-          Tariff Forensic Audit &amp; CGRF Claim Estimator.
+          What a wrong tariff or power factor charge may cost you.
         </h3>
         <p style={{ color: '#666666', fontSize: '0.92rem', maxWidth: '640px', margin: '0 auto', lineHeight: 1.6 }}>
-          Calculate monthly power factor surcharges, wrong tariff slab financial exposure, and compute 24-month retroactive refund claims recoverable before the Consumer Grievance Redressal Forum (CGRF).
+          An illustrative estimate from example rates. Any refund depends on the utility’s own records and, if it comes to that, the forum’s decision.
         </p>
       </div>
 
@@ -246,9 +245,9 @@ export default function SanyogTariffAuditCalculator() {
               style={{ width: '100%', accentColor: audit.isPenalty ? '#DC2626' : '#16A34A' }}
             />
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', color: '#888888', marginTop: '4px' }}>
-              <span style={{ color: '#DC2626' }}>0.72 (MERC Penalty)</span>
+              <span style={{ color: '#DC2626' }}>0.72 (charge)</span>
               <span>0.90 (Threshold)</span>
-              <span style={{ color: '#16A34A' }}>0.99 (7% Rebate)</span>
+              <span style={{ color: '#16A34A' }}>0.99 (rebate)</span>
             </div>
           </div>
         </div>
@@ -267,18 +266,15 @@ export default function SanyogTariffAuditCalculator() {
         >
           <div>
             <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#2C5ED4]/20">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-[#2C5ED4]">
-                Statutory Financial Audit Summary
-              </span>
-              <span className="text-[11px] text-[#555555] font-medium">
-                MERC Supply Code Reg 8.4
+              <span className="text-[11px] font-bold text-[#2C5ED4]">
+                Illustrative estimate
               </span>
             </div>
 
-            {/* Main Metric: Statutory Recovery Claim */}
+            {/* Main figure */}
             <div style={{ marginBottom: '20px' }}>
-              <div style={{ fontSize: '0.76rem', color: '#666666', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                Estimated 24-Month CGRF Refund Potential
+              <div style={{ fontSize: '0.76rem', color: '#666666', letterSpacing: '0.04em' }}>
+                Overcharge over 18 months, if confirmed
               </div>
               <div
                 style={{
@@ -293,14 +289,14 @@ export default function SanyogTariffAuditCalculator() {
                 Rs {audit.statutoryRecoveryPotential.toLocaleString('en-IN')}
               </div>
               <div style={{ fontSize: '0.80rem', color: '#555555', marginTop: '4px' }}>
-                Calculated under Section 56(2) limitation bar &amp; statutory billing reconciliation
+                Power factor charge and tariff difference, at the example rate
               </div>
             </div>
 
             {/* Grid Metrics */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', marginBottom: '18px' }}>
               <div style={{ backgroundColor: '#FFFFFF', padding: '12px 14px', borderRadius: '12px', border: '1px solid rgba(44, 94, 212, 0.15)' }}>
-                <div style={{ fontSize: '0.70rem', color: '#777777', textTransform: 'uppercase' }}>
+                <div style={{ fontSize: '0.70rem', color: '#777777' }}>
                   {audit.isPenalty ? 'Annual PF Penalty' : 'Annual PF Incentive'}
                 </div>
                 <div
@@ -319,21 +315,21 @@ export default function SanyogTariffAuditCalculator() {
               </div>
 
               <div style={{ backgroundColor: '#FFFFFF', padding: '12px 14px', borderRadius: '12px', border: '1px solid rgba(44, 94, 212, 0.15)' }}>
-                <div style={{ fontSize: '0.70rem', color: '#777777', textTransform: 'uppercase' }}>Current Base Tariff</div>
+                <div style={{ fontSize: '0.70rem', color: '#777777' }}>Energy rate used</div>
                 <div style={{ fontSize: '1.15rem', fontWeight: 700, color: '#111111', marginTop: '2px' }}>
                   Rs {audit.currentRate.toFixed(2)} / kWh
                 </div>
-                <div style={{ fontSize: '0.70rem', color: '#666666', marginTop: '2px' }}>{utility} Scheduled Rate</div>
+                <div style={{ fontSize: '0.70rem', color: '#666666', marginTop: '2px' }}>Example rate, {utility}</div>
               </div>
 
               {category === 'commercial' && (
                 <div style={{ backgroundColor: '#FFFFFF', padding: '12px 14px', borderRadius: '12px', border: '1px solid rgba(44, 94, 212, 0.15)', gridColumn: 'span 2' }}>
-                  <div style={{ fontSize: '0.70rem', color: '#777777', textTransform: 'uppercase' }}>Tariff Re-Classification Savings</div>
+                  <div style={{ fontSize: '0.70rem', color: '#777777' }}>Wrong tariff category</div>
                   <div style={{ fontSize: '1.20rem', fontWeight: 700, color: '#047857', marginTop: '2px' }}>
                     Rs {audit.annualMisclassificationExposure.toLocaleString('en-IN')} / year
                   </div>
                   <div style={{ fontSize: '0.72rem', color: '#555555', marginTop: '2px' }}>
-                    Recoverable if common meters or ancillary areas are billed on commercial LT-II instead of LT-I
+                    If common areas are billed at the commercial rate instead of the residential one
                   </div>
                 </div>
               )}
@@ -341,7 +337,7 @@ export default function SanyogTariffAuditCalculator() {
 
             <div style={{ fontSize: '0.78rem', color: '#444444', lineHeight: 1.5, display: 'flex', alignItems: 'flex-start', gap: '6px' }}>
               <CheckCircle2 size={15} color="#2C5ED4" style={{ flexShrink: 0, marginTop: '2px' }} />
-              <span>Official CGRF forum filings are fee-free under MERC regulations; JC Apex provides initial technical docket intake with 60-day mandatory disposal timeline.</span>
+              <span>We check your bills first and tell you at the start if a case is weak.</span>
             </div>
           </div>
 
@@ -365,7 +361,7 @@ export default function SanyogTariffAuditCalculator() {
                 transition: 'all 0.2s ease',
               }}
             >
-              <span>Initiate MERC Forensic Bill Audit</span>
+              <span>Ask Sanyog to check your bills</span>
               <ArrowUpRight size={14} />
             </a>
           </div>

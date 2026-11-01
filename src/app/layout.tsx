@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Instrument_Serif, Inter } from 'next/font/google';
 import GroundedSmoothScroll from '@/components/GroundedSmoothScroll';
+import Clippy from '@/components/Clippy';
 import './globals.css';
 
 const instrumentSerif = Instrument_Serif({
@@ -65,6 +66,8 @@ export default function RootLayout({
       </head>
       <body className="font-body text-[#111111] bg-[#F4F1EA]">
         <GroundedSmoothScroll>{children}</GroundedSmoothScroll>
+        {/* The question dock, on every page; its answers come from the division profiles. */}
+        <Clippy />
       </body>
     </html>
   );

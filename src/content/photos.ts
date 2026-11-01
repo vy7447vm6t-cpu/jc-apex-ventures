@@ -40,6 +40,7 @@ export const PHOTOS = {
   'tvasta-living-2': { src: '/images/licensed/tvasta-living-2.jpg', width: 1800, height: 1350, subject: 'Wood-panelled living room', author: 'Peter Alfred Hess from United States', license: 'CC BY 2.0', source: 'https://commons.wikimedia.org/wiki/File:Living_Room_@_Horizon_Reach_(8733780516).jpg' },
   'tvasta-kitchen-2': { src: '/images/licensed/tvasta-kitchen-2.jpg', width: 1800, height: 1201, subject: 'Kitchen with wood-panelled wall', author: 'Shixart1985', license: 'CC BY 2.0', source: 'https://commons.wikimedia.org/wiki/File:Modern_luxury_living_room_with_kitchen_interior.jpg' },
   'grid-transformer': { src: '/images/licensed/grid-transformer.jpg', width: 1800, height: 1350, subject: 'Power transformer', author: 'Novoklimov', license: 'CC0', source: 'https://commons.wikimedia.org/wiki/File:High-voltage_transformer_750_kV_%D0%A2%D1%80%D0%B0%D0%BD%D1%81%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D0%BE%D1%80_750_%D0%BA%D0%92.jpg' },
+  'hero-mumbai': { src: '/images/licensed/hero-mumbai-worli-sea-link.jpg', width: 2400, height: 1661, subject: 'Worli skyline and the Bandra–Worli Sea Link, Mumbai', author: 'Woodysworldtv', license: 'CC BY 2.0', source: 'https://commons.wikimedia.org/wiki/File:Worli_skyline_with_BSWL_(cropped).jpg' },
 } satisfies Record<string, Photo>;
 
 export type PhotoKey = keyof typeof PHOTOS;

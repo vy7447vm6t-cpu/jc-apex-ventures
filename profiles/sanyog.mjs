@@ -59,7 +59,7 @@ export const SANYOG_SERVICES = [
       ['Connections', 'New power supply connections; temporary supply for construction'],
       ['Load and phase', 'Sanctioned load extensions (for lifts, EV charging, air conditioning); single-phase to three-phase conversion'],
       ['Records and billing', 'Change of name and billing address; electricity bill and tariff category issues'],
-      ['Complaints and compliance', 'CGRF consumer grievances; HT complaints; meter disconnections; certified wiring test reports'],
+      ['Complaints and compliance', 'CGRF consumer grievances; HT complaints; meter disconnections; wiring test reports arranged through a licensed electrical contractor'],
       ['Licences', 'Electrical licence applications through the PWD Electrical Inspectorate'],
 ];
 
@@ -120,7 +120,7 @@ export function sanyogProfile({ logos, qr, block, photosRel }) {
         ['sanyog-meters', 'Connections and meters', 'New connections, temporary supply for construction, and meter changes.'],
         ['grid-distribution', 'Load and phase', 'Load extensions for lifts, EV chargers and air conditioning; single-phase to three-phase conversion.'],
         ['sanyog-meter-analog', 'Bills and tariff category', 'Change of name or billing address, wrong bills and tariff category corrections.'],
-        ['grid-electrician', 'Complaints and inspections', 'CGRF grievances, HT complaints, disconnections and certified wiring test reports.'],
+        ['grid-electrician', 'Complaints and inspections', 'CGRF grievances, HT complaints, disconnections, and wiring test reports arranged through a licensed contractor.'],
       ]
         .map(([img, title, text]) => `<div class="tile">${photo(img, { height: '62mm' })}<h3>${esc(title)}</h3><p>${esc(text)}</p></div>`)
         .join('')}

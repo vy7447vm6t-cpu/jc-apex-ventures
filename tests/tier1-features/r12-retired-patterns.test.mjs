@@ -6,14 +6,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 // Brand guidelines 2.8: retired components, patterns and wording.
-const RETIRED = [
-  'Clippy', 'StudioCADViewer', 'GroundedRecognition', 'AuthorityLogos', 'AnimatedCounter', 'IPadCursor', 'NetworkGraph',
-  'InteractiveTabbedMonograph', 'DivisionLogos', 'react-bits/DepthCarousel', 'react-bits/OptionWheel', 'react-bits/ScrollExpand',
-  'react-bits/HoloCard', 'react-bits/ParticleText', 'react-bits/ShapeWaves', 'react-bits/ScrollStack', 'react-bits/GlowCursor',
-  'react-bits/MicroSlats', 'react-bits/PatternWaves', 'react-bits/FluxLines', 'react-bits/GridScan', 'react-bits/InfiniteSpiral',
-  'react-bits/MagicBento', 'react-bits/TargetCursor', 'react-bits/LogoLoop', 'react-bits/FlexCarousel', 'react-bits/LineSidebar',
-  'react-bits/FaultyTerminal', 'react-bits/CrtWarp', 'react-bits/TechText', 'react-bits/ElectricBorder', 'react-bits/GradientASCII',
-  'react-bits/SvgPathAnimator', 'SpotlightCard',
+// The user asked for the components back (1 November 2026). These are on pages now, with real content.
+const PLACED = [
+  'Clippy', 'AnimatedCounter', 'NetworkGraph', 'SpotlightCard', 'react-bits/ScrollStack', 'react-bits/LogoLoop',
+  'react-bits/MagicBento', 'react-bits/LineSidebar', 'react-bits/ElectricBorder', 'react-bits/TechText', 'react-bits/MicroSlats',
+  'react-bits/PatternWaves', 'react-bits/GridScan', 'react-bits/ShapeWaves', 'react-bits/GradientASCII', 'react-bits/TargetCursor',
+  'react-bits/AccordionGallery', 'react-bits/SpecularButton',
 ];
 
 function sourceFiles(dir) {
@@ -28,13 +26,19 @@ test({
   id: 'T1_R12_01',
   tier: 'tier1',
   feature: 'r12',
-  title: 'R12 Feature: Retired components are deleted and nothing imports them',
+  title: 'R12 Feature: The restored components are placed with real content, on flat surfaces',
   fn: () => {
-    const all = sourceFiles(SRC_DIR).map((f) => readFileSafe(f)).join('\n');
-    for (const name of RETIRED) {
-      assert(!fileExists(path.join(COMPONENTS_DIR, `${name}.tsx`)), `${name}.tsx must be deleted`);
+    const files = sourceFiles(SRC_DIR);
+    const others = (self) => files.filter((f) => !f.endsWith(self)).map((f) => readFileSafe(f)).join('\n');
+    for (const name of PLACED) {
+      const file = `${name}.tsx`;
+      assert(fileExists(path.join(COMPONENTS_DIR, file)), `${file} must exist`);
       const bare = name.split('/').pop();
-      assert(!new RegExp(`import[^;]*\\b${bare}\\b[^;]*from`).test(all), `No file may import ${bare}`);
+      assert(new RegExp(`\\b${bare}\\b`).test(others(file)), `${bare} must be used on a page`);
+    }
+    for (const name of ['react-bits/ScrollStack', 'react-bits/MagicBento', 'react-bits/LogoLoop', 'SpotlightCard']) {
+      const code = readFileSafe(path.join(COMPONENTS_DIR, `${name}.tsx`)) ?? '';
+      assert(!/backdrop-blur|backdropFilter|ios-liquid-glass|glass-panel/.test(code), `${name} must not use glass blur`);
     }
   },
 });

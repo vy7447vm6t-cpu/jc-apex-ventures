@@ -81,7 +81,6 @@ export const GRID_APEX_SERVICES = [
       ['HT works', 'HT installation and commissioning; HT panel and switchgear works; transformer installation, testing and maintenance; underground and overhead HT cable laying; distribution system support'],
       ['LT works', 'Wiring for residential, commercial and industrial premises; LT panels and distribution boards; indoor and outdoor lighting; earthing and lightning protection'],
       ['Maintenance and AMC', 'Preventive maintenance, testing, breakdown support and annual maintenance contracts'],
-      ['Government tender empanelment', 'Advice that helps electrical contracting firms get empanelled with government bodies and bid for tenders in their own name'],
 ];
 
 export function gridApexProfile({ logos, qr, block, photosRel }) {
@@ -218,10 +217,9 @@ export function gridApexProfile({ logos, qr, block, photosRel }) {
   const advisory = page(
     7,
     `
-    ${eyebrow('Advisory and other services')}
-    <h1>Maintenance contracts, safety and tender empanelment.</h1>
+    ${eyebrow('Maintenance and safety')}
+    <h1>Maintenance contracts and safety.</h1>
     <div class="cards" style="margin-top: 4mm">
-      ${projectCard({ tag: 'Advisory', figure: 'Empanelment', title: 'Government tender empanelment', meta: 'For electrical contracting firms', rows: [['What we do', 'Advise on the documents and qualifications needed to get empanelled with government bodies'], ['Outcome', 'Firms that can submit tenders in their own name']] })}
       ${projectCard({ tag: 'Service', figure: 'AMC', title: 'Maintenance contracts', meta: 'For HT and LT installations', rows: [['Covers', 'Scheduled inspection, testing and breakdown response'], ['Contact', 'One point of contact for the whole installation']] })}
       ${projectCard({ tag: 'Standards', figure: 'Safety', title: 'Safety and compliance', meta: 'On every HT and LT job', rows: [['Standards', 'Central Electricity Authority safety regulations'], ['Approvals', 'Drawings and documents prepared for Electrical Inspectorate review']] })}
     </div>`,

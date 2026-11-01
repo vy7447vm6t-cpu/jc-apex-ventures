@@ -71,6 +71,10 @@ export type FeatureSection =
 
 export interface DivisionContent {
   slug: string;
+  /** Set on a detail page: the division it belongs to, whose theme, logo and estimator it uses. */
+  parent?: string;
+  /** Detail pages without an estimator. */
+  noEstimator?: boolean;
   name: string;
   href: string;
   icon: IconKey;
@@ -99,8 +103,8 @@ export interface DivisionContent {
   features?: FeatureSection[];
   /** Our own photograph beside the process, when we have one. */
   stepsPhoto?: { src: string; width: number; height: number; alt: string; caption: string };
-  /** An enquiry form in place of the contact buttons; the estimate fills it in. */
-  enquiryForm?: { to: string; cc: string; subject: string };
+  /** The enquiry form in the contact section, sent to the division's inbox; the estimate fills it in. */
+  enquiryForm?: { to: string; cc?: string; subject: string; askUtility?: boolean; submitLabel?: string };
 }
 
 export const gridApex: DivisionContent = {
@@ -110,7 +114,7 @@ export const gridApex: DivisionContent = {
   icon: 'zap',
   description:
     'Grid Apex installs, tests, commissions and maintains HT and LT electrical systems for industrial, commercial, hospitality and residential sites in Mumbai.',
-  title: 'One engineer accountable, from drawings to energisation.',
+  title: 'The engineer who draws your HT installation is the one who energises it.',
   intro:
     'Grid Apex is the electrical engineering division of JC Apex Ventures. We install, test, commission and maintain High Tension (HT) and Low Tension (LT) electrical systems for industrial, commercial, hospitality and residential sites.',
   showProofLine: true,
@@ -126,7 +130,7 @@ export const gridApex: DivisionContent = {
   ],
   tiles: {
     eyebrow: 'HT and LT works',
-    title: 'From the HT panel to the last distribution board.',
+    title: 'Every board between the utility’s cable and your last socket.',
     items: [
       { photo: 'grid-substation', title: 'HT installations', text: 'HT panels, switchgear and transformers, installed, tested and commissioned.' },
       { photo: 'grid-distribution', title: 'LT panels and distribution', text: 'LT panels and distribution boards, wiring, lighting, earthing and lightning protection.' },
@@ -163,7 +167,7 @@ export const gridApex: DivisionContent = {
       },
     },
   ],
-  stepsTitle: 'From survey to energisation, in five steps.',
+  stepsTitle: 'Survey first, energisation last.',
   steps: [
     { title: 'Survey and load study', text: 'We visit the site, record the existing supply and equipment, and work out the connected and maximum demand.' },
     { title: 'Design and drawings', text: 'Single-line diagram, cable and switchgear schedules, and the layout of panels and the transformer.' },
@@ -197,6 +201,7 @@ export const gridApex: DivisionContent = {
   ],
   contact: { emails: ['admin@jcapexv.com'] },
   actions: [{ label: 'Email Grid Apex', href: 'mailto:admin@jcapexv.com?subject=Grid%20Apex%20enquiry' }],
+  enquiryForm: { to: 'admin@jcapexv.com', subject: 'Grid Apex enquiry', askUtility: true },
 };
 
 export const sanyog: DivisionContent = {
@@ -206,7 +211,7 @@ export const sanyog: DivisionContent = {
   icon: 'plug',
   description:
     'Sanyog handles power connections, load changes, bill disputes and CGRF grievances with BEST, Adani Electricity, Tata Power and MSEDCL in Mumbai.',
-  title: 'We deal with the utility, so you do not have to.',
+  title: 'We file with BEST, Adani Electricity, Tata Power and MSEDCL, and follow up until it shows on your bill.',
   intro:
     'Sanyog is the power liaison and grievance division of JC Apex Ventures. We prepare the paperwork, coordinate the technical requirements and follow up with the utility for homes, housing societies, businesses and industrial sites. We know which desk handles what, and we file the right form once.',
   showProofLine: true,
@@ -224,7 +229,7 @@ export const sanyog: DivisionContent = {
   ],
   tiles: {
     eyebrow: 'What we handle',
-    title: 'From a new meter to a disputed bill.',
+    title: 'A new meter, a bigger load or a bill that looks wrong.',
     items: [
       { photo: 'sanyog-meter-analog', title: 'Connections and meters', text: 'New connections, temporary supply for construction, and meter changes.' },
       { photo: 'grid-distribution', title: 'Load and phase', text: 'Load extensions for lifts, EV chargers and air conditioning; single-phase to three-phase conversion.' },
@@ -234,7 +239,7 @@ export const sanyog: DivisionContent = {
   },
   proof: {
     eyebrow: 'Where we work',
-    title: 'Four utilities, one desk.',
+    title: 'Which utility supplies you decides the paperwork.',
     blocks: [
       {
         kind: 'table',
@@ -277,7 +282,7 @@ export const sanyog: DivisionContent = {
       note: 'CGRF decisions depend on the facts of each case. We tell you at the start if a case is weak.',
     },
   ],
-  stepsTitle: 'One file in, one result out.',
+  stepsTitle: 'What happens after you send us the bill.',
   steps: [
     { title: 'Document check', text: 'We review what you have against what the utility will ask for, and give you one checklist.' },
     { title: 'Application', text: 'We prepare and file the application, and share the application number with you.' },
@@ -311,9 +316,10 @@ export const sanyog: DivisionContent = {
   ],
   contact: { emails: ['licenses@jcapexv.com', 'consumercmpl@jcapexv.com'] },
   actions: [
-    { label: 'Report a bill or supply problem', href: '/electricity-grievances' },
-    { label: 'Licences and registrations', href: '/licenses' },
+    { label: 'Bill disputes and grievances', href: '/electricity-grievances' },
+    { label: 'Connections and licences', href: '/licenses' },
   ],
+  enquiryForm: { to: 'licenses@jcapexv.com', cc: 'consumercmpl@jcapexv.com', subject: 'Sanyog enquiry', askUtility: true },
 };
 
 export const tvasta: DivisionContent = {
@@ -323,7 +329,7 @@ export const tvasta: DivisionContent = {
   icon: 'layout',
   description:
     'Tvasta designs and builds interiors for homes and workplaces in Mumbai, in three clear tiers: Standard, Premium and Luxury.',
-  title: 'Design and execution with the same people.',
+  title: 'Tvasta’s architects draw it, and the same team builds it.',
   intro:
     'Tvasta is the interior design and turnkey fit-out division of JC Apex Ventures. Our architects and interior designers plan the space, design the interiors and carry out the civil and electrical work, so you deal with one team from concept to handover.',
   showProofLine: false,
@@ -378,7 +384,7 @@ export const tvasta: DivisionContent = {
       { kind: 'note', text: 'Three architects and three interior designers plan, draw and supervise every project, from the first layout to the snag list.' },
     ],
   },
-  stepsTitle: 'Understand, plan, execute, refine.',
+  stepsTitle: 'Between the first visit and handover.',
   steps: [
     { title: 'Understand', text: "We listen to how the space will be used and agree the tier, the budget and the client's style." },
     { title: 'Plan', text: 'Layouts, drawings and a material schedule. Nothing is built until the client signs them off.' },
@@ -410,7 +416,8 @@ export const tvasta: DivisionContent = {
     ['Agrim', 'Coordinating project loan requirements'],
   ],
   contact: { emails: ['spacemgmt@jcapexv.com'] },
-  actions: [{ label: 'Send a design enquiry', href: '/space-planning' }],
+  actions: [{ label: 'Space planning and fit-out', href: '/space-planning' }],
+  enquiryForm: { to: 'spacemgmt@jcapexv.com', cc: 'admin@jcapexv.com', subject: 'Tvasta enquiry' },
 };
 
 export const emudran: DivisionContent = {
@@ -438,7 +445,7 @@ export const emudran: DivisionContent = {
   ],
   tiles: {
     eyebrow: 'What we make',
-    title: 'From the first concept to the installed piece.',
+    title: 'Everything between the artwork and the sign on the wall.',
     items: [
       { title: 'Brand identity', text: 'Logos, brand guides, campaign media, company profiles and brochures.' },
       { photo: 'emudran-packaging', title: 'Packaging', text: 'Product packaging, boxes and labels, prepared for the board and finish they will be printed on.' },
@@ -482,7 +489,7 @@ export const emudran: DivisionContent = {
       },
     ],
   },
-  stepsTitle: 'Concept, pre-press, production, field.',
+  stepsTitle: 'How a job moves through the press.',
   steps: [
     { title: 'Concept', text: 'Identity, packaging or campaign design, led by our Creative Director and agreed with the client.' },
     { title: 'Pre-press', text: 'Artwork prepared for the substrate, finish and print process it will meet, with Pantone references.' },
@@ -513,7 +520,8 @@ export const emudran: DivisionContent = {
     ['Agrim', 'Coordinating project loan requirements'],
   ],
   contact: { emails: ['admin@jcapexv.com'], note: 'WhatsApp preferred' },
-  actions: [{ label: 'See rates and get an estimate', href: '/print-management' }],
+  actions: [{ label: 'Print and signage orders', href: '/print-management' }],
+  enquiryForm: { to: 'admin@jcapexv.com', subject: 'eMudran enquiry' },
 };
 
 export const agrim: DivisionContent = {
@@ -603,7 +611,7 @@ export const agrim: DivisionContent = {
       caption: "The lender is the client's own bank or NBFC. Agrim is not part of the lending decision.",
     },
   ],
-  stepsTitle: 'Four steps, alongside the project.',
+  stepsTitle: 'How the loan file is put together.',
   steps: [
     { title: 'Understand the requirement', text: 'We find out what the client needs to fund, when, and how much they will contribute themselves.' },
     { title: 'Match it to the project', text: 'We work from the cost sheet and schedule prepared by the engineering division, so the numbers agree.' },
@@ -635,6 +643,7 @@ export const agrim: DivisionContent = {
   ],
   contact: { emails: ['admin@jcapexv.com'] },
   actions: [{ label: 'Email Agrim', href: 'mailto:admin@jcapexv.com?subject=Agrim%20enquiry' }],
+  enquiryForm: { to: 'admin@jcapexv.com', subject: 'Agrim enquiry' },
 };
 
 const solarPlants = trackRecord('solis');
@@ -648,7 +657,7 @@ export const solis: DivisionContent = {
   icon: 'sun',
   description:
     'Solis designs and builds on-grid solar plants, elevated solar pergolas, BIPV glass and EV charging in Mumbai, and files the net-metering and subsidy applications.',
-  title: 'One accountable team, from site survey to net meter.',
+  title: 'The team that surveys your roof also files your net meter.',
   intro:
     'Solis is the clean-energy division of JC Apex Ventures. We design and build solar power plants, elevated solar pergolas, building-integrated photovoltaic (BIPV) glass and EV charging, and we handle the net-metering and subsidy applications. Because our engineering roots are in Mumbai’s power utilities, plants are designed to meet utility requirements from the first application.',
   showProofLine: true,
@@ -668,7 +677,7 @@ export const solis: DivisionContent = {
   ],
   tiles: {
     eyebrow: 'What we build',
-    title: 'Four kinds of clean-energy infrastructure.',
+    title: 'Rooftops, pergolas, solar glass and EV chargers.',
     items: [
       { photo: 'solis-install', title: 'Solar power plants', text: 'On-grid plants on factory, office, institutional and housing society roofs, sized to the site and the load.' },
       { photo: 'solis-carport', title: 'Elevated pergolas and canopies', text: 'Panels raised on a steel frame high enough to walk or park under, so the terrace or parking stays in use.' },
@@ -703,7 +712,7 @@ export const solis: DivisionContent = {
       ],
     },
   ],
-  stepsTitle: 'Four steps, one point of contact.',
+  stepsTitle: 'What happens after the site survey.',
   steps: [
     { title: 'Site survey', text: 'We inspect the roof or terrace, check shade, structure and the existing electrical supply, and read the last twelve months of electricity bills.' },
     { title: 'Design', text: 'We size the plant to the site and the load, choose the mounting (a standard frame or an elevated pergola) and draw the single-line diagram.' },
@@ -747,7 +756,7 @@ export const solis: DivisionContent = {
   ],
   contact: { emails: ['solis@jcapexv.com'] },
   actions: [{ label: 'Email Solis', href: 'mailto:solis@jcapexv.com?subject=Solis%20enquiry' }],
-  enquiryForm: { to: 'solis@jcapexv.com', cc: 'admin@jcapexv.com', subject: 'Solis site survey request' },
+  enquiryForm: { to: 'solis@jcapexv.com', cc: 'admin@jcapexv.com', subject: 'Solis site survey request', askUtility: true, submitLabel: 'Request a site survey' },
 };
 
 export const divisions: DivisionContent[] = [gridApex, solis, sanyog, tvasta, emudran, agrim];
