@@ -104,9 +104,11 @@ test({
   title: 'R13 Feature: Track-record sections read the hotel list and creative credits from track-record.ts',
   fn: () => {
     const page = readFileSafe(PATHS.divisionPage) || '';
-    assertIncludes(page, "clientGroups().find((g) => g.id === 'hospitality')", 'Hotels must come from the track record');
+    const map = readFileSafe(PATHS.workMap) || '';
+    assertIncludes(page, '<WorkMap show="hotels" />', 'Grid Apex must show the hotel map');
+    assertIncludes(map, "clientGroups().find((g) => g.id === 'hospitality')", 'Hotels must come from the track record');
     assertIncludes(page, "clientGroups().find((g) => g.id === 'creative')", 'Creative credits must come from the track record');
-    assertIncludes(page, 'Photographs show the properties, not our installations.', 'Hotel photos must say they show the properties only');
+    assertIncludes(readFileSafe(PATHS.hotelGallery) || '', 'Photographs show the properties, not our installations.', 'Hotel photos must say they show the properties only');
     assertIncludes(page, 'creative.attributionLine', 'Creative credits must carry their attribution line');
   },
 });

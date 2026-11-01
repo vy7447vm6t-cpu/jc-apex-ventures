@@ -22,6 +22,9 @@ import SolarPlants from '@/components/SolarPlants';
 import OnGridDiagram from '@/components/OnGridDiagram';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 import SiteEnquiryForm from '@/components/SiteEnquiryForm';
+import HotelGallery from '@/components/HotelGallery';
+import WorkMap from '@/components/WorkMap';
+import FlowDiagram from '@/components/FlowDiagram';
 import { SpecularButton } from '@/components/react-bits';
 import { ArrowRight, ArrowUpRight, ChevronRight, Mail, Phone } from 'lucide-react';
 
@@ -127,35 +130,18 @@ function ProofBlockView({ block }: { block: ProofBlock }) {
       );
     case 'note':
       return <p className="margin-note">{block.text}</p>;
-    case 'hotels': {
-      const hotels = clientGroups().find((g) => g.id === 'hospitality');
+    case 'hotels':
+      // The map's key names every property; the gallery shows the ones we have licensed photos of.
       return (
-        <div style={{ display: 'grid', gap: '32px' }}>
+        <div style={{ display: 'grid', gap: '48px' }}>
           <p className="margin-note">{ATTRIBUTION_LINES.director}</p>
-          <div className="photo-row">
-            {block.photos.map((key) => (
-              <figure key={key} style={{ margin: 0 }}>
-                <div className="photo-frame">
-                  <Image src={PHOTOS[key].src} alt={PHOTOS[key].subject} fill sizes="(max-width: 760px) 82vw, 30vw" style={{ objectFit: 'cover' }} />
-                </div>
-                <figcaption className="photo-caption">
-                  {PHOTOS[key].subject}. {photoCredit(key)}
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-          <p className="photo-caption" style={{ marginTop: '-20px' }}>
-            Photographs show the properties, not our installations.
+          <WorkMap show="hotels" />
+          <HotelGallery photos={block.photos} />
+          <p className="photo-caption" style={{ marginTop: '-32px' }}>
+            Scope at each property: HT electrical work. Hotel names are given as they are today.
           </p>
-          {hotels && (
-            <div>
-              <SpecTable list headers={['Property', 'Place']} rows={hotels.clients.map((c) => [c.name, c.place ?? ''])} />
-              <p className="photo-caption">Scope at each property: HT electrical work. Hotel names are given as they are today.</p>
-            </div>
-          )}
         </div>
       );
-    }
     case 'creative-credits': {
       const creative = clientGroups().find((g) => g.id === 'creative');
       if (!creative) return null;
@@ -203,6 +189,31 @@ function TerraceComparison() {
 
 function FeatureView({ feature }: { feature: FeatureSection }) {
   if (feature.kind === 'terrace-comparison') return <TerraceComparison />;
+  if (feature.kind === 'flow') {
+    return (
+      <div>
+        <FlowDiagram steps={feature.steps} numbered={feature.numbered} caption={feature.caption} />
+        {feature.note && (
+          <p className="margin-note" style={{ marginTop: '28px' }}>
+            {feature.note}
+          </p>
+        )}
+        {feature.facts && (
+          <div style={{ marginTop: '48px' }}>
+            <h3 style={blockTitle}>{feature.facts.title}</h3>
+            <dl className="fact-rows">
+              {feature.facts.rows.map((row) => (
+                <div key={row.label}>
+                  <dt>{row.label}</dt>
+                  <dd>{row.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        )}
+      </div>
+    );
+  }
   return (
     <div>
       <OnGridDiagram />
@@ -318,6 +329,7 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
   const oneLiner = DIVISION_ONE_LINERS[data.slug];
   const estimator = ESTIMATORS[data.slug];
   const [estimate, setEstimate] = useState<string | undefined>();
+  const tilePhotos = (data.tiles?.items ?? []).flatMap((tile) => (tile.photo ? [tile.photo] : []));
 
   const contactRows = (
     <dl className="fact-rows">
@@ -417,7 +429,7 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
           </div>
 
           {data.facts && (
-            <dl className="hero-facts">
+            <dl className="hero-facts" style={{ gridTemplateColumns: `repeat(${data.facts.length}, minmax(0, 1fr))` }}>
               {data.facts.map((f) => (
                 <div key={f.label}>
                   <dt>{f.label}</dt>
@@ -454,6 +466,37 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
         </div>
       </section>
 
+      {data.tiles && (
+        <section className="section" style={{ paddingTop: '40px', paddingBottom: '64px' }}>
+          <div className="container">
+            <SectionHeading number={nextNumber()} eyebrow={data.tiles.eyebrow} title={data.tiles.title} />
+            <ScrollReveal>
+              <ul className="tile-grid">
+                {data.tiles.items.map((tile, i) => (
+                  <li key={tile.title} className="tile">
+                    <div className="tile-frame unmask" style={{ transitionDelay: `${i * 120}ms` }}>
+                      {tile.photo ? (
+                        <Image src={PHOTOS[tile.photo].src} alt={PHOTOS[tile.photo].subject} fill sizes="(max-width: 760px) 80vw, 25vw" style={{ objectFit: 'cover' }} />
+                      ) : (
+                        logo && <img src={logo.src} alt="" className="tile-logo" />
+                      )}
+                    </div>
+                    <h3>{tile.title}</h3>
+                    <p>{tile.text}</p>
+                  </li>
+                ))}
+              </ul>
+            </ScrollReveal>
+            {data.tiles.caption && <p className="photo-caption">{data.tiles.caption}</p>}
+            {tilePhotos.length > 0 && (
+              <p className="photo-caption">
+                Photographs are representative images. {[...new Set(tilePhotos.map((key) => photoCredit(key)))].join(' ')}
+              </p>
+            )}
+          </div>
+        </section>
+      )}
+
       <section className="section" style={{ paddingTop: '40px', paddingBottom: '40px', background: 'var(--color-bg-alt)', borderTop: '1px solid var(--color-border)', borderBottom: '1px solid var(--color-border)' }}>
         <div className="container">
           <SectionHeading number={nextNumber()} eyebrow={data.proof.eyebrow} title={data.proof.title} intro={data.proof.text} />
@@ -482,7 +525,7 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
               number={nextNumber()}
               eyebrow={feature.eyebrow}
               title={feature.title}
-              intro={feature.kind === 'terrace-comparison' ? feature.text : undefined}
+              intro={feature.kind === 'terrace-comparison' ? feature.text : feature.kind === 'flow' ? feature.intro : undefined}
             />
             <FeatureView feature={feature} />
           </div>

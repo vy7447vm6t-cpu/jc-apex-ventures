@@ -44,7 +44,7 @@ export default function GroundedServices() {
       <div id="divisions" className="absolute -top-24 pointer-events-none" aria-hidden="true" />
 
       <div style={{ maxWidth: '1240px', margin: '0 auto', width: '100%' }}>
-        <SectionEyebrow number={2} tone="dark">
+        <SectionEyebrow number={3} tone="dark">
           The six divisions
         </SectionEyebrow>
         <div style={{ maxWidth: '760px', marginBottom: '48px' }}>

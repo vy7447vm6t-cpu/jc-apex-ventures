@@ -378,10 +378,10 @@ export default function Navbar() {
             <Link
               href="/#projects"
               onClick={handleDismissMenu}
-              aria-label="View Builds and Projects"
+              aria-label="Clients and projects"
               style={{ color: '#222222', textDecoration: 'none' }}
             >
-              <ScrambleText text="Builds" />
+              <ScrambleText text="Clients" />
             </Link>
             <span style={{ color: 'rgba(0, 0, 0, 0.18)' }}>/</span>
             <div
@@ -725,7 +725,7 @@ export default function Navbar() {
                 border: '1px solid rgba(255, 255, 255, 0.14)',
               }}
             >
-              Builds &amp; Projects
+              Clients and projects
             </Link>
             <Link
               href="/#calculators"

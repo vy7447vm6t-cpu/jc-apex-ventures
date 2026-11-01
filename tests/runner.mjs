@@ -17,6 +17,7 @@ import './tier1-features/r10-constraints.test.mjs';
 import './tier1-features/r11-track-record.test.mjs';
 import './tier1-features/r12-retired-patterns.test.mjs';
 import './tier1-features/r13-division-pages.test.mjs';
+import './tier1-features/r14-clients-projects.test.mjs';
 
 // Import all Tier 2 test modules
 import './tier2-boundaries/r1-theme-bounds.test.mjs';

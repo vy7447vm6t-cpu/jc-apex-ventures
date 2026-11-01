@@ -31,9 +31,9 @@ export default function Home() {
 
       <GroundedWhy />
 
-      <GroundedServices />
-
       <GroundedProjectTrack />
+
+      <GroundedServices />
 
       <GroundedAffiliations />
 

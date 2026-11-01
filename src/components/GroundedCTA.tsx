@@ -3,6 +3,7 @@
 import React from 'react';
 import { Phone, Mail } from 'lucide-react';
 import { SpecularButton } from '@/components/react-bits';
+import { divisions } from '@/content/divisions';
 import SectionEyebrow from './SectionEyebrow';
 
 // Enquiry routing, in the messaging framework's order of divisions.
@@ -87,6 +88,31 @@ export default function GroundedCTA({ onOpenConsultation }: GroundedCTAProps) {
             <Mail size={15} aria-hidden="true" />
             admin@jcapexv.com
           </a>
+        </div>
+
+        <div className="cta-details">
+          <div>
+            <p className="cta-details-title">Division inboxes</p>
+            <dl className="cta-inboxes">
+              {divisions.map((d) => (
+                <div key={d.slug}>
+                  <dt>{d.name}</dt>
+                  <dd>
+                    {d.contact.emails.map((email) => (
+                      <a key={email} href={`mailto:${email}`}>
+                        {email}
+                      </a>
+                    ))}
+                    {d.contact.note && <small>{d.contact.note}</small>}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+          <div>
+            <p className="cta-details-title">Office</p>
+            <p className="cta-office">Units 801–802, 8th Floor, Tower 1, One International Centre, Senapati Bapat Marg, Elphinstone, Mumbai 400013</p>
+          </div>
         </div>
       </div>
     </section>

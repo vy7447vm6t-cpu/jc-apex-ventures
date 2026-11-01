@@ -14,7 +14,7 @@ test({
   fn: () => {
     const home = readFileSafe(PATHS.homePage);
     assert(home !== null, 'src/app/page.tsx must exist');
-    const order = ['<GroundedHero', '<GroundedWhy', '<GroundedServices', '<GroundedProjectTrack', '<GroundedAffiliations', '<GroundedProcess', '<GroundedCalculators', '<GroundedCTA'];
+    const order = ['<GroundedHero', '<GroundedWhy', '<GroundedProjectTrack', '<GroundedServices', '<GroundedAffiliations', '<GroundedProcess', '<GroundedCalculators', '<GroundedCTA'];
     let last = -1;
     for (const marker of order) {
       const at = home.indexOf(marker);
@@ -72,14 +72,15 @@ test({
   id: 'T1_R6_05',
   tier: 'tier1',
   feature: 'r6',
-  title: 'R6 Feature: Selected work reads from the track record and shows only showable projects',
+  title: 'R6 Feature: Clients and projects read from the track record and show only showable projects',
   fn: () => {
     const code = readFileSafe(PATHS.groundedProjectTrack);
+    const map = readFileSafe(PATHS.workMap) || '';
     assert(code !== null, 'GroundedProjectTrack.tsx must exist');
-    assertIncludes(code, "from '@/content/track-record'", 'Selected work must read from src/content/track-record.ts');
-    assertIncludes(code, 'trackRecord()', 'Completed work must come from trackRecord()');
-    assertIncludes(code, 'isShowable(p.proof.status)', 'Proposals must pass isShowable');
-    assertIncludes(code, 'ATTRIBUTION_LINES.director', 'Selected work must carry the attribution line');
+    assertIncludes(code, "from '@/content/track-record'", 'Clients and projects must read from src/content/track-record.ts');
+    assertIncludes(map, "trackRecord('solis')", 'Completed plants must come from trackRecord()');
+    assertIncludes(map, 'isShowable(p.proof.status)', 'Proposals must pass isShowable');
+    assertIncludes(code, 'ATTRIBUTION_LINES.director', 'The section must carry the attribution line');
   },
 });
 

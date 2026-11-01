@@ -10,6 +10,8 @@
 import type { PhotoKey } from './photos';
 import { formatCount, keyFacts, trackRecord } from './track-record';
 
+const hospitalitySites = keyFacts().find((f) => f.id === 'hospitality-sites')?.value ?? '';
+
 export type IconKey = 'plug' | 'sun' | 'layout' | 'printer' | 'landmark' | 'zap';
 
 export interface Step {
@@ -31,9 +33,34 @@ export type ProofBlock =
   | { kind: 'creative-credits' }
   | { kind: 'plants' };
 
+/** One box in a flow diagram: a stage, its detail lines, and whether it is the one to notice. */
+export interface FlowStep {
+  title: string;
+  text?: string;
+  tone?: 'highlight' | 'muted';
+}
+
+/** A photo tile, or a plain panel with the division's logo where we have no photo. */
+export interface Tile {
+  photo?: PhotoKey;
+  title: string;
+  text: string;
+}
+
 /** A section only one division needs, placed between its proof and its process. */
 export type FeatureSection =
   | { kind: 'terrace-comparison'; eyebrow: string; title: string; text: string }
+  | {
+      kind: 'flow';
+      eyebrow: string;
+      title: string;
+      intro?: string;
+      numbered?: boolean;
+      steps: FlowStep[];
+      caption?: string;
+      note?: string;
+      facts?: { title: string; rows: { label: string; value: string }[] };
+    }
   | {
       kind: 'connection';
       eyebrow: string;
@@ -65,8 +92,10 @@ export interface DivisionContent {
   joins: [string, string][];
   contact: { emails: string[]; note?: string };
   actions: { label: string; href: string }[];
-  /** Headline figures under the hero, from the track record. */
+  /** Headline figures under the hero, as on page 2 of the division's PDF profile. */
   facts?: { value: string; label: string }[];
+  /** Photo tiles after the services, as in the PDF profile. */
+  tiles?: { eyebrow: string; title: string; items: Tile[]; caption?: string };
   features?: FeatureSection[];
   /** Our own photograph beside the process, when we have one. */
   stepsPhoto?: { src: string; width: number; height: number; alt: string; caption: string };
@@ -90,13 +119,50 @@ export const gridApex: DivisionContent = {
     ['HT works', 'HT installation and commissioning; HT panel and switchgear works; transformer installation, testing and maintenance; underground and overhead HT cable laying; distribution system support'],
     ['LT works', 'Wiring for residential, commercial and industrial premises; LT panels and distribution boards; indoor and outdoor lighting; earthing and lightning protection'],
     ['Maintenance and AMC', 'Preventive maintenance, testing, breakdown support and annual maintenance contracts'],
-    ['Government tender empanelment', 'Advice that helps electrical contracting firms get empanelled with government bodies and bid for tenders in their own name'],
   ],
+  facts: [
+    { value: String(hospitalitySites), label: 'hotel properties, HT electrical work' },
+    { value: '4', label: 'cities: Mumbai, Navi Mumbai, Aurangabad, Jodhpur' },
+  ],
+  tiles: {
+    eyebrow: 'HT and LT works',
+    title: 'From the HT panel to the last distribution board.',
+    items: [
+      { photo: 'grid-substation', title: 'HT installations', text: 'HT panels, switchgear and transformers, installed, tested and commissioned.' },
+      { photo: 'grid-distribution', title: 'LT panels and distribution', text: 'LT panels and distribution boards, wiring, lighting, earthing and lightning protection.' },
+      { photo: 'grid-electrician', title: 'Maintenance', text: 'Preventive maintenance, periodic testing and breakdown support, then looked after for years.' },
+    ],
+  },
   proof: {
     eyebrow: 'Track record',
     title: 'HT electrical work at 14 hospitality properties.',
-    blocks: [{ kind: 'hotels', photos: ['hotel-taj-palace', 'hotel-taj-lands-end', 'hotel-trident-bkc'] }],
+    blocks: [{ kind: 'hotels', photos: ['hotel-taj-palace', 'hotel-trident-oberoi-nariman-point', 'hotel-taj-wellington-mews', 'hotel-taj-lands-end', 'hotel-trident-bkc'] }],
   },
+  features: [
+    {
+      kind: 'flow',
+      eyebrow: 'HT supply',
+      title: 'A typical HT supply, and how we look after it.',
+      steps: [
+        { title: 'Utility', text: 'HT supply', tone: 'muted' },
+        { title: 'HT metering', text: 'Utility cubicle' },
+        { title: 'HT panel', text: 'VCB protection' },
+        { title: 'Transformer', text: 'HT to LT', tone: 'highlight' },
+        { title: 'LT main panel', text: 'Distribution' },
+        { title: 'Distribution boards' },
+        { title: 'Loads', text: 'Lifts, HVAC' },
+      ],
+      caption: 'Simplified single-line diagram. Ratings and protection depend on the sanctioned load and the utility.',
+      facts: {
+        title: 'Maintenance contracts and safety',
+        rows: [
+          { label: 'Maintenance', value: 'Scheduled inspection, testing and breakdown response, with one point of contact for the whole installation' },
+          { label: 'Safety', value: 'Central Electricity Authority safety regulations on every HT and LT job' },
+          { label: 'Approvals', value: 'Drawings and documents prepared for Electrical Inspectorate review' },
+        ],
+      },
+    },
+  ],
   stepsTitle: 'From survey to energisation, in five steps.',
   steps: [
     { title: 'Survey and load study', text: 'We visit the site, record the existing supply and equipment, and work out the connected and maximum demand.' },
@@ -149,9 +215,23 @@ export const sanyog: DivisionContent = {
     ['Connections', 'New power supply connections; temporary supply for construction'],
     ['Load and phase', 'Sanctioned load extensions (for lifts, EV charging, air conditioning); single-phase to three-phase conversion'],
     ['Records and billing', 'Change of name and billing address; electricity bill and tariff category issues'],
-    ['Complaints and compliance', 'CGRF consumer grievances; HT complaints; meter disconnections; certified wiring test reports'],
+    ['Complaints and compliance', 'CGRF consumer grievances; HT complaints; meter disconnections; wiring test reports arranged through a licensed electrical contractor'],
     ['Licences', 'Electrical licence applications through the PWD Electrical Inspectorate'],
   ],
+  facts: [
+    { value: '4', label: 'Mumbai distribution utilities we work with' },
+    { value: '2', label: 'grievance forums: the CGRF and the Ombudsman' },
+  ],
+  tiles: {
+    eyebrow: 'What we handle',
+    title: 'From a new meter to a disputed bill.',
+    items: [
+      { photo: 'sanyog-meter-analog', title: 'Connections and meters', text: 'New connections, temporary supply for construction, and meter changes.' },
+      { photo: 'grid-distribution', title: 'Load and phase', text: 'Load extensions for lifts, EV chargers and air conditioning; single-phase to three-phase conversion.' },
+      { photo: 'agrim-plans', title: 'Bills and tariff category', text: 'Change of name or billing address, wrong bills and tariff category corrections.' },
+      { photo: 'grid-electrician', title: 'Complaints and inspections', text: 'CGRF grievances, HT complaints, disconnections, and wiring test reports arranged through a licensed contractor.' },
+    ],
+  },
   proof: {
     eyebrow: 'Where we work',
     title: 'Four utilities, one desk.',
@@ -183,6 +263,20 @@ export const sanyog: DivisionContent = {
       },
     ],
   },
+  features: [
+    {
+      kind: 'flow',
+      eyebrow: 'Grievances',
+      title: 'When the utility gets it wrong, we take it to the forum.',
+      numbered: true,
+      steps: [
+        { title: 'Complaint to the utility', text: 'In writing, with the account number and documents' },
+        { title: 'CGRF', text: "The utility's Consumer Grievance Redressal Forum" },
+        { title: 'Electricity Ombudsman', text: 'Appeal against a CGRF order, under MERC regulations' },
+      ],
+      note: 'CGRF decisions depend on the facts of each case. We tell you at the start if a case is weak.',
+    },
+  ],
   stepsTitle: 'One file in, one result out.',
   steps: [
     { title: 'Document check', text: 'We review what you have against what the utility will ask for, and give you one checklist.' },
@@ -239,6 +333,21 @@ export const tvasta: DivisionContent = {
     ['Interior design', 'Modular kitchens, carpentry, wardrobes and storage, wall finishes, architectural lighting'],
     ['Turnkey execution', 'Civil work, electrical fit-out, coordinated site execution, finishing'],
   ],
+  facts: [
+    { value: '3', label: 'tiers: Standard, Premium and Luxury' },
+    { value: '6', label: 'architects and interior designers on the team' },
+  ],
+  tiles: {
+    eyebrow: 'Spaces we design',
+    title: 'Homes and workplaces, room by room.',
+    items: [
+      { photo: 'tvasta-kitchen', title: 'Kitchens', text: 'Modular kitchens in parallel, L-shaped and island layouts, with storage planned to the inch.' },
+      { photo: 'tvasta-living-2', title: 'Living and dining', text: 'Layouts, wall finishes, storage and layered lighting.' },
+      { photo: 'tvasta-kitchen-2', title: 'Open-plan homes', text: 'Living and kitchen planned as one space, with finishes that carry through.' },
+      { photo: 'tvasta-office', title: 'Workplaces', text: 'Offices planned and fitted out as one scope, from layout to lighting.' },
+    ],
+    caption: 'We also design bedrooms (wardrobes, loft storage, headboards) and balconies and terraces (built-in seating, planting and concealed lighting).',
+  },
   proof: {
     eyebrow: 'Three tiers',
     title: 'Every project in one of three tiers, then tailored to the space.',
@@ -248,10 +357,10 @@ export const tvasta: DivisionContent = {
         headers: ['', 'Standard', 'Premium', 'Luxury'],
         rows: [
           ['Finishes', 'Laminate', 'Acrylic, PU or veneer', 'Natural stone, veneer, bespoke'],
-          ['Hardware', 'Quality basic fittings', 'Soft-close, branded', 'Premium imported, automated'],
+          ['Hardware', 'Quality basic fittings', 'Soft-close, branded', 'Premium fittings, with automation if wanted'],
           ['Lighting', 'Functional', 'Layered and cove', 'Architectural and scene-based'],
           ['Design input', 'Standard layouts', 'Custom layouts', 'Fully bespoke design'],
-          ['Best for', 'Value-focused homes', 'Modern family homes', 'Signature residences'],
+          ['Best for', 'Rental and first homes', 'Family homes and offices', 'Homes where every detail is custom'],
         ],
         caption: 'Source: Tvasta portfolio, October 2026.',
       },
@@ -283,7 +392,7 @@ export const tvasta: DivisionContent = {
     },
     {
       q: 'Which tier is right for us?',
-      a: 'Standard suits value-focused homes, Premium suits modern family homes and Luxury suits signature residences. We agree the tier with you before any drawings are made.',
+      a: 'Standard suits rental and first homes, Premium suits family homes and offices, and Luxury suits homes where every detail is custom. We agree the tier with you before any drawings are made.',
     },
     {
       q: 'Who does the electrical work?',
@@ -322,6 +431,21 @@ export const emudran: DivisionContent = {
     ['Commercial print', 'Stationery, brochures and catalogues; ID cards, certificates and registers; bill and receipt books; digital and four-colour offset; large-format, backlit and vehicle graphics'],
     ['Digital and field', 'Business websites and landing pages; domain, hosting and email set-up; vehicle and glass branding'],
   ],
+  facts: [
+    { value: '22+', label: 'years of print and production experience' },
+    { value: '3', label: 'scripts: English, Marathi and Hindi' },
+    { value: '50+', label: 'print and production outputs' },
+  ],
+  tiles: {
+    eyebrow: 'What we make',
+    title: 'From the first concept to the installed piece.',
+    items: [
+      { title: 'Brand identity', text: 'Logos, brand guides, campaign media, company profiles and brochures.' },
+      { photo: 'emudran-packaging', title: 'Packaging', text: 'Product packaging, boxes and labels, prepared for the board and finish they will be printed on.' },
+      { photo: 'emudran-print', title: 'Commercial print', text: 'Stationery, brochures, catalogues, registers and receipt books, in digital and four-colour offset.' },
+      { title: 'Signage and display', text: '3D acrylic and steel letters, LED and glow boards, banners, and society and site signage, surveyed and mounted.' },
+    ],
+  },
   proof: {
     eyebrow: 'Creative experience',
     title: "Our Creative Director's work spans consumer and international brands.",
@@ -334,6 +458,17 @@ export const emudran: DivisionContent = {
           { label: 'Creative direction', value: 'Manish Ajgaonkar, Creative Director: art direction, FMCG packaging and brand identity' },
           { label: 'Production', value: 'Hemangi Patil: 22+ years in print, signage, large-format and field work' },
         ],
+      },
+      {
+        kind: 'facts',
+        title: 'Production capability',
+        rows: [
+          { label: 'Print', value: 'Offset and digital' },
+          { label: 'Signage', value: 'LED, acrylic and neon' },
+          { label: 'Large format', value: 'Flex, vinyl and backlit' },
+          { label: 'Field', value: 'Survey, mounting and on-site branding' },
+        ],
+        caption: 'Source: eMudran profile, October 2026.',
       },
       {
         kind: 'table',
@@ -399,6 +534,17 @@ export const agrim: DivisionContent = {
     ['Understanding financial needs', "Explaining the project's costs and cash needs in plain terms"],
     ['Coordination', "Aligning the project scope, schedule and paperwork with the client's lender"],
   ],
+  tiles: {
+    eyebrow: 'Where it helps',
+    title: 'One set of numbers for the project and the loan file.',
+    items: [
+      { photo: 'solis-rooftop', title: 'A solar plant (Solis)', text: "The loan requirement is built from the plant's cost sheet and expected generation, so repayment can be shown against savings." },
+      { photo: 'grid-switchgear', title: 'An electrical upgrade (Grid Apex)', text: 'Advances are planned against the milestones in the installation schedule.' },
+      { photo: 'tvasta-living', title: 'An interior fit-out (Tvasta)', text: 'The requirement follows the tier and the itemised quote, stage by stage.' },
+      { title: 'Your own project', text: "Where the work is done by another contractor, we work from that contractor's quote in the same way." },
+    ],
+    caption: 'Illustrative examples of how Agrim works with each division; not descriptions of specific client cases.',
+  },
   proof: {
     eyebrow: 'What a client receives',
     title: 'One page that ties the loan to the work.',
@@ -426,7 +572,6 @@ export const agrim: DivisionContent = {
           { label: 'Approvals', value: 'Agrim does not approve, guarantee or promise any loan' },
           { label: 'Terms', value: 'Agrim does not quote interest rates or approval times' },
         ],
-        caption: "The lender is the client's own bank or NBFC. Agrim is not part of the lending decision.",
       },
       {
         kind: 'table',
@@ -443,6 +588,21 @@ export const agrim: DivisionContent = {
       },
     ],
   },
+  features: [
+    {
+      kind: 'flow',
+      eyebrow: 'Where Agrim fits',
+      title: 'We prepare the file. The lender decides.',
+      intro: "Agrim sits between the project and the client's lender. We make sure the loan or advance requirement matches the project the engineering team has priced, so the lender sees one consistent set of numbers.",
+      steps: [
+        { title: 'Project team', text: 'Solis, Grid Apex or Tvasta: the cost sheet and schedule' },
+        { title: 'Agrim', text: 'The loan or advance requirement file', tone: 'highlight' },
+        { title: 'Client', text: 'Reviews, signs and submits the file' },
+        { title: 'Lender', text: "The client's bank or NBFC, which decides", tone: 'muted' },
+      ],
+      caption: "The lender is the client's own bank or NBFC. Agrim is not part of the lending decision.",
+    },
+  ],
   stepsTitle: 'Four steps, alongside the project.',
   steps: [
     { title: 'Understand the requirement', text: 'We find out what the client needs to fund, when, and how much they will contribute themselves.' },
@@ -504,9 +664,18 @@ export const solis: DivisionContent = {
     ['BIPV glass', 'Solar glass for canopies, skylights and facades that generates power and lets in daylight'],
     ['EV charging', 'AC and DC chargers for housing societies, offices and commercial sites, with the load extension handled through Sanyog'],
     ['Net metering and subsidies', 'Net-metering applications with the utility, and PM Surya Ghar subsidy paperwork for homes and housing societies'],
-    ['Advice for public bodies', 'Feasibility, planning and procurement advice for clean-energy projects'],
     ['On-site waste treatment', 'Segregation, collection and on-site treatment of organic and inorganic waste for housing societies, campuses and businesses'],
   ],
+  tiles: {
+    eyebrow: 'What we build',
+    title: 'Four kinds of clean-energy infrastructure.',
+    items: [
+      { photo: 'solis-install', title: 'Solar power plants', text: 'On-grid plants on factory, office, institutional and housing society roofs, sized to the site and the load.' },
+      { photo: 'solis-carport', title: 'Elevated pergolas and canopies', text: 'Panels raised on a steel frame high enough to walk or park under, so the terrace or parking stays in use.' },
+      { photo: 'solis-bipv', title: 'BIPV glass', text: 'Solar glass for canopies, skylights and facades that generates power and lets in daylight.' },
+      { photo: 'solis-ev', title: 'EV charging', text: 'AC and DC chargers for housing societies, offices and commercial sites, with the load extension handled through Sanyog.' },
+    ],
+  },
   proof: {
     eyebrow: 'Track record',
     title: `${solarFact?.value} of solar delivered across ${formatCount(solarPlants.length)} plants.`,
