@@ -17,7 +17,7 @@ export const licencesPage: DivisionContent = {
   href: '/licenses',
   name: 'Connections and licences',
   description:
-    'Sanyog files new power connections, load extensions, phase changes, name and billing changes and electrical licence applications with BEST, Adani Electricity, Tata Power and MSEDCL.',
+    'Sanyog files new connections, load and phase changes, name changes and electrical licences with BEST, Adani Electricity, Tata Power and MSEDCL.',
   title: 'New connections, load changes and licences, filed once.',
   intro:
     'Sanyog prepares the paperwork, coordinates the technical requirements and follows up with the utility until the sanction is issued and the change shows on your bill. We work with BEST, Adani Electricity, Tata Power and MSEDCL, and file electrical licence applications through the PWD Electrical Inspectorate.',
@@ -57,7 +57,7 @@ export const grievancesPage: DivisionContent = {
   href: '/electricity-grievances',
   name: 'Bill disputes and grievances',
   description:
-    'Sanyog takes disputed bills, faulty meters, disconnection notices and HT complaints to BEST, Adani Electricity, Tata Power or MSEDCL, then to the CGRF and the Electricity Ombudsman if needed.',
+    'Sanyog takes disputed bills, faulty meters and disconnection notices to your utility, then to the CGRF and the Electricity Ombudsman if needed.',
   title: 'Disputed bills and faulty meters, taken to the CGRF if the utility will not fix them.',
   intro:
     'Sanyog handles disputed bills, faulty meters, disconnection notices and HT complaints. We complain to the utility in writing first, then take the case to its Consumer Grievance Redressal Forum (CGRF) if needed, and to the Electricity Ombudsman on appeal.',
@@ -111,7 +111,7 @@ export const spacePlanningPage: DivisionContent = {
   href: '/space-planning',
   name: 'Space planning and fit-out',
   description:
-    'Tvasta plans layouts, materials and lighting for homes and workplaces in Mumbai, then quotes them item by item in one of three tiers: Standard, Premium or Luxury.',
+    'Tvasta plans layouts, materials and lighting for Mumbai homes and workplaces, then quotes them item by item: Standard, Premium or Luxury.',
   title: 'Layouts and drawings signed off before anything is built.',
   intro:
     "Tvasta's architects and interior designers plan the layout, the materials and finishes and the lighting, room by room, for homes and workplaces. The plan becomes an itemised quote in one of three tiers, so two quotes can be compared line by line before work starts.",
@@ -130,7 +130,7 @@ export const printPage: DivisionContent = {
   href: '/print-management',
   name: 'Print and signage orders',
   description:
-    'eMudran specifies, proofs, prints, fabricates and installs commercial print, signage and large-format work in Mumbai, in English, Marathi and Hindi.',
+    'eMudran specifies, proofs, prints and installs commercial print, signage and large-format work in Mumbai, in English, Marathi and Hindi.',
   title: 'Every job specified before it is quoted.',
   intro:
     'eMudran manages commercial print, signage and large-format work from pre-press to the installed piece. Artwork is prepared for the substrate and finish it will meet, a physical proof comes before any long run, and signage is surveyed and mounted on site.',

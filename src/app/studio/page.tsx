@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/content/seo';
 import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -13,11 +14,11 @@ import { DIVISION_ONE_LINERS, PROOF_LINE } from '@/content/messaging';
 import { divisions } from '@/content/divisions';
 import { ArrowUpRight, Download, Phone } from 'lucide-react';
 
-export const metadata: Metadata = {
-  title: 'Studio | JC Apex Ventures',
-  description:
-    'Our office at Tower 1, One International Centre, Elphinstone, Mumbai, the people who lead the work, and the inbox for each division.',
-};
+export const metadata: Metadata = pageMetadata({
+  title: 'Studio',
+  description: 'Our office at Tower 1, One International Centre, Elphinstone, Mumbai, the people who lead the work, and the inbox for each division.',
+  path: '/studio',
+});
 
 const MAPS_URL =
   'https://www.google.com/maps/search/?api=1&query=One+International+Centre+Tower+1+Senapati+Bapat+Marg+Elphinstone+Mumbai+400013';
@@ -87,7 +88,7 @@ export default function StudioPage() {
   }));
 
   return (
-    <main className="studio-canvas relative min-h-screen">
+    <main id="main-content" className="studio-canvas relative min-h-screen">
       <Navbar />
 
       <section style={{ position: 'relative', overflow: 'hidden', padding: 'clamp(136px, 18vh, 176px) 24px clamp(64px, 9vh, 96px)', borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>

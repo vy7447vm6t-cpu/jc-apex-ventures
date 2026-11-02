@@ -75,3 +75,24 @@ export function Ambient({
     </div>
   );
 }
+
+/**
+ * Mounts its children only once they come within 600 px of the screen, and keeps them mounted
+ * after that. Used for the estimators, whose scripts are the heaviest on the page.
+ */
+export function LazyMount({ children, minHeight = 480 }: { children: React.ReactNode; minHeight?: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || show) return;
+    const observer = new IntersectionObserver(([entry]) => entry.isIntersecting && setShow(true), { rootMargin: '600px 0px' });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [show]);
+  return (
+    <div ref={ref} style={show ? undefined : { minHeight }}>
+      {show && children}
+    </div>
+  );
+}

@@ -211,7 +211,7 @@ export default function SanyogTariffAuditCalculator() {
               onChange={(e) => setUnits(Number(e.target.value))}
               style={{ width: '100%', accentColor: '#2C5ED4' }}
             />
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', color: '#888888', marginTop: '4px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', color: '#666666', marginTop: '4px' }}>
               <span>2,000 units</span>
               <span>40,000 units</span>
               <span>80,000 units</span>
@@ -244,7 +244,7 @@ export default function SanyogTariffAuditCalculator() {
               onChange={(e) => setPowerFactor(Number(e.target.value))}
               style={{ width: '100%', accentColor: audit.isPenalty ? '#DC2626' : '#16A34A' }}
             />
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', color: '#888888', marginTop: '4px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', color: '#666666', marginTop: '4px' }}>
               <span style={{ color: '#DC2626' }}>0.72 (charge)</span>
               <span>0.90 (Threshold)</span>
               <span style={{ color: '#16A34A' }}>0.99 (rebate)</span>
@@ -296,7 +296,7 @@ export default function SanyogTariffAuditCalculator() {
             {/* Grid Metrics */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', marginBottom: '18px' }}>
               <div style={{ backgroundColor: '#FFFFFF', padding: '12px 14px', borderRadius: '12px', border: '1px solid rgba(44, 94, 212, 0.15)' }}>
-                <div style={{ fontSize: '0.70rem', color: '#777777' }}>
+                <div style={{ fontSize: '0.70rem', color: '#666666' }}>
                   {audit.isPenalty ? 'Annual PF Penalty' : 'Annual PF Incentive'}
                 </div>
                 <div
@@ -315,7 +315,7 @@ export default function SanyogTariffAuditCalculator() {
               </div>
 
               <div style={{ backgroundColor: '#FFFFFF', padding: '12px 14px', borderRadius: '12px', border: '1px solid rgba(44, 94, 212, 0.15)' }}>
-                <div style={{ fontSize: '0.70rem', color: '#777777' }}>Energy rate used</div>
+                <div style={{ fontSize: '0.70rem', color: '#666666' }}>Energy rate used</div>
                 <div style={{ fontSize: '1.15rem', fontWeight: 700, color: '#111111', marginTop: '2px' }}>
                   Rs {audit.currentRate.toFixed(2)} / kWh
                 </div>
@@ -324,7 +324,7 @@ export default function SanyogTariffAuditCalculator() {
 
               {category === 'commercial' && (
                 <div style={{ backgroundColor: '#FFFFFF', padding: '12px 14px', borderRadius: '12px', border: '1px solid rgba(44, 94, 212, 0.15)', gridColumn: 'span 2' }}>
-                  <div style={{ fontSize: '0.70rem', color: '#777777' }}>Wrong tariff category</div>
+                  <div style={{ fontSize: '0.70rem', color: '#666666' }}>Wrong tariff category</div>
                   <div style={{ fontSize: '1.20rem', fontWeight: 700, color: '#047857', marginTop: '2px' }}>
                     Rs {audit.annualMisclassificationExposure.toLocaleString('en-IN')} / year
                   </div>

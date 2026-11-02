@@ -50,7 +50,7 @@ export default function GroundedWhy() {
 
       {/* The hero's louvre slats carry on faintly behind this section, in Deep Gold. */}
       <Ambient desktopOnly>
-        <MicroSlats count={24} color="#8C733E" opacity={0.1} zIndex={0} showTicks />
+        <MicroSlats count={24} color="#8C6D23" opacity={0.1} zIndex={0} showTicks />
       </Ambient>
 
       <div style={{ maxWidth: '1240px', margin: '0 auto', width: '100%', position: 'relative', zIndex: 1 }}>

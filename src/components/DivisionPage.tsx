@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import { logoSize } from '@/content/logos';
 import Link from 'next/link';
 import Image from 'next/image';
 import Navbar from '@/components/Navbar';
@@ -12,12 +13,16 @@ import { divisions, type DivisionContent, type FeatureSection, type ProofBlock }
 import { DIVISION_ONE_LINERS, PROOF_LINE } from '@/content/messaging';
 import { ATTRIBUTION_LINES, PROJECTS, clientGroups, isShowable } from '@/content/track-record';
 import { PHOTOS, photoCaption, photoCredit, type PhotoKey } from '@/content/photos';
-import PrintCalculator from '@/components/PrintCalculator';
-import InteriorCalculator from '@/components/InteriorCalculator';
-import GridApexSubstationCalculator from '@/components/GridApexSubstationCalculator';
-import SanyogTariffAuditCalculator from '@/components/SanyogTariffAuditCalculator';
-import AgrimDprSimulator from '@/components/AgrimDprSimulator';
-import SolarCalculator, { type CalculationResult } from '@/components/SolarCalculator';
+import dynamic from 'next/dynamic';
+import type { CalculationResult } from '@/components/SolarCalculator';
+
+// The estimators are the heaviest scripts on a division page: split out and mounted near the screen.
+const PrintCalculator = dynamic(() => import('@/components/PrintCalculator'), { ssr: false });
+const InteriorCalculator = dynamic(() => import('@/components/InteriorCalculator'), { ssr: false });
+const GridApexSubstationCalculator = dynamic(() => import('@/components/GridApexSubstationCalculator'), { ssr: false });
+const SanyogTariffAuditCalculator = dynamic(() => import('@/components/SanyogTariffAuditCalculator'), { ssr: false });
+const AgrimDprSimulator = dynamic(() => import('@/components/AgrimDprSimulator'), { ssr: false });
+const SolarCalculator = dynamic(() => import('@/components/SolarCalculator'), { ssr: false });
 import SolarPlants from '@/components/SolarPlants';
 import OnGridDiagram from '@/components/OnGridDiagram';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
@@ -27,7 +32,7 @@ import WorkMap from '@/components/WorkMap';
 import FlowDiagram from '@/components/FlowDiagram';
 import { ElectricBorder, LineSidebar, SpecularButton } from '@/components/react-bits';
 import AnimatedCounter from '@/components/AnimatedCounter';
-import { Ambient, GradientASCII, GridScan, MicroSlats, NetworkGraph, PatternWaves, ShapeWaves } from '@/components/effects';
+import { Ambient, GradientASCII, GridScan, LazyMount, MicroSlats, NetworkGraph, PatternWaves, ShapeWaves } from '@/components/effects';
 import { formatCount } from '@/content/track-record';
 import { ArrowRight, ArrowUpRight, ChevronRight, Mail, Phone } from 'lucide-react';
 
@@ -292,7 +297,7 @@ function HeroEffect({ division, accent }: { division: string; accent: string }) 
     case 'tvasta':
       return (
         <Ambient desktopOnly opacity={0.55}>
-          <GridScan lightMode linesColor="#C9CDD2" scanColor={accent} cells={8} depth={3} scanDuration={3.2} scanDelay={2.4} clickEffect="none" className="w-full h-full" />
+          <GridScan dpr={1} lightMode linesColor="#C9CDD2" scanColor={accent} cells={8} depth={3} scanDuration={3.2} scanDelay={2.4} clickEffect="none" className="w-full h-full" />
         </Ambient>
       );
     case 'emudran':
@@ -304,7 +309,7 @@ function HeroEffect({ division, accent }: { division: string; accent: string }) 
     case 'agrim':
       return (
         <Ambient desktopOnly opacity={0.4}>
-          <GradientASCII lightMode characters="0123456789%" colors={[accent, '#06281E', accent]} shape="waves" cellSize={14} gradientOpacity={0} glyphOpacity={0.9} grain={0} mouseInteraction />
+          <GradientASCII dpr={1} lightMode characters="0123456789%" colors={[accent, '#06281E', accent]} shape="waves" cellSize={14} gradientOpacity={0} glyphOpacity={0.9} grain={0} mouseInteraction />
         </Ambient>
       );
     default:
@@ -470,7 +475,7 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
   );
 
   return (
-    <main className={canvasClassName || theme.canvasClass} style={{ background: 'var(--color-bg)', minHeight: '100vh' }}>
+    <main id="main-content" className={canvasClassName || theme.canvasClass} style={{ background: 'var(--color-bg)', minHeight: '100vh' }}>
       <Navbar />
 
       <div className={theme.typeClass}>
@@ -507,7 +512,7 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
               <i className="corner-mark bl" />
               <i className="corner-mark br" />
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
-                {logo && <img src={logo.src} alt={parent?.name ?? data.name} style={{ height: `${logo.height}px`, width: 'auto', display: 'block', borderRadius: 0 }} />}
+                {logo && <img src={logo.src} alt={parent?.name ?? data.name} {...logoSize(logo.src)} style={{ height: `${logo.height}px`, width: 'auto', display: 'block', borderRadius: 0 }} />}
                 <span aria-hidden="true" style={{ width: '2px', height: '40px', backgroundColor: theme.ruleColor }} />
               </div>
               <h1
@@ -592,7 +597,7 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
                       {tile.photo ? (
                         <Image src={PHOTOS[tile.photo].src} alt={PHOTOS[tile.photo].subject} fill sizes="(max-width: 760px) 80vw, 25vw" style={{ objectFit: 'cover' }} />
                       ) : (
-                        logo && <img src={logo.src} alt="" className="tile-logo" />
+                        logo && <img src={logo.src} alt="" {...logoSize(logo.src)} loading="lazy" className="tile-logo" />
                       )}
                     </div>
                     <h3>{tile.title}</h3>
@@ -657,7 +662,7 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
         <section className="section" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
           <div className="container">
             <SectionHeading eyebrow="Estimate" title={estimator.title} intro={estimator.intro} />
-            {estimator.render({ onUse: setEstimate })}
+            <LazyMount minHeight={720}>{estimator.render({ onUse: setEstimate })}</LazyMount>
           </div>
         </section>
       )}

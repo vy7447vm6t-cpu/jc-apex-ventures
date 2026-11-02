@@ -195,7 +195,7 @@ export default function AgrimDprSimulator() {
                   onChange={(e) => setEvBays(Number(e.target.value))}
                   style={{ width: '100%', accentColor: '#047857' }}
                 />
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', color: '#888888', marginTop: '4px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', color: '#666666', marginTop: '4px' }}>
                   <span>2 Bays</span>
                   <span>10 Bays</span>
                   <span>20 Bays</span>
@@ -285,7 +285,7 @@ export default function AgrimDprSimulator() {
                   onChange={(e) => setAgroCapacityMt(Number(e.target.value))}
                   style={{ width: '100%', accentColor: '#047857' }}
                 />
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', color: '#888888', marginTop: '4px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', color: '#666666', marginTop: '4px' }}>
                   <span>1,000 MT</span>
                   <span>5,000 MT</span>
                   <span>10,000 MT</span>
@@ -363,7 +363,7 @@ export default function AgrimDprSimulator() {
             {/* Grid Metrics */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', marginBottom: '18px' }}>
               <div style={{ backgroundColor: '#FFFFFF', padding: '12px 14px', borderRadius: '12px', border: '1px solid rgba(4, 120, 87, 0.15)' }}>
-                <div style={{ fontSize: '0.70rem', color: '#777777' }}>Bankable DSCR</div>
+                <div style={{ fontSize: '0.70rem', color: '#666666' }}>Bankable DSCR</div>
                 <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#047857', marginTop: '2px' }}>
                   {modeling.dscr}x
                 </div>
@@ -371,7 +371,7 @@ export default function AgrimDprSimulator() {
               </div>
 
               <div style={{ backgroundColor: '#FFFFFF', padding: '12px 14px', borderRadius: '12px', border: '1px solid rgba(4, 120, 87, 0.15)' }}>
-                <div style={{ fontSize: '0.70rem', color: '#777777' }}>Annual EBITDA</div>
+                <div style={{ fontSize: '0.70rem', color: '#666666' }}>Annual EBITDA</div>
                 <div style={{ fontSize: '1.20rem', fontWeight: 700, color: '#111111', marginTop: '2px' }}>
                   Rs {(modeling.annualEbitda / 100000).toFixed(1)} Lakhs
                 </div>
@@ -379,7 +379,7 @@ export default function AgrimDprSimulator() {
               </div>
 
               <div style={{ backgroundColor: '#FFFFFF', padding: '12px 14px', borderRadius: '12px', border: '1px solid rgba(4, 120, 87, 0.15)', gridColumn: 'span 2' }}>
-                <div style={{ fontSize: '0.70rem', color: '#777777' }}>Eligible Statutory Subsidies</div>
+                <div style={{ fontSize: '0.70rem', color: '#666666' }}>Eligible Statutory Subsidies</div>
                 <div style={{ fontSize: '1.20rem', fontWeight: 700, color: '#D97706', marginTop: '2px' }}>
                   Rs {(modeling.subsidyRs / 100000).toFixed(1)} Lakhs Subvention
                 </div>

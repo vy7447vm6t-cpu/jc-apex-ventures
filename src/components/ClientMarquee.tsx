@@ -47,9 +47,23 @@ export default function ClientMarquee({ tone = 'dark' }: ClientMarqueeProps) {
   const ink = tone === 'dark' ? '#F0F3F6' : '#111111';
   const layoutTransition = reduceMotion ? { duration: 0 } : { duration: 0.6, ease: EASE_OUT_EXPO };
 
+  // A direct media-query check as well as motion's hook, so the strip also stops when the setting
+  // changes after the page has loaded.
+  const reducedQuery = useRef(false);
+  useEffect(() => {
+    const query = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const update = () => {
+      reducedQuery.current = query.matches;
+      if (query.matches) x.set(0);
+    };
+    update();
+    query.addEventListener('change', update);
+    return () => query.removeEventListener('change', update);
+  }, [x]);
+
   useAnimationFrame((_, delta) => {
     const track = trackRef.current;
-    if (reduceMotion || open || !track) return;
+    if (reduceMotion || reducedQuery.current || open || !track) return;
     speed.current += (targetSpeed.current - speed.current) * Math.min(1, delta / 260);
     const loop = track.scrollWidth / 2;
     let next = x.get() - PIXELS_PER_MS * delta * speed.current;

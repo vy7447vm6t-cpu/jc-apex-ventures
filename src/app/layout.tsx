@@ -3,6 +3,7 @@ import { Instrument_Serif, Inter } from 'next/font/google';
 import GroundedSmoothScroll from '@/components/GroundedSmoothScroll';
 import Clippy from '@/components/Clippy';
 import './globals.css';
+import { SITE_NAME, SITE_URL } from '@/content/seo';
 
 const instrumentSerif = Instrument_Serif({
   subsets: ['latin'],
@@ -19,8 +20,13 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'JC APEX VENTURES (OPC) PVT. LTD.',
-  description: 'Consultancy, design, engineering, and execution of Electrical, Civil, and Renewable Energy projects. Multi-sector management, liaisoning, and strategic business development.',
+  metadataBase: new URL(SITE_URL),
+  title: { default: 'JC Apex Ventures | Electrical, solar, utility, interiors and print, Mumbai', template: '%s | JC Apex Ventures' },
+  description:
+    'Six divisions in one Elphinstone office: HT and LT electrical work, solar, utility filings, interiors, print and project loan files. 1 MW+ of solar, 14 hotels.',
+  applicationName: SITE_NAME,
+  openGraph: { siteName: SITE_NAME, locale: 'en_IN', type: 'website' },
+  twitter: { card: 'summary_large_image' },
 };
 
 const organizationSchema = {
@@ -65,6 +71,9 @@ export default function RootLayout({
         />
       </head>
       <body className="font-body text-[#111111] bg-[#F4F1EA]">
+        <a href="#main-content" className="skip-link">
+          Skip to the content
+        </a>
         <GroundedSmoothScroll>{children}</GroundedSmoothScroll>
         {/* The question dock, on every page; its answers come from the division profiles. */}
         <Clippy />

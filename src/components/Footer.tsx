@@ -1,11 +1,11 @@
 "use client";
 
 import React from 'react';
+import { logoSize } from '@/content/logos';
 import Link from 'next/link';
 import Logo from './Logo';
 import { Phone, Mail, MapPin, ArrowUpRight, Download } from 'lucide-react';
 import { SpecularButton } from '@/components/react-bits';
-import { PROOF_LINE } from '@/content/messaging';
 
 // Labels are the division page titles.
 const DIVISION_FOOTER_LOGOS = [
@@ -190,6 +190,8 @@ export default function Footer() {
                 >
                   <img
                     src={div.logo}
+                    {...logoSize(div.logo)}
+                    loading="lazy"
                     alt={`${div.name} official logo`}
                     style={{
                       filter: div.name === 'Sanyog' ? 'brightness(0) invert(1)' : 'none',
@@ -394,7 +396,7 @@ export default function Footer() {
                 fontFamily: 'var(--font-sans, Inter, sans-serif)',
               }}
             >
-              {PROOF_LINE}
+              Incorporated in 2023. The company is new; the experience behind it is not.
             </p>
           </div>
         </div>
@@ -442,8 +444,8 @@ export default function Footer() {
         className="relative z-10 w-full max-w-[1340px] mx-auto flex flex-col items-center"
         style={{
           transform: `scale(${0.80 + revealProgress * 0.20}) translateY(${(1 - revealProgress) * 20}px)`,
-          opacity: 0.25 + revealProgress * 0.75,
-          transition: 'transform 0.12s ease-out, opacity 0.12s ease-out',
+          // Scale and lift only: fading the wordmark left its small print below contrast until fully scrolled.
+          transition: 'transform 0.12s ease-out',
           transformOrigin: 'center center',
         }}
       >
@@ -509,7 +511,7 @@ export default function Footer() {
           </svg>
         </div>
 
-        <div className="text-[9px] sm:text-[11px] tracking-[0.16em] uppercase text-white/40 mt-3 sm:mt-4 font-sans text-center">
+        <div className="text-[11px] sm:text-[11px] tracking-[0.16em] uppercase text-white/70 mt-3 sm:mt-4 font-sans text-center">
           ONE INTERNATIONAL CENTRE · ELPHINSTONE · MUMBAI 400013
         </div>
       </div>

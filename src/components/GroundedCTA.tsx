@@ -48,7 +48,7 @@ export default function GroundedCTA({ onOpenConsultation }: GroundedCTAProps) {
         }}
       >
         <Ambient desktopOnly opacity={0.85}>
-          <GridScan linesColor="#2B3445" scanColor="#C29F53" cells={8} depth={3} scanDuration={2.8} scanDelay={2} clickEffect="none" className="w-full h-full" />
+          <GridScan dpr={1} linesColor="#2B3445" scanColor="#C29F53" cells={8} depth={3} scanDuration={2.8} scanDelay={2} clickEffect="none" className="w-full h-full" />
         </Ambient>
         <div style={{ position: 'relative', zIndex: 1 }}>
         <SectionEyebrow tone="dark" inset>

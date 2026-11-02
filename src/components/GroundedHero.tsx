@@ -123,7 +123,7 @@ export default function GroundedHero({ onOpenConsultation }: GroundedHeroProps =
       </div>
 
       {/* The six divisions, each a link to its page. */}
-      <nav aria-label="Divisions" style={{ position: 'relative', zIndex: 2, maxWidth: '1240px', margin: '0 auto', width: '100%', padding: '48px 24px 32px' }}>
+      <nav aria-label="Divisions" className="hero-division-nav" style={{ position: 'relative', zIndex: 2, maxWidth: '1240px', margin: '0 auto', width: '100%', padding: '48px 24px 32px' }}>
         <ul className="hero-division-list">
           {HERO_DIVISIONS.map((division) => (
             <li key={division.slug}>

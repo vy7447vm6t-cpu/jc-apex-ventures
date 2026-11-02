@@ -57,12 +57,12 @@ export default function SolarGenerationCurve({
           <span className="text-[11px] uppercase tracking-[0.14em] font-semibold text-[#8C6D23]">
             Illustrative · generation through the day
           </span>
-          <h4
+          <h3
             className="text-2xl font-normal text-[#111111] mt-1 tracking-tight"
             style={{ fontFamily: "var(--font-serif-display), 'Instrument Serif', Georgia, serif" }}
           >
             Diurnal Irradiance &amp; Generation Curve ({Number(capacityKw.toFixed(2))} kWp)
-          </h4>
+          </h3>
         </div>
 
         {/* Season selector */}
@@ -156,7 +156,7 @@ export default function SolarGenerationCurve({
                   x={p.x}
                   y={chartHeight - 10}
                   textAnchor="middle"
-                  className="text-[9px] fill-[#777777] font-sans"
+                  className="text-[9px] fill-[#666666] font-sans"
                 >
                   {p.hour}
                 </text>

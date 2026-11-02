@@ -27,9 +27,10 @@ export default function SpecularButton({
   const buttonRef = useRef<HTMLButtonElement | HTMLAnchorElement>(null);
 
   const baseStyles =
-    'relative inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full font-sans text-sm font-semibold transition-colors duration-150 cursor-pointer select-none disabled:opacity-50 disabled:pointer-events-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C29F53]';
+    `specular-button is-${variant} relative isolate overflow-hidden inline-flex items-center justify-center gap-2.5 px-6 py-3.5 min-h-[44px] rounded-full font-sans text-sm font-semibold transition-colors duration-150 cursor-pointer select-none disabled:opacity-50 disabled:pointer-events-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C29F53]`;
 
-  // Flat buttons (brand guidelines 2.5): Ink fill or outline, a 150 ms colour change, nothing else.
+  // Flat buttons: Ink fill or outline. On hover a fill wipes in from the left and the arrow nudges
+  // forward (globals.css, .specular-button).
   let variantStyles = '';
   if (variant === 'dark') {
     variantStyles = 'bg-[#111111] border border-[#111111] hover:bg-[#000000]';
@@ -54,7 +55,7 @@ export default function SpecularButton({
         </span>
         {icon && (
           <span
-            className="flex items-center"
+            className="specular-button-icon flex items-center"
             style={{ color: textColor }}
           >
             {icon}

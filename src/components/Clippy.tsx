@@ -329,7 +329,7 @@ export default function Clippy() {
                 <span
                   style={{
                     fontSize: '0.72rem',
-                    color: '#777777',
+                    color: '#666666',
                     fontFamily: 'var(--font-sans, Inter, sans-serif)',
                     fontVariantNumeric: 'tabular-nums',
                     display: 'block',
@@ -574,7 +574,7 @@ export default function Clippy() {
                       <div
                         style={{
                           fontSize: '0.72rem',
-                          color: '#777777',
+                          color: '#666666',
                           whiteSpace: 'nowrap',
                           overflow: 'hidden',
                           textOverflow: 'ellipsis',
@@ -584,7 +584,7 @@ export default function Clippy() {
                         {d.desc}
                       </div>
                     </div>
-                    <ArrowUpRight size={14} color="#888888" />
+                    <ArrowUpRight size={14} color="#666666" />
                   </Link>
                 );
               })}
@@ -609,7 +609,7 @@ export default function Clippy() {
           cursor: 'pointer',
           transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
         }}
-        aria-label={isOpen ? 'Close questions' : 'Ask JC Apex a question'}
+        aria-label={isOpen ? 'Close questions' : 'Ask a question'}
         aria-expanded={isOpen}
         aria-haspopup="dialog"
       >

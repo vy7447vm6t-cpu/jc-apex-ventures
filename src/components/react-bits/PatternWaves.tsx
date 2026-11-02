@@ -96,7 +96,8 @@ const ATLAS_TILE = 128;
 const WAVE_UNIT = 520;
 const RIPPLE_CELL = 8;
 const RIPPLE_RATE = 60;
-const PIXEL_BUDGET = 4.5e6;
+// Lowered from 4.5e6: the halftone reads the same at this resolution and the hero keeps 60 fps.
+const PIXEL_BUDGET = 1.8e6;
 const INTRO_SECONDS = 2;
 
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);

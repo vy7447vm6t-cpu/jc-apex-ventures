@@ -186,7 +186,7 @@ export default function MagicBento({
                     style={{
                       backgroundColor: 'rgba(194, 159, 83, 0.08)',
                       border: '1px solid rgba(194, 159, 83, 0.24)',
-                      color: '#8C733E',
+                      color: '#8C6D23',
                     }}
                   >
                     {card.icon}
@@ -194,7 +194,7 @@ export default function MagicBento({
                 )}
               </div>
 
-              <h4
+              <h3
                 style={{
                   color: dark ? '#FFFFFF' : '#111111',
                   fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
@@ -206,7 +206,7 @@ export default function MagicBento({
                 }}
               >
                 {card.title}
-              </h4>
+              </h3>
               <p
                 style={{
                   color: dark ? '#C9D1D9' : '#4A4A46',

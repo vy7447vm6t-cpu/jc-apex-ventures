@@ -55,7 +55,7 @@ export default function GroundedCalculators() {
 
   return (
     <section
-      id="calculators"
+      id="calculators-section"
       className="section"
       style={{
         backgroundColor: '#F4F1EA',

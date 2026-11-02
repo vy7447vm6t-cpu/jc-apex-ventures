@@ -29,13 +29,14 @@ export default function NetworkGraph({ color = '#D4AF37' }: { color?: string } =
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    // Capped pixel ratio, and setTransform rather than scale, which compounded on every resize.
     const resize = () => {
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       canvas.width = window.innerWidth * dpr;
       canvas.height = window.innerHeight * dpr;
       canvas.style.width = `${window.innerWidth}px`;
       canvas.style.height = `${window.innerHeight}px`;
-      ctx.scale(dpr, dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
     resize();
@@ -62,6 +63,10 @@ export default function NetworkGraph({ color = '#D4AF37' }: { color?: string } =
     const accentRGB = { r: parseInt(hex.slice(0, 2), 16), g: parseInt(hex.slice(2, 4), 16), b: parseInt(hex.slice(4, 6), 16) };
 
     const animate = () => {
+      if (document.hidden) {
+        animationRef.current = requestAnimationFrame(animate);
+        return;
+      }
       const currentW = window.innerWidth;
       const currentH = window.innerHeight;
       ctx.clearRect(0, 0, currentW, currentH);
@@ -117,20 +122,6 @@ export default function NetworkGraph({ color = '#D4AF37' }: { color?: string } =
         ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${accentRGB.r}, ${accentRGB.g}, ${accentRGB.b}, ${node.opacity})`;
         ctx.fill();
-
-        // Glow for larger nodes
-        if (node.radius > 2) {
-          ctx.beginPath();
-          ctx.arc(node.x, node.y, node.radius * 3, 0, Math.PI * 2);
-          const gradient = ctx.createRadialGradient(
-            node.x, node.y, 0, 
-            node.x, node.y, node.radius * 3
-          );
-          gradient.addColorStop(0, `rgba(${accentRGB.r}, ${accentRGB.g}, ${accentRGB.b}, 0.08)`);
-          gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-          ctx.fillStyle = gradient;
-          ctx.fill();
-        }
       }
 
       animationRef.current = requestAnimationFrame(animate);

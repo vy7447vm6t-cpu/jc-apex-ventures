@@ -109,7 +109,7 @@ export default function EvNetworkCapexRevenueChart({
                   x={x + barWidth / 2}
                   y={height - 10}
                   textAnchor="middle"
-                  className="text-[9px] fill-[#777777] font-sans"
+                  className="text-[9px] fill-[#666666] font-sans"
                 >
                   {item.year}
                 </text>
