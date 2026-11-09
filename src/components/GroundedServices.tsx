@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { AccordionGallery } from '@/components/react-bits';
 import SectionEyebrow from './SectionEyebrow';
-import { Ambient, ShapeWaves } from './effects';
+import { Ambient, RevealWords, ShapeWaves } from './effects';
 import { divisions } from '@/content/divisions';
 import { PHOTOS, type PhotoKey } from '@/content/photos';
 
@@ -67,7 +67,7 @@ export default function GroundedServices() {
               fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
             }}
           >
-            Who does what.
+            <RevealWords text="Who does what." />
           </h2>
           <p style={{ fontSize: 'clamp(1.02rem, 1.35vw, 1.15rem)', color: 'rgba(240, 243, 246, 0.85)', lineHeight: 1.65, margin: 0, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
             Grid Apex wires and maintains, Solis builds solar plants and EV chargers, Sanyog files with the utilities, Tvasta

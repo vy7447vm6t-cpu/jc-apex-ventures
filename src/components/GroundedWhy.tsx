@@ -4,7 +4,7 @@ import React from 'react';
 import SectionEyebrow from './SectionEyebrow';
 import AnimatedCounter from './AnimatedCounter';
 import SpotlightCard from './SpotlightCard';
-import { Ambient, MicroSlats } from './effects';
+import { Ambient, MicroSlats, RevealWords } from './effects';
 import { keyFacts, type KeyFact, type ProofStatus } from '@/content/track-record';
 import { PROOF_LINE } from '@/content/messaging';
 
@@ -69,7 +69,7 @@ export default function GroundedWhy() {
                 fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
               }}
             >
-              Mumbai has four power utilities, and each one handles a load change its own way.
+              <RevealWords text="Mumbai has four power utilities, and each one handles a load change its own way." />
             </h2>
             <div style={{ maxWidth: '640px', fontFamily: 'var(--font-sans, Inter, sans-serif)', fontSize: '1.05rem', lineHeight: 1.65, color: '#4A4A46' }}>
               <p style={{ margin: '0 0 12px' }}>

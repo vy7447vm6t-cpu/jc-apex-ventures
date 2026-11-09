@@ -5,7 +5,7 @@ import { Phone, Mail, Download } from 'lucide-react';
 import { SpecularButton } from '@/components/react-bits';
 import { divisions } from '@/content/divisions';
 import SectionEyebrow from './SectionEyebrow';
-import { Ambient, GridScan } from './effects';
+import { Ambient, GridScan, RevealWords } from './effects';
 
 // Enquiry routing, in the messaging framework's order of divisions.
 const DIVISIONS = [
@@ -65,7 +65,7 @@ export default function GroundedCTA({ onOpenConsultation }: GroundedCTAProps) {
             fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
           }}
         >
-          Send us the site address and a recent electricity bill.
+          <RevealWords text="Send us the site address and a recent electricity bill." />
         </h2>
         <p style={{ fontSize: '1.05rem', color: 'rgba(240, 243, 246, 0.85)', maxWidth: '620px', margin: '0 0 32px', lineHeight: 1.65, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
           That is enough for a first answer on solar, a load change or a bill dispute. For interiors or print, a floor plan or a

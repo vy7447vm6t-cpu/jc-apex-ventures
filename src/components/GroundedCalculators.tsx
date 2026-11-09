@@ -14,6 +14,7 @@ import {
 import { SpecularButton } from '@/components/react-bits';
 import SectionEyebrow from './SectionEyebrow';
 import UnderlineTabs from './UnderlineTabs';
+import { RevealWords } from './effects';
 import { ArrowUpRight } from 'lucide-react';
 
 // One tab per division's estimator; every figure they show is indicative.
@@ -78,7 +79,7 @@ export default function GroundedCalculators() {
               fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
             }}
           >
-            Rough numbers before anyone visits.
+            <RevealWords text="Rough numbers before anyone visits." />
           </h2>
           <p style={{ fontSize: '1.02rem', color: '#4A4A46', lineHeight: 1.65, margin: 0, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
             One estimator for each division. Every figure is indicative; the real number comes after a site visit, in a written quote.

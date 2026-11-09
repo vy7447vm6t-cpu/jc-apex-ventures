@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import ClientMarquee from './ClientMarquee';
 import { SpecularButton, TechText } from '@/components/react-bits';
-import { Ambient, MicroSlats, PatternWaves, TargetCursor, useDesktopPointer } from '@/components/effects';
+import { Ambient, MicroSlats, ParallaxLayer, PatternWaves, TargetCursor, useDesktopPointer } from '@/components/effects';
 import { DIVISION_ONE_LINERS } from '@/content/messaging';
 import { PHOTOS, photoCredit } from '@/content/photos';
 
@@ -44,14 +44,9 @@ export default function GroundedHero({ onOpenConsultation }: GroundedHeroProps =
     >
       {/* Worli and the Sea Link under a flat Night overlay, so the headline reads on phones too. */}
       <div aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: 1 }}>
-        <Image
-          src={PHOTOS['hero-mumbai'].src}
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          style={{ objectFit: 'cover' }}
-        />
+        <ParallaxLayer strength={140} zoom={0.12}>
+          <Image src={PHOTOS['hero-mumbai'].src} alt="" fill priority sizes="100vw" style={{ objectFit: 'cover' }} />
+        </ParallaxLayer>
         <div style={{ position: 'absolute', inset: 0, background: 'rgba(11, 14, 20, 0.45)' }} />
       </div>
 
