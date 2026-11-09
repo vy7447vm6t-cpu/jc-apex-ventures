@@ -338,26 +338,31 @@ const OWN = {
 
 const licensed = (key: PhotoKey): StepVisual => ({ src: PHOTOS[key].src, alt: PHOTOS[key].subject, caption: photoCaption(key) });
 
-/** One image per step, so the picture changes with the step. Steps without one show text only. */
+/** One image per step, each used nowhere else on the site, so the picture changes with the step. */
 const STEP_VISUALS: Record<string, Record<string, StepVisual>> = {
-  solis: { 'Site survey': OWN.survey, Design: OWN.pergola, Proposal: OWN.frames, 'Build and commission': licensed('solis-install') },
+  solis: { 'Site survey': OWN.survey, Design: licensed('step-solis-canopy'), Proposal: licensed('step-solis-rooftop-city'), 'Build and commission': licensed('step-solis-install') },
   'grid-apex': {
-    'Survey and load study': licensed('grid-electrician'),
-    'Design and drawings': licensed('agrim-plans'),
-    Approvals: licensed('grid-transformer'),
-    'Installation and commissioning': licensed('grid-substation'),
-    Maintenance: licensed('grid-distribution'),
+    'Survey and load study': licensed('step-grid-multimeter'),
+    'Design and drawings': licensed('step-grid-diagram'),
+    Approvals: licensed('step-grid-inspection'),
+    'Installation and commissioning': licensed('step-grid-install'),
+    Maintenance: licensed('step-grid-maintenance'),
   },
   sanyog: {
-    'Document check': licensed('agrim-plans'),
-    Application: licensed('sanyog-meter-analog'),
-    'Utility inspection': licensed('grid-electrician'),
-    Sanction: licensed('grid-distribution'),
-    'Meter installation': licensed('sanyog-meters'),
+    'Document check': licensed('step-sanyog-contract'),
+    Application: licensed('step-sanyog-stamp'),
+    'Utility inspection': licensed('step-sanyog-reading'),
+    Sanction: licensed('step-sanyog-meter-check'),
+    'Meter installation': licensed('step-sanyog-meter-fit'),
   },
-  tvasta: { Understand: licensed('tvasta-living-2'), Plan: licensed('agrim-plans'), Execute: licensed('tvasta-kitchen'), Refine: licensed('tvasta-office') },
-  emudran: { Concept: licensed('emudran-packaging'), 'Pre-press': licensed('agrim-plans'), Production: licensed('emudran-print') },
-  agrim: { 'Understand the requirement': licensed('agrim-plans'), 'Match it to the project': licensed('solis-rooftop') },
+  tvasta: { Plan: licensed('step-tvasta-plan'), Execute: licensed('step-tvasta-workshop'), Refine: licensed('step-tvasta-office') },
+  emudran: { Concept: licensed('step-emudran-studio'), 'Pre-press': licensed('step-emudran-screen'), Production: licensed('step-emudran-print'), 'Field execution': licensed('step-emudran-sign') },
+  agrim: {
+    'Understand the requirement': licensed('step-agrim-accounts'),
+    'Match it to the project': licensed('step-agrim-site'),
+    'Prepare the file': licensed('step-agrim-bank2'),
+    Coordinate: licensed('step-agrim-bank'),
+  },
 };
 
 /**
