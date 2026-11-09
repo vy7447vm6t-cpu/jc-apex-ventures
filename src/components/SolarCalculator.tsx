@@ -329,12 +329,12 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
                     }}
                   >
                     <div>
-                      <IconComponent size={20} color={isSelected ? '#111111' : '#888888'} style={{ marginBottom: '8px' }} />
+                      <IconComponent size={20} color={isSelected ? '#111111' : '#666666'} style={{ marginBottom: '8px' }} />
                       <div style={{ fontWeight: 600, fontSize: '0.88rem', color: isSelected ? '#111111' : '#333333', marginBottom: '4px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                         {item.label}
                       </div>
                     </div>
-                    <div style={{ fontSize: '0.74rem', color: isSelected ? '#666666' : '#777777', lineHeight: 1.3, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+                    <div style={{ fontSize: '0.74rem', color: isSelected ? '#666666' : '#666666', lineHeight: 1.3, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                       {item.desc}
                     </div>
                   </button>
@@ -520,7 +520,7 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
                 <p style={{ fontSize: '0.82rem', color: '#666666', lineHeight: 1.4, margin: 0, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                   Panels on low frames across the roof. Lower cost, for roofs nobody uses.
                 </p>
-                <span style={{ display: 'inline-block', marginTop: '8px', fontSize: '0.74rem', color: '#777777', fontWeight: 600, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+                <span style={{ display: 'inline-block', marginTop: '8px', fontSize: '0.74rem', color: '#666666', fontWeight: 600, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                   Base rate
                 </span>
               </button>
@@ -530,10 +530,11 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
           {/* 4. Optional Add-ons: EV Charging & BIPV Glass */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '16px' }}>
             <div>
-              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#111111', marginBottom: '8px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                4. Add EV Charging
+              <label htmlFor="solar-ev-option" style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#111111', marginBottom: '8px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+                4. Add EV charging
               </label>
               <select
+                id="solar-ev-option"
                 value={evOption}
                 onChange={(e) => setEvOption(e.target.value as EvOption)}
                 style={{
@@ -556,10 +557,11 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#111111', marginBottom: '8px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
-                5. Add BIPV Solar Glass
+              <label htmlFor="solar-bipv-option" style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#111111', marginBottom: '8px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+                5. Add BIPV solar glass
               </label>
               <select
+                id="solar-bipv-option"
                 value={bipvOption}
                 onChange={(e) => setBipvOption(e.target.value as BipvOption)}
                 style={{
@@ -605,7 +607,7 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
               borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
             }}>
               <div>
-                <span style={{ fontSize: '0.72rem', color: '#777777', letterSpacing: '0', fontWeight: 600, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+                <span style={{ fontSize: '0.72rem', color: '#666666', letterSpacing: '0', fontWeight: 600, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                   Recommended Size
                 </span>
                 <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2.2rem)', fontWeight: 400, color: '#111111', fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif', marginTop: '2px', lineHeight: 1.1 }}>
@@ -613,7 +615,7 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
                 </div>
               </div>
               <div>
-                <span style={{ fontSize: '0.72rem', color: '#777777', letterSpacing: '0', fontWeight: 600, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+                <span style={{ fontSize: '0.72rem', color: '#666666', letterSpacing: '0', fontWeight: 600, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                   Panels (550W)
                 </span>
                 <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2.2rem)', fontWeight: 400, color: '#111111', fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif', marginTop: '2px', lineHeight: 1.1 }}>
@@ -621,7 +623,7 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
                 </div>
               </div>
               <div>
-                <span style={{ fontSize: '0.72rem', color: '#777777', letterSpacing: '0', fontWeight: 600, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+                <span style={{ fontSize: '0.72rem', color: '#666666', letterSpacing: '0', fontWeight: 600, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                   Shadow-Free Area
                 </span>
                 <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2.2rem)', fontWeight: 400, color: '#111111', fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif', marginTop: '2px', lineHeight: 1.1 }}>
@@ -690,7 +692,7 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
                 <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 14px', borderRadius: '10px', background: '#FFFFFF', border: '1px solid rgba(0, 0, 0, 0.06)' }}>
                   <div>
                     <span style={{ fontSize: '0.88rem', color: '#555555', fontFamily: 'var(--font-sans, Inter, sans-serif)', display: 'block' }}>25-Year Cumulative Net Return</span>
-                    <span style={{ fontSize: '0.70rem', color: '#888888', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>4% annual tariff hike · 0.5% degradation</span>
+                    <span style={{ fontSize: '0.70rem', color: '#666666', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>4% annual tariff hike · 0.5% degradation</span>
                   </div>
                   <strong style={{ fontSize: '0.95rem', color: '#111111', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>+{formatCurrency(lifetimeSavings25YrsRs)}</strong>
                 </div>
@@ -749,7 +751,7 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
                     <span>-{formatCurrency(subsidyRs)}</span>
                   </div>
                 ) : (
-                  <div style={{ fontSize: '0.78rem', color: '#777777', lineHeight: 1.4, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+                  <div style={{ fontSize: '0.78rem', color: '#666666', lineHeight: 1.4, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                     PM Surya Ghar covers homes and housing societies, not commercial sites.
                   </div>
                 )}
@@ -772,7 +774,7 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
                   </strong>
                 </div>
 
-                <div style={{ fontSize: '0.78rem', color: '#777777', lineHeight: 1.4, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+                <div style={{ fontSize: '0.78rem', color: '#666666', lineHeight: 1.4, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
                   {propertyType === 'commercial'
                     ? 'Savings for commercial sites come from the lower bill.'
                     : 'Shown at the PM Surya Ghar rates for ' +
@@ -844,7 +846,7 @@ export default function SolarCalculator({ onApplyCalculation, onLiveChange }: So
               </div>
             )}
 
-            <p style={{ textAlign: 'center', fontSize: '0.76rem', color: '#777777', marginTop: '10px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
+            <p style={{ textAlign: 'center', fontSize: '0.76rem', color: '#666666', marginTop: '10px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
               Illustrative estimate for a shade-free roof at typical Mumbai tariffs. The subsidy depends on the scheme rules at the time of application. A written proposal follows the site survey.
             </p>
           </div>

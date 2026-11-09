@@ -3,6 +3,7 @@
 import React from 'react';
 import SectionEyebrow from './SectionEyebrow';
 import { LogoLoop } from '@/components/react-bits';
+import { RevealWords } from './effects';
 
 // Text only, no logos: their logos would suggest an endorsement we do not have.
 const AUTHORITIES = [
@@ -43,7 +44,7 @@ export default function GroundedAffiliations() {
             fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
           }}
         >
-          Utilities and authorities we work with
+          <RevealWords text="Utilities and authorities we work with" />
         </h2>
         <p style={{ fontSize: '1.02rem', lineHeight: 1.65, color: '#4A4A46', margin: '0 0 32px', maxWidth: '640px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
           Connections, load changes, inspections and complaints go to these bodies, and we deal with them for you. We are not

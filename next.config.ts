@@ -98,6 +98,10 @@ if (!process.env.VERCEL && !process.env.NEXT_FONT_GOOGLE_MOCKED_RESPONSES) {
 
 const nextConfig: NextConfig = {
   outputFileTracingRoot: path.join(__dirname, "./"),
+  // AVIF first, then WebP: the photos are the bulk of every page's weight.
+  images: { formats: ["image/avif", "image/webp"] },
+  // Route changes animate through React's <ViewTransition> (src/app/template.tsx).
+  experimental: { viewTransition: true },
 };
 
 export default nextConfig;

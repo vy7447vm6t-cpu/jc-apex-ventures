@@ -233,7 +233,7 @@ export default function PrintCalculator({ onLiveChange }: PrintCalculatorProps =
                     }}
                   >
                     <div>{f.title}</div>
-                    <div style={{ fontSize: '0.7rem', color: isSel ? 'rgba(255, 255, 255, 0.7)' : '#777777', marginTop: '2px' }}>
+                    <div style={{ fontSize: '0.7rem', color: isSel ? 'rgba(255, 255, 255, 0.7)' : '#666666', marginTop: '2px' }}>
                       {f.desc}
                     </div>
                   </button>

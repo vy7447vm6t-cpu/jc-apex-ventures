@@ -157,13 +157,13 @@ export default function DepthCarousel({
                 <div className="pt-3 border-t border-black/8 flex items-center justify-between gap-3">
                   <span
                     style={{ fontFamily: 'var(--font-sans, Inter, sans-serif)' }}
-                    className="text-[11px] md:text-xs text-[#8C733E] font-semibold tracking-wide uppercase"
+                    className="text-[11px] md:text-xs text-[#8C6D23] font-semibold tracking-wide uppercase"
                   >
                     {item.outcome ? item.outcome : 'Statutory & CAD Dossier'}
                   </span>
-                  <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#111111] group-hover:text-[#8C733E]">
+                  <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#111111] group-hover:text-[#8C6D23]">
                     <span>Inspect CAD</span>
-                    <ArrowUpRight size={14} className="text-[#8C733E]" />
+                    <ArrowUpRight size={14} className="text-[#8C6D23]" />
                   </div>
                 </div>
               </div>

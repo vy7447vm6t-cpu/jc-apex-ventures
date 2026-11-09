@@ -20,7 +20,8 @@ export const PATHS = {
   tsconfig: path.join(PROJECT_ROOT, 'tsconfig.json'),
   globalsCss: path.join(APP_DIR, 'globals.css'),
   layoutTsx: path.join(APP_DIR, 'layout.tsx'),
-  homePage: path.join(APP_DIR, 'page.tsx'),
+  homePage: path.join(COMPONENTS_DIR, 'HomePage.tsx'),
+  homeRoute: path.join(APP_DIR, 'page.tsx'),
   divisionsContent: path.join(CONTENT_DIR, 'divisions.ts'),
   
   // Components

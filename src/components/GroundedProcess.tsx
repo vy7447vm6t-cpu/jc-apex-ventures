@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import SectionEyebrow from './SectionEyebrow';
 import ScrollReveal from './ScrollReveal';
-import { Ambient, NetworkGraph } from './effects';
+import { Ambient, NetworkGraph, RevealWords } from './effects';
 
 // How we work with clients (company profile, page 2), said the way a client would ask it.
 const PRINCIPLES = [
@@ -59,7 +59,7 @@ export default function GroundedProcess() {
             fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
           }}
         >
-          A housing society wants solar on the roof and chargers in the car park. Five divisions work on it; the society calls one person.
+          <RevealWords text="A housing society wants solar on the roof and chargers in the car park. Five divisions work on it; the society calls one person." />
         </h2>
 
         <dl className="fact-rows desk-principles">

@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/content/seo';
 import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -7,17 +8,18 @@ import SectionEyebrow from '@/components/SectionEyebrow';
 import SpotlightCard from '@/components/SpotlightCard';
 import SiteEnquiryForm from '@/components/SiteEnquiryForm';
 import StudioSlats from './StudioSlats';
+import { RevealWords } from '@/components/effects';
 import { MagicBento, SpecularButton, type BentoCardData } from '@/components/react-bits';
 import { CLIENT_ROSTER, isShowable } from '@/content/track-record';
 import { DIVISION_ONE_LINERS, PROOF_LINE } from '@/content/messaging';
 import { divisions } from '@/content/divisions';
 import { ArrowUpRight, Download, Phone } from 'lucide-react';
 
-export const metadata: Metadata = {
-  title: 'Studio | JC Apex Ventures',
-  description:
-    'Our office at Tower 1, One International Centre, Elphinstone, Mumbai, the people who lead the work, and the inbox for each division.',
-};
+export const metadata: Metadata = pageMetadata({
+  title: 'Studio',
+  description: 'Our office at Tower 1, One International Centre, Elphinstone, Mumbai, the people who lead the work, and the inbox for each division.',
+  path: '/studio',
+});
 
 const MAPS_URL =
   'https://www.google.com/maps/search/?api=1&query=One+International+Centre+Tower+1+Senapati+Bapat+Marg+Elphinstone+Mumbai+400013';
@@ -87,7 +89,7 @@ export default function StudioPage() {
   }));
 
   return (
-    <main className="studio-canvas relative min-h-screen">
+    <main id="main-content" className="studio-canvas relative min-h-screen">
       <Navbar />
 
       <section style={{ position: 'relative', overflow: 'hidden', padding: 'clamp(136px, 18vh, 176px) 24px clamp(64px, 9vh, 96px)', borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
@@ -96,7 +98,7 @@ export default function StudioPage() {
           <div>
             <SectionEyebrow tone="dark">Our studio</SectionEyebrow>
             <h1 style={{ fontSize: 'clamp(2.6rem, 5.4vw, 4.8rem)', lineHeight: 1.05, fontWeight: 400, letterSpacing: '-0.025em', margin: '0 0 24px', fontFamily: SERIF, color: '#FFFFFF' }}>
-              Tower 1, One International Centre, Elphinstone.
+              <RevealWords text="Tower 1, One International Centre, Elphinstone." />
             </h1>
             <p style={{ fontSize: 'clamp(1.05rem, 1.6vw, 1.2rem)', color: '#C9D1D9', maxWidth: '560px', lineHeight: 1.65, margin: '0 0 32px', fontFamily: SANS }}>
               Units 801–802, on the 8th floor. Call or WhatsApp before you visit, so the person handling your work is in.
@@ -124,7 +126,7 @@ export default function StudioPage() {
       <section id="leadership" style={{ padding: 'clamp(72px, 10vh, 112px) 24px', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', scrollMarginTop: '100px' }}>
         <div style={{ maxWidth: '1240px', margin: '0 auto' }}>
           <SectionEyebrow tone="dark">People</SectionEyebrow>
-          <h2 style={H2}>Who leads the work.</h2>
+          <h2 style={H2}><RevealWords text="Who leads the work." /></h2>
           <div className="studio-team">
             <figure style={{ margin: 0 }}>
               <div className="studio-team-photo">
@@ -150,7 +152,7 @@ export default function StudioPage() {
       <section id="divisions" style={{ padding: 'clamp(72px, 10vh, 112px) 24px', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', scrollMarginTop: '100px' }}>
         <div style={{ maxWidth: '1240px', margin: '0 auto' }}>
           <SectionEyebrow tone="dark">The six divisions</SectionEyebrow>
-          <h2 style={H2}>Each division, and the inbox that reaches it.</h2>
+          <h2 style={H2}><RevealWords text="Each division, and the inbox that reaches it." /></h2>
           <MagicBento cards={divisionCards} tone="dark" />
         </div>
       </section>
@@ -159,7 +161,7 @@ export default function StudioPage() {
         <div className="studio-contact" style={{ maxWidth: '1240px', margin: '0 auto' }}>
           <div>
             <SectionEyebrow tone="dark">Enquire</SectionEyebrow>
-            <h2 style={{ ...H2, margin: '0 0 16px' }}>Not sure which division? Write to us here.</h2>
+            <h2 style={{ ...H2, margin: '0 0 16px' }}><RevealWords text="Not sure which division? Write to us here." /></h2>
             <p style={{ fontSize: '1.05rem', color: '#C9D1D9', lineHeight: 1.65, margin: '0 0 24px', fontFamily: SANS, maxWidth: '480px' }}>
               It goes to admin@jcapexv.com, and we pass it to the right division with your details, so you only explain it once.
             </p>

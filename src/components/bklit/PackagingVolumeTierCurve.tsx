@@ -77,12 +77,12 @@ export default function PackagingVolumeTierCurve({
           <span className="text-[11px] uppercase tracking-[0.14em] font-semibold text-[#8C6D23]">
             Illustrative · cost per unit by run size
           </span>
-          <h4
+          <h3
             className="text-2xl font-normal text-[#111111] mt-1 tracking-tight"
             style={{ fontFamily: "var(--font-serif-display), 'Instrument Serif', Georgia, serif" }}
           >
             Packaging Volume Tier &amp; Press Economics
-          </h4>
+          </h3>
         </div>
 
         <div className="flex items-center gap-4 text-xs font-semibold">
@@ -167,7 +167,7 @@ export default function PackagingVolumeTierCurve({
                   x={x}
                   y={height - 10}
                   textAnchor="middle"
-                  className="text-[9px] fill-[#777777] font-sans"
+                  className="text-[9px] fill-[#666666] font-sans"
                 >
                   {t.label}
                 </text>

@@ -1,12 +1,13 @@
 "use client";
 
 import React from 'react';
+import { logoSize } from '@/content/logos';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { AccordionGallery } from '@/components/react-bits';
 import SectionEyebrow from './SectionEyebrow';
-import { Ambient, ShapeWaves } from './effects';
-import { DIVISION_ONE_LINERS } from '@/content/messaging';
+import { Ambient, RevealWords, ShapeWaves } from './effects';
+import { divisions } from '@/content/divisions';
 import { PHOTOS, type PhotoKey } from '@/content/photos';
 
 // The six divisions in the messaging framework's order, with the white logo for the dark panels.
@@ -24,7 +25,8 @@ const DIVISIONS = [
  * gold sine waves.
  */
 export default function GroundedServices() {
-  const items = DIVISIONS.map((d) => ({ ...d, image: PHOTOS[d.photo].src, title: d.name, description: DIVISION_ONE_LINERS[d.id] }));
+  // The divisions' own descriptions, not the hero's one-liners, so no sentence appears twice on the page.
+  const items = DIVISIONS.map((d) => ({ ...d, image: PHOTOS[d.photo].src, title: d.name, description: divisions.find((x) => x.slug === d.id)?.description ?? '' }));
   // CC BY licences need the author named; CC0 and public-domain photos are credited in public/images/CREDITS.md.
   const credits = DIVISIONS.filter((d) => PHOTOS[d.photo].license.startsWith('CC BY')).map(
     (d) => `${d.name}: ${PHOTOS[d.photo].author}, ${PHOTOS[d.photo].license}`,
@@ -65,7 +67,7 @@ export default function GroundedServices() {
               fontFamily: 'var(--font-serif-display), "Instrument Serif", Georgia, serif',
             }}
           >
-            Who does what.
+            <RevealWords text="Who does what." />
           </h2>
           <p style={{ fontSize: 'clamp(1.02rem, 1.35vw, 1.15rem)', color: 'rgba(240, 243, 246, 0.85)', lineHeight: 1.65, margin: 0, fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
             Grid Apex wires and maintains, Solis builds solar plants and EV chargers, Sanyog files with the utilities, Tvasta
@@ -81,7 +83,7 @@ export default function GroundedServices() {
           {items.map((d) => (
             <li key={d.id}>
               <Link href={d.href} className="services-list-link">
-                <img src={d.logo} alt="" style={{ height: '24px', width: 'auto', maxWidth: '120px', objectFit: 'contain' }} />
+                <img src={d.logo} alt="" {...logoSize(d.logo)} loading="lazy" style={{ height: '24px', width: 'auto', maxWidth: '120px', objectFit: 'contain' }} />
                 <span className="services-list-name">
                   {d.name}
                   <ArrowUpRight size={16} color="#C29F53" aria-hidden="true" />

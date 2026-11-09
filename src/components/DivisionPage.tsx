@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import { logoSize } from '@/content/logos';
 import Link from 'next/link';
 import Image from 'next/image';
 import Navbar from '@/components/Navbar';
@@ -12,12 +13,16 @@ import { divisions, type DivisionContent, type FeatureSection, type ProofBlock }
 import { DIVISION_ONE_LINERS, PROOF_LINE } from '@/content/messaging';
 import { ATTRIBUTION_LINES, PROJECTS, clientGroups, isShowable } from '@/content/track-record';
 import { PHOTOS, photoCaption, photoCredit, type PhotoKey } from '@/content/photos';
-import PrintCalculator from '@/components/PrintCalculator';
-import InteriorCalculator from '@/components/InteriorCalculator';
-import GridApexSubstationCalculator from '@/components/GridApexSubstationCalculator';
-import SanyogTariffAuditCalculator from '@/components/SanyogTariffAuditCalculator';
-import AgrimDprSimulator from '@/components/AgrimDprSimulator';
-import SolarCalculator, { type CalculationResult } from '@/components/SolarCalculator';
+import dynamic from 'next/dynamic';
+import type { CalculationResult } from '@/components/SolarCalculator';
+
+// The estimators are the heaviest scripts on a division page: split out and mounted near the screen.
+const PrintCalculator = dynamic(() => import('@/components/PrintCalculator'), { ssr: false });
+const InteriorCalculator = dynamic(() => import('@/components/InteriorCalculator'), { ssr: false });
+const GridApexSubstationCalculator = dynamic(() => import('@/components/GridApexSubstationCalculator'), { ssr: false });
+const SanyogTariffAuditCalculator = dynamic(() => import('@/components/SanyogTariffAuditCalculator'), { ssr: false });
+const AgrimDprSimulator = dynamic(() => import('@/components/AgrimDprSimulator'), { ssr: false });
+const SolarCalculator = dynamic(() => import('@/components/SolarCalculator'), { ssr: false });
 import SolarPlants from '@/components/SolarPlants';
 import OnGridDiagram from '@/components/OnGridDiagram';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
@@ -27,7 +32,8 @@ import WorkMap from '@/components/WorkMap';
 import FlowDiagram from '@/components/FlowDiagram';
 import { ElectricBorder, LineSidebar, SpecularButton } from '@/components/react-bits';
 import AnimatedCounter from '@/components/AnimatedCounter';
-import { Ambient, GradientASCII, GridScan, MicroSlats, NetworkGraph, PatternWaves, ShapeWaves } from '@/components/effects';
+import { Ambient, GradientASCII, GridScan, LazyMount, MicroSlats, NetworkGraph, ParallaxLayer, PatternWaves, RevealWords, ShapeWaves, useDesktopPointer } from '@/components/effects';
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { formatCount } from '@/content/track-record';
 import { ArrowRight, ArrowUpRight, ChevronRight, Mail, Phone } from 'lucide-react';
 
@@ -51,7 +57,7 @@ function SectionHeading({ eyebrow, title, intro }: { eyebrow: string; title: str
             lineHeight: 1.15,
           }}
         >
-          {title}
+          <RevealWords text={title} />
         </h2>
         {intro && <p style={{ color: 'var(--color-text-secondary)', fontSize: '1.05rem', lineHeight: 1.7, margin: 0, fontFamily: SANS }}>{intro}</p>}
       </div>
@@ -70,7 +76,13 @@ function RevealPhoto({ photo, caption, height, hero = false }: { photo: PhotoKey
   const figure = (
     <figure style={{ margin: 0 }}>
       <div className={hero ? 'unmask-on-load' : 'unmask'} style={{ position: 'relative', height, borderRadius: '16px', overflow: 'hidden', background: '#E8E4DA' }}>
-        <Image src={p.src} alt={p.subject} fill priority={hero} sizes="(max-width: 900px) 100vw, 45vw" style={{ objectFit: 'cover' }} />
+        {hero ? (
+          <ParallaxLayer strength={60} zoom={0.1}>
+            <Image src={p.src} alt={p.subject} fill priority sizes="(max-width: 900px) 100vw, 45vw" style={{ objectFit: 'cover' }} />
+          </ParallaxLayer>
+        ) : (
+          <Image src={p.src} alt={p.subject} fill sizes="(max-width: 900px) 100vw, 45vw" style={{ objectFit: 'cover' }} />
+        )}
       </div>
       <figcaption className="photo-caption">{caption}</figcaption>
     </figure>
@@ -278,11 +290,7 @@ function HeroEffect({ division, accent }: { division: string; accent: string }) 
         </Ambient>
       );
     case 'solis':
-      return (
-        <Ambient>
-          <MicroSlats count={28} color="#111111" opacity={0.06} zIndex={0} showTicks />
-        </Ambient>
-      );
+      return <SolisSlats />;
     case 'sanyog':
       return (
         <Ambient desktopOnly>
@@ -292,7 +300,7 @@ function HeroEffect({ division, accent }: { division: string; accent: string }) 
     case 'tvasta':
       return (
         <Ambient desktopOnly opacity={0.55}>
-          <GridScan lightMode linesColor="#C9CDD2" scanColor={accent} cells={8} depth={3} scanDuration={3.2} scanDelay={2.4} clickEffect="none" className="w-full h-full" />
+          <GridScan dpr={1} lightMode linesColor="#C9CDD2" scanColor={accent} cells={8} depth={3} scanDuration={3.2} scanDelay={2.4} clickEffect="none" className="w-full h-full" />
         </Ambient>
       );
     case 'emudran':
@@ -304,7 +312,7 @@ function HeroEffect({ division, accent }: { division: string; accent: string }) 
     case 'agrim':
       return (
         <Ambient desktopOnly opacity={0.4}>
-          <GradientASCII lightMode characters="0123456789%" colors={[accent, '#06281E', accent]} shape="waves" cellSize={14} gradientOpacity={0} glyphOpacity={0.9} grain={0} mouseInteraction />
+          <GradientASCII dpr={1} lightMode characters="0123456789%" colors={[accent, '#06281E', accent]} shape="waves" cellSize={14} gradientOpacity={0} glyphOpacity={0.9} grain={0} mouseInteraction />
         </Ambient>
       );
     default:
@@ -320,33 +328,132 @@ function FactValue({ value }: { value: string }) {
   return <AnimatedCounter end={end} suffix={match[2] ?? ''} duration={1400} />;
 }
 
+type StepVisual = { src: string; alt: string; caption: string };
+
+const OWN = {
+  survey: { src: '/images/own/terrace-survey.jpg', alt: 'An open terrace with water tanks, a lift room and pipework along the parapet', caption: 'A terrace survey by our team, Mumbai, October 2026.' },
+  pergola: { src: '/images/solis/terrace-pergola.svg', alt: 'Section drawing of a terrace with the panels raised on an elevated pergola', caption: 'Section drawing: panels on an elevated pergola, with the terrace usable underneath. JC Apex Ventures.' },
+  frames: { src: '/images/solis/terrace-low-frames.svg', alt: 'Section drawing of a terrace with panels on low frames', caption: 'Section drawing: the same terrace with panels on low frames, as a proposal compares both. JC Apex Ventures.' },
+} satisfies Record<string, StepVisual>;
+
+const licensed = (key: PhotoKey): StepVisual => ({ src: PHOTOS[key].src, alt: PHOTOS[key].subject, caption: photoCaption(key) });
+
+/** One image per step, so the picture changes with the step. Steps without one show text only. */
+const STEP_VISUALS: Record<string, Record<string, StepVisual>> = {
+  solis: { 'Site survey': OWN.survey, Design: OWN.pergola, Proposal: OWN.frames, 'Build and commission': licensed('solis-install') },
+  'grid-apex': {
+    'Survey and load study': licensed('grid-electrician'),
+    'Design and drawings': licensed('agrim-plans'),
+    Approvals: licensed('grid-transformer'),
+    'Installation and commissioning': licensed('grid-substation'),
+    Maintenance: licensed('grid-distribution'),
+  },
+  sanyog: {
+    'Document check': licensed('agrim-plans'),
+    Application: licensed('sanyog-meter-analog'),
+    'Utility inspection': licensed('grid-electrician'),
+    Sanction: licensed('grid-distribution'),
+    'Meter installation': licensed('sanyog-meters'),
+  },
+  tvasta: { Understand: licensed('tvasta-living-2'), Plan: licensed('agrim-plans'), Execute: licensed('tvasta-kitchen'), Refine: licensed('tvasta-office') },
+  emudran: { Concept: licensed('emudran-packaging'), 'Pre-press': licensed('agrim-plans'), Production: licensed('emudran-print') },
+  agrim: { 'Understand the requirement': licensed('agrim-plans'), 'Match it to the project': licensed('solis-rooftop') },
+};
+
 /**
- * The steps as an index: pick a step on the left and it opens on the right (with the division's
- * photo where it has one). Replaces a numbered row of identical cards.
+ * The steps as an index: pick a step on the left and it opens on the right with its own image,
+ * crossfading as it changes. Until someone picks one, the steps advance by themselves every few
+ * seconds while the section is on screen (never for reduced motion).
  */
-function StepsExplorer({ steps, photo }: { steps: DivisionContent['steps']; photo?: DivisionContent['stepsPhoto'] }) {
-  const [active, setActive] = useState(steps[0]?.title ?? '');
-  const current = steps.find((s) => s.title === active) ?? steps[0];
+function StepsExplorer({ steps, division }: { steps: DivisionContent['steps']; division: string }) {
+  const [index, setIndex] = useState(0);
+  const [touched, setTouched] = useState(false);
+  const [onScreen, setOnScreen] = useState(false);
+  const reduce = useReducedMotion();
+  const ref = React.useRef<HTMLDivElement>(null);
+  const current = steps[index] ?? steps[0];
+  const visual = current ? STEP_VISUALS[division]?.[current.title] : undefined;
+
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => setOnScreen(entry.isIntersecting), { threshold: 0.4 });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  React.useEffect(() => {
+    if (touched || reduce || !onScreen || steps.length < 2) return;
+    const timer = window.setTimeout(() => setIndex((i) => (i + 1) % steps.length), 4200);
+    return () => window.clearTimeout(timer);
+  }, [index, touched, reduce, onScreen, steps.length]);
+
   return (
-    <div className="steps-explorer">
-      <LineSidebar items={steps.map((s) => ({ id: s.title, label: s.title }))} activeId={current?.title ?? ''} onSelect={setActive} />
+    <div ref={ref} className="steps-explorer" onPointerEnter={() => setTouched(true)} onFocus={() => setTouched(true)}>
+      <LineSidebar
+        items={steps.map((s) => ({ id: s.title, label: s.title }))}
+        activeId={current?.title ?? ''}
+        onSelect={(id) => {
+          setTouched(true);
+          setIndex(Math.max(0, steps.findIndex((s) => s.title === id)));
+        }}
+      />
       <div className="steps-explorer-panel" aria-live="polite">
-        {current && (
-          <>
-            <h3>{current.title}</h3>
-            <p>{current.text}</p>
-          </>
-        )}
-        {photo && (
-          <figure style={{ margin: '24px 0 0' }}>
-            <div className="steps-photo">
-              <Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 900px) 100vw, 40vw" style={{ objectFit: 'cover' }} />
-            </div>
-            <figcaption className="photo-caption">{photo.caption}</figcaption>
-          </figure>
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={current?.title}
+            initial={reduce ? false : { opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={reduce ? undefined : { opacity: 0, y: -10 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {current && (
+              <>
+                <h3>{current.title}</h3>
+                <p>{current.text}</p>
+              </>
+            )}
+            {visual && (
+              <figure style={{ margin: '24px 0 0' }}>
+                <div className="steps-photo">
+                  <motion.div
+                    style={{ position: 'absolute', inset: 0 }}
+                    initial={reduce ? false : { scale: 1.08 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    <Image src={visual.src} alt={visual.alt} fill sizes="(max-width: 900px) 100vw, 40vw" style={{ objectFit: visual.src.endsWith('.svg') ? 'contain' : 'cover' }} />
+                  </motion.div>
+                </div>
+                <figcaption className="photo-caption">{visual.caption}</figcaption>
+              </figure>
+            )}
+          </motion.div>
+        </AnimatePresence>
+        {!touched && !reduce && steps.length > 1 && (
+          <div className="steps-progress" aria-hidden="true">
+            <span key={index} style={{ animationPlayState: onScreen ? 'running' : 'paused' }} />
+          </div>
         )}
       </div>
     </div>
+  );
+}
+
+/**
+ * Solis: pergola louvres. On desktops they are live WebGL slats that ripple, catch a Sun Yellow
+ * glint and part around the pointer; phones get the still drawing-sheet slats.
+ */
+function SolisSlats() {
+  const desktop = useDesktopPointer();
+  return desktop ? (
+    <Ambient opacity={0.9}>
+      <MicroSlats preset="tide" color="#C9C5BA" glintColor="#FFC85A" backgroundColor="#F7F6F2" slatWidth={9} slatHeight={26} gap={4} glint={1.6} contrast={1.3} interactive cursorSize={70} />
+    </Ambient>
+  ) : (
+    <Ambient>
+      <MicroSlats count={28} color="#111111" opacity={0.06} zIndex={0} showTicks />
+    </Ambient>
   );
 }
 
@@ -470,7 +577,7 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
   );
 
   return (
-    <main className={canvasClassName || theme.canvasClass} style={{ background: 'var(--color-bg)', minHeight: '100vh' }}>
+    <main id="main-content" className={canvasClassName || theme.canvasClass} style={{ background: 'var(--color-bg)', minHeight: '100vh' }}>
       <Navbar />
 
       <div className={theme.typeClass}>
@@ -507,7 +614,7 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
               <i className="corner-mark bl" />
               <i className="corner-mark br" />
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
-                {logo && <img src={logo.src} alt={parent?.name ?? data.name} style={{ height: `${logo.height}px`, width: 'auto', display: 'block', borderRadius: 0 }} />}
+                {logo && <img src={logo.src} alt={parent?.name ?? data.name} {...logoSize(logo.src)} style={{ height: `${logo.height}px`, width: 'auto', display: 'block', borderRadius: 0 }} />}
                 <span aria-hidden="true" style={{ width: '2px', height: '40px', backgroundColor: theme.ruleColor }} />
               </div>
               <h1
@@ -521,7 +628,7 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
                   fontFamily: SERIF,
                 }}
               >
-                {data.title}
+                <RevealWords text={data.title} delay={0.15} />
               </h1>
               <p style={{ fontSize: 'clamp(1rem, 1.4vw, 1.1rem)', color: 'var(--color-text-secondary)', lineHeight: 1.68, margin: '0 0 22px', fontFamily: SANS }}>
                 {data.intro}
@@ -592,7 +699,7 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
                       {tile.photo ? (
                         <Image src={PHOTOS[tile.photo].src} alt={PHOTOS[tile.photo].subject} fill sizes="(max-width: 760px) 80vw, 25vw" style={{ objectFit: 'cover' }} />
                       ) : (
-                        logo && <img src={logo.src} alt="" className="tile-logo" />
+                        logo && <img src={logo.src} alt="" {...logoSize(logo.src)} loading="lazy" className="tile-logo" />
                       )}
                     </div>
                     <h3>{tile.title}</h3>
@@ -649,7 +756,7 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
       <section className="section" style={{ paddingTop: '60px', paddingBottom: '40px' }}>
         <div className="container">
           <SectionHeading eyebrow="How we work" title={data.stepsTitle} />
-          <StepsExplorer steps={data.steps} photo={data.stepsPhoto} />
+          <StepsExplorer steps={data.steps} division={key} />
         </div>
       </section>
 
@@ -657,7 +764,7 @@ export default function DivisionPage({ data, canvasClassName }: { data: Division
         <section className="section" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
           <div className="container">
             <SectionHeading eyebrow="Estimate" title={estimator.title} intro={estimator.intro} />
-            {estimator.render({ onUse: setEstimate })}
+            <LazyMount minHeight={720}>{estimator.render({ onUse: setEstimate })}</LazyMount>
           </div>
         </section>
       )}

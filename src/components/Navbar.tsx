@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
+import { logoSize } from '@/content/logos';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Logo from './Logo';
@@ -399,7 +400,7 @@ export default function Navbar() {
                   border: 'none',
                   padding: 0,
                   cursor: 'pointer',
-                  color: isMenuOpen || ['/solis', '/sanyog', '/grid-apex', '/tvasta', '/emudran', '/agrim'].includes(pathname) ? '#8C733E' : '#222222',
+                  color: isMenuOpen || ['/solis', '/sanyog', '/grid-apex', '/tvasta', '/emudran', '/agrim'].includes(pathname) ? '#8C6D23' : '#222222',
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '5px',
@@ -415,7 +416,7 @@ export default function Navbar() {
                     padding: '1px 5px',
                     borderRadius: '9999px',
                     background: 'rgba(194, 159, 83, 0.18)',
-                    color: '#8C733E',
+                    color: '#8C6D23',
                     border: '1px solid rgba(194, 159, 83, 0.35)',
                     fontWeight: 700,
                   }}
@@ -446,7 +447,7 @@ export default function Navbar() {
               onClick={handleDismissMenu}
               aria-label="Solis Solar Division"
               style={{
-                color: pathname === '/solis' ? '#8C733E' : '#222222',
+                color: pathname === '/solis' ? '#8C6D23' : '#222222',
                 fontWeight: pathname === '/solis' ? 650 : 500,
                 textDecoration: 'none',
               }}
@@ -468,7 +469,7 @@ export default function Navbar() {
               onClick={handleDismissMenu}
               aria-label="Practice, Leadership and Studio"
               style={{
-                color: pathname === '/studio' ? '#8C733E' : '#222222',
+                color: pathname === '/studio' ? '#8C6D23' : '#222222',
                 fontWeight: pathname === '/studio' ? 650 : 500,
                 textDecoration: 'none',
               }}
@@ -610,6 +611,7 @@ export default function Navbar() {
                       >
                         <img
                           src={div.logo}
+                          {...logoSize(div.logo)}
                           alt={`${div.label} official brand emblem`}
                           className="max-h-7 max-w-full object-contain"
                         />
@@ -633,7 +635,7 @@ export default function Navbar() {
 
                       <ArrowUpRight
                         size={12}
-                        className="text-[#999999] opacity-0 group-hover:opacity-100 group-hover:text-[#C29F53] transition-all shrink-0 mt-0.5"
+                        className="text-[#666666] opacity-0 group-hover:opacity-100 group-hover:text-[#C29F53] transition-all shrink-0 mt-0.5"
                       />
                     </Link>
                   );
@@ -653,7 +655,7 @@ export default function Navbar() {
                 <Link
                   href="/studio"
                   onClick={handleDismissMenu}
-                  className="text-[11px] font-semibold text-[#8C733E] hover:underline flex items-center gap-1 no-underline"
+                  className="text-[11px] font-semibold text-[#8C6D23] hover:underline flex items-center gap-1 no-underline"
                 >
                   <span>Studio &amp; Practice Leadership</span>
                   <ArrowUpRight size={11} />
@@ -766,7 +768,7 @@ export default function Navbar() {
                 fontVariantNumeric: 'tabular-nums',
                 fontSize: '0.76rem',
                 letterSpacing: '0',
-                color: '#888888',
+                color: '#666666',
                 marginBottom: '20px',
               }}
             >
@@ -842,7 +844,7 @@ export default function Navbar() {
                     <div
                       style={{
                         fontSize: '0.82rem',
-                        color: '#999999',
+                        color: '#666666',
                         marginTop: '4px',
                         lineHeight: 1.4,
                       }}
@@ -866,6 +868,7 @@ export default function Navbar() {
                   >
                     <img
                       src={div.logo}
+                      {...logoSize(div.logo)}
                       alt={`${div.label} official logo`}
                       style={{ maxHeight: '28px', maxWidth: '52px', objectFit: 'contain' }}
                     />

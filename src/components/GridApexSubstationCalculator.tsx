@@ -132,7 +132,7 @@ export default function GridApexSubstationCalculator() {
               onChange={(e) => setLoadKw(Number(e.target.value))}
               style={{ width: '100%', accentColor: '#0284C7' }}
             />
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', color: '#888888', marginTop: '4px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', color: '#666666', marginTop: '4px' }}>
               <span>100 kW</span>
               <span>2,500 kW</span>
               <span>5,000 kW</span>
@@ -194,7 +194,7 @@ export default function GridApexSubstationCalculator() {
               onChange={(e) => setCurrentPf(Number(e.target.value))}
               style={{ width: '100%', accentColor: currentPf < 0.85 ? '#DC2626' : '#0284C7' }}
             />
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', color: '#888888', marginTop: '4px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', color: '#666666', marginTop: '4px' }}>
               <span style={{ color: '#DC2626' }}>0.70 (Severe Penalty)</span>
               <span>0.85</span>
               <span style={{ color: '#16A34A' }}>0.98 (Optimal)</span>
@@ -282,7 +282,7 @@ export default function GridApexSubstationCalculator() {
             {/* Key Substation Outputs Grid */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '14px', marginBottom: '20px' }}>
               <div style={{ backgroundColor: '#FFFFFF', padding: '12px 14px', borderRadius: '12px', border: '1px solid rgba(2, 132, 199, 0.15)' }}>
-                <div style={{ fontSize: '0.70rem', color: '#777777' }}>APFC bank needed</div>
+                <div style={{ fontSize: '0.70rem', color: '#666666' }}>APFC bank needed</div>
                 <div style={{ fontSize: '1.15rem', fontWeight: 700, color: '#111111', marginTop: '2px' }}>
                   {calculation.kvarNeeded} kVAR
                 </div>
@@ -290,7 +290,7 @@ export default function GridApexSubstationCalculator() {
               </div>
 
               <div style={{ backgroundColor: '#FFFFFF', padding: '12px 14px', borderRadius: '12px', border: '1px solid rgba(2, 132, 199, 0.15)' }}>
-                <div style={{ fontSize: '0.70rem', color: '#777777' }}>Fault rating</div>
+                <div style={{ fontSize: '0.70rem', color: '#666666' }}>Fault rating</div>
                 <div style={{ fontSize: '1.15rem', fontWeight: 700, color: '#111111', marginTop: '2px' }}>
                   {calculation.faultKa} kA (3s)
                 </div>
@@ -298,7 +298,7 @@ export default function GridApexSubstationCalculator() {
               </div>
 
               <div style={{ backgroundColor: '#FFFFFF', padding: '12px 14px', borderRadius: '12px', border: '1px solid rgba(2, 132, 199, 0.15)', gridColumn: 'span 2' }}>
-                <div style={{ fontSize: '0.70rem', color: '#777777' }}>Estimated penalty avoided</div>
+                <div style={{ fontSize: '0.70rem', color: '#666666' }}>Estimated penalty avoided</div>
                 <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#047857', marginTop: '2px' }}>
                   Rs {calculation.annualSavings.toLocaleString('en-IN')} / year
                 </div>

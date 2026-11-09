@@ -6,6 +6,7 @@ import { ArrowUpRight } from 'lucide-react';
 import SectionEyebrow from './SectionEyebrow';
 import ScrollReveal from './ScrollReveal';
 import WorkMap from './WorkMap';
+import { RevealWords } from './effects';
 import HotelGallery from './HotelGallery';
 import { ScrollStack, type ScrollStackCard } from '@/components/react-bits';
 import {
@@ -77,7 +78,7 @@ export default function GroundedProjectTrack() {
               fontFamily: SERIF,
             }}
           >
-            {solar?.value} of solar, and HT electrical work at {sites?.value} hotels.
+            <RevealWords text={`${solar?.value} of solar, and HT electrical work at ${sites?.value} hotels.`} />
           </h2>
           <p style={{ fontSize: '1.05rem', lineHeight: 1.65, color: '#4A4A46', margin: '0 0 20px', fontFamily: 'var(--font-sans, Inter, sans-serif)' }}>
             Every client below is named as they are today. The solar figures come from completion certificates we hold; the hotel

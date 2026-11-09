@@ -77,7 +77,7 @@ test({
     const code = readFileSafe(PATHS.clientMarquee);
     assert(code !== null, 'ClientMarquee.tsx must exist');
     assertIncludes(code, 'useReducedMotion()', 'Marquee must read the reduced-motion preference');
-    assertIncludes(code, 'if (reduceMotion || open || !track) return;', 'The loop must stop under reduced motion and while open');
+    assertIncludes(code, 'if (reduceMotion || reducedQuery.current || open || !track) return;', 'The loop must stop under reduced motion (hook or live media query) and while open');
     assertIncludes(code, 'reduceMotion ? { duration: 0 }', 'The expansion must be instant under reduced motion');
   },
 });

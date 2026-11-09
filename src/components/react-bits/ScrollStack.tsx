@@ -61,7 +61,7 @@ export default function ScrollStack({
                       borderColor: `${accent}55`,
                       fontVariantNumeric: 'tabular-nums',
                     }}
-                    className="flex h-12 min-w-12 px-2 items-center justify-center rounded-xl border bg-[#F4F1EA]"
+                    className="flex h-12 min-w-12 px-2 items-center justify-center rounded-xl border bg-white"
                   >
                     {card.stepNumber}
                   </span>
@@ -101,7 +101,7 @@ export default function ScrollStack({
                     color: accent,
                     borderColor: `${accent}55`,
                   }}
-                  className="w-fit px-3 py-1 rounded-md border bg-[#F4F1EA]"
+                  className="w-fit px-3 py-1 rounded-md border bg-white"
                 >
                   {card.badge}
                 </span>

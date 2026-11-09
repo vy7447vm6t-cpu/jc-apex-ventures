@@ -65,12 +65,12 @@ export default function CashflowPaybackSchedule({
           <span className="text-[11px] uppercase tracking-[0.14em] font-semibold text-[#8C6D23]">
             Illustrative · cash flow over the system’s life
           </span>
-          <h4
+          <h3
             className="text-2xl font-normal text-[#111111] mt-1 tracking-tight"
             style={{ fontFamily: "var(--font-serif-display), 'Instrument Serif', Georgia, serif" }}
           >
             25-Year Cumulative Cashflow &amp; Payback Schedule
-          </h4>
+          </h3>
         </div>
 
         <div className="px-3 py-1.5 rounded-full bg-[#C29F53]/15 border border-[#C29F53]/30 text-xs font-bold text-[#111111] w-fit tabular-nums">
@@ -146,7 +146,7 @@ export default function CashflowPaybackSchedule({
                   x={p.x}
                   y={height - 10}
                   textAnchor="middle"
-                  className="text-[9px] fill-[#777777] font-sans"
+                  className="text-[9px] fill-[#666666] font-sans"
                 >
                   Yr {p.year}
                 </text>
