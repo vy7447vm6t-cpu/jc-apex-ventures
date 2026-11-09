@@ -30,6 +30,30 @@ Licensed photographs on jcapexv.com. Each is captioned "Representative image" on
 | licensed/solis-install.jpg | Installers fitting solar modules on a roof | National Institute of Standards and Technology | Public domain | https://commons.wikimedia.org/wiki/File:NZERTF_Roof_(8621832515).jpg |
 | licensed/grid-transformer.jpg | Power transformer | Novoklimov | CC0 | https://commons.wikimedia.org/wiki/File:High-voltage_transformer_750_kV_%D0%A2%D1%80%D0%B0%D0%BD%D1%81%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D0%BE%D1%80_750_%D0%BA%D0%92.jpg |
 | licensed/hero-mumbai-worli-sea-link.jpg | Worli skyline and the Bandra–Worli Sea Link, Mumbai (resized) | Woodysworldtv | CC BY 2.0 | https://commons.wikimedia.org/wiki/File:Worli_skyline_with_BSWL_(cropped).jpg |
+| licensed/step-solis-install.jpg | Installer fitting solar modules on a roof | Stephen Yang / The Solutions Project | Public domain | https://commons.wikimedia.org/wiki/File:Technicians_working_on_a_solar_panel_installation_(9234).jpg |
+| licensed/step-solis-canopy.jpg | Solar canopy over a public plaza | Isofoton.es | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:Isofoton_F%C3%B3rum_de_las_culturas_Barcelona.JPG |
+| licensed/step-solis-rooftop-city.jpg | Rooftop solar on an apartment building | Photo by Bright Power, Inc. –  U.S. Department of Energy  fr | Public domain | https://commons.wikimedia.org/wiki/File:Brocker_000308_173001_518483_4578_(36776424576).jpg |
+| licensed/step-grid-multimeter.jpg | Digital multimeter and test leads | Retired electrician | CC0 | https://commons.wikimedia.org/wiki/File:Aneng_AN870_multimeter_01.jpg |
+| licensed/step-grid-diagram.jpg | Electrical single-line diagram | Department of Homeland Security. U.S. Coast Guard. 3/1/2003 | Public domain | https://commons.wikimedia.org/wiki/File:Electrical_Single_Line_Diagram_Primary_%26_Secondary_Electrical_Distribution_System,_October_4,_1972_-_DPLA_-_0fed242ebf55778b72033f7eebbe132f.tiff |
+| licensed/step-grid-inspection.jpg | Engineer checking a control panel | Frank Carter | Public domain | https://commons.wikimedia.org/wiki/File:Henry_Castro,_with_the_U.S._Air_Force%27s_361st_Training_Squadron,_checks_the_gas_turbine_generator_wiring_diagram_panel_to_troubleshoot_an_electrical_problem_June_8,_2011,_at_Sheppard_Air_Force_Base_in_Wichita_110608-F-NS900-023.jpg |
+| licensed/step-grid-install.jpg | Engineers wiring a control cabinet | Oak Ridge National Laboratory | CC BY 2.0 | https://commons.wikimedia.org/wiki/File:ORNL_History_(45767378674).jpg |
+| licensed/step-grid-maintenance.jpg | Technician testing a supply point | U.S. Navy photo by Seaman  Mark Bergado | Public domain | https://commons.wikimedia.org/wiki/File:Sailor_Conducts_Maintenance_Aboard_USS_Wayne_E_Meyer_(DDG_108)_(9926354).jpg |
+| licensed/step-sanyog-reading.jpg | Meter reader noting a reading | Judgefloro | CC0 | https://commons.wikimedia.org/wiki/File:0067Poblacion_Baliuag,_Bulacan_06.jpg |
+| licensed/step-sanyog-contract.jpg | Application papers and a pen | Blogtrepreneur | CC BY 2.0 | https://commons.wikimedia.org/wiki/File:Legal_Contract_%26_Signature_-_Warm_Tones.jpg |
+| licensed/step-sanyog-meter-check.jpg | Lineman beside a new electricity meter | USAID Pakistan | Public domain | https://commons.wikimedia.org/wiki/File:USAID_Installs_Automatic_Meter_Reading_(AMR)_for_MEPCO%27s_Domestic_Consumers_(15971859981).jpg |
+| licensed/step-sanyog-stamp.jpg | Office date stamp and ink pad | Jiří Sedláček (Frettie) | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:Czech_office_time_stamp_with_inkpillow.jpg |
+| licensed/step-sanyog-meter-fit.jpg | Linemen fitting an electricity meter | USAID Pakistan | Public domain | https://commons.wikimedia.org/wiki/File:USAID_Installs_Automatic_Meter_Reading_(AMR)_for_MEPCO%27s_Domestic_Consumers_(15788124987).jpg |
+| licensed/step-tvasta-plan.jpg | Floor plan drawing of a bungalow | Ernest Geldart | CC0 | https://commons.wikimedia.org/wiki/File:Bungalow_drawing_--_Floor_Plan_MET_DP804276.jpg |
+| licensed/step-tvasta-workshop.jpg | Carpentry workshop, Kolkata | Biswarup Ganguly | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:Shefali_Shah_Along_With_NCSM_Dignitaries_Visiting_CRTL_Carpentry_Shop_-_NCSM_HQ_-_Kolkata_2017-12-14_6525.JPG |
+| licensed/step-tvasta-office.jpg | Finished office interior | Shixart1985 | CC BY 2.0 | https://commons.wikimedia.org/wiki/File:Modern_medical_office_interior_design.jpg |
+| licensed/step-emudran-studio.jpg | Design studio with poster wall | Dorottya Gajdos | Public domain | https://commons.wikimedia.org/wiki/File:Graphasel_Design_Studio_01.jpg |
+| licensed/step-emudran-screen.jpg | Screen ready for printing | Manolis Angelakis | CC BY 4.0 | https://commons.wikimedia.org/wiki/File:OSCAL_2017_silkscreen_printed_materials_26.jpg |
+| licensed/step-emudran-print.jpg | Screen printing by hand | Ahmad Ali Karim | CC0 | https://commons.wikimedia.org/wiki/File:Screen_printing_demonstration_at_TEDxUTM.jpg |
+| licensed/step-emudran-sign.jpg | Installed station sign | Metropolitan Transportation Authority of the State of New Yo | CC BY 2.0 | https://commons.wikimedia.org/wiki/File:Peekskill_E._Signage_front_(8682713117).jpg |
+| licensed/step-agrim-bank.jpg | State Bank of India branch, Nagpur | Ganesh Dhamodkar | CC BY 4.0 | https://commons.wikimedia.org/wiki/File:State_Bank_of_India_Hudkeshwar_Nagpur.jpg |
+| licensed/step-agrim-site.jpg | Bandra–Worli Sea Link under construction, Mumbai | Sadanand Warty | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:Construction_site_of_Bandra-Worli_sea_link_with_sunset.JPG |
+| licensed/step-agrim-accounts.jpg | An old accounts book | RaphaelQS | CC0 | https://commons.wikimedia.org/wiki/File:Ledger.png |
+| licensed/step-agrim-bank2.jpg | State Bank of India branch, Pusad | Ganesh Dhamodkar | CC BY 4.0 | https://commons.wikimedia.org/wiki/File:State_Bank_of_India_Pusad_459.jpg |
 
 Older images in `public/images/` have no recorded source. Replace them with licensed or own photos before reuse.
 
